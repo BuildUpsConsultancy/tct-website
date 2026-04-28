@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ScrollToTop from '../components/ScrollToTop';
 import { Star, ArrowRight, Hotel, Plane, Map, Camera, Shield, Headphones, Users, TrendingUp, Globe, Mail, ChevronDown, ChevronUp } from 'lucide-react';
 
-export default function Home() {
+const Home = () => {
   const [expandedFAQ, setExpandedFAQ] = useState<number>(0);
 
   const destinations = [
@@ -453,4 +453,6 @@ export default function Home() {
       <ScrollToTop />
     </>
   );
-}
+};
+
+export default Home;

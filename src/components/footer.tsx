@@ -1,6 +1,6 @@
 import { Globe, Mail, Shield, Award, CheckCircle2 } from 'lucide-react';
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-slate-950 via-slate-900 to-black pt-32 pb-12 relative overflow-hidden">
       {/* Animated background elements */}
@@ -180,4 +180,6 @@ export default function Footer() {
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
     </footer>
   );
-}
+};
+
+export default Footer;
