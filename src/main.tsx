@@ -31,9 +31,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="cart" element={<Cart />} />
           <Route path="travel-blog" element={<TravelBlog />} />
           <Route path="packages/:id" element={<PackageDetail />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
