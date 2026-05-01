@@ -1,0 +1,38 @@
+export type DestinationCard = {
+  slug: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  alt: string;
+};
+
+export const featuredDestinations: DestinationCard[] = [
+  {
+    slug: 'ella-cultural-tour',
+    title: 'Ella – Cultural Tour',
+    subtitle: 'Tours (01)',
+    image: '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
+    alt: 'Train crossing a bridge in the Ella hills',
+  },
+  {
+    slug: 'kandy-cultural-tour',
+    title: 'Kandy – Cultural Tour',
+    subtitle: 'Tours (03)',
+    image: '/images/home/kandy.jpg',
+    alt: 'Temple procession and dancers in Kandy',
+  },
+  {
+    slug: 'colombo-beach-tours',
+    title: 'Colombo – Beach Tours',
+    subtitle: 'Tours (02)',
+    image: '/images/home/colombo.avif',
+    alt: 'Coastal city skyline and lighthouse in Colombo',
+  },
+  {
+    slug: 'yala-beach-tours',
+    title: 'Yala – Beach Tour',
+    subtitle: 'Tours (02)',
+    image: '/images/home/yala.jpg',
+    alt: 'Tropical shoreline and surf near Yala',
+  },
+];

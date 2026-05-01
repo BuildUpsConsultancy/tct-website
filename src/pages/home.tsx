@@ -2,12 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Camera, ChevronDown, ChevronUp, Headphones, Hotel, Mail, Map, Plane, Shield, Star, Users } from 'lucide-react';
 
-const destinations = [
-  { name: 'Santorini Nights', country: 'GREECE', price: '$2,499', img: '/images/image_6.png', rating: 4.9 },
-  { name: 'Machu Picchu Peak', country: 'PERU', price: '$3,150', img: '/images/image_7.png', rating: 4.8 },
-  { name: 'Kyoto Zen Gardens', country: 'JAPAN', price: '$1,890', img: '/images/image_8.png', rating: 5.0 },
-  { name: 'London Midnight', country: 'UNITED KINGDOM', price: '$1,200', img: '/images/image_9.png', rating: 4.7 },
-];
+import { featuredDestinations } from '../data/destinations';
+import { generalCuriosities } from '../data/generalCuriosities';
 
 const stats = [
   { value: '1,240', label: 'TRIPS COMPLETED' },
@@ -31,20 +27,12 @@ const testimonials = [
   { name: 'Sophia Rossi', quote: 'Effortless elegance from booking to return. I’ve never felt so taken care of in foreign lands. Simply elite service.' },
 ];
 
-const faqs = [
-  { q: 'How personalized are the itineraries?', a: 'Every trip is custom-built from the ground up based on your stylistic and destination preferences. No two Voyager trips are ever the same.' },
-  { q: 'What is your cancellation policy?', a: 'We offer flexible cancellation up to 30 days before your trip with full refund. For bookings within 30 days, we work with you to reschedule.' },
-  { q: 'Do you provide solo travel arrangements?', a: 'Absolutely! We specialize in solo traveler experiences with optional group connections if desired.' },
-  { q: 'Can we book commercial flights through you?', a: 'Yes, we arrange both private jets and premium commercial flights depending on your preferences and budget.' },
-  { q: 'Is there emergency on-trip support?', a: 'Our 24/7 concierge team is always available for any emergencies or assistance you need during your journey.' },
-];
-
 const Home = () => {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(0);
 
   return (
-    <div className="min-h-screen bg-tct-dark text-tct-text">
+    <div className="min-h-screen bg-tct-dark text-white">
       <section className="relative min-h-screen overflow-hidden bg-texture pt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-[#1a4a52] via-[#0f3a42] to-[#0a2630]" />
         <div className="absolute inset-0 opacity-80" style={{ backgroundImage: 'url(/images/image_1.png)', backgroundSize: 'cover', backgroundPosition: 'center top' }} />
@@ -52,31 +40,31 @@ const Home = () => {
 
         <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
           <div className="max-w-3xl animate-fade-up">
-            <p className="section-label mb-4 text-[#d6c7aa]">Destination Spotlight</p>
+            <p className="section-label mb-4 text-white/85">Destination Spotlight</p>
             <h1 className="font-display text-6xl font-black leading-[0.92] text-tct-white md:text-8xl">
               Your Journey
               <br />
               Begins Here
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/55 md:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg">
               Experience travel curated for the cinematic soul. Discover hidden horizons where the stars meet the sea in an orchestration of premium comfort.
             </p>
 
-            <div className="mt-8 grid max-w-xl grid-cols-2 gap-4 text-white/70 sm:grid-cols-4">
+            <div className="mt-8 grid max-w-xl grid-cols-2 gap-4 text-white/85 sm:grid-cols-4">
               <div>
-                <p className="section-label mb-1 text-white/45">Best Season</p>
+                <p className="section-label mb-1 text-white/70">Best Season</p>
                 <p className="text-sm font-semibold text-white">Nov / March</p>
               </div>
               <div>
-                <p className="section-label mb-1 text-white/45">Language</p>
+                <p className="section-label mb-1 text-white/70">Language</p>
                 <p className="text-sm font-semibold text-white">Spanish, English</p>
               </div>
               <div>
-                <p className="section-label mb-1 text-white/45">Currency</p>
+                <p className="section-label mb-1 text-white/70">Currency</p>
                 <p className="text-sm font-semibold text-white">CLP / ARS</p>
               </div>
               <div>
-                <p className="section-label mb-1 text-white/45">Must-See</p>
+                <p className="section-label mb-1 text-white/70">Must-See</p>
                 <p className="text-sm font-semibold text-white">Torres del Paine</p>
               </div>
             </div>
@@ -113,35 +101,34 @@ const Home = () => {
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <p className="section-label mb-2 text-[#d6c7aa]">Curation</p>
-              <h2 className="font-display text-4xl text-tct-white md:text-5xl">Most Loved Places</h2>
+              <p className="section-label mb-2 text-white/85">Curation</p>
+              <h2 className="font-display text-4xl text-tct-white md:text-5xl">Featured Destinations</h2>
             </div>
-            <button onClick={() => navigate('/destinations')} className="text-sm text-[#7fb5b0] transition-all duration-300 hover:translate-x-1 hover:underline">
+            <button onClick={() => navigate('/destinations')} className="text-sm text-white/90 transition-all duration-300 hover:translate-x-1 hover:underline">
               Explore All
             </button>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {destinations.map((destination) => (
-              <div key={destination.name} className="group overflow-hidden rounded-xl bg-[#1a3f46] shadow-lg shadow-black/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/50">
-              <div className="relative h-36 overflow-hidden">
-                <img src={destination.img} alt={destination.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1" />
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/40 px-2 py-1 text-[10px] font-bold text-white">
-                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                  {destination.rating.toFixed(1)}
+            {featuredDestinations.map((destination) => (
+              <button
+                key={destination.slug}
+                type="button"
+                onClick={() => navigate(`/destinations/${destination.slug}`)}
+                className="group overflow-hidden rounded-[28px] bg-[#133940] text-left shadow-lg shadow-black/25 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/40"
+              >
+                <div className="overflow-hidden rounded-[28px] border border-white/8 bg-[#102b31] p-2">
+                  <div className="overflow-hidden rounded-[22px]">
+                    <img src={destination.image} alt={destination.alt} className="h-[290px] w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  </div>
                 </div>
-              </div>
-              <div className="p-4 transition-colors duration-300 group-hover:bg-[#224450]">
-                <p className="section-label mb-1 text-[9px] text-white/40 transition-colors duration-300 group-hover:text-[#d6c7aa]">{destination.country}</p>
-                <h3 className="mb-3 text-lg font-bold text-white transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#f5f0e8]">{destination.name}</h3>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm text-white/65">From <span className="text-white">{destination.price}</span></p>
-                  <button className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-[#7fb5b0] group-hover:text-[#0b1c21]">
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
+                <div className="px-5 pb-6 pt-4 text-center transition-colors duration-300 group-hover:bg-[#183f46]">
+                  <h3 className="text-2xl font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-[#f7f2e9]">
+                    {destination.title}
+                  </h3>
+                  <p className="mt-2 text-base font-medium text-white/85">{destination.subtitle}</p>
                 </div>
-              </div>
-            </div>
+              </button>
             ))}
           </div>
         </div>
@@ -155,7 +142,7 @@ const Home = () => {
             {stats.map((stat) => (
               <div key={stat.label} className="rounded-xl bg-black/20 px-2 py-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-black/30 hover:shadow-lg hover:shadow-black/20">
                 <p className="font-display text-4xl font-black text-white md:text-5xl">{stat.value}</p>
-                <p className="section-label mt-1 text-[10px] text-white/55">{stat.label}</p>
+                <p className="section-label mt-1 text-[10px] text-white/80">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -167,13 +154,13 @@ const Home = () => {
         <div className="absolute inset-0 bg-[#0f4450]/75" />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 lg:grid-cols-2">
           <div>
-            <p className="section-label mb-3 text-[#d6c7aa]">Exclusive Offers</p>
+            <p className="section-label mb-3 text-white/85">Exclusive Offers</p>
             <h2 className="font-display text-5xl font-bold leading-tight text-tct-white md:text-6xl">
               Curated Packages
               <br />
               for the Bold
             </h2>
-            <p className="mt-6 max-w-xl text-sm leading-7 text-white/55 md:text-base">
+            <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 md:text-base">
               Our signature packages combine luxury transit with off-the-grid experiences. From mountain sanctuaries to bustling neon cityscapes, we tailor every moment.
             </p>
             <button onClick={() => navigate('/packages')} className="btn-primary mt-8 px-7 py-4 text-sm transition-all duration-300 hover:scale-105 hover:-translate-y-1">
@@ -189,11 +176,11 @@ const Home = () => {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-display text-lg font-bold text-white">The Aurora Expedition</h3>
-                  <p className="text-xs text-white/55">Norway & Iceland • 12 Days</p>
+                  <p className="text-xs text-white/80">Norway & Iceland • 12 Days</p>
                 </div>
                 <span className="rounded bg-white px-3 py-1 text-xs font-bold text-[#0f2030]">$4,200</span>
               </div>
-              <div className="mt-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.18em] text-white/55">
+              <div className="mt-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.18em] text-white/80">
                 <span className="inline-flex items-center gap-1"><Hotel className="h-3.5 w-3.5" /> 5 Star Stay</span>
                 <span className="inline-flex items-center gap-1"><Plane className="h-3.5 w-3.5" /> Private Jet</span>
                 <span className="inline-flex items-center gap-1"><Users className="h-3.5 w-3.5" /> Guided</span>
@@ -208,7 +195,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-[#0f3c42]/70" />
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="text-center">
-            <p className="section-label mb-2 text-[#d6c7aa]">Our Expertise</p>
+            <p className="section-label mb-2 text-white/85">Our Expertise</p>
             <h2 className="font-display text-4xl text-white md:text-5xl">Full-Service Luxury</h2>
           </div>
 
@@ -221,7 +208,7 @@ const Home = () => {
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="mb-3 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#f5f0e8]">{service.title}</h3>
-                  <p className="text-sm leading-7 text-white/55 transition-colors duration-300 group-hover:text-white/70">{service.desc}</p>
+                  <p className="text-sm leading-7 text-white/80 transition-colors duration-300 group-hover:text-white">{service.desc}</p>
                 </div>
               );
             })}
@@ -240,7 +227,7 @@ const Home = () => {
             {testimonials.map((testimonial) => (
               <div key={testimonial.name} className="group rounded-2xl border border-white/10 bg-black/20 p-8 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:bg-black/30 hover:shadow-2xl hover:shadow-black/30">
                 <Mail className="mb-5 h-10 w-10 text-white/15 transition-all duration-300 group-hover:scale-110 group-hover:text-[#7fb5b0]/40" />
-                <p className="text-sm leading-7 text-white/70">“{testimonial.quote}”</p>
+                <p className="text-sm leading-7 text-white/85">“{testimonial.quote}”</p>
                 <div className="mt-6 flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-[#112738] text-sm font-bold text-[#a7d9d5]">
                     {testimonial.name[0]}
@@ -265,24 +252,24 @@ const Home = () => {
         <div className="absolute inset-0 bg-[#0f4450]/75" />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-4xl text-white md:text-5xl">Common Curiosities</h2>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-white/55 md:text-base">
-              Find your perfect itinerary often starts with a question. We’re here to ensure every detail of your upcoming adventure is clear.
+            <h2 className="font-display text-4xl text-white md:text-5xl">General Curiosities</h2>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-white/85 md:text-base">
+              We are committed to offering more than just products. We provide exceptional experiences.
             </p>
-            <button onClick={() => navigate('/contact')} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#7fb5b0] hover:underline">
+            <button onClick={() => navigate('/contact')} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white hover:underline">
               Contact our experts <ArrowRight className="h-4 w-4" />
             </button>
           </div>
 
           <div className="space-y-3">
-            {faqs.map((faq, index) => (
+            {generalCuriosities.map((faq, index) => (
               <div key={faq.q} className="overflow-hidden rounded-xl border border-white/10 bg-[#0d1b2a]/90 shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-[#11263a] hover:shadow-xl hover:shadow-black/25">
                 <button className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors duration-300 hover:bg-white/5" onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
                   <span className="text-sm font-semibold text-white">{faq.q}</span>
-                  {openFaq === index ? <ChevronUp className="h-4 w-4 text-white/60" /> : <ChevronDown className="h-4 w-4 text-white/60" />}
+                  {openFaq === index ? <ChevronUp className="h-4 w-4 text-white/80" /> : <ChevronDown className="h-4 w-4 text-white/80" />}
                 </button>
                 {openFaq === index && (
-                  <div className="px-5 pb-5 text-sm leading-7 text-white/55">
+                  <div className="px-5 pb-5 text-sm leading-7 text-white/85">
                     {faq.a}
                   </div>
                 )}

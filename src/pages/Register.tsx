@@ -38,7 +38,7 @@ const Register = () => {
         </div>
 
         <div className="relative z-10 flex flex-col items-center">
-          <img src="/images/logo-tct.png" alt="TCT Logo" className="h-40 w-auto opacity-60 animate-float" />
+          <img src="/logococnut.png" alt="TCT Logo" className="h-40 w-auto opacity-60 animate-float" />
         </div>
 
         <div className="relative z-10">
