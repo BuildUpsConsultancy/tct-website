@@ -1,4 +1,4 @@
-import { Shield, Award, CheckCircle2 } from 'lucide-react';
+import { Shield, Award, CheckCircle2, Globe2, Images, AtSign } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -17,7 +17,22 @@ const Footer = () => {
         {/* Brand section */}
         <div className="group">
           <div className="mb-6">
-              <img src="/logo-tct.png" alt="The Coconut Tree Trails" className="w-56 max-w-full object-contain" />
+              <img src="/logococnut.png" alt="The Coconut Tree Trails" className="w-56 max-w-full object-contain" />
+          </div>
+          <p className="max-w-xs text-[clamp(1.03rem,1.6vw,1.18rem)] leading-[1.55] text-slate-300">
+            Crafted for the cinematic traveler. Every journey is a masterpiece of curation and elite service.
+          </p>
+          <div className="mt-8 flex items-center gap-4">
+            {[Globe2, Images, AtSign].map((Icon, idx) => (
+              <button
+                key={idx}
+                type="button"
+                aria-label="Footer social icon"
+                className="grid h-12 w-12 place-items-center rounded-full bg-sky-900/25 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-800/35 hover:text-white"
+              >
+                <Icon className="h-4 w-4" />
+              </button>
+            ))}
           </div>
         </div>
 
