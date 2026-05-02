@@ -32,7 +32,7 @@ const Navbar = () => {
     { label: 'Travel Packages', to: '/packages' },
     { label: 'About Us', to: '/about' },
     { label: 'Contact', to: '/contact' },
-    { label: 'FAQ & Policy', to: '/#general-curiosities' },
+    { label: 'FAQ & Policy', to: '/faq-policy' },
     { label: 'Cart', to: '/cart' },
   ];
 

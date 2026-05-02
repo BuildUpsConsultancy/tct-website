@@ -1,7 +1,7 @@
 export type DestinationMenuItem = {
   slug: string;
   city: string;
-  category: 'Adventure Tours' | 'Beach Tours' | 'Clutural Tours' | 'Wildlife Tours';
+  category: 'Adventure Tours' | 'Beach Tours' | 'Cultural Tours' | 'Wildlife Tours';
 };
 
 export type DestinationMenuCategory = {
@@ -34,16 +34,16 @@ export const destinationMenu: DestinationMenuCategory[] = [
     ],
   },
   {
-    title: 'Clutural Tours',
+    title: 'Cultural Tours',
     items: [
-      { slug: 'anuradhapura-cultural-tour', city: 'Anuradhapura', category: 'Clutural Tours' },
-      { slug: 'polonnaruwa-cultural-tour', city: 'Polonnaruwa', category: 'Clutural Tours' },
-      { slug: 'ella-cultural-tour', city: 'Ella', category: 'Clutural Tours' },
-      { slug: 'kandy-cultural-tour', city: 'Kandy', category: 'Clutural Tours' },
-      { slug: 'colombo-cultural-tour', city: 'Colombo', category: 'Clutural Tours' },
-      { slug: 'hikkaduwa-cultural-tour', city: 'Hikkaduwa', category: 'Clutural Tours' },
-      { slug: 'galle-cultural-tour', city: 'Galle', category: 'Clutural Tours' },
-      { slug: 'mirissa-cultural-tour', city: 'Mirissa', category: 'Clutural Tours' },
+      { slug: 'anuradhapura-cultural-tour', city: 'Anuradhapura', category: 'Cultural Tours' },
+      { slug: 'polonnaruwa-cultural-tour', city: 'Polonnaruwa', category: 'Cultural Tours' },
+      { slug: 'ella-cultural-tour', city: 'Ella', category: 'Cultural Tours' },
+      { slug: 'kandy-cultural-tour', city: 'Kandy', category: 'Cultural Tours' },
+      { slug: 'colombo-cultural-tour', city: 'Colombo', category: 'Cultural Tours' },
+      { slug: 'hikkaduwa-cultural-tour', city: 'Hikkaduwa', category: 'Cultural Tours' },
+      { slug: 'galle-cultural-tour', city: 'Galle', category: 'Cultural Tours' },
+      { slug: 'mirissa-cultural-tour', city: 'Mirissa', category: 'Cultural Tours' },
     ],
   },
   {
