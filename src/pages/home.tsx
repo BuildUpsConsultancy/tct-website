@@ -33,43 +33,21 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-tct-dark text-white">
-      <section className="relative min-h-screen overflow-hidden bg-texture pt-20">
+      <section className="relative min-h-scene overflow-hidden bg-texture pt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-[#1a4a52] via-[#0f3a42] to-[#0a2630]" />
-        <div className="absolute inset-0 opacity-80" style={{ backgroundImage: 'url(/images/image_1.png)', backgroundSize: 'cover', backgroundPosition: 'center top' }} />
+        <div className="absolute inset-0 opacity-80" style={{ backgroundImage: 'url(/images/image_1.png)', backgroundSize: 'cover', backgroundPosition: 'center top', backgroundRepeat: 'no-repeat' }} />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0f3a42]/40 to-[#0a2630]" />
 
         <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
           <div className="max-w-3xl animate-fade-up">
-            <p className="section-label mb-4 text-white/85">Destination Spotlight</p>
-            <h1 className="font-display text-6xl font-black leading-[0.92] text-tct-white md:text-8xl">
-              Your Journey
-              <br />
-              Begins Here
+            <h1 className="font-display text-4xl font-black leading-[0.92] text-tct-white md:text-6xl">
+              The Coconut Tree Trails
             </h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg">
-              Experience travel curated for the cinematic soul. Discover hidden horizons where the stars meet the sea in an orchestration of premium comfort.
+              Travel Sri Lanka. The Right Way. Travel Sri Lanka with People Who Know It. Tailored Trails Across Paradise. Discover Sri Lanka.
             </p>
 
-            <div className="mt-8 grid max-w-xl grid-cols-2 gap-4 text-white/85 sm:grid-cols-4">
-              <div>
-                <p className="section-label mb-1 text-white/70">Best Season</p>
-                <p className="text-sm font-semibold text-white">Nov / March</p>
-              </div>
-              <div>
-                <p className="section-label mb-1 text-white/70">Language</p>
-                <p className="text-sm font-semibold text-white">Spanish, English</p>
-              </div>
-              <div>
-                <p className="section-label mb-1 text-white/70">Currency</p>
-                <p className="text-sm font-semibold text-white">CLP / ARS</p>
-              </div>
-              <div>
-                <p className="section-label mb-1 text-white/70">Must-See</p>
-                <p className="text-sm font-semibold text-white">Torres del Paine</p>
-              </div>
-            </div>
-
-            <button onClick={() => navigate('/packages')} className="btn-primary mt-10 px-8 py-4 text-base shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+            <button onClick={() => navigate('/packages')} className="mt-10 rounded-full bg-[#fbf6e8] px-12 py-4 text-base font-semibold text-[#06142a] shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:bg-[#f5f0e8]">
               Explore Packages
             </button>
           </div>
