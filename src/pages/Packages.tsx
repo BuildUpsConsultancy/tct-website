@@ -1,43 +1,60 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Clock3, Filter, MapPin, SlidersHorizontal, Users } from 'lucide-react';
 
-const packageItems = [
-  { id: 'nordic', title: 'Nordic Celestial Cruise', location: 'Lofoten Islands, Norway', days: 8, maxPeople: 12, price: 4250, category: 'Adventure', type: 'ARCTIC', img: '/images/image_1.png' },
-  { id: 'sahara', title: 'Sahara Sands & Silhouettes', location: 'Merzouga, Morocco', days: 6, maxPeople: 8, price: 2800, category: 'Beach', type: 'DESERT', img: '/images/image_10.png' },
-  { id: 'reef', title: 'Neon Reef Expedition', location: 'Baa Atoll, Maldives', days: 10, maxPeople: 4, price: 6900, category: 'Beach', type: 'RETREAT', img: '/images/image_2.png' },
-  { id: 'andean', title: 'Andean Astral Trek', location: 'Patagonia, Argentina', days: 12, maxPeople: 6, price: 3500, category: 'Adventure', type: 'ADVENTURE', img: '/images/image_7.png' },
-  { id: 'tokyo', title: 'Tokyo Twilight Odyssey', location: 'Tokyo, Japan', days: 7, maxPeople: 10, price: 5100, category: 'City', type: 'URBAN', img: '/images/image_8.png' },
-  { id: 'kyoto', title: 'Ancient Echoes After Dark', location: 'Kyoto, Japan', days: 9, maxPeople: 5, price: 4700, category: 'Cultural', type: 'CULTURE', img: '/images/image_9.png' },
-];
+import { destinationMenu } from '../data/destinationMenu';
+import { packageItems } from '../data/packages';
 
-const categories = ['Adventure', 'Beach', 'City', 'Cultural'];
-const destinationOptions = ['Nordic Fjords', 'Aegean Islands', 'Atacama Desert'];
+const destinationGroups = destinationMenu.map(group => group.title);
+
+const inferTourCategory = (title: string) => {
+  const normalized = title.toLowerCase();
+
+  if (normalized.includes('beach') || normalized.includes('coastal') || normalized.includes('romance')) return 'Beach Tours';
+  if (normalized.includes('wildlife')) return 'Wildlife Tours';
+  if (normalized.includes('ramayana') || normalized.includes('heritage') || normalized.includes('culture') || normalized.includes('magical') || normalized.includes('sri lanka')) return 'Cultural Tours';
+  return 'Adventure Tours';
+};
 
 const Packages = () => {
   const navigate = useNavigate();
-  const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>([]);
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(null);
   const [budget, setBudget] = useState({ min: '', max: '' });
   const [duration, setDuration] = useState(1);
+  const [page, setPage] = useState(1);
+  const pageSize = 6;
 
-  const toggleCat = (cat: string) => {
-    setSelectedCats(prev => (prev.includes(cat) ? prev.filter(item => item !== cat) : [...prev, cat]));
-  };
-
-  const toggleDestination = (destination: string) => {
-    setSelectedDestinations(prev => (prev.includes(destination) ? prev.filter(item => item !== destination) : [...prev, destination]));
+  const toggleSelection = (value: string, setter: Dispatch<SetStateAction<string[]>>) => {
+    setter(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]));
   };
 
   const filtered = useMemo(() => {
     return packageItems.filter(pkg => {
-      if (selectedCats.length > 0 && !selectedCats.includes(pkg.category)) return false;
-      if (budget.min && pkg.price < Number(budget.min)) return false;
-      if (budget.max && pkg.price > Number(budget.max)) return false;
-      if (pkg.days < duration) return false;
+      if (selectedPackageId && pkg.id !== selectedPackageId) return false;
+      const pkgCategory = inferTourCategory(pkg.title);
+      const pkgPrice = pkg.price ?? 0;
+      const pkgDays = pkg.days ?? 0;
+      if (selectedDestinations.length > 0 && !selectedDestinations.includes(pkgCategory)) return false;
+      if (selectedGroups.length > 0 && !selectedGroups.includes(pkgCategory)) return false;
+      if (budget.min && pkgPrice < Number(budget.min)) return false;
+      if (budget.max && pkgPrice > Number(budget.max)) return false;
+      if (pkgDays < duration) return false;
       return true;
     });
-  }, [budget.max, budget.min, duration, selectedCats]);
+  }, [budget.max, budget.min, duration, selectedDestinations, selectedGroups, selectedPackageId]);
+
+  // Reset to first page whenever filters change
+  useEffect(() => {
+    setPage(1);
+  }, [selectedDestinations, selectedGroups, selectedPackageId, budget.min, budget.max, duration]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const pageItems = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, page]);
 
   return (
     <div className="min-h-screen bg-[#06142a] text-white">
@@ -70,7 +87,7 @@ const Packages = () => {
                   <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">Refine your journey</p>
                 </div>
                 <button
-                  onClick={() => { setSelectedCats([]); setSelectedDestinations([]); setBudget({ min: '', max: '' }); setDuration(1); }}
+                  onClick={() => { setSelectedDestinations([]); setSelectedGroups([]); setSelectedPackageId(null); setBudget({ min: '', max: '' }); setDuration(1); }}
                   className="text-xs text-slate-300/75 transition-colors hover:text-[#8fc0ff] hover:underline"
                 >
                   Reset All
@@ -80,20 +97,24 @@ const Packages = () => {
               <div className="mb-6">
                 <p className="mb-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">
                   <SlidersHorizontal className="h-3.5 w-3.5 text-[#8fc0ff]" />
-                  Destination
+                  Destinations
                 </p>
-                <div className="space-y-3">
-                  {destinationOptions.map(dest => (
-                    <label key={dest} className="flex cursor-pointer items-center gap-3 text-sm text-slate-200/80">
-                      <input
-                        type="checkbox"
-                        checked={selectedDestinations.includes(dest)}
-                        onChange={() => toggleDestination(dest)}
-                        className="h-4 w-4 rounded border-white/20 bg-white/5 accent-[#8fc0ff]"
-                      />
-                      <span>{dest}</span>
-                    </label>
-                  ))}
+                <div className="space-y-2">
+                  {destinationGroups.map(category => {
+                    const isSelected = selectedDestinations.includes(category);
+
+                    return (
+                      <label key={category} className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/8 bg-[#0f1f32]/60 px-4 py-3 transition hover:bg-[#0f1f32]/80">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleSelection(category, setSelectedDestinations)}
+                          className="h-4 w-4 rounded border-white/20 bg-white/5 accent-[#8fc0ff]"
+                        />
+                        <span className="text-sm font-semibold text-slate-100/90">{category}</span>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -140,17 +161,17 @@ const Packages = () => {
               </div>
 
               <div className="mb-6">
-                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Category</p>
+                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">Tour Type</p>
                 <div className="flex flex-wrap gap-2">
-                  {categories.map(cat => {
-                    const active = selectedCats.includes(cat);
+                  {destinationGroups.map(category => {
+                    const active = selectedGroups.includes(category);
                     return (
                       <button
-                        key={cat}
-                        onClick={() => toggleCat(cat)}
+                        key={category}
+                        onClick={() => toggleSelection(category, setSelectedGroups)}
                         className={`rounded-full border px-3 py-1.5 text-xs transition-all ${active ? 'border-[#f5f0e8] bg-[#f5f0e8] text-[#0f2030]' : 'border-[#7fb5b0]/55 bg-transparent text-slate-100/85 hover:border-[#8fc0ff] hover:text-[#8fc0ff]'}`}
                       >
-                        {cat}
+                        {category}
                       </button>
                     );
                   })}
@@ -164,11 +185,11 @@ const Packages = () => {
 
             <main>
               <div className="mb-6 flex items-center justify-end md:hidden">
-                <p className="text-sm text-slate-300/65">128 Experiences Found</p>
+                <p className="text-sm text-slate-300/65">{filtered.length} Experiences Found</p>
               </div>
 
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((pkg) => (
+                {pageItems.map((pkg) => (
                   <article
                     key={pkg.id}
                     onClick={() => navigate(`/packages/${pkg.id}`)}
@@ -179,16 +200,17 @@ const Packages = () => {
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f1f32]/55" />
                       <div className="absolute inset-0 bg-gradient-to-tr from-[#8fc0ff]/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                       <div className="absolute left-3 top-3 rounded-full border border-[#8fc0ff]/30 bg-[#0f1f32]/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#b7d5ff] backdrop-blur-md">
-                        ✧ {pkg.type}
+                        ✧ {inferTourCategory(pkg.title)}
                       </div>
                     </div>
 
                     <div className="p-4">
                       <h3 className="mb-2 text-lg font-bold leading-tight text-white transition-colors group-hover:text-[#f5f0e8]">{pkg.title}</h3>
-                      <p className="mb-3 flex items-center gap-1.5 text-xs text-[#8fc0ff]">
+                      <p className="mb-2 flex items-center gap-1.5 text-xs text-[#8fc0ff]">
                         <MapPin className="h-3.5 w-3.5" />
                         {pkg.location}
                       </p>
+                      <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-slate-300/55">{inferTourCategory(pkg.title)}</p>
 
                       <div className="mb-5 flex items-center justify-between text-xs text-slate-200/55">
                         <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" /> {pkg.days} Days</span>
@@ -197,7 +219,7 @@ const Packages = () => {
 
                       <div className="flex items-end justify-between gap-3">
                         <div>
-                          <p className="text-2xl font-bold text-white">${pkg.price.toLocaleString()}</p>
+                          <p className="text-2xl font-bold text-white">${(pkg.price ?? 0).toLocaleString()}</p>
                           <p className="text-[10px] uppercase tracking-[0.16em] text-slate-300/45">Per Traveler</p>
                         </div>
                         <button className="rounded-md bg-[#f5f0e8] px-5 py-2.5 text-sm font-semibold text-[#0f2030] transition hover:brightness-95">
@@ -209,14 +231,47 @@ const Packages = () => {
                 ))}
               </div>
 
-              <div className="mt-10 flex items-center justify-center gap-4 text-slate-200/75">
-                <button className="transition hover:text-[#8fc0ff]"><ChevronLeft className="h-4 w-4" /></button>
-                <div className="flex items-center gap-2">
-                  {[0, 1, 2, 3].map(index => (
-                    <span key={index} className={`h-2.5 w-2.5 rounded-full ${index === 1 ? 'bg-[#f5f0e8]' : 'bg-slate-300/30'}`} />
-                  ))}
+              {selectedPackageId && (
+                <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-[#0f1f32]/80 px-4 py-3 text-sm text-slate-200/80">
+                  <span>Showing one selected package</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPackageId(null)}
+                    className="font-semibold text-[#8fc0ff] hover:underline"
+                  >
+                    Clear selection
+                  </button>
                 </div>
-                <button className="transition hover:text-[#8fc0ff]"><ChevronRight className="h-4 w-4" /></button>
+              )}
+
+              <div className="mt-10 flex items-center justify-center gap-4 text-slate-200/75">
+                <button
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page <= 1}
+                  className="transition hover:text-[#8fc0ff] disabled:opacity-50"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <div className="flex items-center gap-2">
+                  {Array.from({ length: totalPages }).map((_, i) => {
+                    const pageNum = i + 1;
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => setPage(pageNum)}
+                        aria-label={`Page ${pageNum}`}
+                        className={`h-2.5 w-2.5 rounded-full ${pageNum === page ? 'bg-[#f5f0e8]' : 'bg-slate-300/30'}`}
+                      />
+                    );
+                  })}
+                </div>
+                <button
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page >= totalPages}
+                  className="transition hover:text-[#8fc0ff] disabled:opacity-50"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
               </div>
             </main>
           </div>

@@ -7,14 +7,14 @@ import { getDestinationInfo } from '../data/destinationInfo';
 const categoryDescriptions: Record<string, string> = {
   'Adventure Tours': 'Venture into the raw untamed wilderness at the edge of the world. Experience the convergence of jagged granite spires and crystalline blue glaciers under the infinite southern stars.',
   'Beach Tours': 'Relax on pristine beaches with crystal-clear waters and endless horizons. Immerse yourself in tropical paradise with world-class amenities and unforgettable ocean experiences.',
-  'Clutural Tours': 'Discover the rich heritage and cultural treasures of historic cities. Walk through ancient temples, vibrant markets, and colonial architecture that tell stories of centuries past.',
+  'Cultural Tours': 'Discover the rich heritage and cultural treasures of historic cities. Walk through ancient temples, vibrant markets, and colonial architecture that tell stories of centuries past.',
   'Wildlife Tours': 'Encounter majestic wildlife in their natural habitats. Experience safari-style adventures with expert naturalists and unforgettable moments with iconic animals.',
 };
 
 const categoryHeroImage: Record<string, string> = {
   'Adventure Tours': '/images/image_7.png',
   'Beach Tours': '/images/home/colombo.avif',
-  'Clutural Tours': '/images/home/kandy.jpg',
+  'Cultural Tours': '/images/home/kandy.jpg',
   'Wildlife Tours': '/images/home/yala.jpg',
 };
 

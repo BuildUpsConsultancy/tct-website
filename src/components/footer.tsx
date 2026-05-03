@@ -1,4 +1,5 @@
 import { Shield, Award, CheckCircle2, Globe2, Images, AtSign } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -119,9 +120,10 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-4 mb-6">
           <p className="text-slate-500 text-sm text-center">© 2024 The Coconut Tree Trails. Crafted for the cinematic traveler.</p>
           <div className="flex gap-6 text-slate-500 text-xs">
-            {['Newsletter', 'Privacy Policy', 'Terms of Service', 'Travel Insurance'].map((link, idx) => (
-              <a key={idx} className="hover:text-sky-400 transition-colors" href="#">{link}</a>
-            ))}
+            <a className="hover:text-sky-400 transition-colors" href="#">Newsletter</a>
+            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>
+            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Terms of Service</Link>
+            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Travel Insurance</Link>
           </div>
         </div>
 

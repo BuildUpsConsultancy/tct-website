@@ -16,6 +16,7 @@ import TravelBlog from './pages/TravelBlog.tsx';
 import PackageDetail from './pages/packageDetail.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
+import FAQ from './pages/FAQ.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="travel-blog" element={<TravelBlog />} />
+          <Route path="faq-policy" element={<FAQ />} />
           <Route path="packages/:id" element={<PackageDetail />} />
           <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
