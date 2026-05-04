@@ -21,7 +21,7 @@ const Footer = () => {
               <img src="/logococnut.png" alt="The Coconut Tree Trails" className="w-56 max-w-full object-contain" />
           </div>
           <p className="max-w-xs text-[clamp(1.03rem,1.6vw,1.18rem)] leading-[1.55] text-slate-300">
-            Crafted for the cinematic traveler. Every journey is a masterpiece of curation and elite service.
+            Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
           <div className="mt-8 flex items-center gap-4">
             {[Globe2, Images, AtSign].map((Icon, idx) => (
@@ -44,10 +44,10 @@ const Footer = () => {
           </h4>
           <ul className="space-y-3">
             {[
-              'About Our Agency',
-              'Featured Destinations',
-              'Latest Travel News',
-              'Partner With Us'
+              'Travel Packages',
+              'Destinations',
+              'About Us',
+              'Contact Us'
             ].map((link, idx) => (
               <li key={idx}>
                 <a 
@@ -69,9 +69,9 @@ const Footer = () => {
           </h4>
           <ul className="space-y-3">
             {[
-              'Private Charters',
-              'Concierge Support',
-              'Luxury Accommodation',
+              'Visa Assistance',
+              'Hotel Bookings',
+              'Wildlife Safaris',
               'Custom Itineraries'
             ].map((service, idx) => (
               <li key={idx}>
@@ -118,7 +118,7 @@ const Footer = () => {
       {/* Bottom section */}
       <div className="max-w-7xl mx-auto px-8 pt-12 relative z-10">
         <div className="flex flex-col items-center gap-4 mb-6">
-          <p className="text-slate-500 text-sm text-center">© 2024 The Coconut Tree Trails. Crafted for the cinematic traveler.</p>
+          <p className="text-slate-500 text-sm text-center">© 2025 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="flex gap-6 text-slate-500 text-xs">
             <a className="hover:text-sky-400 transition-colors" href="#">Newsletter</a>
             <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>

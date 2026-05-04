@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Calendar, Users, ShieldCheck } from 'lucide-react';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -115,8 +116,8 @@ const Cart = () => {
                           {item.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-slate-200/70 mb-3">
-                          <span className="flex items-center gap-1">📅 {item.dates}</span>
-                          <span className="flex items-center gap-1">👥 {item.travelers} Traveler{item.travelers > 1 ? 's' : ''}</span>
+                          <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5 text-[#a7d9d5]" /> {item.dates}</span>
+                          <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5 text-[#a7d9d5]" /> {item.travelers} Traveler{item.travelers > 1 ? 's' : ''}</span>
                         </div>
                         <div className="inline-block">
                           <span className="text-xs font-semibold uppercase tracking-widest text-[#0f2030] bg-[#d6c7aa] px-3 py-1.5 rounded-full">
@@ -208,7 +209,7 @@ const Cart = () => {
 
                 {/* Security */}
                 <div className="flex items-center justify-center gap-2 text-slate-200/60 text-xs mb-6 pb-6 border-b border-white/10">
-                  <span>🔒</span>
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#a7d9d5]" />
                   <span>Secure Encrypted Transaction</span>
                 </div>
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Clock3, Filter, MapPin, SlidersHorizontal, Users } from 'lucide-react';
 
+import Reveal from '../components/Reveal';
 import { destinationMenu } from '../data/destinationMenu';
 import { packageItems } from '../data/packages';
 
@@ -64,20 +65,21 @@ const Packages = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(127,181,176,0.18),_transparent_45%),linear-gradient(to_bottom,rgba(11,34,36,0.5),rgba(6,20,42,0.88))]" />
 
         <div className="relative mx-auto max-w-7xl px-6">
-          <div className="mb-8 flex items-end justify-between gap-4">
+          <Reveal className="mb-8 flex items-end justify-between gap-4" animation="fade-up">
             <div>
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d6c7aa]">Refine Journey</p>
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d6c7aa]">Find Your Perfect Tour</p>
               <h1 className="text-4xl font-extrabold leading-none md:text-6xl">
-                Starlit
+                Sri Lanka
                 <br />
-                <span className="text-[#8fc0ff]">Expeditions</span>
+                <span className="text-[#8fc0ff]">Tour Packages</span>
               </h1>
             </div>
-            <p className="hidden text-sm text-slate-300/65 md:block">128 Experiences Found</p>
-          </div>
+            <p className="hidden text-sm text-slate-300/65 md:block">26+ Curated Sri Lanka Experiences</p>
+          </Reveal>
 
           <div className="grid gap-6 lg:grid-cols-[265px_1fr]">
-            <aside className="rounded-[24px] border border-white/10 bg-[#16263a]/70 p-5 shadow-2xl shadow-black/25 backdrop-blur-md lg:sticky lg:top-28 h-fit">
+            <Reveal animation="fade-right">
+              <aside className="rounded-[24px] border border-white/10 bg-[#16263a]/70 p-5 shadow-2xl shadow-black/25 backdrop-blur-md lg:sticky lg:top-28 h-fit">
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
                   <h2 className="flex items-center gap-2 text-xl font-bold text-white">
@@ -181,20 +183,21 @@ const Packages = () => {
               <button className="w-full rounded-full bg-[#f5f0e8] py-3 text-sm font-semibold text-[#0f2030] transition hover:brightness-95">
                 Apply Filter
               </button>
-            </aside>
+              </aside>
+            </Reveal>
 
             <main>
-              <div className="mb-6 flex items-center justify-end md:hidden">
-                <p className="text-sm text-slate-300/65">{filtered.length} Experiences Found</p>
-              </div>
+              <Reveal className="mb-6 flex items-center justify-end md:hidden" animation="fade-up">
+                <p className="text-sm text-slate-300/65">{filtered.length} Sri Lanka Tour{filtered.length !== 1 ? 's' : ''} Found</p>
+              </Reveal>
 
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {pageItems.map((pkg) => (
-                  <article
-                    key={pkg.id}
-                    onClick={() => navigate(`/packages/${pkg.id}`)}
-                    className="group overflow-hidden rounded-[14px] border border-[#8fc0ff]/12 bg-[#132338] shadow-2xl shadow-black/35 ring-1 ring-[#8fc0ff]/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8fc0ff]/22 hover:shadow-[0_18px_40px_rgba(17,34,64,0.55)] hover:ring-[#8fc0ff]/15 cursor-pointer"
-                  >
+                {pageItems.map((pkg, index) => (
+                  <Reveal key={pkg.id} animation="fade-up" delay={index * 90}>
+                    <article
+                      onClick={() => navigate(`/packages/${pkg.id}`)}
+                      className="group cursor-pointer overflow-hidden rounded-[14px] border border-[#8fc0ff]/12 bg-[#132338] shadow-2xl shadow-black/35 ring-1 ring-[#8fc0ff]/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8fc0ff]/22 hover:shadow-[0_18px_40px_rgba(17,34,64,0.55)] hover:ring-[#8fc0ff]/15"
+                    >
                     <div className="relative h-[270px] overflow-hidden bg-[#0f1f32]">
                       <img src={pkg.img} alt={pkg.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f1f32]/55" />
@@ -227,24 +230,27 @@ const Packages = () => {
                         </button>
                       </div>
                     </div>
-                  </article>
+                    </article>
+                  </Reveal>
                 ))}
               </div>
 
               {selectedPackageId && (
-                <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-[#0f1f32]/80 px-4 py-3 text-sm text-slate-200/80">
-                  <span>Showing one selected package</span>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedPackageId(null)}
-                    className="font-semibold text-[#8fc0ff] hover:underline"
-                  >
-                    Clear selection
-                  </button>
-                </div>
+                <Reveal className="mt-4" animation="fade-up">
+                  <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#0f1f32]/80 px-4 py-3 text-sm text-slate-200/80">
+                    <span>Showing one selected package</span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPackageId(null)}
+                      className="font-semibold text-[#8fc0ff] hover:underline"
+                    >
+                      Clear selection
+                    </button>
+                  </div>
+                </Reveal>
               )}
 
-              <div className="mt-10 flex items-center justify-center gap-4 text-slate-200/75">
+              <Reveal className="mt-10 flex items-center justify-center gap-4 text-slate-200/75" animation="fade-up">
                 <button
                   onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page <= 1}
@@ -272,7 +278,7 @@ const Packages = () => {
                 >
                   <ChevronRight className="h-4 w-4" />
                 </button>
-              </div>
+              </Reveal>
             </main>
           </div>
         </div>

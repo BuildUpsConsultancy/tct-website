@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Calendar, Users, User, Utensils, Mountain, Plane, Clock, ShieldCheck } from 'lucide-react';
 
 import { defaultPackageItinerary, packageItineraries } from '../data/packageItineraries';
 import { packageById, defaultPackage, packageItems } from '../data/packages';
@@ -235,7 +236,7 @@ const BookingModal = ({
         <div className="grid gap-3 px-5 pb-5 sm:grid-cols-2 sm:px-8 sm:pb-6">
           <label className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left">
             <span className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-200/65">
-              <span>📅</span>
+              <Calendar className="h-3.5 w-3.5" />
               Booking Date
             </span>
             <input
@@ -250,7 +251,7 @@ const BookingModal = ({
 
           <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left">
             <span className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-200/65">
-              <span>👤</span>
+              <User className="h-3.5 w-3.5" />
               Select Travelers
             </span>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -453,16 +454,19 @@ const PackageDetail = () => {
                 <p className="mb-8 max-w-3xl leading-relaxed text-sky-100">{pkg.description}</p>
                 <div className="flex flex-wrap gap-4">
                   {[
-                    { icon: '🍽', label: pkg.features },
-                    { icon: '🏔', label: 'Luxury Expedition' },
-                    { icon: '✈️', label: pkg.transport },
-                    { icon: '🕐', label: pkg.duration },
-                  ].map(item => (
+                    { icon: Utensils, label: pkg.features },
+                    { icon: Mountain, label: 'Luxury Expedition' },
+                    { icon: Plane, label: pkg.transport },
+                    { icon: Clock, label: pkg.duration },
+                  ].map(item => {
+                    const BadgeIcon = item.icon;
+                    return (
                     <div key={item.label} className="flex min-w-[150px] items-center gap-2 rounded-xl border border-white/5 bg-[#132e34] px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.22)]">
-                      <span className="text-lg">{item.icon}</span>
+                      <BadgeIcon className="h-4 w-4 text-[#a7d9d5] shrink-0" />
                       <span className="text-sm text-white">{item.label}</span>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -497,7 +501,7 @@ const PackageDetail = () => {
                   <label className="section-label mb-2 block text-[10px]">Select Departure Date</label>
                   <div className="flex cursor-pointer items-center justify-between rounded-xl border border-white/5 bg-[#132339] px-4 py-3 text-sky-100">
                     <span className="text-sm">{new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(travelDate))}</span>
-                    <span className="text-tct-accent2">📅</span>
+                    <Calendar className="h-4 w-4 text-[#a7d9d5]" />
                   </div>
                 </div>
 
@@ -505,7 +509,7 @@ const PackageDetail = () => {
                   <label className="section-label mb-2 block text-[10px]">Travelers</label>
                   <div className="flex items-center justify-between rounded-xl border border-white/5 bg-[#132339] px-4 py-3">
                     <span className="text-sm text-white">{travelSummary}</span>
-                    <span className="text-tct-accent2">👥</span>
+                    <Users className="h-4 w-4 text-[#a7d9d5]" />
                   </div>
                 </div>
 
@@ -529,7 +533,7 @@ const PackageDetail = () => {
                   {booked ? '✓ Booking Confirmed!' : 'Book Now'}
                 </button>
                 <button onClick={() => setShowInquiryModal(true)} className="mb-3 w-full rounded-full border border-[#2e4b74] bg-transparent py-3.5 text-sm font-semibold text-[#8fb8ff] transition hover:bg-[#132339]">Send Inquiry</button>
-                <p className="flex items-center justify-center gap-1 text-center text-xs text-sky-100/60">🔒 Secure Booking Guaranteed</p>
+                <p className="flex items-center justify-center gap-1 text-center text-xs text-sky-100/60"><ShieldCheck className="h-3.5 w-3.5" /> Secure Booking Guaranteed</p>
               </div>
             </div>
           </div>
