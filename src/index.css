@@ -1,4 +1,74 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Mooli&display=swap');
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-mooli: 'Mooli', Sans-serif;
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+/* Headings (h1, h2) */
+h1, h2, .heading {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Subheadings */
+h3, h4, .subheading, .section-label {
+  font-family: var(--font-mooli);
+  font-weight: 400;
+}
+
+/* Body text */
+p, body, .body-text {
+  font-family: var(--font-mooli);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+/* Typography utility classes for flexibility */
+.heading-primary {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.heading-secondary {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.subheading-primary {
+  font-family: var(--font-mooli);
+  font-weight: 400;
+}
+
+.text-body {
+  font-family: var(--font-mooli);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.text-body-large {
+  font-family: var(--font-mooli);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.text-body-small {
+  font-family: var(--font-mooli);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
 
 /* ── Base ──────────────────────────────────────────────────── */
 html {
