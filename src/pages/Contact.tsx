@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Globe2, Mail, MapPin, Phone } from 'lucide-react';
 
+import Reveal from '../components/Reveal';
+
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
 
@@ -19,19 +21,23 @@ const Contact = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#102b30]/35 to-[#081b22]" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-6 md:px-8 md:pb-24">
-          <div className="text-center pt-6 md:pt-10">
+          <Reveal className="pt-6 text-center md:pt-10" animation="fade-up">
             <p className="text-[11px] font-semibold tracking-[0.3em] text-[#f5f0e8]/90">GET IN TOUCH</p>
             <h1 className="mt-4 text-4xl font-extrabold leading-[0.95] text-white md:text-6xl lg:text-[4.2rem]">
-              We&apos;d Love to Hear From You
+              Plan Your Sri Lanka Adventure
             </h1>
-          </div>
+            <p className="mt-4 text-sm leading-7 text-white/70 max-w-xl mx-auto">
+              Reach out to our team — we’re based in Sri Lanka and respond within one business day. Whether you have a question, a custom itinerary in mind, or just want to know more, we’re here.
+            </p>
+          </Reveal>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-[380px_1fr] lg:items-start">
-            <div className="space-y-4 lg:pt-8">
+            <Reveal className="space-y-4 lg:pt-8" animation="fade-right">
               {[
-                { icon: Mail, label: 'Email Us', value: 'voyage@cinematichorizon.com' },
-                { icon: Phone, label: 'Call Us', value: '+1(555) 234–8890' },
-                { icon: MapPin, label: 'Our Studio', value: '402 Midnight Ave, Nordic District, IC' },
+                { icon: Mail, label: 'Email Us', value: 'info@thecoconuttreetrails.com' },
+                { icon: Phone, label: 'Call / WhatsApp', value: '+91 345 533 865' },
+                { icon: MapPin, label: 'Based In', value: 'Sri Lanka · Operating to UK Standards' },
+                { icon: Globe2, label: 'Social', value: '@thecoconuttreetrails' },
               ].map(item => {
                 const Icon = item.icon;
                 return (
@@ -64,9 +70,9 @@ const Contact = () => {
               <div className="pt-8 md:pt-14">
                 <img src="/logococnut.png" alt="The Coconut Tree Trails" className="h-24 w-auto opacity-90 md:h-28" />
               </div>
-            </div>
+            </Reveal>
 
-            <div className="rounded-2xl bg-[#132238]/90 p-6 shadow-2xl shadow-black/30 md:p-8">
+            <Reveal className="rounded-2xl bg-[#132238]/90 p-6 shadow-2xl shadow-black/30 md:p-8" animation="fade-left" delay={120}>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
@@ -75,7 +81,7 @@ const Contact = () => {
                       type="text"
                       value={form.name}
                       onChange={e => update('name', e.target.value)}
-                      placeholder="John Voyager"
+                      placeholder="Your full name"
                       className="h-11 w-full rounded-md border border-black/25 bg-[#0a1322] px-4 text-sm text-white placeholder:text-white/18 outline-none transition focus:border-[#8fc0ff]/55"
                     />
                   </div>
@@ -85,7 +91,7 @@ const Contact = () => {
                       type="email"
                       value={form.email}
                       onChange={e => update('email', e.target.value)}
-                      placeholder="john@midnight.com"
+                      placeholder="your@email.com"
                       className="h-11 w-full rounded-md border border-black/25 bg-[#0a1322] px-4 text-sm text-white placeholder:text-white/18 outline-none transition focus:border-[#8fc0ff]/55"
                     />
                   </div>
@@ -97,7 +103,7 @@ const Contact = () => {
                     type="text"
                     value={form.subject}
                     onChange={e => update('subject', e.target.value)}
-                    placeholder="Inquiry about Nordic Expedition"
+                    placeholder="e.g. Inquiry about Ramayana Tour"
                     className="h-11 w-full rounded-md border border-black/25 bg-[#0a1322] px-4 text-sm text-white placeholder:text-white/18 outline-none transition focus:border-[#8fc0ff]/55"
                   />
                 </div>
@@ -107,7 +113,7 @@ const Contact = () => {
                   <textarea
                     value={form.message}
                     onChange={e => update('message', e.target.value)}
-                    placeholder="Tell us about your dream journey..."
+                    placeholder="Tell us about your dream Sri Lanka journey — where you'd like to go, how long you're travelling, and how many people are in your group..."
                     rows={7}
                     className="w-full rounded-md border border-black/25 bg-[#0a1322] px-4 py-3 text-sm text-white placeholder:text-white/18 outline-none transition focus:border-[#8fc0ff]/55"
                   />
@@ -117,12 +123,12 @@ const Contact = () => {
                   Send Message
                 </button>
               </form>
-            </div>
+            </Reveal>
           </div>
 
-          <div className="mt-16 md:mt-20">
+          <Reveal className="mt-16 md:mt-20" animation="fade-up">
             <img src="/logococnut.png" alt="The Coconut Tree Trails" className="w-[220px] opacity-90 md:w-[260px]" />
-          </div>
+          </Reveal>
         </div>
       </section>
     </div>

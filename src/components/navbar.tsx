@@ -54,9 +54,8 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
-              className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${
-                isActive('/') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
-              }`}
+              className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                }`}
             >
               Home
               <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
@@ -66,9 +65,8 @@ const Navbar = () => {
             <div className="relative" onMouseEnter={openDropdown} onMouseLeave={() => closeDropdownWithDelay(150)}>
               <button
                 type="button"
-                className={`group relative inline-flex items-center gap-1 px-2 py-1 text-sm font-medium transition-all duration-200 ${
-                  location.pathname.startsWith('/destinations') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
-                }`}
+                className={`group relative inline-flex items-center gap-1 px-2 py-1 text-sm font-medium transition-all duration-200 ${location.pathname.startsWith('/destinations') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                  }`}
               >
                 Destinations
                 <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${destinationsOpen ? 'rotate-180' : ''}`} />
@@ -116,9 +114,8 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${
-                  isActive(link.to) ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
-                }`}
+                className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive(link.to) ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                  }`}
               >
                 {link.label}
                 <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
@@ -157,9 +154,8 @@ const Navbar = () => {
             <Link
               to="/"
               onClick={() => setMenuOpen(false)}
-              className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${
-                isActive('/') ? 'text-tct-white' : 'text-tct-muted'
-              }`}
+              className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive('/') ? 'text-tct-white' : 'text-tct-muted'
+                }`}
             >
               Home
             </Link>
@@ -168,9 +164,8 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
-                className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 last:border-0 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${
-                  isActive(link.to) ? 'text-tct-white' : 'text-tct-muted'
-                }`}
+                className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 last:border-0 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive(link.to) ? 'text-tct-white' : 'text-tct-muted'
+                  }`}
               >
                 {link.label}
               </Link>
