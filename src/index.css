@@ -1,1 +1,297 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Mooli&display=swap');
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-mooli: 'Mooli', Sans-serif;
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+/* Headings (h1, h2) */
+h1, h2, .heading {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Subheadings */
+h3, h4, .subheading, .section-label {
+  font-family: var(--font-mooli);
+  font-weight: 400;
+}
+
+/* Body text */
+p, body, .body-text {
+  font-family: var(--font-mooli);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+/* Typography utility classes for flexibility */
+.heading-primary {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.heading-secondary {
+  font-family: var(--font-poppins);
+  font-weight: 800;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.subheading-primary {
+  font-family: var(--font-mooli);
+  font-weight: 400;
+}
+
+.text-body {
+  font-family: var(--font-mooli);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.text-body-large {
+  font-family: var(--font-mooli);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.text-body-small {
+  font-family: var(--font-mooli);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #a7d9d5;
+  color: #06142a;
+}
+
+/* ── Custom Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #06142a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a5a62;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a7d9d5;
+}
+
+/* ── Scroll Reveal — base state ───────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Stagger delays ───────────────────────────────────────── */
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+.delay-700 { transition-delay: 700ms; }
+.delay-800 { transition-delay: 800ms; }
+
+/* ── Keyframe Animations ──────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(167, 217, 213, 0); }
+  50%       { box-shadow: 0 0 24px 6px rgba(167, 217, 213, 0.18); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(167, 217, 213, 0.15); }
+  50%       { border-color: rgba(167, 217, 213, 0.45); }
+}
+
+/* ── Animation utility classes ────────────────────────────── */
+.animate-float      { animation: float 5s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+.animate-fade-up    { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-in    { animation: fadeIn 0.6s ease both; }
+.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+.animate-border-pulse { animation: borderPulse 3s ease-in-out infinite; }
+
+/* Gradient animated text */
+.animate-gradient-text {
+  background: linear-gradient(
+    270deg,
+    #a7d9d5,
+    #8fc0ff,
+    #f5f0e8,
+    #a7d9d5
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 5s ease infinite;
+}
+
+/* Shimmer loading / highlight effect */
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.06) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.2s ease infinite;
+}
+
+/* ── Card hover lift ──────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Image zoom on hover ──────────────────────────────────── */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.07);
+}
+
+/* ── Underline link animation ─────────────────────────────── */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Floating WhatsApp button ─────────────────────────────── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+  animation: pulseGlow 3s ease-in-out infinite,
+             fadeUp 0.8s 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.whatsapp-float:hover {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+}

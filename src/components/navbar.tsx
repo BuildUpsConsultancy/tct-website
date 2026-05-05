@@ -1,89 +1,178 @@
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { ChevronDown, MapPin } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { destinationMenu, getDestinationLabel } from '../data/destinationMenu';
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [destinationsOpen, setDestinationsOpen] = useState(false);
+  const leaveTimerRef = useRef<number | null>(null);
 
-  const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Destinations', href: '#destinations' },
-    { label: 'Packages', href: '#packages' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' }
+  const openDropdown = () => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+    setDestinationsOpen(true);
+  };
+
+  const closeDropdownWithDelay = (delay = 150) => {
+    if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
+    leaveTimerRef.current = window.setTimeout(() => {
+      setDestinationsOpen(false);
+      leaveTimerRef.current = null;
+    }, delay);
+  };
+
+  const links = [
+    { label: 'Home', to: '/' },
+    { label: 'Travel Packages', to: '/packages' },
+    { label: 'About Us', to: '/about' },
+    { label: 'Contact', to: '/contact' },
+    { label: 'FAQ & Policy', to: '/faq-policy' },
+    { label: 'Cart', to: '/cart' },
   ];
 
-  return (
-    <nav className="sticky top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50 shadow-2xl">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex items-center gap-3 group cursor-pointer hover:gap-4 transition-all duration-300">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/50 transition-all overflow-hidden">
-              <img src="/logo-tct.png" alt="Coconut Tree Trails" className="w-7 h-7 object-contain" />
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <span className="text-lg font-bold text-slate-50 leading-none">Coconut Tree</span>
-              <span className="text-xs font-semibold text-primary leading-none">TRAILS</span>
-            </div>
-          </div>
+  const isActive = (to: string) => {
+    if (to.startsWith('/#')) {
+      return location.pathname === '/';
+    }
+    return location.pathname === to;
+  };
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-12">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-slate-300 hover:text-primary font-medium text-sm transition-colors duration-300 relative group"
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50">
+      <div className="w-full bg-gradient-to-r from-slate-900/80 via-slate-900/70 to-slate-950/80 backdrop-blur-sm shadow-2xl border-b border-slate-800/40" style={{ overflow: 'visible' }}>
+        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between" style={{ overflow: 'visible' }}>
+          <Link to="/" className="group flex items-center gap-3 transition-all duration-300 hover:gap-4">
+            <img src="/logococnut.png" alt="TCT Logo" className="h-12 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110" />
+          </Link>
+
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
+            <Link
+              to="/"
+              className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                }`}
+            >
+              Home
+              <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
+              {isActive('/') && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />}
+            </Link>
+
+            <div className="relative" onMouseEnter={openDropdown} onMouseLeave={() => closeDropdownWithDelay(150)}>
+              <button
+                type="button"
+                className={`group relative inline-flex items-center gap-1 px-2 py-1 text-sm font-medium transition-all duration-200 ${location.pathname.startsWith('/destinations') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                  }`}
+              >
+                Destinations
+                <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${destinationsOpen ? 'rotate-180' : ''}`} />
+                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
+                {location.pathname.startsWith('/destinations') && (
+                  <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />
+                )}
+              </button>
+
+              {/* Invisible hover bridge to prevent dropdown from closing (kept for safety) */}
+              {destinationsOpen && <div className="fixed left-4 right-4 top-[64px] h-6 z-40 pointer-events-none" />}
+
+              {destinationsOpen && (
+                <div
+                  onMouseEnter={openDropdown}
+                  onMouseLeave={() => closeDropdownWithDelay(120)}
+                  className="fixed left-4 right-4 top-[72px] rounded-3xl border border-slate-700/60 bg-slate-800 p-12 shadow-2xl backdrop-blur-md z-50 pointer-events-auto md:left-1/2 md:right-auto md:w-[1280px] md:top-[72px] md:-translate-x-1/2"
+                >
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                    {destinationMenu.map((group) => (
+                      <div key={group.title}>
+                        <h3 className="mb-6 font-display text-xl font-bold text-white">{group.title}</h3>
+                        <ul className="space-y-3.5">
+                          {group.items.map((item) => (
+                            <li key={item.slug}>
+                              <Link
+                                to={`/destinations/${item.slug}`}
+                                onClick={() => setDestinationsOpen(false)}
+                                className="flex items-start gap-2.5 text-sm font-semibold leading-snug text-slate-200 transition-colors hover:text-sky-400"
+                              >
+                                <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+                                <span>{getDestinationLabel(item)}</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {links.slice(1).map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive(link.to) ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                  }`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
-              </a>
+                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
+                {isActive(link.to) && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />}
+              </Link>
             ))}
           </div>
 
-          {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="px-6 py-2 text-sm font-medium text-secondary border border-secondary rounded-full hover:bg-secondary/10 transition-all duration-300">
+            <button
+              onClick={() => navigate('/login')}
+              className="text-sm px-4 py-2 rounded-full border border-white/30 text-white bg-transparent hover:bg-sky-400/10 hover:text-sky-400 transition-all duration-200"
+            >
               Login
             </button>
-            <button className="px-6 py-2 text-sm font-bold text-on-primary bg-gradient-to-r from-primary to-primary/80 rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300">
+            <button
+              onClick={() => navigate('/register')}
+              className="text-sm px-4 py-2 rounded-full bg-white text-slate-900 font-semibold shadow-lg hover:brightness-95 transition-all duration-200"
+            >
               Register
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-slate-800 transition-colors"
+            className="group md:hidden text-tct-text transition-all duration-300 hover:scale-110 hover:text-tct-white"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-slate-400" />
-            ) : (
-              <Menu className="w-6 h-6 text-slate-400" />
-            )}
+            <div className="w-6 h-0.5 bg-current mb-1.5 transition-all duration-300 group-hover:w-7" />
+            <div className="w-4 h-0.5 bg-current mb-1.5 transition-all duration-300 group-hover:w-6" />
+            <div className="w-6 h-0.5 bg-current transition-all duration-300 group-hover:w-7" />
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden pb-8 space-y-4 border-t border-slate-800 pt-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="block text-slate-300 hover:text-primary text-sm font-medium transition-colors py-2 px-4 rounded hover:bg-slate-800/50"
-                onClick={() => setIsMobileMenuOpen(false)}
+        {menuOpen && (
+          <div className="md:hidden bg-slate-900/90 border-t border-slate-800/30 px-6 py-4 backdrop-blur-sm">
+            <Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive('/') ? 'text-tct-white' : 'text-tct-muted'
+                }`}
+            >
+              Home
+            </Link>
+            {links.slice(1).map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 last:border-0 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive(link.to) ? 'text-tct-white' : 'text-tct-muted'
+                  }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <div className="flex gap-3 pt-4 border-t border-slate-800">
-              <button className="flex-1 px-4 py-2 text-sm font-medium text-secondary border border-secondary rounded-full hover:bg-secondary/10 transition-all">
-                Login
-              </button>
-              <button className="flex-1 px-4 py-2 text-sm font-bold text-on-primary bg-primary rounded-full hover:scale-105 transition-all">
-                Register
-              </button>
+            <div className="flex gap-3 mt-4">
+              <button onClick={() => { navigate('/login'); setMenuOpen(false); }} className="btn-outline text-sm flex-1 py-2">Login</button>
+              <button onClick={() => { navigate('/register'); setMenuOpen(false); }} className="btn-primary text-sm flex-1 py-2">Register</button>
             </div>
           </div>
         )}
