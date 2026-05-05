@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Clock3, Filter, MapPin, SlidersHorizontal, Users } from 'lucide-react';
 
-import Reveal from '../components/Reveal';
 import { destinationMenu } from '../data/destinationMenu';
 import { packageItems } from '../data/packages';
+import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft } from '../lib/motion';
 
 const destinationGroups = destinationMenu.map(group => group.title);
 
@@ -58,14 +59,23 @@ const Packages = () => {
   }, [filtered, page]);
 
   return (
-    <div className="min-h-screen bg-[#06142a] text-white">
+    <motion.div
+      className="min-h-screen bg-[#06142a] text-white"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <section className="relative overflow-hidden pt-24 pb-10">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b2224] via-[#12373a] to-[#0d2628]" />
         <div className="absolute inset-0 bg-cover bg-center opacity-18" style={{ backgroundImage: 'url(/images/image_3.png)' }} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(127,181,176,0.18),_transparent_45%),linear-gradient(to_bottom,rgba(11,34,36,0.5),rgba(6,20,42,0.88))]" />
 
         <div className="relative mx-auto max-w-7xl px-6">
-          <Reveal className="mb-8 flex items-end justify-between gap-4" animation="fade-up">
+          <motion.div
+            className="mb-8 flex items-end justify-between gap-4"
+            variants={fadeUp} initial="hidden" animate="show"
+          >
             <div>
               <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d6c7aa]">Find Your Perfect Tour</p>
               <h1 className="text-4xl font-extrabold leading-none md:text-6xl">
@@ -75,12 +85,14 @@ const Packages = () => {
               </h1>
             </div>
             <p className="hidden text-sm text-slate-300/65 md:block">26+ Curated Sri Lanka Experiences</p>
-          </Reveal>
+          </motion.div>
 
           <div className="grid gap-6 lg:grid-cols-[265px_1fr]">
-            <Reveal animation="fade-right">
-              <aside className="rounded-[24px] border border-white/10 bg-[#16263a]/70 p-5 shadow-2xl shadow-black/25 backdrop-blur-md lg:sticky lg:top-28 h-fit">
-              <div className="mb-5 flex items-start justify-between gap-4">
+            <motion.aside
+              className="rounded-[24px] border border-white/10 bg-[#16263a]/70 p-5 shadow-2xl shadow-black/25 backdrop-blur-md lg:sticky lg:top-28 h-fit"
+              variants={slideLeft} initial="hidden" animate="show"
+            >
+            <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
                   <h2 className="flex items-center gap-2 text-xl font-bold text-white">
                     <Filter className="h-4 w-4 text-[#8fc0ff]" />
@@ -183,109 +195,109 @@ const Packages = () => {
               <button className="w-full rounded-full bg-[#f5f0e8] py-3 text-sm font-semibold text-[#0f2030] transition hover:brightness-95">
                 Apply Filter
               </button>
-              </aside>
-            </Reveal>
+              </motion.aside>
 
             <main>
-              <Reveal className="mb-6 flex items-center justify-end md:hidden" animation="fade-up">
+              <div className="mb-6 flex items-center justify-end md:hidden">
                 <p className="text-sm text-slate-300/65">{filtered.length} Sri Lanka Tour{filtered.length !== 1 ? 's' : ''} Found</p>
-              </Reveal>
+              </div>
 
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {pageItems.map((pkg, index) => (
-                  <Reveal key={pkg.id} animation="fade-up" delay={index * 90}>
-                    <article
-                      onClick={() => navigate(`/packages/${pkg.id}`)}
-                      className="group cursor-pointer overflow-hidden rounded-[14px] border border-[#8fc0ff]/12 bg-[#132338] shadow-2xl shadow-black/35 ring-1 ring-[#8fc0ff]/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#8fc0ff]/22 hover:shadow-[0_18px_40px_rgba(17,34,64,0.55)] hover:ring-[#8fc0ff]/15"
-                    >
+              <motion.div
+                className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+                variants={staggerContainer(0.08)}
+                initial="hidden"
+                animate="show"
+                key={String(page)}
+              >
+                {pageItems.map((pkg) => (
+                  <motion.article
+                    key={pkg.id}
+                    onClick={() => navigate(`/packages/${pkg.id}`)}
+                    className="group cursor-pointer overflow-hidden rounded-[14px] border border-[#8fc0ff]/12 bg-[#132338] shadow-2xl shadow-black/35 ring-1 ring-[#8fc0ff]/5"
+                    variants={cardItem}
+                    whileHover={{ y: -8, borderColor: 'rgba(143,192,255,0.25)', boxShadow: '0 24px 48px rgba(10,20,40,0.65)', transition: { duration: 0.3 } }}
+                  >
                     <div className="relative h-[270px] overflow-hidden bg-[#0f1f32]">
-                      <img src={pkg.img} alt={pkg.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <motion.img
+                        src={pkg.img} alt={pkg.title}
+                        className="h-full w-full object-cover"
+                        whileHover={{ scale: 1.08 }}
+                        transition={{ duration: 0.6 }}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f1f32]/55" />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-[#8fc0ff]/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                       <div className="absolute left-3 top-3 rounded-full border border-[#8fc0ff]/30 bg-[#0f1f32]/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#b7d5ff] backdrop-blur-md">
                         ✧ {inferTourCategory(pkg.title)}
                       </div>
                     </div>
-
                     <div className="p-4">
-                      <h3 className="mb-2 text-lg font-bold leading-tight text-white transition-colors group-hover:text-[#f5f0e8]">{pkg.title}</h3>
-                      <p className="mb-2 flex items-center gap-1.5 text-xs text-[#8fc0ff]">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {pkg.location}
-                      </p>
+                      <h3 className="mb-2 text-lg font-bold leading-tight text-white group-hover:text-[#f5f0e8] transition-colors duration-300">{pkg.title}</h3>
+                      <p className="mb-2 flex items-center gap-1.5 text-xs text-[#8fc0ff]"><MapPin className="h-3.5 w-3.5" />{pkg.location}</p>
                       <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-slate-300/55">{inferTourCategory(pkg.title)}</p>
-
                       <div className="mb-5 flex items-center justify-between text-xs text-slate-200/55">
                         <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" /> {pkg.days} Days</span>
                         <span className="inline-flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> Up to {pkg.maxPeople}</span>
                       </div>
-
                       <div className="flex items-end justify-between gap-3">
                         <div>
                           <p className="text-2xl font-bold text-white">${(pkg.price ?? 0).toLocaleString()}</p>
                           <p className="text-[10px] uppercase tracking-[0.16em] text-slate-300/45">Per Traveler</p>
                         </div>
-                        <button className="rounded-md bg-[#f5f0e8] px-5 py-2.5 text-sm font-semibold text-[#0f2030] transition hover:brightness-95">
+                        <motion.button
+                          className="rounded-md bg-[#f5f0e8] px-5 py-2.5 text-sm font-semibold text-[#0f2030]"
+                          whileHover={{ scale: 1.06 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                        >
                           Book Now
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
-                    </article>
-                  </Reveal>
+                  </motion.article>
                 ))}
-              </div>
+              </motion.div>
 
               {selectedPackageId && (
-                <Reveal className="mt-4" animation="fade-up">
-                  <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#0f1f32]/80 px-4 py-3 text-sm text-slate-200/80">
-                    <span>Showing one selected package</span>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPackageId(null)}
-                      className="font-semibold text-[#8fc0ff] hover:underline"
-                    >
-                      Clear selection
-                    </button>
-                  </div>
-                </Reveal>
+                <motion.div
+                  className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-[#0f1f32]/80 px-4 py-3 text-sm text-slate-200/80"
+                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                >
+                  <span>Showing one selected package</span>
+                  <button type="button" onClick={() => setSelectedPackageId(null)} className="font-semibold text-[#8fc0ff] hover:underline">Clear selection</button>
+                </motion.div>
               )}
 
-              <Reveal className="mt-10 flex items-center justify-center gap-4 text-slate-200/75" animation="fade-up">
-                <button
-                  onClick={() => setPage(p => Math.max(1, p - 1))}
-                  disabled={page <= 1}
-                  className="transition hover:text-[#8fc0ff] disabled:opacity-50"
-                >
+              <motion.div
+                className="mt-10 flex items-center justify-center gap-4 text-slate-200/75"
+                variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+              >
+                <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="transition hover:text-[#8fc0ff] disabled:opacity-50">
                   <ChevronLeft className="h-4 w-4" />
                 </button>
                 <div className="flex items-center gap-2">
                   {Array.from({ length: totalPages }).map((_, i) => {
                     const pageNum = i + 1;
                     return (
-                      <button
+                      <motion.button
                         key={pageNum}
                         onClick={() => setPage(pageNum)}
                         aria-label={`Page ${pageNum}`}
                         className={`h-2.5 w-2.5 rounded-full ${pageNum === page ? 'bg-[#f5f0e8]' : 'bg-slate-300/30'}`}
+                        whileHover={{ scale: 1.4 }}
                       />
                     );
                   })}
                 </div>
-                <button
-                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                  disabled={page >= totalPages}
-                  className="transition hover:text-[#8fc0ff] disabled:opacity-50"
-                >
+                <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page >= totalPages} className="transition hover:text-[#8fc0ff] disabled:opacity-50">
                   <ChevronRight className="h-4 w-4" />
                 </button>
-              </Reveal>
+              </motion.div>
             </main>
           </div>
         </div>
       </section>
 
       <div className="h-px bg-gradient-to-r from-transparent via-[#f5f0e8]/20 to-transparent" />
-    </div>
+    </motion.div>
   );
 };
 
