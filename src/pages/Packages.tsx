@@ -236,11 +236,11 @@ const Packages = () => {
                       <div className="mb-5 flex items-center justify-between text-xs text-slate-200/55">
                         <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" /> {pkg.days} Days</span>
                         <span className="inline-flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> Up to {pkg.maxPeople}</span>
-                      </div>
+                      </div>s
                       <div className="flex items-end justify-between gap-3">
                         <div>
                           <p className="text-2xl font-bold text-white">${(pkg.price ?? 0).toLocaleString()}</p>
-                          <p className="text-[10px] uppercase tracking-[0.16em] text-slate-300/45">Per Traveler</p>
+                          <p className="text-[3px] tracking-[0.1em] text-white">Per Traveler</p>
                         </div>
                         <motion.button
                           className="rounded-md bg-[#f5f0e8] px-5 py-2.5 text-sm font-semibold text-[#0f2030]"

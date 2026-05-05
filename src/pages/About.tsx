@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, Rocket, Shield, Star, Sparkles, ArrowRight, CircleCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight, scaleIn } from '../lib/motion';
 
 const aboutValues = [
-  { icon: Shield,  title: 'Safety First',      desc: 'Your safety is our highest priority. Every itinerary we build is assessed for local conditions, road safety, and accommodation standards — giving you and your family complete peace of mind.' },
-  { icon: Eye,     title: 'Local Expertise',   desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get the island as insiders know it.' },
-  { icon: Rocket,  title: 'Dedicated Support', desc: 'From first enquiry to safe return, our team is available to handle your questions, adjust your plans, and support you through every stage of your journey.' },
-  { icon: Star,    title: 'Quality Promise',   desc: 'We operate to UK travel industry standards across accommodation selection, transport quality, and guide training — so every experience consistently exceeds expectations.' },
+  { iconType: 'safety',     title: 'Safety First',      desc: 'Your safety is our highest priority. Every itinerary we build is assessed for local conditions, road safety, and accommodation standards — giving you and your family complete peace of mind.' },
+  { iconType: 'expertise',  title: 'Local Expertise',   desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get the island as insiders know it.' },
+  { iconType: 'support',    title: 'Dedicated Support', desc: 'From first enquiry to safe return, our team is available to handle your questions, adjust your plans, and support you through every stage of your journey.' },
+  { iconType: 'quality',    title: 'Quality Promise',   desc: 'We operate to UK travel industry standards across accommodation selection, transport quality, and guide training — so every experience consistently exceeds expectations.' },
 ];
 
 const stats = [
@@ -100,26 +100,43 @@ const About = () => {
             viewport={{ once: true, margin: '-80px' }}
           >
             {[
-              { icon: CircleCheck, title: 'Our Vision', text: "To be Sri Lanka's most trusted travel partner — redefining what a Sri Lanka holiday can be by combining deep local roots with world-class service and unforgettable experiences that leave a lasting impact." },
-              { icon: Sparkles,    title: 'Our Mission', text: "To help people discover Sri Lanka properly — with local knowledge, thoughtful planning, and genuine Sri Lankan hospitality. We build tailor-made tours that go beyond the obvious and reveal the island's true depth." },
-            ].map(({ icon: Icon, title, text }) => (
-              <motion.div
-                key={title}
-                className="rounded-[18px] bg-[#152438]/95 p-8 shadow-2xl shadow-black/20"
-                variants={cardItem}
-                whileHover={{ y: -8, backgroundColor: 'rgba(23,48,73,0.97)', transition: { duration: 0.3 } }}
-              >
+              { 
+                iconType: 'vision',
+                title: 'Our Vision', 
+                text: "To be Sri Lanka's most trusted travel partner — redefining what a Sri Lanka holiday can be by combining deep local roots with world-class service and unforgettable experiences that leave a lasting impact." 
+              },
+              { 
+                iconType: 'mission',
+                title: 'Our Mission', 
+                text: "To help people discover Sri Lanka properly — with local knowledge, thoughtful planning, and genuine Sri Lankan hospitality. We build tailor-made tours that go beyond the obvious and reveal the island's true depth." 
+              },
+            ].map(({ iconType, title, text }) => {
+              const getIcon = () => {
+                const iconProps = { className: 'h-10 w-10', fill: 'currentColor' };
+                switch (iconType) {
+                  case 'vision':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>;
+                  case 'mission':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>;
+                  default:
+                    return null;
+                }
+              };
+              return (
                 <motion.div
-                  className="mb-5 text-[#8fc0ff]"
-                  whileHover={{ scale: 1.15, rotate: 6 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                  key={title}
+                  className="rounded-[18px] bg-[#152438]/95 p-8 shadow-2xl shadow-black/20"
+                  variants={cardItem}
+                  whileHover={{ y: -8, backgroundColor: 'rgba(23,48,73,0.97)', transition: { duration: 0.3 } }}
                 >
-                  <Icon className="h-10 w-10" />
+                  <div className="mb-5 text-[#8fc0ff]">
+                    {getIcon()}
+                  </div>
+                  <h2 className="mb-4 text-3xl font-semibold text-white">{title}</h2>
+                  <p className="leading-7 text-slate-200/60">{text}</p>
                 </motion.div>
-                <h2 className="mb-4 text-3xl font-semibold text-white">{title}</h2>
-                <p className="leading-7 text-slate-200/60">{text}</p>
-              </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -165,28 +182,42 @@ const About = () => {
             whileInView="show"
             viewport={{ once: true, margin: '-60px' }}
           >
-            {aboutValues.map(({ icon: Icon, title, desc }) => (
-              <motion.div
-                key={title}
-                className="rounded-[16px] border-t-2 border-t-[#d6c7aa]/70 bg-[#152438]/88 p-6 shadow-lg shadow-black/20"
-                variants={cardItem}
-                whileHover={{
-                  y: -10,
-                  borderTopColor: 'rgba(143,192,255,0.7)',
-                  backgroundColor: 'rgba(23,48,73,0.9)',
-                  transition: { duration: 0.3 },
-                }}
-              >
+            {aboutValues.map(({ iconType, title, desc }) => {
+              const getIcon = () => {
+                const iconProps = { className: 'h-8 w-8 mb-5', fill: 'currentColor' };
+                switch (iconType) {
+                  case 'safety':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.5v5.32c0 4.75-2.85 9.02-7 10.28-4.15-1.26-7-5.53-7-10.28V6.68l7-3.5z"/></svg>;
+                  case 'expertise':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>;
+                  case 'support':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3H4V9h14v2z"/></svg>;
+                  case 'quality':
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>;
+                  default:
+                    return null;
+                }
+              };
+              return (
                 <motion.div
-                  whileHover={{ scale: 1.18, rotate: 8 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                  key={title}
+                  className="rounded-[16px] bg-[#152438]/88 p-6 shadow-lg shadow-black/20"
+                  variants={cardItem}
+                  whileHover={{
+                    y: -10,
+                    borderTopColor: 'rgba(143,192,255,0.7)',
+                    backgroundColor: 'rgba(23,48,73,0.9)',
+                    transition: { duration: 0.3 },
+                  }}
                 >
-                  <Icon className="mb-5 h-8 w-8 text-[#8fc0ff]" />
+                  <div className="text-[#8fc0ff]">
+                    {getIcon()}
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold text-white">{title}</h3>
+                  <p className="text-sm leading-7 text-slate-200/60">{desc}</p>
                 </motion.div>
-                <h3 className="mb-3 text-xl font-semibold text-white">{title}</h3>
-                <p className="text-sm leading-7 text-slate-200/60">{desc}</p>
-              </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
