@@ -5,7 +5,7 @@ import {
   useScroll, useTransform, useMotionValue, animate,
 } from 'framer-motion';
 import {
-  ArrowRight, ChevronDown, ChevronUp,
+  ArrowRight, ChevronDown,
   Quote, Shield, Star, Users, Hotel, Plane,
 } from 'lucide-react';
 

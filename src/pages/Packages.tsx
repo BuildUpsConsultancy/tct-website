@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Clock3, Filter, MapPin, SlidersHorizontal, Users } from 'lucide-react';
 
 import { destinationMenu } from '../data/destinationMenu';
