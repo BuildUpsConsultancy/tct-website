@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Calendar, Users, User, Utensils, Mountain, Plane, Clock, ShieldCheck } from 'lucide-react';
 
 import { defaultPackageItinerary, packageItineraries } from '../data/packageItineraries';
 import { packageById, defaultPackage, packageItems } from '../data/packages';
+import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight } from '../lib/motion';
 
 const getTodayLocalDateString = () => {
   const today = new Date();
@@ -338,6 +340,13 @@ const PackageDetail = () => {
   const [travelDate, setTravelDate] = useState(() => getTodayLocalDateString());
   const [showModal, setShowModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
+
+  /* Parallax hero */
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const bgY       = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const textY     = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const textOpac  = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const [booked, setBooked] = useState(false);
   const [inquiryName, setInquiryName] = useState('');
   const [inquiryEmail, setInquiryEmail] = useState('');
@@ -435,24 +444,50 @@ const PackageDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-tct-dark">
-      <div className="relative h-[72vh] overflow-hidden">
-        <img src={pkg.img} alt={pkg.title} className="h-full w-full object-cover" />
+    <motion.div
+      className="min-h-screen bg-tct-dark"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      {/* ── Parallax Hero ─────────────────────────────── */}
+      <div ref={heroRef} className="relative h-[72vh] overflow-hidden">
+        <motion.img
+          src={pkg.img}
+          alt={pkg.title}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ y: bgY }}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-tct-dark/30 to-tct-dark" />
-        <div className="absolute bottom-8 left-8">
+        <motion.div
+          className="absolute bottom-8 left-8"
+          style={{ y: textY, opacity: textOpac }}
+        >
           <p className="section-label mb-2">{pkg.category}</p>
           <h1 className="font-display text-6xl font-black text-white">{pkg.title}</h1>
-        </div>
+        </motion.div>
       </div>
 
       <div className="bg-[#163b41]">
         <div className="mx-auto max-w-7xl px-6 py-16 text-white">
           <div className="grid gap-10 lg:grid-cols-3">
             <div className="space-y-12 lg:col-span-2">
-              <div>
+              <motion.div
+                variants={slideLeft}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: '-80px' }}
+              >
                 <h2 className="mb-5 font-display text-3xl text-white">Package Overview</h2>
                 <p className="mb-8 max-w-3xl leading-relaxed text-sky-100">{pkg.description}</p>
-                <div className="flex flex-wrap gap-4">
+                <motion.div
+                  className="flex flex-wrap gap-4"
+                  variants={staggerContainer(0.08)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                >
                   {[
                     { icon: Utensils, label: pkg.features },
                     { icon: Mountain, label: 'Luxury Expedition' },
@@ -461,33 +496,50 @@ const PackageDetail = () => {
                   ].map(item => {
                     const BadgeIcon = item.icon;
                     return (
-                    <div key={item.label} className="flex min-w-[150px] items-center gap-2 rounded-xl border border-white/5 bg-[#132e34] px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.22)]">
+                    <motion.div key={item.label} className="flex min-w-[150px] items-center gap-2 rounded-xl border border-white/5 bg-[#132e34] px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.22)]" variants={cardItem} whileHover={{ y: -3, borderColor: 'rgba(167,217,213,0.3)', transition: { duration: 0.2 } }}>
                       <BadgeIcon className="h-4 w-4 text-[#a7d9d5] shrink-0" />
                       <span className="text-sm text-white">{item.label}</span>
-                    </div>
+                    </motion.div>
                     );
                   })}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: '-60px' }}
+              >
                 <h2 className="mb-6 font-display text-3xl text-white">Day by Day Itinerary</h2>
-                <div className="space-y-4">
+                <motion.div
+                  className="space-y-4"
+                  variants={staggerContainer(0.06)}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: '-40px' }}
+                >
                   {itinerary.map((item: any) => (
-                    <div key={item.day} className="flex gap-4">
+                    <motion.div key={item.day} className="flex gap-4" variants={cardItem}>
                       <div className="tct-badge self-start whitespace-nowrap">Day {item.day}</div>
                       <div>
                         <h3 className="mb-2 font-display text-xl text-white">{item.title}</h3>
                         <p className="text-sm leading-relaxed text-sky-100">{item.desc}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
             </div>
 
-            <div className="lg:col-span-1">
+            <motion.div
+              className="lg:col-span-1"
+              variants={slideRight}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-60px' }}
+            >
               <div className="sticky top-28 rounded-2xl bg-[#102445] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
                 <div className="mb-6 flex items-start justify-between">
                     <div>
@@ -529,16 +581,34 @@ const PackageDetail = () => {
                   <span className="font-bold text-white">${(((pkg.price ?? 0) * totalTravelers + 450)).toLocaleString()}</span>
                 </div>
 
-                <button onClick={() => setShowModal(true)} className="mb-3 w-full rounded-full bg-[#fbf6e8] py-3.5 text-sm font-semibold text-[#1f3346] shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition hover:bg-[#f8f1dc]">
+                <motion.button
+                  onClick={() => setShowModal(true)}
+                  className="mb-3 w-full rounded-full bg-[#fbf6e8] py-3.5 text-sm font-semibold text-[#1f3346] shadow-[0_10px_24px_rgba(0,0,0,0.18)]"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >
                   {booked ? '✓ Booking Confirmed!' : 'Book Now'}
-                </button>
-                <button onClick={() => setShowInquiryModal(true)} className="mb-3 w-full rounded-full border border-[#2e4b74] bg-transparent py-3.5 text-sm font-semibold text-[#8fb8ff] transition hover:bg-[#132339]">Send Inquiry</button>
+                </motion.button>
+                <motion.button
+                  onClick={() => setShowInquiryModal(true)}
+                  className="mb-3 w-full rounded-full border border-[#2e4b74] bg-transparent py-3.5 text-sm font-semibold text-[#8fb8ff]"
+                  whileHover={{ scale: 1.02, backgroundColor: 'rgba(19,35,57,0.9)' }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 18 }}
+                >Send Inquiry</motion.button>
                 <p className="flex items-center justify-center gap-1 text-center text-xs text-sky-100/60"><ShieldCheck className="h-3.5 w-3.5" /> Secure Booking Guaranteed</p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-[#10243a] shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
+          <motion.div
+            className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-[#10243a] shadow-[0_18px_45px_rgba(0,0,0,0.28)]"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
             <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 sm:px-5">
               <h2 className="font-display text-2xl text-white">Destination Map</h2>
               <a
@@ -561,17 +631,31 @@ const PackageDetail = () => {
                 allowFullScreen
               />
             </div>
-          </div>
+          </motion.div>
 
           {similarPackages.length > 0 && (
-            <div className="mt-20">
+            <motion.div
+              className="mt-20"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-60px' }}
+            >
               <h2 className="mb-8 font-display text-4xl text-white">Similar Journeys</h2>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <motion.div
+                className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+                variants={staggerContainer(0.08)}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
                 {similarPackages.map((s: any) => (
-                  <div
+                  <motion.div
                     key={s.id}
                     onClick={() => navigate(`/packages/${s.id}`)}
-                    className="group cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-[#16263d] shadow-[0_18px_45px_rgba(0,0,0,0.28)] transition-transform duration-300 hover:-translate-y-1"
+                    className="group cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-[#16263d] shadow-[0_18px_45px_rgba(0,0,0,0.28)]"
+                    variants={cardItem}
+                    whileHover={{ y: -8, borderColor: 'rgba(143,192,255,0.2)', transition: { duration: 0.3 } }}
                   >
                     <div className="h-44 overflow-hidden bg-[#0d1722]">
                       {s.img ? (
@@ -593,13 +677,13 @@ const PackageDetail = () => {
                         <span className="font-semibold text-sky-300">${(s.price ?? 0).toLocaleString()}</span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           )}
         </div>
-      </div>
+      </div>  {/* /bg-[#163b41] */}
 
       {showModal && (
         <BookingModal
@@ -638,7 +722,7 @@ const PackageDetail = () => {
           setSaveInfo={setSaveInquiryInfo}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 

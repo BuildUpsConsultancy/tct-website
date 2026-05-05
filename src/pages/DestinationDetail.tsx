@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import { ArrowLeft, Play } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { destinationMenuBySlug } from '../data/destinationMenu';
 import { getDestinationInfo } from '../data/destinationInfo';
@@ -23,6 +25,13 @@ const DestinationDetail = () => {
   const destination = slug ? destinationMenuBySlug[slug] : undefined;
   const info = slug ? getDestinationInfo(slug) : { season: '', currency: '', language: '', mustSee: '' };
 
+  /* Parallax + fade refs */
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const bgY      = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const textY    = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
+
   if (!destination) {
     return (
       <div className="min-h-screen bg-[#0b1f25] pt-28 text-white">
@@ -44,14 +53,28 @@ const DestinationDetail = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0b1f25] to-[#0f3a42] text-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${categoryHeroImage[destination.category]})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <section ref={heroRef} className="relative overflow-hidden pt-32 pb-20">
+
+        {/* Parallax background */}
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url(${categoryHeroImage[destination.category]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            y: bgY,
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1f25] via-[#0b1f25]/80 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <p className="mb-4 text-sm font-semibold tracking-widest text-[#d6c7aa]">DESTINATION SPOTLIGHT</p>
-          
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+
+          {/* Text content fades + rises as you scroll */}
+          <motion.div
+            style={{ opacity: textOpacity, y: textY }}
+            className="grid gap-12 lg:grid-cols-2 lg:items-center"
+          >
             <div>
               <h1 className="font-display text-5xl font-black leading-tight text-white md:text-6xl lg:text-7xl">
                 {destination.city}
@@ -88,10 +111,13 @@ const DestinationDetail = () => {
               </Link>
             </div>
 
-            {/* Right side image placeholder */}
+            {/* Right side image */}
             <div className="hidden lg:block">
               <div className="group relative aspect-square overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-br from-[#1a4d56] to-[#0f2c33] transition-all duration-300 hover:border-sky-400/50 hover:shadow-2xl hover:shadow-sky-400/20">
-                <div className="absolute inset-0 bg-cover bg-center opacity-50 transition-all duration-300 group-hover:opacity-70 group-hover:scale-110" style={{ backgroundImage: `url(${categoryHeroImage[destination.category]})` }} />
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-50 transition-all duration-300 group-hover:opacity-70 group-hover:scale-110"
+                  style={{ backgroundImage: `url(${categoryHeroImage[destination.category]})` }}
+                />
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/50 to-transparent">
                   <div className="text-center">
                     <p className="font-display text-2xl font-bold text-white italic">
@@ -101,7 +127,7 @@ const DestinationDetail = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -140,22 +166,10 @@ const DestinationDetail = () => {
             <article className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-sky-400/50 hover:bg-white/10 hover:shadow-lg hover:shadow-sky-400/10 hover:-translate-y-2">
               <h3 className="text-2xl font-bold text-white group-hover:text-sky-200 transition-colors duration-300">Why Visit {destination.city}</h3>
               <ul className="mt-6 space-y-4 text-sm leading-7 text-white/75">
-                <li className="flex gap-3">
-                  <span className="text-sky-400">•</span>
-                  <span>Authentic local experiences tailored to your interests</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-sky-400">•</span>
-                  <span>Expert guides with deep knowledge of the region</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-sky-400">•</span>
-                  <span>Flexible itineraries with optional customization</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-sky-400">•</span>
-                  <span>Premium accommodations and world-class service</span>
-                </li>
+                <li className="flex gap-3"><span className="text-sky-400">•</span><span>Authentic local experiences tailored to your interests</span></li>
+                <li className="flex gap-3"><span className="text-sky-400">•</span><span>Expert guides with deep knowledge of the region</span></li>
+                <li className="flex gap-3"><span className="text-sky-400">•</span><span>Flexible itineraries with optional customization</span></li>
+                <li className="flex gap-3"><span className="text-sky-400">•</span><span>Premium accommodations and world-class service</span></li>
               </ul>
             </article>
 
