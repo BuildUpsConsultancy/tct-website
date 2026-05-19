@@ -112,8 +112,6 @@ const Home = () => {
   /* Parallax hero */
   const heroRef  = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const bgY      = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const bgOpacity= useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
   const heroY    = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const heroOpac = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
