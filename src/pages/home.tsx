@@ -5,7 +5,7 @@ import {
   useScroll, useTransform, useMotionValue, animate,
 } from 'framer-motion';
 import {
-  ArrowRight, ChevronDown,
+  ArrowRight, ChevronDown, ChevronLeft, ChevronRight,
   Quote, Shield, Star, Users, Hotel, Plane,
 } from 'lucide-react';
 
@@ -107,6 +107,7 @@ const CountUpStat = ({ stat }: { stat: { value: string; label: string; icon?: st
 const Home = () => {
   const navigate   = useNavigate();
   const [openFaq, setOpenFaq] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   /* Parallax hero */
   const heroRef  = useRef<HTMLElement>(null);
@@ -115,6 +116,14 @@ const Home = () => {
   const bgOpacity= useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
   const heroY    = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const heroOpac = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  /* Auto-play testimonials */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 2) % testimonials.length);
+    }, 5000); // Change slide every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <motion.div
@@ -125,39 +134,32 @@ const Home = () => {
       exit="exit"
     >
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative overflow-hidden pt-20">
-        {/* Parallax background */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-[#1a4a52] via-[#0f3a42] to-[#0a2630]"
-          style={{ y: bgY }}
-        />
-        <motion.div
-          className="absolute inset-0 opacity-80"
-          style={{
-            backgroundImage: 'url(/images/image_1.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center top',
-            y: bgY,
-            opacity: bgOpacity,
-          }}
-        />
+      <section ref={heroRef} className="relative overflow-hidden pt-4">
+        {/* Video background */}
+        <video
+          autoPlay
+          muted
+          loop
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.9 }}
+        >
+          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+        </video>
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0f3a42]/40 to-[#0a2630]" />
 
         <motion.div
-          className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24"
+          className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
           style={{ y: heroY, opacity: heroOpac }}
         >
           {/* Left — text */}
           <motion.div
-            className="max-w-3xl"
+            className="max-w-3xl -ml-16"
             variants={staggerContainer(0.12, 0.1)}
             initial="hidden"
             animate="show"
           >
-            <motion.p variants={fadeUp} className="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#d6c7aa]">
-              Sri Lanka — The Right Way
-            </motion.p>
-            <motion.h1 variants={fadeUp} className="font-display text-4xl font-black leading-[0.92] text-tct-white md:text-6xl">
+            <motion.h1 variants={fadeUp} className="font-display text-5xl font-black leading-[0.92] text-tct-white md:text-6xl">
               The Coconut Tree Trails
             </motion.h1>
             <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg">
@@ -441,13 +443,13 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────── */}
+      {/* ── TESTIMONIALS SLIDER ──────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 bg-gradient-to-b from-[#0f3c42] to-[#0d3a41]">
         <div className="absolute inset-0 bg-cover bg-center opacity-100" style={{ backgroundImage: 'url(/images/image_4.png)' }} />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0d3a41]/60 to-[#0d3a41]/80" />
-        <div className="relative mx-auto max-w-7xl px-6">
+        <div className="relative mx-auto max-w-6xl px-6">
           <motion.div
-            className="text-center"
+            className="text-center mb-12"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
@@ -457,41 +459,121 @@ const Home = () => {
             <h2 className="font-display text-4xl text-white md:text-5xl">Real Stories. Real Sri Lanka.</h2>
           </motion.div>
 
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                {[0, 1].map((offset) => {
+                  const index = (currentTestimonial + offset) % testimonials.length;
+                  const t = testimonials[index];
+                  return (
+                    <motion.div
+                      key={`testimonial-${index}`}
+                      className="rounded-2xl border border-white/10 bg-black/20 p-8 shadow-lg shadow-black/20 backdrop-blur-sm"
+                      variants={cardItem}
+                    >
+                      <motion.div whileHover={{ scale: 1.12, color: 'rgba(127, 181, 176, 0.5)' }}>
+                        <Quote className="mb-5 h-12 w-12 text-white/20" />
+                      </motion.div>
+                      <p className="text-base leading-7 text-white/85 mb-8">"{t.quote}"</p>
+                      <div className="flex items-center gap-4">
+                        <div className="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-[#112738] text-base font-bold text-[#a7d9d5]">
+                          {t.name[0]}
+                        </div>
+                        <div>
+                          <p className="text-base font-semibold text-white">{t.name}</p>
+                          <div className="flex gap-0.5 text-yellow-400">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Navigation Buttons */}
+            <div className="mt-8 flex items-center justify-between">
+              <motion.button
+                onClick={() => setCurrentTestimonial((prev) => (prev - 2 + testimonials.length) % testimonials.length)}
+                className="group rounded-full border border-white/20 bg-white/5 p-3 text-white hover:bg-white/10 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </motion.button>
+              <div className="flex gap-2">
+                {Array.from({ length: Math.ceil(testimonials.length / 2) }).map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => setCurrentTestimonial(index * 2)}
+                    className={`h-2 rounded-full transition-all ${
+                      index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                  />
+                ))}
+              </div>
+              <motion.button
+                onClick={() => setCurrentTestimonial((prev) => (prev + 2) % testimonials.length)}
+                className="group rounded-full border border-white/20 bg-white/5 p-3 text-white hover:bg-white/10 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── GALLERY SECTION ───────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-24 bg-gradient-to-b from-[#0d3a41] to-[#0f3c42]">
+        <div className="absolute inset-0 bg-cover bg-center opacity-100" style={{ backgroundImage: 'url(/images/image_1.png)' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0d3a41]/60 to-[#0f3c42]/70" />
+        <div className="relative mx-auto max-w-7xl px-6">
           <motion.div
-            className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
-            variants={staggerContainer(0.12, 0.1)}
+            className="text-center mb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
+          >
+            <p className="section-label mb-2 text-white/85">Visual Journey</p>
+            <h2 className="font-display text-4xl text-white md:text-5xl">Sri Lanka in Focus</h2>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
+            variants={staggerContainer(0.08, 0.1)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-60px' }}
           >
-            {testimonials.map((t) => (
+            {[2, 3, 6, 7, 8, 9, 10, 5].map((imgNum) => (
               <motion.div
-                key={t.name}
-                className="group rounded-2xl border border-white/10 bg-black/20 p-8 shadow-lg shadow-black/20 backdrop-blur-sm"
+                key={`gallery-${imgNum}`}
+                className="group relative overflow-hidden rounded-2xl aspect-square"
                 variants={cardItem}
-                whileHover={{
-                  y: -8,
-                  borderColor: 'rgba(255,255,255,0.2)',
-                  backgroundColor: 'rgba(0,0,0,0.35)',
-                  transition: { duration: 0.3 },
-                }}
               >
-                <motion.div whileHover={{ scale: 1.12, color: 'rgba(127, 181, 176, 0.5)' }}>
-                  <Quote className="mb-5 h-10 w-10 text-white/15" />
-                </motion.div>
-                <p className="text-sm leading-7 text-white/85">"{t.quote}"</p>
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-[#112738] text-sm font-bold text-[#a7d9d5]">
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">{t.name}</p>
-                    <div className="flex gap-0.5 text-yellow-400">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                      ))}
-                    </div>
-                  </div>
+                <img
+                  src={`/images/image_${imgNum}.png`}
+                  alt={`Sri Lanka destination ${imgNum}`}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 className="text-lg font-semibold text-white">Destination</h3>
+                  <p className="text-sm text-white/80">Explore the beauty</p>
                 </div>
               </motion.div>
             ))}
