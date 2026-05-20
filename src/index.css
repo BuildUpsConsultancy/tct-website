@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Mooli&display=swap');
 
+/* ── Smooth Scrolling ──────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
 :root {
   --font-poppins: 'Poppins', sans-serif;
   --font-mooli: 'Mooli', Sans-serif;
