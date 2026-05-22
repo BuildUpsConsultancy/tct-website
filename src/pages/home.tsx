@@ -12,6 +12,7 @@ import {
 import { featuredDestinations } from '../data/destinations';
 import { generalCuriosities } from '../data/generalCuriosities';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight, scaleIn } from '../lib/motion';
+import CardSwap, { Card } from '../components/CardSwap';
 
 const stats = [
   { value: '18+', label: 'TOURS COMPLETED' },
@@ -472,8 +473,25 @@ const Home = () => {
       </section>
 
       {/* ── DESTINATIONS ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-20 bg-black/30">
-        <div className="relative mx-auto max-w-7xl px-6">
+      <section 
+        className="relative overflow-hidden py-20 bg-[#173036]"
+      >
+        {/* Background overlay for text readability - Top (Mirrored) */}
+        {/* <div className="absolute inset-0" style={{
+          backgroundImage: 'url(/images/image-4-new.png)',
+          backgroundPosition: 'center 423px',
+          backgroundRepeat: 'repeat-x',
+          filter: 'brightness(0.5)',
+          transform: 'scaleY(-1)',
+        }} /> */}
+        {/* Background overlay for text readability - Bottom (Normal) */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'url(/images/image-4-new.png)',
+          backgroundPosition: 'bottom',
+          backgroundRepeat: 'repeat-x',
+          filter: 'brightness(0.5)',
+        }} />
+        <div className="relative mx-auto max-w-9xl px-20 z-10">
           <motion.div className="mb-8 flex items-end justify-between" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <div>
               <p className="section-label mb-2 text-white/85">Top Destinations</p>
@@ -486,7 +504,7 @@ const Home = () => {
 
           <motion.div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" variants={staggerContainer(0.1)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
             {featuredDestinations.map((destination) => (
-              <motion.button key={destination.slug} type="button" onClick={() => navigate(`/destinations/${destination.slug}`)} className="group relative w-full overflow-hidden rounded-[28px] h-[350px] shadow-lg shadow-black/25" variants={cardItem} whileHover={{ y: -8, transition: { duration: 0.3 } }}>
+              <motion.button key={destination.slug} type="button" onClick={() => navigate(`/destinations/${destination.slug}`)} className="group relative w-full overflow-hidden h-[450px] shadow-lg shadow-black/25" variants={cardItem} whileHover={{ y: -8, transition: { duration: 0.3 } }}>
                 <motion.img src={destination.image} alt={destination.alt} className="absolute inset-0 h-full w-full object-cover" whileHover={{ scale: 1.08 }} transition={{ duration: 0.6 }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 px-5 pb-6 pt-12 text-center">
@@ -507,8 +525,18 @@ const Home = () => {
       </section>
 
       {/* ── FEATURE ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 bg-black/30">
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 lg:grid-cols-2">
+      <section 
+        className="relative overflow-hidden py-20 bg-[#173036]"
+      >
+        {/* Background overlay for text readability */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'url(/images/image-4-new.png)',
+          backgroundPosition: 'bottom',
+          backgroundRepeat: 'repeat-x',
+          filter: 'brightness(0.5)',
+        }} />
+        
+        <div className="relative mx-auto grid max-w-9xl grid-cols-1 items-center gap-10 px-20 lg:grid-cols-2 pr-40">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-3 text-white/85">Tailor-Made for You</p>
             <h2 className="font-display text-5xl font-bold leading-tight text-tct-white md:text-6xl">Sri Lanka<br />Your Way</h2>
@@ -520,31 +548,34 @@ const Home = () => {
             </motion.button>
           </motion.div>
 
-          <motion.div className="relative mx-auto w-full max-w-[420px]" variants={slideRight} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            <motion.div className="overflow-hidden rounded-[26px] shadow-2xl shadow-black/40" whileHover={{ scale: 1.02 }} transition={{ duration: 0.4 }}>
-              <img src="/images/home/colombo.avif" alt="Colombo, Sri Lanka" className="h-[420px] w-full object-cover transition-transform duration-700 hover:scale-105" />
-            </motion.div>
-            <motion.div className="absolute inset-x-6 bottom-6 rounded-2xl bg-[#0f2030]/85 p-5 text-white shadow-xl backdrop-blur-sm" whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-white">Magical Sri Lanka</h3>
-                  <p className="text-xs text-white/80">Kandy · Ella · Galle · Mirissa • 9 Days</p>
-                </div>
-                <span className="rounded bg-white px-3 py-1 text-xs font-bold text-[#0f2030]">$2,199</span>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.18em] text-white/80">
-                <span className="inline-flex items-center gap-1"><Hotel className="h-3.5 w-3.5" /> Boutique Stay</span>
-                <span className="inline-flex items-center gap-1"><Plane className="h-3.5 w-3.5" /> Private Transfer</span>
-                <span className="inline-flex items-center gap-1"><Users className="h-3.5 w-3.5" /> Expert Guide</span>
-              </div>
-            </motion.div>
-          </motion.div>
+          <div className="relative w-full h-[600px] -mt-20 mr-40">
+            <CardSwap
+              width={520}
+              height={600}
+              cardDistance={60}
+              verticalDistance={70}
+              delay={3000}
+              pauseOnHover={true}
+              skewAmount={6}
+              easing="elastic"
+            >
+              <Card customClass="bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+                <img src="/images/home/colombo.avif" alt="Colombo" className="w-full h-full object-cover" />
+              </Card>
+              <Card customClass="bg-gradient-to-br from-slate-800 to-slate-700 overflow-hidden">
+                <img src="/images/home/yala.jpg" alt="Yala" className="w-full h-full object-cover" />
+              </Card>
+              <Card customClass="bg-gradient-to-br from-slate-700 to-slate-600 overflow-hidden">
+                <img src="/images/home/kandy.jpg" alt="Kandy" className="w-full h-full object-cover" />
+              </Card>
+            </CardSwap>
+          </div>
         </div>
       </section>
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 bg-black/30">
-        <div className="relative mx-auto max-w-7xl px-6">
+        <div className="relative mx-auto max-w-9xl px-20">
           <motion.div className="text-center" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 text-white/85">Your Trusted Partner</p>
             <h2 className="font-display text-4xl text-white md:text-5xl">Authentic Sri Lanka</h2>
@@ -568,7 +599,7 @@ const Home = () => {
                 }
               };
               return (
-                <motion.div key={service.title} className="group rounded-2xl border border-white/10 bg-[#14273a]/85 p-6 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem} whileHover={{ y: -8, borderColor: 'rgba(127, 181, 176, 0.4)', backgroundColor: 'rgba(24, 50, 70, 0.9)', transition: { duration: 0.3 } }}>
+                <motion.div key={service.title} className="group rounded-2xl border border-white/10 bg-[#173036] p-6 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem} whileHover={{ y: -8, borderColor: 'rgba(127, 181, 176, 0.4)', backgroundColor: 'rgba(24, 50, 70, 0.9)', transition: { duration: 0.3 } }}>
                   <div className="mb-6 text-[#a7d9d5]">{getServiceIcon()}</div>
                   <h3 className="mb-3 text-xl font-bold text-white group-hover:text-[#f5f0e8] transition-colors duration-300">{service.title}</h3>
                   <p className="text-sm leading-7 text-white/80">{service.desc}</p>
@@ -650,7 +681,7 @@ const Home = () => {
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 bg-black/30">
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-2">
+        <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-10 px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-3 text-white/85">You Asked, We Answer</p>
             <h2 className="font-display text-4xl text-white md:text-5xl">Quick Answers for Smart Travellers</h2>
