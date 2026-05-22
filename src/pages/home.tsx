@@ -6,7 +6,7 @@ import {
 } from 'framer-motion';
 import {
   ArrowRight, ChevronDown, ChevronLeft, ChevronRight,
-  Quote, Shield, Star, Users, Hotel, Plane,
+  Quote, Shield, Star,
 } from 'lucide-react';
 
 import { featuredDestinations } from '../data/destinations';
