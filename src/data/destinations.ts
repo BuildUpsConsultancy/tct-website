@@ -29,10 +29,25 @@ export const featuredDestinations: DestinationCard[] = [
     alt: 'Coastal city skyline and lighthouse in Colombo',
   },
   {
-    slug: 'yala-beach-tours',
-    title: 'Yala – Beach Tour',
-    subtitle: 'Tours (02)',
+    slug: 'yala-safari',
+    title: 'Yala – Safari',
+    subtitle: 'Tours (01)',
     image: '/images/home/yala.jpg',
-    alt: 'Tropical shoreline and surf near Yala',
+    alt: 'Wildlife in Yala National Park',
   },
+  {
+    slug: 'jaffna-cultural-tour',
+    title: 'Jaffna – Cultural Tour',
+    subtitle: 'Tours (01)',
+    image: '/images/home/jaffna.jpg',
+    alt: 'Cultural site in Jaffna',
+  },
+  {
+    slug: 'bentota-beach-tours',
+    title: 'Bentota – Beach Tours',
+    subtitle: 'Tours (02)',
+    image: '/images/home/bentota.jpg',
+    alt: 'Beach in Bentota with palm trees and clear water',
+  },
+  
 ];
