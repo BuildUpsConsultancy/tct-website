@@ -66,7 +66,6 @@ const Navbar = () => {
     { label: 'About Us', to: '/about' },
     { label: 'Contact', to: '/contact' },
     { label: 'FAQ & Policy', to: '/faq-policy' },
-    { label: 'Cart', to: '/cart' },
   ];
 
   const isActive = (to: string) => {
@@ -84,7 +83,7 @@ const Navbar = () => {
             <img src="/logococnut.png" alt="TCT Logo" className="h-12 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110" />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
+          <div className="hidden md:flex items-center gap-5 absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
               className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
