@@ -7,13 +7,14 @@ import {
 } from 'framer-motion';
 import {
   ArrowRight, ChevronDown, ChevronLeft, ChevronRight,
-  Quote, Shield, Star,
+  Quote, Star,
 } from 'lucide-react';
 
 import { featuredDestinations } from '../data/destinations';
 import { generalCuriosities } from '../data/generalCuriosities';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight, scaleIn } from '../lib/motion';
 import CardSwap, { Card } from '../components/CardSwap';
+import ShinyText from '../components/ShinyText';
 
 const services = [
   { iconType: 'flight',  title: 'Flight Booking',   desc: 'We assist with international and domestic flight arrangements to ensure your Sri Lanka journey starts smoothly from the moment you leave home.' },
@@ -313,6 +314,40 @@ const MobileGallery = () => (
 );
 
 // ── HOME PAGE ────────────────────────────────────────────────────────────────
+const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx: number; navigate: any }) => {
+  const [isHovering, setIsHovering] = useState(false);
+
+  return (
+    <motion.button
+      key={`${destination.slug}-${idx}`}
+      type="button"
+      onClick={() => navigate(`/destinations/${destination.slug}`)}
+      className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[600px] shadow-lg shadow-black/20 border border-gray-200"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        className="absolute inset-0 origin-top-left"
+        animate={isHovering ? { scale: 1.15 } : { scale: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <img
+          src={destination.image}
+          alt={destination.alt}
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-8 pt-16 text-center">
+        <h3 className="text-2xl font-bold tracking-tight text-white">{destination.title}</h3>
+        <p className="mt-2 text-sm font-medium text-white/85">{destination.subtitle}</p>
+      </div>
+    </motion.button>
+  );
+};
+
+// ── HOME PAGE ────────────────────────────────────────────────────────────────
 const Home = () => {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(0);
@@ -333,6 +368,24 @@ const Home = () => {
   const handleDestinationNext = () => {
     setDestinationSlide((prev) => prev + 1);
   };
+
+  // Seamless infinite loop - reset when reaching the end of first set
+  useEffect(() => {
+    if (destinationSlide >= featuredDestinations.length) {
+      const timer = setTimeout(() => {
+        if (destinationSliderRef.current) {
+          destinationSliderRef.current.style.transition = 'none';
+        }
+        setDestinationSlide(destinationSlide % featuredDestinations.length);
+        setTimeout(() => {
+          if (destinationSliderRef.current) {
+            destinationSliderRef.current.style.transition = '';
+          }
+        }, 0);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [destinationSlide]);
 
   // Autoplay for destination slider
   useEffect(() => {
@@ -405,15 +458,23 @@ const Home = () => {
           style={{ y: heroY, opacity: heroOpac }}
         >
           <motion.div className="max-w-3xl -ml-16" variants={staggerContainer(0.12, 0.1)} initial="hidden" animate="show">
-            <motion.h1 variants={fadeUp} className="font-display text-5xl font-black leading-[0.92] text-tct-white md:text-6xl">
-              The Coconut Tree Trails
+            <motion.h1 variants={fadeUp} className="font-display text-5xl font-black leading-[0.92] md:text-8xl text-shadow-2xl">
+              <ShinyText
+                text="The Coconut Tree Trails"
+                speed={3}
+                delay={1}
+                color="#ffffff"
+                shineColor="#a7d9d5"
+                spread={120}
+                direction="left"
+                pauseOnHover={true}
+                className="font-display"
+              />
             </motion.h1>
-            <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg">
+            <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg text-shadow-lg shadow-black/30 px-4 py-2">
               Travel Sri Lanka with people who know it. Tailor-made tours rooted in local expertise, genuine hospitality, and a deep love for this island paradise.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-4 flex items-center gap-3 text-sm text-white/60">
-              <Shield className="h-4 w-4 text-[#a7d9d5]" />
-              <span>UK-standard service · Local Sri Lankan expertise · 8+ years experience</span>
             </motion.div>
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
               <motion.button onClick={() => navigate('/packages')} className="rounded-full bg-[#173036] px-10 py-4 text-base font-semibold text-white shadow-lg shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
@@ -449,6 +510,15 @@ const Home = () => {
 
       {/* ── DESTINATIONS ─────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 bg-white">
+        <div
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      backgroundImage: "url('/images/updated-5.png')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',// 👈 flips horizontally
+      opacity: 0.9,
+    }}
+  />
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-[#f0fdf8] pointer-events-none" />
         <div className="relative mx-auto max-w-9xl px-20 z-10">
           <motion.div className="mb-12 flex items-end justify-between" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
@@ -498,31 +568,12 @@ const Home = () => {
               <motion.div
                 ref={destinationSliderRef}
                 className="flex gap-8"
-                animate={{ x: -(destinationSlide % featuredDestinations.length) * (33.333 + 2.667) + '%' }}
+                animate={{ x: -(destinationSlide * (33.333 + 2.667)) + '%' }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
               >
-                {featuredDestinations.map((destination) => (
-                  <motion.button
-                    key={destination.slug}
-                    type="button"
-                    onClick={() => navigate(`/destinations/${destination.slug}`)}
-                    className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[600px] shadow-lg shadow-black/20 border border-gray-200"
-                    whileHover={{ y: -8 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.img
-                      src={destination.image}
-                      alt={destination.alt}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.6 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 px-6 pb-8 pt-16 text-center">
-                      <h3 className="text-2xl font-bold tracking-tight text-white">{destination.title}</h3>
-                      <p className="mt-2 text-sm font-medium text-white/85">{destination.subtitle}</p>
-                    </div>
-                  </motion.button>
+                {/* Render cards twice for infinite loop */}
+                {[...featuredDestinations, ...featuredDestinations].map((destination, idx) => (
+                  <DestinationCard key={`${destination.slug}-${idx}`} destination={destination} idx={idx} navigate={navigate} />
                 ))}
               </motion.div>
             </div>
@@ -542,22 +593,22 @@ const Home = () => {
           filter: 'brightness(0.5)',
         }} />
         
-        <div className="relative mx-auto grid max-w-9xl grid-cols-1 items-center gap-10 px-20 lg:grid-cols-2 pr-40">
+        <div className="relative mx-auto grid max-w-9xl grid-cols-1 items-center gap-10 px-20 lg:grid-cols-2 pr-40 pb-20">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-3 text-white/85">Tailor-Made for You</p>
             <h2 className="font-display text-5xl font-bold leading-tight text-tct-white md:text-6xl">Sri Lanka<br />Your Way</h2>
             <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 md:text-base">
               From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
             </p>
-            <motion.button onClick={() => navigate('/packages')} className="mt-8 rounded-full bg-[#173036] px-8 py-4 text-base font-semibold text-white shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
+            <motion.button onClick={() => navigate('/packages')} className="mt-8 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
               Browse All Packages
             </motion.button>
           </motion.div>
 
           <div className="relative w-full h-[600px] -mt-20 mr-40">
             <CardSwap
-              width={520}
-              height={600}
+              width={500}
+              height={500}
               cardDistance={60}
               verticalDistance={70}
               delay={3000}
@@ -580,9 +631,16 @@ const Home = () => {
       </section>
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#ecfdf5]/30 to-transparent pointer-events-none" />
-        <div className="relative mx-auto max-w-9xl px-20">
+      <section
+  className="relative overflow-hidden py-24"
+  style={{
+    backgroundImage: "url('/images/updated.jpeg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+
+  <div className="relative mx-auto max-w-9xl px-20">
           <motion.div className="text-center mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 text-[#173036] font-semibold">Your Trusted Partner</p>
             <h2 className="font-display text-5xl font-bold text-gray-900 md:text-6xl mb-4">Authentic Sri Lanka</h2>
@@ -682,12 +740,12 @@ const Home = () => {
                 </div>
 
                 <motion.button 
-                  onClick={() => navigate('/packages')}
+                  onClick={() => navigate('/about')}
                   className="w-full px-8 py-4 rounded-full bg-white text-[#173036] font-bold text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Explore Packages
+                  Explore Us
                 </motion.button>
               </motion.div>
             </motion.div>
@@ -765,7 +823,17 @@ const Home = () => {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 bg-white">
+      <section className="relative overflow-hidden py-24">
+  {/* Flipped background image */}
+  <div
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      backgroundImage: "url('/images/updated-4.png')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',// 👈 flips horizontally
+      opacity: 0.9,
+    }}
+  />
         <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-16 px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
@@ -778,7 +846,7 @@ const Home = () => {
             </motion.button>
           </motion.div>
 
-          <motion.div className="space-y-4" variants={staggerContainer(0.08, 0.2)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
+          <motion.div className="space-y-4 opacity-80" variants={staggerContainer(0.08, 0.2)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
             {generalCuriosities.map((faq, index) => (
               <motion.div key={faq.q} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-200" variants={cardItem} whileHover={{ y: -2 }}>
                 <button className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors duration-200" onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
