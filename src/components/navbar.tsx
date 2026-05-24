@@ -77,7 +77,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="w-full bg-gradient-to-r from-slate-900/80 via-slate-900/70 to-slate-950/80 backdrop-blur-sm shadow-2xl border-b border-slate-800/40" style={{ overflow: 'visible' }}>
+      <div className="w-full bg-white/10 backdrop-blur-sm shadow-2xl" style={{ overflow: 'visible' }}>
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between" style={{ overflow: 'visible' }}>
           <Link to="/" className="group flex items-center gap-3 transition-all duration-300 hover:gap-4">
             <img src="/logococnut.png" alt="TCT Logo" className="h-12 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110" />
@@ -86,25 +86,25 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-5 absolute left-1/2 transform -translate-x-1/2">
             <Link
               to="/"
-              className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+              className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive('/') ? 'text-[#a7d9d5]' : 'text-slate-300 hover:text-[#a7d9d5] hover:translate-y-[-2px] hover:scale-102'
                 }`}
             >
               Home
-              <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
-              {isActive('/') && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />}
+              <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-[#a7d9d5] transition-all duration-200 group-hover:w-full" />
+              {isActive('/') && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-[#a7d9d5] rounded-full" />}
             </Link>
 
             <div className="relative" onMouseEnter={openDropdown} onMouseLeave={() => closeDropdownWithDelay(150)}>
               <button
                 type="button"
-                className={`group relative inline-flex items-center gap-1 px-2 py-1 text-sm font-medium transition-all duration-200 ${location.pathname.startsWith('/destinations') ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                className={`group relative inline-flex items-center gap-1 px-2 py-1 text-sm font-medium transition-all duration-200 ${location.pathname.startsWith('/destinations') ? 'text-[#a7d9d5]' : 'text-slate-300 hover:text-[#a7d9d5] hover:translate-y-[-2px] hover:scale-102'
                   }`}
               >
                 Destinations
                 <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${destinationsOpen ? 'rotate-180' : ''}`} />
-                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
+                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-[#a7d9d5] transition-all duration-200 group-hover:w-full" />
                 {location.pathname.startsWith('/destinations') && (
-                  <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />
+                  <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-[#a7d9d5] rounded-full" />
                 )}
               </button>
 
@@ -127,7 +127,7 @@ const Navbar = () => {
                               <Link
                                 to={`/destinations/${item.slug}`}
                                 onClick={() => setDestinationsOpen(false)}
-                                className="flex items-start gap-2.5 text-sm font-semibold leading-snug text-slate-200 transition-colors hover:text-sky-400"
+                                className="flex items-start gap-2.5 text-sm font-semibold leading-snug text-slate-200 transition-colors hover:text-[#a7d9d5]"
                               >
                                 <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
                                 <span>{getDestinationLabel(item)}</span>
@@ -146,12 +146,12 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive(link.to) ? 'text-sky-400' : 'text-slate-300 hover:text-sky-400 hover:translate-y-[-2px] hover:scale-102'
+                className={`group relative px-2 py-1 text-sm font-medium transition-all duration-200 ${isActive(link.to) ? 'text-[#a7d9d5]' : 'text-slate-300 hover:text-[#a7d9d5] hover:translate-y-[-2px] hover:scale-102'
                   }`}
               >
                 {link.label}
-                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-sky-400 transition-all duration-200 group-hover:w-full" />
-                {isActive(link.to) && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />}
+                <span className="absolute -bottom-3 left-0 h-0.5 w-0 rounded-full bg-[#a7d9d5] transition-all duration-200 group-hover:w-full" />
+                {isActive(link.to) && <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-[#a7d9d5] rounded-full" />}
               </Link>
             ))}
           </div>
@@ -163,7 +163,7 @@ const Navbar = () => {
                 onMouseEnter={openUserMenu}
                 onMouseLeave={() => closeUserMenu(150)}
               >
-                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 hover:bg-sky-500/30 transition-all duration-200">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/20 border border-[#a7d9d5]/30 text-sky-300 hover:bg-sky-500/30 transition-all duration-200">
                   <User className="w-4 h-4" />
                   <span className="text-sm font-medium">{user.name}</span>
                 </button>
@@ -192,7 +192,7 @@ const Navbar = () => {
               <>
                 <button
                   onClick={() => navigate('/login')}
-                  className="text-sm px-4 py-2 rounded-full border border-white/30 text-white bg-transparent hover:bg-sky-400/10 hover:text-sky-400 transition-all duration-200"
+                  className="text-sm px-4 py-2 rounded-full border border-white/30 text-white bg-transparent hover:bg-[#a7d9d5]/10 hover:text-[#a7d9d5] transition-all duration-200"
                 >
                   Login
                 </button>
@@ -240,7 +240,7 @@ const Navbar = () => {
             <div className="flex gap-3 mt-4">
               {user ? (
                 <>
-                  <div className="flex-1 px-3 py-2 bg-sky-500/20 border border-sky-400/30 rounded-lg text-center">
+                  <div className="flex-1 px-3 py-2 bg-sky-500/20 border border-[#a7d9d5]/30 rounded-lg text-center">
                     <p className="text-xs text-slate-400">Logged in as</p>
                     <p className="text-sm font-semibold text-sky-300">{user.name}</p>
                   </div>
