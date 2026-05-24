@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, MapPin, LogOut, User } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { authAPI } from '../api/authAPI';
 import { destinationMenu, getDestinationLabel } from '../data/destinationMenu';
 
 const Navbar = () => {
@@ -16,10 +15,10 @@ const Navbar = () => {
 
   useEffect(() => {
     // Check if user is authenticated on component mount
-    if (authAPI.isAuthenticated()) {
-      const userData = authAPI.getUser();
-      setUser(userData);
-    }
+    // if (authAPI.isAuthenticated()) {
+    //   const userData = authAPI.getUser();
+    //   setUser(userData);
+    // }
   }, [location.pathname]);
 
   const openDropdown = () => {
@@ -39,7 +38,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    authAPI.logout();
+    // authAPI.logout();
     setUser(null);
     setShowUserMenu(false);
     navigate('/login');
