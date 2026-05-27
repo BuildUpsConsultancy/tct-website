@@ -138,6 +138,36 @@ export const destinationInfo: Record<string, DestinationTravelInfo> = {
     language: 'Sinhala, English',
     mustSee: 'Negombo Lagoon',
   },
+  'yala-wildlife-tour': {
+    season: 'Dec – April',
+    currency: 'LKR',
+    language: 'Sinhala, English',
+    mustSee: 'Yala National Park',
+  },
+  'udawalawe-wildlife-tour': {
+    season: 'Jan – June',
+    currency: 'LKR',
+    language: 'Sinhala, English',
+    mustSee: 'Udawalawe Sanctuary',
+  },
+  'sigiriya-hidden-trail': {
+    season: 'Oct – May',
+    currency: 'LKR',
+    language: 'Sinhala, English',
+    mustSee: 'Sigiriya Rock Fortress',
+  },
+  'nuwara-eliya-hidden-trail': {
+    season: 'Jan – April',
+    currency: 'LKR',
+    language: 'Sinhala, English',
+    mustSee: 'Nuwara Eliya Town',
+  },
+  'horton-plains-hidden-trail': {
+    season: 'Jan – April',
+    currency: 'LKR',
+    language: 'Sinhala, English',
+    mustSee: "World's End",
+  },
 };
 
 export const getDestinationInfo = (slug: string): DestinationTravelInfo => {

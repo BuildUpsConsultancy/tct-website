@@ -477,10 +477,10 @@ const Home = () => {
             <motion.div variants={fadeUp} className="mt-4 flex items-center gap-3 text-sm text-white/60">
             </motion.div>
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <motion.button onClick={() => navigate('/packages')} className="rounded-full bg-[#173036] px-10 py-4 text-base font-semibold text-white shadow-lg shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+              <motion.button onClick={() => navigate('/packages')} className="bg-[#173036] px-10 py-4 text-base font-semibold text-white shadow-lg shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Explore Packages
               </motion.button>
-              <motion.button onClick={() => navigate('/contact')} className="rounded-full border-2 border-white/40 px-8 py-4 text-base font-semibold text-white hover:border-white transition-colors duration-200" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+              <motion.button onClick={() => navigate('/contact')} className="border-2 border-white/40 px-8 py-4 text-base font-semibold text-white hover:border-white transition-colors duration-200" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Plan My Trip
               </motion.button>
             </motion.div>
@@ -600,7 +600,7 @@ const Home = () => {
             <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 md:text-base">
               From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
             </p>
-            <motion.button onClick={() => navigate('/packages')} className="mt-8 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
+            <motion.button onClick={() => navigate('/packages')} className="mt-8 bg-white px-8 py-4 text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
               Browse All Packages
             </motion.button>
           </motion.div>
@@ -632,13 +632,14 @@ const Home = () => {
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
       <section
-  className="relative overflow-hidden py-24"
+  className="relative overflow-hidden py-24 "
   style={{
     backgroundImage: "url('/images/updated.jpeg')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
 >
+  <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/95 to-transparent" />
 
   <div className="relative mx-auto max-w-9xl px-20">
           <motion.div className="text-center mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
@@ -664,7 +665,7 @@ const Home = () => {
                 }
               };
               return (
-                <motion.div key={service.title} className="group relative rounded-2xl border border-gray-200 bg-white p-8 shadow-lg shadow-black/10" variants={cardItem} whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
+                <motion.div key={service.title} className="group relative border border-gray-200 bg-white p-8 shadow-lg shadow-black/10" variants={cardItem} whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
                   <div className="relative mb-6 inline-flex rounded-xl bg-[#173036] p-3 text-white">{getServiceIcon()}</div>
                   <h3 className="mb-3 text-xl font-bold text-gray-900">{service.title}</h3>
                   <p className="text-base leading-7 text-gray-700">{service.desc}</p>
@@ -678,8 +679,8 @@ const Home = () => {
       {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
       <section className="relative overflow-hidden py-20 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] rounded-full blur-3xl" />
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
         </div>
         
         <div className="relative mx-auto max-w-9xl px-6 md:px-20">
@@ -741,7 +742,7 @@ const Home = () => {
 
                 <motion.button 
                   onClick={() => navigate('/about')}
-                  className="w-full px-8 py-4 rounded-full bg-white text-[#173036] font-bold text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
+                  className="w-full px-8 py-4 bg-white text-[#173036] font-bold text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -834,6 +835,7 @@ const Home = () => {
       opacity: 0.9,
     }}
   />
+  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
         <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-16 px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
@@ -841,14 +843,14 @@ const Home = () => {
             <p className="mt-4 max-w-lg text-base leading-8 text-gray-600 mb-8">
               Planning a trip to Sri Lanka? Here are the questions we get asked most often — answered honestly by our team.
             </p>
-            <motion.button onClick={() => navigate('/faq-policy')} className="inline-flex items-center gap-3 rounded-full bg-[#173036] px-8 py-3 font-semibold text-white shadow-md shadow-black/20" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              View Full FAQ <ArrowRight className="h-5 w-5" />
+            <motion.button onClick={() => navigate('/faq-policy')} className="inline-flex items-center gap-3 bg-[#173036] px-8 py-3 font-semibold text-white shadow-md shadow-black/20" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              View Full FAQ
             </motion.button>
           </motion.div>
 
           <motion.div className="space-y-4 opacity-80" variants={staggerContainer(0.08, 0.2)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
             {generalCuriosities.map((faq, index) => (
-              <motion.div key={faq.q} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-200" variants={cardItem} whileHover={{ y: -2 }}>
+              <motion.div key={faq.q} className="overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-200" variants={cardItem} whileHover={{ y: -2 }}>
                 <button className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors duration-200" onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
                   <span className="text-base font-semibold text-gray-900 pr-4">{faq.q}</span>
                   <motion.div animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className="flex-shrink-0">
