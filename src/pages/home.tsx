@@ -487,8 +487,8 @@ const Home = () => {
           </motion.div>
 
           <motion.div className="relative hidden h-[680px] lg:block" variants={staggerContainer(0.15, 0.4)} initial="hidden" animate="show">
-            <motion.div variants={slideRight} className="absolute right-16 top-10 w-[350px] rotate-6 rounded-2xl border-4 border-[#a7d9d5]/60 bg-[#13212d] shadow-2xl shadow-black/50" whileHover={{ rotate: 3, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
-              <div className="overflow-hidden rounded-[14px]">
+            <motion.div variants={slideRight} className="absolute right-16 top-10 w-[350px] rotate-6 border-4 border-[#a7d9d5]/60 bg-[#13212d] shadow-2xl shadow-black/50" whileHover={{ rotate: 3, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
+              <div className="overflow-hidden">
                 <img src="/images/home/kandy.jpg" alt="Kandy, Sri Lanka" className="h-[340px] w-full object-cover" />
               </div>
               <div className="px-4 py-3">
@@ -496,12 +496,12 @@ const Home = () => {
                 <p className="text-base font-semibold text-white">Sigiriya, Sri Lanka</p>
               </div>
             </motion.div>
-            <motion.div variants={scaleIn} className="absolute right-36 top-34 w-[290px] -rotate-12 rounded-2xl bg-[#0f1f2e] shadow-2xl shadow-black/50" whileHover={{ rotate: -9, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
-              <div className="overflow-hidden rounded-2xl border-4 border-[#1f3b52]">
+            <motion.div variants={scaleIn} className="absolute right-36 top-34 w-[290px] -rotate-12 bg-[#0f1f2e] shadow-2xl shadow-black/50" whileHover={{ rotate: -9, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
+              <div className="overflow-hidden border-4 border-[#1f3b52]">
                 <img src="/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg" alt="Ella, Sri Lanka" className="h-[340px] w-full object-cover" />
               </div>
             </motion.div>
-            <motion.div variants={fadeUp} className="absolute right-10 top-48 w-[260px] -rotate-2 overflow-hidden rounded-2xl bg-[#121d28] shadow-2xl shadow-black/50" whileHover={{ rotate: 0, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
+            <motion.div variants={fadeUp} className="absolute right-10 top-48 w-[260px] -rotate-2 overflow-hidden bg-[#121d28] shadow-2xl shadow-black/50" whileHover={{ rotate: 0, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
               <img src="/images/home/yala.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
             </motion.div>
           </motion.div>
