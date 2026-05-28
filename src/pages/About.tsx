@@ -92,7 +92,7 @@ const About = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-10 md:py-14 lg:py-16">
+        <div className="relative mx-auto max-w-9xl px-20 py-10 md:py-14 lg:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
 
             <motion.div
@@ -186,7 +186,7 @@ const About = () => {
       {/* ── WHY CHOOSE US ────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20 md:py-24 min-h-[580px] flex items-center bg-white">
         <div className="absolute inset-0 bg-cover bg-center opacity-8" style={{ backgroundImage: 'url(/images/updated.jpeg)' }} />
-        <div className="relative mx-auto max-w-7xl px-6">
+        <div className="relative mx-auto max-w-9xl px-20">
           <motion.div
             className="text-center"
             variants={fadeUp}
@@ -246,7 +246,7 @@ const About = () => {
 
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-50 py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-9xl px-20">
           <motion.div
             className="text-center mb-12"
             variants={fadeUp}
@@ -255,7 +255,7 @@ const About = () => {
             viewport={{ once: true, margin: '-80px' }}
           >
             <p className="mb-2 section-label text-[#173036]">Gallery</p>
-            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Sri Lanka</h2>
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
           </motion.div>
 
           {/* Infinite Scrolling Gallery */}
@@ -271,18 +271,18 @@ const About = () => {
             >
               {/* Original set */}
               {[
-                '/images/home/bentota.jpg',
-                '/images/home/jaffna.jpg',
-                '/images/home/galle.jpg',
-                '/images/home/kandy.jpg',
-                '/images/home/bentota.jpg',
-                '/images/home/jaffna.jpg',
-                '/images/home/galle.jpg',
-                '/images/home/kandy.jpg',
+                '/images/gallery/gallery_01.jpg',
+                '/images/gallery/gallery_02.jpg',
+                '/images/gallery/gallery_09.jpg',
+                '/images/gallery/gallery_04.jpg',
+                '/images/gallery/gallery_05.jpg',
+                '/images/gallery/gallery_10.jpg',
+                '/images/gallery/gallery_07.jpg',
+                '/images/gallery/gallery_08.jpg',
               ].map((image, index) => (
                 <div
                   key={`original-${index}`}
-                  className="relative h-80 w-96 flex-shrink-0 overflow-hidden"
+                  className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
                 >
                   <img
                     src={image}
@@ -295,20 +295,18 @@ const About = () => {
 
               {/* Duplicate set for infinite loop */}
               {[
-                '/images/home/bentota.jpg',
-                '/images/home/jaffna.jpg',
-                '/images/home/galle.jpg',
-                '/images/home/kandy.jpg',
-                '/images/home/bentota.jpg',
-                '/images/home/jaffna.jpg',
-                '/images/home/galle.jpg',
-                '/images/home/kandy.jpg',
-                '/images/home/bentota.jpg',
-                '/images/home/jaffna.jpg',
+                '/images/gallery/gallery_01.jpg',
+                '/images/gallery/gallery_02.jpg',
+                '/images/gallery/gallery_09.jpg',
+                '/images/gallery/gallery_04.jpg',
+                '/images/gallery/gallery_05.jpg',
+                '/images/gallery/gallery_10.jpg',
+                '/images/gallery/gallery_07.jpg',
+                '/images/gallery/gallery_08.jpg',
               ].map((image, index) => (
                 <div
                   key={`duplicate-${index}`}
-                  className="relative h-80 w-96 flex-shrink-0 overflow-hidden"
+                  className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
                 >
                   <img
                     src={image}

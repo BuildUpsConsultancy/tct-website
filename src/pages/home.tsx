@@ -509,17 +509,18 @@ const Home = () => {
       </section>
 
       {/* ── DESTINATIONS ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 bg-white">
-        <div
+      <section className="relative overflow-hidden py-24">
+  {/* Flipped background image */}
+  <div
     className="absolute inset-0 pointer-events-none"
     style={{
-      backgroundImage: "url('/images/updated-5.png')",
+      backgroundImage: "url('/images/updated.jpeg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',// 👈 flips horizontally
       opacity: 0.9,
     }}
   />
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-[#f0fdf8] pointer-events-none" />
+  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
         <div className="relative mx-auto max-w-9xl px-20 z-10">
           <motion.div className="mb-12 flex items-end justify-between" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <div>
