@@ -17,6 +17,7 @@ import PackageDetail from './pages/packageDetail.tsx';
 import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import FAQ from './pages/FAQ.tsx';
+import Inquiry from './pages/Inquiry.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -29,6 +30,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="packages" element={<Packages />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="enquiry" element={<Inquiry />} />
+          <Route path="inquiry" element={<Inquiry />} />
           <Route path="cart" element={<Cart />} />
           <Route path="travel-blog" element={<TravelBlog />} />
           <Route path="faq-policy" element={<FAQ />} />
