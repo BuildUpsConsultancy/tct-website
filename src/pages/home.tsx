@@ -7,7 +7,7 @@ import {
 } from 'framer-motion';
 import {
   ArrowRight, ChevronDown, ChevronLeft, ChevronRight,
-  Quote, Star,
+  Quote,
 } from 'lucide-react';
 
 import { featuredDestinations } from '../data/destinations';
@@ -778,9 +778,6 @@ const Home = () => {
                         <div className="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-[#112738] text-base font-bold text-[#a7d9d5]">{t.name[0]}</div>
                         <div>
                           <p className="text-base font-semibold text-white">{t.name}</p>
-                          <div className="flex gap-0.5 text-yellow-400">
-                            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-                          </div>
                         </div>
                       </div>
                     </motion.div>
