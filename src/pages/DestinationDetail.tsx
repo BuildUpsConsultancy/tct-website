@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ArrowLeft, MapPin, Check, Users, Sun, CalendarDays } from 'lucide-react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Lenis from 'lenis';
@@ -116,83 +116,87 @@ const categoryWhyVisit: Record<string, string[]> = {
 const categoryGallery: Record<string, { src: string; tag: string; caption: string }[]> = {
   'Wildlife': [
     { src: '/images/home/yala.jpg',   tag: 'Featured',  caption: 'Leopard at Yala National Park' },
-    { src: '/images/home/udawalawe.jpg',  tag: 'Wildlife',  caption: 'Elephant herd, Udawalawe' },
-    { src: '/images/home/birds.jpg',     tag: 'Birds',     caption: 'Blue-tailed bee-eater' },
+    { src: '/images/destinations/wilpattu-wildlife.png',  tag: 'Wildlife',  caption: 'Elephant herd, Udawalawe' },
+    { src: '/images/destinations/udawalawa-wildlife.jpg',     tag: 'Birds',     caption: 'Blue-tailed bee-eater' },
   ],
   'Adventure tours': [
-    { src: '/images/gallery/adventure-rafting.jpg',  tag: 'Featured',  caption: 'White-water rafting, Kitulgala' },
-    { src: '/images/gallery/adventure-climb.jpg',    tag: 'Hiking',    caption: 'Summit trail, Knuckles Range' },
-    { src: '/images/gallery/adventure-zip.jpg',      tag: 'Zipline',   caption: 'Rainforest canopy zipline' },
+    { src: '/images/destinations/adventure-rafting.jpg',  tag: 'Featured',  caption: 'White-water rafting, Kitulgala' },
+    { src: '/images/destinations/adventure-climb.jpg',    tag: 'Hiking',    caption: 'Summit trail, Knuckles Range' },
+    { src: '/images/destinations/adventure-zip.jpg',      tag: 'Zipline',   caption: 'Rainforest canopy zipline' },
   ],
   'Beaches tours': [
-    { src: '/images/gallery/beach-mirissa.jpg',      tag: 'Featured',  caption: 'Mirissa Beach at golden hour' },
-    { src: '/images/gallery/beach-unawatuna.jpg',    tag: 'Snorkel',   caption: 'Coral reef, Unawatuna' },
-    { src: '/images/gallery/beach-arugambay.jpg',    tag: 'Surf',      caption: 'Arugam Bay surf break' },
+    { src: '/images/destinations/beach-mirissa.jpg',      tag: 'Featured',  caption: 'Mirissa Beach at golden hour' },
+    { src: '/images/destinations/beach-unawatuna.jpg',    tag: 'Snorkel',   caption: 'Coral reef, Unawatuna' },
+    { src: '/images/destinations/beach-arugambay.jpg',    tag: 'Surf',      caption: 'Arugam Bay surf break' },
   ],
   'Historical Areas tours': [
-    { src: '/images/gallery/history-sigiriya.jpg',   tag: 'Featured',  caption: 'Sigiriya Rock Fortress' },
-    { src: '/images/gallery/history-polonnaruwa.jpg',tag: 'Ruins',     caption: 'Polonnaruwa ancient city' },
-    { src: '/images/gallery/history-galle.jpg',      tag: 'Colonial',  caption: 'Galle Fort ramparts' },
+    { src: '/images/destinations/history-sigiriya.jpg',   tag: 'Featured',  caption: 'Sigiriya Rock Fortress' },
+    { src: '/images/destinations/history-polonnaruwa.jpg',tag: 'Ruins',     caption: 'Polonnaruwa ancient city' },
+    { src: '/images/destinations/history-galle.jpg',      tag: 'Colonial',  caption: 'Galle Fort ramparts' },
   ],
   'Culture & Heritage tours': [
-    { src: '/images/gallery/culture-perahera.jpg',   tag: 'Featured',  caption: 'Kandy Esala Perahera' },
-    { src: '/images/gallery/culture-craft.jpg',      tag: 'Artisan',   caption: 'Traditional mask carving' },
-    { src: '/images/gallery/culture-temple.jpg',     tag: 'Ceremony',  caption: 'Dambulla Cave Temple' },
+    { src: '/images/destinations/culture-perahera.jpg',   tag: 'Featured',  caption: 'Kandy Esala Perahera' },
+    { src: '/images/destinations/culture-craft.jpg',      tag: 'Artisan',   caption: 'Traditional mask carving' },
+    { src: '/images/destinations/culture-temple.jpg',     tag: 'Ceremony',  caption: 'Dambulla Cave Temple' },
   ],
   'Hidden Trails tours': [
-    { src: '/images/gallery/hidden-ella.jpg',        tag: 'Featured',  caption: 'Nine Arch Bridge, Ella' },
-    { src: '/images/gallery/hidden-waterfall.jpg',   tag: 'Discovery', caption: 'Bambarakanda Falls' },
-    { src: '/images/gallery/hidden-village.jpg',     tag: 'Local',     caption: 'Untouched highland village' },
+    { src: '/images/destinations/hidden-ella.jpg',        tag: 'Featured',  caption: 'Nine Arch Bridge, Ella' },
+    { src: '/images/destinations/hidden-waterfall.jpg',   tag: 'Discovery', caption: 'Bambarakanda Falls' },
+    { src: '/images/destinations/hidden-village.jpg',     tag: 'Local',     caption: 'Untouched highland village' },
   ],
 };
 
 // ─── NEW: Quick facts per category ───────────────────────────────────────────
-const categoryQuickFacts: Record<string, { icon: React.ElementType; label: string; value: string }[]> = {
+const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
   'Wildlife': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Feb – Sep' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'Yala · Udawalawe' },
-    { icon: Users,        label: 'Group Size',    value: 'Max 6 per vehicle' },
-    { icon: Sun,          label: 'Safari Start',  value: '5:30 AM · 3:00 PM' },
+    { label: 'Yala National Park',   value: 'Sri Lankas most famous safari park, best known for leopard safaris, elephants, crocodiles, sloth bears and dry-zone wilderness.' },
+    { label: 'Wilpattu National Park',   value: 'A quieter, wilder safari park famous for natural lakes, forest tracks, leopards, sloth bears and a more peaceful safari feel.' },
+    { label: 'Udawalawe National Park',    value: 'One of the best places in Sri Lanka to see wild elephants, with open grasslands, reservoirs and reliable safari sightings.' },
+    { label: 'Minneriya',  value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
+    { label: 'Mirissa',  value: 'Sri Lankas key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
+    { label: 'Kaudulla',  value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
+    { label: 'Trincomalee',  value: 'Sri Lankas key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
+    
   ],
   'Adventure tours': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Nov – Apr' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'Kitulgala · Knuckles' },
-    { icon: Users,        label: 'Group Size',    value: 'Max 8 per tour' },
-    { icon: Sun,          label: 'Start Time',    value: '7:00 AM' },
+    { label: 'Best Season',   value: 'Nov – Apr' },
+    { label: 'Key Regions',   value: 'Kitulgala · Knuckles' },
+    { label: 'Group Size',    value: 'Max 8 per tour' },
+    { label: 'Start Time',    value: '7:00 AM' },
   ],
   'Beaches tours': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Nov – Apr (South)' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'South & East Coast' },
-    { icon: Users,        label: 'Group Size',    value: 'Flexible' },
-    { icon: Sun,          label: 'Ideal Time',    value: 'Year-round' },
+    { label: 'Best Season',   value: 'Nov – Apr (South)' },
+    { label: 'Key Regions',   value: 'South & East Coast' },
+    { label: 'Group Size',    value: 'Flexible' },
+    { label: 'Ideal Time',    value: 'Year-round' },
   ],
   'Historical Areas tours': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Jan – Apr' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'Cultural Triangle' },
-    { icon: Users,        label: 'Group Size',    value: 'Max 10 per guide' },
-    { icon: Sun,          label: 'Start Time',    value: '8:00 AM' },
+    { label: 'Best Season',   value: 'Jan – Apr' },
+    { label: 'Key Regions',   value: 'Cultural Triangle' },
+    { label: 'Group Size',    value: 'Max 10 per guide' },
+    { label: 'Start Time',    value: '8:00 AM' },
   ],
   'Culture & Heritage tours': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Jul – Aug (Perahera)' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'Kandy · Colombo' },
-    { icon: Users,        label: 'Group Size',    value: 'Max 8 per guide' },
-    { icon: Sun,          label: 'Start Time',    value: '9:00 AM' },
+    { label: 'Best Season',   value: 'Jul – Aug (Perahera)' },
+    { label: 'Key Regions',   value: 'Kandy · Colombo' },
+    { label: 'Group Size',    value: 'Max 8 per guide' },
+    { label: 'Start Time',    value: '9:00 AM' },
   ],
   'Hidden Trails tours': [
-    { icon: CalendarDays, label: 'Best Season',   value: 'Jan – Mar' },
-    { icon: MapPin,       label: 'Key Regions',   value: 'Ella · Knuckles · Nuwara Eliya' },
-    { icon: Users,        label: 'Group Size',    value: 'Max 6 per guide' },
-    { icon: Sun,          label: 'Start Time',    value: '6:00 AM' },
+    { label: 'Best Season',   value: 'Jan – Mar' },
+    { label: 'Key Regions',   value: 'Ella · Knuckles · Nuwara Eliya' },
+    { label: 'Group Size',    value: 'Max 6 per guide' },
+    { label: 'Start Time',    value: '6:00 AM' },
   ],
 };
 
 // ─── NEW: Bullet-point inclusions per category ────────────────────────────────
 const categoryInclusions: Record<string, { title: string; detail: string }[]> = {
   'Wildlife': [
-    { title: 'Exclusive jeep access',      detail: 'Dedicated 4×4 safari vehicle per group — no shared tours, no crowded viewing.' },
-    { title: 'Expert naturalist guide',    detail: 'DWNC-certified guides with 10+ years tracking experience in Sri Lankan reserves.' },
-    { title: 'All park fees included',     detail: 'National park entrance, conservation levy, and jeep permits bundled in your tour price.' },
-    { title: 'Flexible cancellation',      detail: 'Weather-dependent safaris may be rescheduled at no charge within 24 hours.' },
+    { title: 'Wilpattu',      detail: 'Wilpattu means “land of lakes”, referring to the natural rain-fed villus scattered across the park.' },
+    { title: 'Udawalawe',    detail: 'Udawalawe was created to protect wildlife displaced by the construction of the Udawalawe Reservoir.' },
+    { title: 'Minneriya / Kaudulla',  detail: 'The seasonal Elephant Gathering here is considered one of Asia’s great wildlife spectacles.' },
+    { title: 'Blue Whales',      detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
   ],
   'Adventure tours': [
     { title: 'Safety-certified equipment', detail: 'International-standard gear inspected before every activity.' },
@@ -425,7 +429,7 @@ const DestinationDetail = () => {
       </section>
 
       {/* ── NEW: At a Glance + Inclusions ────────────────────────────────────── */}
-      <section className="relative py-20 bg-slate-50">
+      <section className="relative py-10 bg-slate-50">
         <div className="mx-auto max-w-9xl px-30">
           {/* Section header */}
           <div className="mb-10">
@@ -435,14 +439,14 @@ const DestinationDetail = () => {
           </div>
 
           {/* Quick facts 4-cell grid */}
-          <div className="mb-12 grid grid-cols-2 gap-px bg-slate-200 border border-slate-200 lg:grid-cols-4">
+          <div className="mb-12 grid grid-cols-2 gap-3 lg:grid-cols-4">
             {quickFacts.map((fact, idx) => {
-              const IconComponent = fact.icon;
               return (
-                <div key={idx} className="bg-white p-6">
-                  <IconComponent className="mb-3 h-5 w-5 text-[#173036]" />
-                  <p className="section-label mb-2 text-[#173036]">{fact.label}</p>
-                  <p className="text-sm font-bold text-[#173036]">{fact.value}</p>
+                <div key={idx} className="bg-white p-6 border border-slate-200">
+                  <p className="section-label font-bold text-white mb-3 bg-[#173036] p-2 flex justify-center items-center">
+                    {fact.label}
+                  </p>
+                  <p className="text-sm text-[#173036]">{fact.value}</p>
                 </div>
               );
             })}
@@ -451,7 +455,7 @@ const DestinationDetail = () => {
           {/* Inclusions bullet list */}
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
             <div>
-              <h3 className="mb-6 text-lg font-black text-slate-900">What's Included</h3>
+              <h3 className="mb-6 text-2xl font-bold text-slate-900">Did You Know?</h3>
               <ul className="space-y-5">
                 {inclusions.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-4">
