@@ -71,3 +71,15 @@ export default defineConfig([
   },
 ])
 ```
+
+  ## Inquiry Form Email Setup
+
+  The inquiry page sends two emails through EmailJS: one to the site owner and one confirmation to the customer.
+
+  Add these environment variables before deploying:
+
+  - `VITE_EMAILJS_PUBLIC_KEY`
+  - `VITE_EMAILJS_SERVICE_ID`
+  - `VITE_EMAILJS_INQUIRY_TEMPLATE_ID`
+  - `VITE_EMAILJS_CONFIRMATION_TEMPLATE_ID`
+  - `VITE_INQUIRY_ADMIN_EMAIL` (optional, defaults to `info@thecoconuttreetrails.com`)
