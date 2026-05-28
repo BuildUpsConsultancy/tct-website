@@ -139,10 +139,6 @@ const Contact = () => {
                   </motion.button>
                 ))}
               </div>
-
-              <div className="pt-8 md:pt-14">
-                <img src="/logococnut.png" alt="The Coconut Tree Trails" className="h-24 w-auto opacity-80 md:h-28" />
-              </div>
             </motion.div>
 
             {/* Right — form */}
