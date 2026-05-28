@@ -1,20 +1,20 @@
-import { Shield, Award, CheckCircle2, Globe2, Images, AtSign } from 'lucide-react';
+import { Globe2, Images, AtSign } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-slate-950 via-slate-900 to-black pt-32 pb-12 relative overflow-hidden">
+    <footer className="bg-[#173036] pt-20 pb-6 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#a7d9d5]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0d5a53]/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       {/* Top gradient line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-400/40 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a7d9d5]/40 to-transparent"></div>
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10 mb-20">
+      <div className="max-w-9xl mx-auto px-30 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10 mb-20">
         {/* Brand section */}
         <div className="group">
           <div className="mb-6">
@@ -29,7 +29,7 @@ const Footer = () => {
                 key={idx}
                 type="button"
                 aria-label="Footer social icon"
-                className="grid h-12 w-12 place-items-center rounded-full bg-sky-900/25 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-800/35 hover:text-white"
+                className="grid h-12 w-12 place-items-center rounded-full bg-[#0d5a53]/25 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0d5a53]/35 hover:text-[#a7d9d5]"
               >
                 <Icon className="h-4 w-4" />
               </button>
@@ -39,7 +39,7 @@ const Footer = () => {
 
         {/* Quick Links */}
         <div className="group">
-          <h4 className="font-bold mb-8 tracking-widest uppercase text-xs bg-gradient-to-r from-sky-500 to-sky-400 bg-clip-text text-transparent">
+          <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
             Quick Links
           </h4>
           <ul className="space-y-3">
@@ -51,7 +51,7 @@ const Footer = () => {
             ].map((link, idx) => (
               <li key={idx}>
                 <a 
-                  className="text-slate-400 hover:text-sky-400 text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
+                  className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
                   href="#"
                 >
                   <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">→</span>
@@ -64,7 +64,7 @@ const Footer = () => {
 
         {/* Services */}
         <div className="group">
-          <h4 className="font-bold mb-8 tracking-widest uppercase text-xs bg-gradient-to-r from-sky-400 to-sky-500 bg-clip-text text-transparent">
+          <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
             Our Services
           </h4>
           <ul className="space-y-3">
@@ -76,7 +76,7 @@ const Footer = () => {
             ].map((service, idx) => (
               <li key={idx}>
                 <a 
-                  className="text-slate-400 hover:text-sky-400 text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/service"
+                  className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/service"
                   href="#"
                 >
                   <span className="opacity-0 group-hover/service:opacity-100 transition-opacity text-xs">→</span>
@@ -89,7 +89,7 @@ const Footer = () => {
 
         {/* Newsletter */}
         <div className="group">
-          <h4 className="font-bold mb-6 tracking-widest uppercase text-xs bg-gradient-to-r from-sky-500 to-sky-400 bg-clip-text text-transparent">
+          <h4 className="text-[#a7d9d5] font-bold mb-6">
             Newsletter
           </h4>
           <p className="text-slate-400 mb-6 text-sm leading-relaxed">
@@ -98,12 +98,12 @@ const Footer = () => {
           <div className="space-y-3">
             <div className="relative group/input">
               <input
-                className="w-full bg-slate-800/60 border border-slate-700 rounded-full px-6 py-3 text-sm focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400/30 text-slate-300 placeholder-slate-500 transition-all duration-300"
+                className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-6 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] focus:ring-1 focus:ring-[#a7d9d5]/30 text-slate-300 placeholder-white transition-all duration-300"
                 placeholder="Your Email Address"
                 type="email"
               />
             </div>
-            <button className="w-full bg-white text-slate-900 font-bold py-3 rounded-full hover:brightness-95 transition-all shadow-lg shadow-black/20 hover:scale-102 active:scale-95 duration-200">
+            <button className="w-full bg-[#a7d9d5] text-[#173036] font-bold py-3 hover:bg-white transition-all shadow-lg shadow-black/20 hover:scale-102 active:scale-95 duration-200">
               Subscribe
             </button>
           </div>
@@ -111,42 +111,41 @@ const Footer = () => {
       </div>
 
       {/* Divider */}
-      <div className="max-w-7xl mx-auto px-8 relative z-10">
-        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="h-px bg-gradient-to-r from-transparent via-[#a7d9d5]/20 to-transparent"></div>
+      </div>
+
+      {/* Payment and Footer Image Section */}
+      <div className="max-w-7xl mx-auto px-8 pt-12 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 border-b border-slate-800">
+
+          {/* Footer Image */}
+          <div className="flex justify-center md:justify-end">
+            <img 
+              src="/footer-payment.png" 
+              alt="Payment partners" 
+              className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Bottom section */}
-      <div className="max-w-7xl mx-auto px-8 pt-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-8 pt-8 relative z-10">
         <div className="flex flex-col items-center gap-4 mb-6">
-          <p className="text-slate-500 text-sm text-center">© 2025 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
-          <div className="flex gap-6 text-slate-500 text-xs">
-            <a className="hover:text-sky-400 transition-colors" href="#">Newsletter</a>
-            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link>
-            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-sky-400 transition-colors">Travel Insurance</Link>
+          <p className="text-white text-sm text-center">© 2025 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
+          <div className="flex gap-6 text-white text-xs">
+            <a className="hover:text-[#a7d9d5] transition-colors" href="#">Newsletter</a>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Travel Insurance</Link>
           </div>
         </div>
 
-        {/* Trust badges */}
-        <div className="flex justify-center gap-6 pt-6 border-t border-slate-800">
-          {[
-            { icon: Shield, text: '100% Secure' },
-            { icon: CheckCircle2, text: 'Verified Partner' },
-            { icon: Award, text: '24/7 Support' }
-          ].map((badge, idx) => {
-            const IconComponent = badge.icon;
-            return (
-              <div key={idx} className="flex items-center gap-2 text-slate-400 hover:text-sky-400 transition-colors group cursor-pointer">
-                <IconComponent className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-medium">{badge.text}</span>
-              </div>
-            );
-          })}
-        </div>
       </div>
 
       {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-400/20 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#a7d9d5]/20 to-transparent"></div>
     </footer>
   );
 };
