@@ -203,7 +203,7 @@ const Navbar = () => {
                   onClick={() => navigate('/enquiry')}
                   className="text-md px-4 py-3 border border-white/30 text-white bg-transparent hover:bg-[#a7d9d5]/10 hover:text-[#a7d9d5] transition-all duration-200"
                 >
-                  Enquiry Us
+                  Inquiry Us
                 </button>
               </>
             )}
@@ -240,6 +240,16 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                navigate('/enquiry');
+              }}
+              className="mt-4 w-full rounded-md border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
+            >
+              Inquiry Us
+            </button>
           </div>
         )}
       </div>
