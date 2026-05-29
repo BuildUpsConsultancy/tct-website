@@ -111,16 +111,18 @@ const Footer = () => {
       </div>
 
       {/* Mobile content */}
-      <div className="md:hidden relative z-10 px-4 pt-10 pb-6">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/10 backdrop-blur-sm">
-          <div className="mb-4">
-            <img src="/logococnut.png" alt="The Coconut Tree Trails" className="h-12 w-auto object-contain" />
+      <div className="md:hidden relative z-10 px-4 pt-12 pb-8">
+        {/* Mobile: more spacious, centered layout */}
+        <div className="max-w-md mx-auto flex flex-col items-center text-center gap-6 px-2">
+          <div className="mb-0">
+            <img src="/logococnut.png" alt="The Coconut Tree Trails" className="h-14 w-auto object-contain mx-auto" />
           </div>
-          <p className="text-sm leading-6 text-slate-300">
+
+          <p className="text-sm leading-7 text-slate-300 max-w-[30rem]">
             Sri Lanka travel, made simple with local expertise and tailor-made planning.
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 justify-center">
             {[Globe2, Images, AtSign].map((Icon, idx) => (
               <button
                 key={idx}
@@ -133,18 +135,18 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-4">
+          <div className="w-full grid grid-cols-2 gap-6">
             <div>
-              <h4 className="mb-3 text-sm font-bold text-[#a7d9d5]">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Quick Links</h4>
+              <ul className="space-y-2 text-sm text-slate-400 text-center">
                 {['Travel Packages', 'Destinations', 'About Us', 'Contact Us'].map((link) => (
                   <li key={link}>{link}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="mb-3 text-sm font-bold text-[#a7d9d5]">Services</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Services</h4>
+              <ul className="space-y-2 text-sm text-slate-400 text-center">
                 {['Visa Assistance', 'Hotel Bookings', 'Wildlife Safaris', 'Custom Itineraries'].map((service) => (
                   <li key={service}>{service}</li>
                 ))}
@@ -152,8 +154,8 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-6">
-            <h4 className="mb-3 text-sm font-bold text-[#a7d9d5]">Newsletter</h4>
+          <div className="w-full">
+            <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Newsletter</h4>
             <p className="mb-3 text-sm leading-6 text-slate-400">Receive curated travel inspiration directly to your inbox.</p>
             <input
               className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-4 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] text-slate-300 placeholder-white"
@@ -165,11 +167,10 @@ const Footer = () => {
             </button>
           </div>
 
-          <div className="mt-6 border-t border-white/10 pt-4">
-            <img src="/footer-payment.png" alt="Payment partners" className="h-6 w-auto object-contain opacity-90" />
+          <div className="w-full mt-4 border-t border-white/10 pt-4">
+            <img src="/footer-payment.png" alt="Payment partners" className="h-6 w-auto object-contain opacity-90 mx-auto" />
           </div>
         </div>
-
         <div className="mt-4 text-center text-xs text-white/80">
           <p>© 2025 The Coconut Tree Trails. All rights reserved.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">

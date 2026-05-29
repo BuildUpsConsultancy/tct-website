@@ -210,7 +210,7 @@ const Navbar = () => {
           </div>
 
           <button
-            className="group md:hidden rounded-md border border-white/15 bg-white/5 p-2 text-white shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:bg-white/10"
+            className="group md:hidden rounded-none border border-white/15 bg-white/5 p-2 text-white shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:bg-white/10"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
           >
@@ -247,7 +247,7 @@ const Navbar = () => {
                 setMenuOpen(false);
                 navigate('/enquiry');
               }}
-              className="mt-4 w-full rounded-md border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
+              className="mt-4 w-full rounded-none border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
             >
               Inquiry Us
             </button>
