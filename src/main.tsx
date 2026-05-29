@@ -18,6 +18,7 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import FAQ from './pages/FAQ.tsx';
 import Inquiry from './pages/Inquiry.tsx';
+import Socials from './pages/socials.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="travel-blog" element={<TravelBlog />} />
           <Route path="faq-policy" element={<FAQ />} />
           <Route path="packages/:id" element={<PackageDetail />} />
+          <Route path="/socials" element={<Socials />} />
           <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         </Route>
