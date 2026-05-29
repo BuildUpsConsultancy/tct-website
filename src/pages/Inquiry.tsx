@@ -207,8 +207,8 @@ const Inquiry = () => {
       <section className="relative overflow-hidden bg-white pt-0">
         <div className="absolute inset-0">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-            style={{ backgroundImage: 'url(/images/updated.jpeg)' }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-34"
+            style={{ backgroundImage: 'url(/images/bg/bg-5.png)' }}
           />
           <div className="absolute inset-0 bg-[rgba(255,255,255,0.64)]" />
         </div>

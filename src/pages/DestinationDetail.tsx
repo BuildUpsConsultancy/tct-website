@@ -18,20 +18,20 @@ const categoryDescriptions: Record<string, string> = {
 
 const categoryHeroImage: Record<string, string> = {
   'Wildlife tours': '/images/home/yala.jpg',
-  'Adventure tours': '/images/home/colombo.avif',
+  'Adventure tours': '/images/destinations/kithulgala.jpg',
   'Beaches tours': '/images/destinations/hikkaduwa-culture.jpg',
-  'Historical Areas tours': '/images/destinations/polonnaruwa-culture.webp',
+  'Historical Areas tours': '/images/destinations/sigiriya-culture.png',
   'Culture & Heritage tours': '/images/home/kandy.jpg',
   'Hidden Trails tours': '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
 };
 // Separate background images for parallax effect
 const categoryBackgroundImage: Record<string, string> = {
-  'Wildlife tours': '/images/updated.jpeg',
-  'Adventure tours': '/images/updated.jpeg',
-  'Beaches tours': '/images/updated.jpeg',
-  'Historical Areas tours': '/images/updated.jpeg',
-  'Culture & Heritage tours': '/images/updated.jpeg',
-  'Hidden Trails tours': '/images/updated.jpeg',
+  'Wildlife tours': '/images/bg/bg-6.png',
+  'Adventure tours': '/images/bg/bg-8.png',
+  'Beaches tours': '/images/bg/bg-3.png',
+  'Historical Areas tours': '/images/bg/bg-7.png',
+  'Culture & Heritage tours': '/images/bg/bg-4.png',
+  'Hidden Trails tours': '/images/bg/bg-2.png',
 };
 // const tourHighlights = {
 //   'Wildlife tours': [
@@ -354,7 +354,7 @@ const DestinationDetail = () => {
             y: bgY,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/95 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/75 to-transparent" />
 
         <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
 
