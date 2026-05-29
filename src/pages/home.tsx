@@ -448,7 +448,7 @@ const Home = () => {
       </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative overflow-hidden pt-4">
+      <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
         <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
           <source src="/uploads/slider-video.mp4" type="video/mp4" />
         </video>
@@ -525,7 +525,7 @@ const Home = () => {
           <motion.div className="mb-8 md:mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <div>
               <p className="section-label mb-2 text-[#173036]">Top Destinations</p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl lg:text-6xl font-bold text-gray-900">Explore Sri Lanka</h2>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900">Explore Sri Lanka</h2>
             </div>
             <motion.button onClick={() => navigate('/destinations')} className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-[#173036] transition-colors duration-200 whitespace-nowrap" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
               Explore All <ArrowRight className="h-4 w-4" />
@@ -645,7 +645,7 @@ const Home = () => {
   <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
           <motion.div className="text-center mb-12 md:mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 text-[#173036] font-semibold">Your Trusted Partner</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Authentic Sri Lanka</h2>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Authentic Sri Lanka</h2>
             <p className="mx-auto max-w-2xl text-sm md:text-base leading-7 md:leading-8 text-gray-600">
               Every service we offer is rooted in genuine local knowledge and a commitment to making your Sri Lanka experience as real, safe, and memorable as possible.
             </p>

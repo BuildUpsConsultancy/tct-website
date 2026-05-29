@@ -80,9 +80,9 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="w-full bg-[#173036]/95 backdrop-blur-md" style={{ overflow: 'visible' }}>
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between" style={{ overflow: 'visible' }}>
-          <Link to="/" className="group flex items-center gap-3 transition-all duration-300 hover:gap-4">
-            <img src="/logococnut.png" alt="TCT Logo" className="h-12 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110" />
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between sm:px-6 sm:py-3" style={{ overflow: 'visible' }}>
+          <Link to="/" className="group flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:gap-4">
+            <img src="/logococnut.png" alt="TCT Logo" className="h-10 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110 sm:h-12" />
           </Link>
 
           <div className="hidden md:flex items-center gap-5 absolute left-1/2 transform -translate-x-1/2">
@@ -213,8 +213,9 @@ const Navbar = () => {
           </div>
 
           <button
-            className="group md:hidden text-tct-text transition-all duration-300 hover:scale-110 hover:text-tct-white"
+            className="group md:hidden rounded-none border border-white/15 bg-white/5 p-2 text-white shadow-lg shadow-black/20 transition-all duration-300 hover:scale-105 hover:bg-white/10"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
           >
             <div className="w-6 h-0.5 bg-current mb-1.5 transition-all duration-300 group-hover:w-7" />
             <div className="w-4 h-0.5 bg-current mb-1.5 transition-all duration-300 group-hover:w-6" />
@@ -223,11 +224,11 @@ const Navbar = () => {
         </div>
 
         {menuOpen && (
-          <div className="md:hidden bg-slate-900/90 border-t border-slate-800/30 px-6 py-4 backdrop-blur-sm">
+          <div className="md:hidden border-t border-white/10 bg-[#173036]/98 px-4 py-4 shadow-2xl shadow-black/30 backdrop-blur-md sm:px-6">
             <Link
               to="/"
               onClick={() => setMenuOpen(false)}
-              className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive('/') ? 'text-tct-white' : 'text-tct-muted'
+              className={`block py-3 text-sm font-medium border-b border-white/10 transition-all duration-300 hover:translate-x-1 hover:text-[#a7d9d5] ${isActive('/') ? 'text-white' : 'text-white/75'
                 }`}
             >
               Home
@@ -237,7 +238,7 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
-                className={`block py-2.5 text-sm font-medium border-b border-tct-mid/50 last:border-0 transition-all duration-300 hover:translate-x-1 hover:text-tct-white ${isActive(link.to) ? 'text-tct-white' : 'text-tct-muted'
+                className={`block py-3 text-sm font-medium border-b border-white/10 last:border-0 transition-all duration-300 hover:translate-x-1 hover:text-[#a7d9d5] ${isActive(link.to) ? 'text-white' : 'text-white/75'
                   }`}
               >
                 {link.label}
@@ -249,10 +250,13 @@ const Navbar = () => {
                 setMenuOpen(false);
                 navigate('/enquiry');
               }}
-              className="mt-4 w-full rounded-md border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
+              className="mt-4 w-full rounded-none border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
             >
               Inquiry Us
             </button>
+            <p className="mt-3 text-center text-xs leading-5 text-white/70">
+              The Coconut Tree Trails curates memorable Sri Lanka journeys with local insight, smooth planning, and warm support.
+            </p>
           </div>
         )}
       </div>
