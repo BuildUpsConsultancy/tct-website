@@ -375,7 +375,7 @@ const DestinationDetail = () => {
               </div>
 
               <Link
-                to="/packages"
+                to="/"
                 className="mt-8 inline-flex bg-[#173036] px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md hover:scale-105"
               >
                 Explore Packages
