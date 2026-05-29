@@ -40,10 +40,7 @@ const Inquiry = () => {
   const preferencesRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end start'] });
   const heroImageY = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
-  const heroSeparatorOpacity = useTransform(scrollYProgress, [0, 0.22], [0.95, 1]);
   const formCardY = useTransform(scrollYProgress, [0, 0.42], ['56px', '0px']);
-  const formCardOpacity = useTransform(scrollYProgress, [0, 0.18], [0.82, 1]);
-  const formCardScale = useTransform(scrollYProgress, [0, 0.42], [0.978, 1]);
 
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const inquiryTemplateId = import.meta.env.VITE_EMAILJS_INQUIRY_TEMPLATE_ID;
@@ -202,25 +199,24 @@ const Inquiry = () => {
         </div>
 
         <motion.div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent via-white/14 to-white/70"
-          style={{ opacity: heroSeparatorOpacity }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent via-white/20 to-white/80"
         />
 
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#fcfcfa] to-[#fbf8f1] pt-0">
+      <section className="relative overflow-hidden bg-white pt-0">
         <div className="absolute inset-0">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-34"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
             style={{ backgroundImage: 'url(/images/updated.jpeg)' }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.48)_32%,rgba(255,255,255,0.70)_74%,rgba(255,255,255,0.90)_100%)]" />
+          <div className="absolute inset-0 bg-[rgba(255,255,255,0.64)]" />
         </div>
 
         <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24 mt-20">
           <motion.div
             className="mx-auto -mt-14 border border-slate-200 bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
-            style={{ y: formCardY, opacity: formCardOpacity, scale: formCardScale }}
+            style={{ y: formCardY }}
             variants={staggerContainer(0.08, 0.03)}
             initial="hidden"
             whileInView="show"
