@@ -322,7 +322,7 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
       key={`${destination.slug}-${idx}`}
       type="button"
       onClick={() => navigate(`/destinations/${destination.slug}`)}
-      className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[600px] shadow-lg shadow-black/20 border border-gray-200"
+      className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       transition={{ duration: 0.3 }}
@@ -339,9 +339,9 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
         />
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 px-6 pb-8 pt-16 text-center">
-        <h3 className="text-2xl font-bold tracking-tight text-white">{destination.title}</h3>
-        <p className="mt-2 text-sm font-medium text-white/85">{destination.subtitle}</p>
+      <div className="absolute inset-x-0 bottom-0 px-4 sm:px-6 pb-4 sm:pb-8 pt-8 sm:pt-16 text-center">
+        <h3 className="text-base sm:text-xl lg:text-2xl font-bold tracking-tight text-white">{destination.title}</h3>
+        <p className="mt-1 sm:mt-2 text-xs sm:text-sm font-medium text-white/85">{destination.subtitle}</p>
       </div>
     </motion.button>
   );
@@ -454,11 +454,11 @@ const Home = () => {
         </video>
 
         <motion.div
-          className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
+          className="relative z-10 mx-auto grid max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
           style={{ y: heroY, opacity: heroOpac }}
         >
-          <motion.div className="max-w-3xl -ml-16" variants={staggerContainer(0.12, 0.1)} initial="hidden" animate="show">
-            <motion.h1 variants={fadeUp} className="font-display text-5xl font-black leading-[0.92] md:text-8xl text-shadow-2xl">
+          <motion.div className="max-w-3xl lg:-ml-16" variants={staggerContainer(0.12, 0.1)} initial="hidden" animate="show">
+            <motion.h1 variants={fadeUp} className="font-display text-4xl font-black leading-[0.92] sm:text-5xl md:text-6xl lg:text-8xl text-shadow-2xl">
               <ShinyText
                 text="The Coconut Tree Trails"
                 speed={3}
@@ -471,22 +471,22 @@ const Home = () => {
                 className="font-display"
               />
             </motion.h1>
-            <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base leading-7 text-white/85 md:text-lg text-shadow-lg shadow-black/30 px-4 py-2">
+            <motion.p variants={fadeUp} className="mt-4 md:mt-6 max-w-xl text-sm sm:text-base leading-6 sm:leading-7 text-white/85 md:text-lg text-shadow-lg shadow-black/30">
               Travel Sri Lanka with people who know it. Tailor-made tours rooted in local expertise, genuine hospitality, and a deep love for this island paradise.
             </motion.p>
-            <motion.div variants={fadeUp} className="mt-4 flex items-center gap-3 text-sm text-white/60">
+            <motion.div variants={fadeUp} className="mt-3 md:mt-4 flex items-center gap-3 text-sm text-white/60">
             </motion.div>
-            <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <motion.button onClick={() => navigate('/packages')} className="bg-[#173036] px-10 py-4 text-base font-semibold text-white shadow-lg shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+            <motion.div variants={fadeUp} className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <motion.button onClick={() => navigate('/packages')} className="bg-[#173036] px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-black/30 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Explore Packages
               </motion.button>
-              <motion.button onClick={() => navigate('/contact')} className="border-2 border-white/40 px-8 py-4 text-base font-semibold text-white hover:border-white transition-colors duration-200" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+              <motion.button onClick={() => navigate('/contact')} className="border-2 border-white/40 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white hover:border-white transition-colors duration-200 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Plan My Trip
               </motion.button>
             </motion.div>
           </motion.div>
 
-          <motion.div className="relative hidden h-[680px] lg:block" variants={staggerContainer(0.15, 0.4)} initial="hidden" animate="show">
+          <motion.div className="relative hidden h-[400px] sm:h-[500px] md:h-[600px] lg:h-[680px] lg:block" variants={staggerContainer(0.15, 0.4)} initial="hidden" animate="show">
             <motion.div variants={slideRight} className="absolute right-16 top-10 w-[350px] rotate-6 border-4 border-[#a7d9d5]/60 bg-[#13212d] shadow-2xl shadow-black/50" whileHover={{ rotate: 3, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
               <div className="overflow-hidden">
                 <img src="/images/home/kandy.jpg" alt="Kandy, Sri Lanka" className="h-[340px] w-full object-cover" />
@@ -509,7 +509,7 @@ const Home = () => {
       </section>
 
       {/* ── DESTINATIONS ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24">
+      <section className="relative overflow-hidden py-12 md:py-20 lg:py-24">
   {/* Flipped background image */}
   <div
     className="absolute inset-0 pointer-events-none"
@@ -521,13 +521,13 @@ const Home = () => {
     }}
   />
   <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
-        <div className="relative mx-auto max-w-9xl px-20 z-10">
-          <motion.div className="mb-12 flex items-end justify-between" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 z-10">
+          <motion.div className="mb-8 md:mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <div>
               <p className="section-label mb-2 text-[#173036]">Top Destinations</p>
-              <h2 className="font-display text-5xl font-bold text-gray-900 md:text-6xl">Explore Sri Lanka</h2>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl lg:text-6xl font-bold text-gray-900">Explore Sri Lanka</h2>
             </div>
-            <motion.button onClick={() => navigate('/destinations')} className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-[#173036] transition-colors duration-200" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
+            <motion.button onClick={() => navigate('/destinations')} className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-[#173036] transition-colors duration-200 whitespace-nowrap" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
               Explore All <ArrowRight className="h-4 w-4" />
             </motion.button>
           </motion.div>
@@ -541,11 +541,11 @@ const Home = () => {
             {/* Left Arrow */}
             <motion.button
               onClick={handleDestinationPrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 z-20 p-4 text-[#173036]"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 lg:p-4 text-[#173036] sm:-translate-x-12 lg:-translate-x-20"
               whileHover={{ scale: 1.1, x: -4 }}
               whileTap={{ scale: 0.95 }}
             >
-              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
                 <line x1="25" y1="12" x2="9" y2="12" />
               </svg>
@@ -554,11 +554,11 @@ const Home = () => {
             {/* Right Arrow */}
             <motion.button
               onClick={handleDestinationNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 z-20 p-4 text-[#173036]"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 lg:p-4 text-[#173036] sm:translate-x-12 lg:translate-x-20"
               whileHover={{ scale: 1.1, x: 4 }}
               whileTap={{ scale: 0.95 }}
             >
-              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
                 <line x1="14" y1="12" x2="0" y2="12" />
               </svg>
@@ -568,7 +568,7 @@ const Home = () => {
             <div className="overflow-hidden">
               <motion.div
                 ref={destinationSliderRef}
-                className="flex gap-8"
+                className="flex gap-4 sm:gap-6 lg:gap-8"
                 animate={{ x: -(destinationSlide * (33.333 + 2.667)) + '%' }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
               >
@@ -584,7 +584,7 @@ const Home = () => {
 
       {/* ── FEATURE ──────────────────────────────────────────── */}
       <section 
-        className="relative overflow-hidden py-20 bg-[#173036]"
+        className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-[#173036]"
       >
         {/* Background overlay for text readability */}
         <div className="absolute inset-0" style={{
@@ -594,19 +594,19 @@ const Home = () => {
           filter: 'brightness(0.5)',
         }} />
         
-        <div className="relative mx-auto grid max-w-9xl grid-cols-1 items-center gap-10 px-20 lg:grid-cols-2 pr-40 pb-20">
+        <div className="relative mx-auto grid max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2 pb-12 md:pb-16 lg:pb-20">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            <p className="section-label mb-3 text-white/85">Tailor-Made for You</p>
-            <h2 className="font-display text-5xl font-bold leading-tight text-tct-white md:text-6xl">Sri Lanka<br />Your Way</h2>
-            <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 md:text-base">
+            <p className="section-label mb-2 md:mb-3 text-white/85">Tailor-Made for You</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-tct-white">Sri Lanka<br className="hidden sm:block" />Your Way</h2>
+            <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-white/85">
               From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
             </p>
-            <motion.button onClick={() => navigate('/packages')} className="mt-8 bg-white px-8 py-4 text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
+            <motion.button onClick={() => navigate('/packages')} className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
               Browse All Packages
             </motion.button>
           </motion.div>
 
-          <div className="relative w-full h-[600px] -mt-20 mr-40">
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
             <CardSwap
               width={500}
               height={500}
@@ -633,7 +633,7 @@ const Home = () => {
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
       <section
-  className="relative overflow-hidden py-24 "
+  className="relative overflow-hidden py-16 md:py-20 lg:py-24 "
   style={{
     backgroundImage: "url('/images/updated.jpeg')",
     backgroundSize: 'cover',
@@ -642,16 +642,16 @@ const Home = () => {
 >
   <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/95 to-transparent" />
 
-  <div className="relative mx-auto max-w-9xl px-20">
-          <motion.div className="text-center mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+  <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
+          <motion.div className="text-center mb-12 md:mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 text-[#173036] font-semibold">Your Trusted Partner</p>
-            <h2 className="font-display text-5xl font-bold text-gray-900 md:text-6xl mb-4">Authentic Sri Lanka</h2>
-            <p className="mx-auto max-w-2xl text-base leading-8 text-gray-600">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Authentic Sri Lanka</h2>
+            <p className="mx-auto max-w-2xl text-sm md:text-base leading-7 md:leading-8 text-gray-600">
               Every service we offer is rooted in genuine local knowledge and a commitment to making your Sri Lanka experience as real, safe, and memorable as possible.
             </p>
           </motion.div>
 
-          <motion.div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" variants={staggerContainer(0.09, 0.15)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
+          <motion.div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3" variants={staggerContainer(0.09, 0.15)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
             {services.map((service) => {
               const getServiceIcon = () => {
                 const iconProps = { className: 'h-10 w-10', fill: 'currentColor' };
@@ -678,20 +678,20 @@ const Home = () => {
       </section>
 
       {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
-      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
+      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
           <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
         </div>
         
-        <div className="relative mx-auto max-w-9xl px-6 md:px-20">
-          <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
+          <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center" initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             {/* Left Column - Big Picture */}
             <motion.div variants={slideLeft} className="relative overflow-hidden shadow-2xl shadow-black/40">
               <motion.img 
                 src="/images/home/yala.jpg" 
                 alt="Sri Lanka Experience" 
-                className="w-300 h-188 object-cover"
+                className="w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] object-cover"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
               />
@@ -699,51 +699,51 @@ const Home = () => {
             </motion.div>
 
             {/* Right Column - Text in Rectangle */}
-            <motion.div variants={slideRight} className=" bg-white/10 backdrop-blur-md border border-white/20 p-10 md:p-12 shadow-xl shadow-black/20">
+            <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20">
               <motion.div variants={fadeUp}>
-                <p className="text-white/85 font-semibold text-sm tracking-widest uppercase mb-4">Why Choose Us</p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
                   Experience Sri Lanka<br />Like Never Before
                 </h2>
-                <p className="text-white/80 text-base leading-8 mb-8">
+                <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
                   We're not just tour operators — we're storytellers who bring Sri Lanka to life through authentic local experiences, personalized itineraries, and genuine connections with the people and places that make this island extraordinary.
                 </p>
                 
-                <div className="space-y-5 mb-8">
-                  <div className="flex items-start gap-4">
-                    <div className="mt-1 h-6 w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-4 w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold mb-1">Local Expert Guides</h4>
-                      <p className="text-white/70 text-sm">People who know every hidden gem and local secret</p>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Expert Guides</h4>
+                      <p className="text-white/70 text-xs md:text-sm">People who know every hidden gem and local secret</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="mt-1 h-6 w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-4 w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold mb-1">Tailor-Made Itineraries</h4>
-                      <p className="text-white/70 text-sm">Every journey crafted specifically for your interests and pace</p>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
+                      <p className="text-white/70 text-xs md:text-sm">Every journey crafted specifically for your interests and pace</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="mt-1 h-6 w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-4 w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold mb-1">Authentic Experiences</h4>
-                      <p className="text-white/70 text-sm">Real connections with local culture, wildlife, and traditions</p>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
+                      <p className="text-white/70 text-xs md:text-sm">Real connections with local culture, wildlife, and traditions</p>
                     </div>
                   </div>
                 </div>
 
                 <motion.button 
                   onClick={() => navigate('/about')}
-                  className="w-full px-8 py-4 bg-white text-[#173036] font-bold text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
+                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-white text-[#173036] font-bold text-sm md:text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -756,29 +756,29 @@ const Home = () => {
       </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24 bg-black/30">
-        <div className="relative mx-auto max-w-6xl px-6">
-          <motion.div className="text-center mb-12" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-black/30">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-20">
+          <motion.div className="text-center mb-8 md:mb-12" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 text-white/85">Hear it from Travellers</p>
-            <h2 className="font-display text-4xl text-white md:text-5xl">Real Stories. Real Sri Lanka.</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white">Real Stories. Real Sri Lanka.</h2>
           </motion.div>
 
           <div className="relative">
             <AnimatePresence mode="wait">
-              <motion.div key={currentTestimonial} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }} transition={{ duration: 0.5 }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <motion.div key={currentTestimonial} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }} transition={{ duration: 0.5 }} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {[0, 1].map((offset) => {
                   const index = (currentTestimonial + offset) % testimonials.length;
                   const t = testimonials[index];
                   return (
-                    <motion.div key={`testimonial-${index}`} className="rounded-2xl border border-white/10 bg-black/20 p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
+                    <motion.div key={`testimonial-${index}`} className="rounded-2xl border border-white/10 bg-black/20 p-6 md:p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
                       <motion.div whileHover={{ scale: 1.12, color: 'rgba(127, 181, 176, 0.5)' }}>
-                        <Quote className="mb-5 h-12 w-12 text-white/20" />
+                        <Quote className="mb-4 md:mb-5 h-10 md:h-12 w-10 md:w-12 text-white/20" />
                       </motion.div>
-                      <p className="text-base leading-7 text-white/85 mb-8">"{t.quote}"</p>
-                      <div className="flex items-center gap-4">
-                        <div className="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-[#112738] text-base font-bold text-[#a7d9d5]">{t.name[0]}</div>
+                      <p className="text-sm md:text-base leading-6 md:leading-7 text-white/85 mb-6 md:mb-8">"{t.quote}"</p>
+                      <div className="flex items-center gap-3 md:gap-4">
+                        <div className="grid h-10 md:h-12 w-10 md:w-12 place-items-center rounded-full border border-white/10 bg-[#112738] text-xs md:text-base font-bold text-[#a7d9d5]">{t.name[0]}</div>
                         <div>
-                          <p className="text-base font-semibold text-white">{t.name}</p>
+                          <p className="text-sm md:text-base font-semibold text-white">{t.name}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -787,17 +787,17 @@ const Home = () => {
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-8 flex items-center justify-between">
-              <motion.button onClick={() => setCurrentTestimonial((prev) => (prev - 2 + testimonials.length) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <ChevronLeft className="h-5 w-5" />
+            <div className="mt-6 md:mt-8 flex items-center justify-between">
+              <motion.button onClick={() => setCurrentTestimonial((prev) => (prev - 2 + testimonials.length) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-2 md:p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <ChevronLeft className="h-4 md:h-5 w-4 md:w-5" />
               </motion.button>
               <div className="flex gap-2">
                 {Array.from({ length: Math.ceil(testimonials.length / 2) }).map((_, index) => (
                   <motion.button key={index} onClick={() => setCurrentTestimonial(index * 2)} className={`h-2 rounded-full transition-all ${index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'}`} whileHover={{ scale: 1.2 }} />
                 ))}
               </div>
-              <motion.button onClick={() => setCurrentTestimonial((prev) => (prev + 2) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <ChevronRight className="h-5 w-5" />
+              <motion.button onClick={() => setCurrentTestimonial((prev) => (prev + 2) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-2 md:p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <ChevronRight className="h-4 md:h-5 w-4 md:w-5" />
               </motion.button>
             </div>
           </div>
@@ -822,7 +822,7 @@ const Home = () => {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-24">
+      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
   {/* Flipped background image */}
   <div
     className="absolute inset-0 pointer-events-none"
@@ -834,31 +834,31 @@ const Home = () => {
     }}
   />
   <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
-        <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-16 px-20 lg:grid-cols-2">
+        <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-10 md:gap-12 lg:gap-16 px-4 sm:px-6 md:px-8 lg:px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            <p className="section-label mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
-            <h2 className="font-display text-5xl font-bold text-gray-900 md:text-6xl mb-4">Quick Answers for Smart Travellers</h2>
-            <p className="mt-4 max-w-lg text-base leading-8 text-gray-600 mb-8">
+            <p className="section-label mb-2 md:mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Quick Answers for Smart Travellers</h2>
+            <p className="mt-3 md:mt-4 max-w-lg text-sm md:text-base leading-6 md:leading-8 text-gray-600 mb-6 md:mb-8">
               Planning a trip to Sri Lanka? Here are the questions we get asked most often — answered honestly by our team.
             </p>
-            <motion.button onClick={() => navigate('/faq-policy')} className="inline-flex items-center gap-3 bg-[#173036] px-8 py-3 font-semibold text-white shadow-md shadow-black/20" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <motion.button onClick={() => navigate('/faq-policy')} className="inline-flex items-center gap-3 bg-[#173036] px-6 md:px-8 py-2.5 md:py-3 font-semibold text-white text-sm md:text-base shadow-md shadow-black/20" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               View Full FAQ
             </motion.button>
           </motion.div>
 
-          <motion.div className="space-y-4 opacity-80" variants={staggerContainer(0.08, 0.2)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
+          <motion.div className="space-y-3 md:space-y-4 opacity-80" variants={staggerContainer(0.08, 0.2)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
             {generalCuriosities.map((faq, index) => (
               <motion.div key={faq.q} className="overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-200" variants={cardItem} whileHover={{ y: -2 }}>
-                <button className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors duration-200" onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
-                  <span className="text-base font-semibold text-gray-900 pr-4">{faq.q}</span>
+                <button className="flex w-full items-center justify-between px-4 md:px-6 py-3 md:py-4 text-left hover:bg-gray-50 transition-colors duration-200" onClick={() => setOpenFaq(openFaq === index ? -1 : index)}>
+                  <span className="text-sm md:text-base font-semibold text-gray-900 pr-3 md:pr-4">{faq.q}</span>
                   <motion.div animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className="flex-shrink-0">
-                    <ChevronDown className="h-5 w-5 text-gray-700" />
+                    <ChevronDown className="h-4 md:h-5 w-4 md:w-5 text-gray-700" />
                   </motion.div>
                 </button>
                 <AnimatePresence initial={false}>
                   {openFaq === index && (
                     <motion.div key="answer" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
-                      <div className="px-6 pb-4 text-base leading-7 text-gray-700 border-t border-gray-200 pt-4">{faq.a}</div>
+                      <div className="px-4 md:px-6 pb-3 md:pb-4 text-sm md:text-base leading-6 md:leading-7 text-gray-700 border-t border-gray-200 pt-3 md:pt-4">{faq.a}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -92,7 +92,7 @@ const About = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
 
-        <div className="relative mx-auto max-w-9xl px-20 py-10 md:py-14 lg:py-16">
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20 py-10 md:py-14 lg:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
 
             <motion.div
@@ -186,7 +186,7 @@ const About = () => {
       {/* ── WHY CHOOSE US ────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20 md:py-24 min-h-[580px] flex items-center bg-white">
         <div className="absolute inset-0 bg-cover bg-center opacity-8" style={{ backgroundImage: 'url(/images/updated.jpeg)' }} />
-        <div className="relative mx-auto max-w-9xl px-20">
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
           <motion.div
             className="text-center"
             variants={fadeUp}
@@ -246,7 +246,7 @@ const About = () => {
 
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-50 py-16 md:py-20">
-        <div className="mx-auto max-w-9xl px-20">
+        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
           <motion.div
             className="text-center mb-12"
             variants={fadeUp}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
+import Lenis from 'lenis';
 import { CheckCircle2, ChevronDown, MapPinned } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
@@ -67,6 +68,33 @@ const Inquiry = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Initialize Lenis for smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+      infinite: false,
+      wheelMultiplier: 1,
+      lerp: 0.1,
+      syncTouch: true,
+      syncTouchLerp: 0.075
+    });
+
+    let animationFrameId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      animationFrameId = requestAnimationFrame(raf);
+    };
+    animationFrameId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      lenis.destroy();
+    };
   }, []);
 
   const summaryLines = [
@@ -189,9 +217,9 @@ const Inquiry = () => {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.48)_32%,rgba(255,255,255,0.70)_74%,rgba(255,255,255,0.90)_100%)]" />
         </div>
 
-        <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+        <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24">
           <motion.div
-            className="mx-auto -mt-14 rounded-[2px] border border-[#f1f1f1] bg-white px-4 pb-10 pt-8 shadow-[0_12px_34px_rgba(23,48,54,0.045)] ring-1 ring-white/90 sm:px-8 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
+            className="mx-auto -mt-14 rounded-[2px] border border-[#f1f1f1] bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
             style={{ y: formCardY, opacity: formCardOpacity, scale: formCardScale }}
             variants={staggerContainer(0.08, 0.03)}
             initial="hidden"
@@ -202,8 +230,8 @@ const Inquiry = () => {
               <div className="mt-2">
                 <div>
                   <p className="section-label text-[#173036]">Tailor-Made Travel</p>
-                  <h2 className="mt-3 text-3xl font-normal tracking-[-0.03em] text-slate-900 sm:text-4xl">Your Trip</h2>
-                  <p className="mt-4 max-w-3xl text-sm font-normal leading-7 text-slate-600 sm:text-base">
+                  <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-slate-900">Your Trip</h2>
+                  <p className="mt-4 max-w-3xl text-sm md:text-base font-normal leading-6 md:leading-7 text-slate-600">
                     Share your requirements and we’ll craft a Sri Lanka itinerary around your travel style, budget, and interests.
                   </p>
                 </div>
@@ -232,7 +260,7 @@ const Inquiry = () => {
                 <motion.div variants={fadeUp} className="space-y-8">
                   {/* Personal Details */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Personal Details</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Personal Details</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <label>
                         <span className="block mb-2 text-sm text-slate-700">Title</span>
@@ -261,7 +289,7 @@ const Inquiry = () => {
 
                   {/* Travel Type */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Travel Type</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Travel Type</h2>
                     <div className="mt-4">
                       <select value={form.travelType} onChange={(e) => updateField('travelType', e.target.value as (typeof form)['travelType'])} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
                         <option value="" disabled>Select travel type</option>
@@ -272,7 +300,7 @@ const Inquiry = () => {
 
                   {/* Group Information */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Group Information</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Group Information</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <label>
                         <span className="block mb-2 text-sm text-slate-700">Adults</span>
@@ -292,7 +320,7 @@ const Inquiry = () => {
 
                   {/* Tour Duration */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Tour Duration</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Tour Duration</h2>
                     <div className="mt-4">
                       <select value={form.tourDuration} onChange={(e) => updateField('tourDuration', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
                         <option value="" disabled>How long is your tour?</option>
@@ -303,7 +331,7 @@ const Inquiry = () => {
 
                   {/* Preferences */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Preferences</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Preferences</h2>
                     <div className="relative mt-4" ref={preferencesRef}>
                       <button
                         type="button"
@@ -352,7 +380,7 @@ const Inquiry = () => {
 
                   {/* Budget Per Person */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Budget Per Person</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Budget Per Person</h2>
                     <div className="mt-4">
                       <select value={form.budgetPerPerson} onChange={(e) => updateField('budgetPerPerson', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
                         <option value="" disabled>Select budget</option>
@@ -363,7 +391,7 @@ const Inquiry = () => {
 
                   {/* Additional Information */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">Additional Information</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Additional Information</h2>
                     <div className="mt-4">
                       <textarea value={form.additionalInformation} onChange={(e) => updateField('additionalInformation', e.target.value)} rows={5} placeholder="Any other requests" className="w-full border-b border-[#bfb7ad] bg-transparent px-0 py-2 text-sm text-slate-900 outline-none" />
                     </div>
@@ -371,7 +399,7 @@ const Inquiry = () => {
 
                   {/* How did you hear about us */}
                   <section>
-                    <h2 className="text-2xl font-normal text-slate-900">How did you hear about us?</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">How did you hear about us?</h2>
                     <div className="mt-4">
                       <select value={form.hearAboutUs} onChange={(e) => updateField('hearAboutUs', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
                         <option value="" disabled>Select one</option>
@@ -387,7 +415,7 @@ const Inquiry = () => {
                 </motion.div>
 
                 <div className="flex justify-end gap-4 pt-6">
-                  <button type="submit" disabled={loading} className="rounded-full border border-[#a7d9d5]/70 bg-[#173036] px-8 py-4 text-sm font-semibold tracking-[0.06em] text-white shadow-[0_12px_30px_rgba(23,48,54,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1a4d56] hover:shadow-[0_16px_36px_rgba(23,48,54,0.34)] focus:outline-none focus:ring-2 focus:ring-[#a7d9d5]/60 focus:ring-offset-2 focus:ring-offset-white disabled:cursor-not-allowed disabled:opacity-70">{loading ? 'Sending...' : 'Submit Inquiry'}</button>
+                  <button type="submit" disabled={loading} className="bg-[#173036] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-black/30 hover:bg-[#1a4d56] transition-all duration-300 hover:scale-102 disabled:cursor-not-allowed disabled:opacity-70">{loading ? 'Sending...' : 'Submit Inquiry'}</button>
                 </div>
               </form>
 

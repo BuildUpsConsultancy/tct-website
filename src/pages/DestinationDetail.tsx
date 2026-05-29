@@ -149,84 +149,119 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
 // ─── NEW: Quick facts per category ───────────────────────────────────────────
 const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
   'Wildlife': [
-    { label: 'Yala National Park',   value: 'Sri Lankas most famous safari park, best known for leopard safaris, elephants, crocodiles, sloth bears and dry-zone wilderness.' },
-    { label: 'Wilpattu National Park',   value: 'A quieter, wilder safari park famous for natural lakes, forest tracks, leopards, sloth bears and a more peaceful safari feel.' },
-    { label: 'Udawalawe National Park',    value: 'One of the best places in Sri Lanka to see wild elephants, with open grasslands, reservoirs and reliable safari sightings.' },
-    { label: 'Minneriya',  value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
-    { label: 'Mirissa',  value: 'Sri Lankas key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
-    { label: 'Kaudulla',  value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
-    { label: 'Trincomalee',  value: 'Sri Lankas key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
-    
+    { label: 'Yala National Park',     value: 'Sri Lanka\'s most famous safari park, best known for leopard safaris, elephants, crocodiles, sloth bears and dry-zone wilderness.' },
+    { label: 'Wilpattu National Park', value: 'A quieter, wilder safari park famous for natural lakes, forest tracks, leopards, sloth bears and a more peaceful safari feel.' },
+    { label: 'Udawalawe National Park',value: 'One of the best places in Sri Lanka to see wild elephants, with open grasslands, reservoirs and reliable safari sightings.' },
+    { label: 'Minneriya',              value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
+    { label: 'Mirissa',                value: 'Sri Lanka\'s key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
+    { label: 'Kaudulla',               value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
+    { label: 'Trincomalee',            value: 'Sri Lanka\'s key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
   ],
+
   'Adventure tours': [
-    { label: 'Best Season',   value: 'Nov – Apr' },
-    { label: 'Key Regions',   value: 'Kitulgala · Knuckles' },
-    { label: 'Group Size',    value: 'Max 8 per tour' },
-    { label: 'Start Time',    value: '7:00 AM' },
+    { label: 'Ella',         value: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
+    { label: 'Kitulgala',    value: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
+    { label: 'Knuckles',     value: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
+    { label: 'Adam\'s Peak', value: 'A sacred mountain climbed overnight by pilgrims and travellers to see sunrise from the summit.' },
+    { label: 'Belihuloya',   value: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
   ],
+
   'Beaches tours': [
-    { label: 'Best Season',   value: 'Nov – Apr (South)' },
-    { label: 'Key Regions',   value: 'South & East Coast' },
-    { label: 'Group Size',    value: 'Flexible' },
-    { label: 'Ideal Time',    value: 'Year-round' },
+    { label: 'Unawatuna / Dalawella',  value: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
+    { label: 'Mirissa',                value: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
+    { label: 'Weligama / Midigama',    value: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
+    { label: 'Hiriketiya / Dickwella', value: 'A stylish horseshoe bay with surf, cafés, yoga, boutique stays and a relaxed tropical village feel.' },
+    { label: 'Tangalle / Goyambokka', value: 'A quieter luxury-leaning beach region with coves, villas, turtle beaches, lagoons and romantic coastal escapes.' },
+    { label: 'Bentota / Beruwala',     value: 'A classic west-coast resort area known for family beach hotels, water sports, river cruises and easy airport access.' },
+    { label: 'Ahungalla / Balapitiya', value: 'A calmer southwest-coast region with resort beaches, river safaris, mangroves and village-style coastal experiences.' },
+    { label: 'Hikkaduwa',              value: 'A long-established beach town with coral reefs, turtles, surfing, nightlife and a relaxed backpacker-meets-family feel.' },
+    { label: 'Kalutara / Wadduwa',    value: 'A convenient west-coast beach region close to Colombo, good for short beach stays, resorts and relaxed family breaks.' },
+    { label: 'Pasikuda / Kalkudah',   value: 'An east-coast beach area with shallow turquoise water, long beaches and a peaceful resort atmosphere.' },
+    { label: 'Nilaveli / Trincomalee',value: 'A beautiful east-coast beach base for whale watching, snorkelling, diving and visits to Pigeon Island.' },
+    { label: 'Arugam Bay',            value: 'Sri Lanka\'s iconic east-coast surf town with waves, beach cafés, lagoons, wildlife nearby and a laid-back atmosphere.' },
+    { label: 'Negombo',               value: 'A convenient first or last-night beach town close to the airport, with canals, seafood, churches and lagoon life.' },
+    { label: 'Kalpitiya',             value: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
   ],
+
   'Historical Areas tours': [
-    { label: 'Best Season',   value: 'Jan – Apr' },
-    { label: 'Key Regions',   value: 'Cultural Triangle' },
-    { label: 'Group Size',    value: 'Max 10 per guide' },
-    { label: 'Start Time',    value: '8:00 AM' },
+    { label: 'Anuradhapura', value: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
+    { label: 'Polonnaruwa',  value: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
+    { label: 'Sigiriya',     value: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
+    { label: 'Dambulla',     value: 'A famous cave temple complex filled with Buddhist murals, statues and hilltop views over the Cultural Triangle.' },
+    { label: 'Yapahuwa',     value: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
   ],
+
   'Culture & Heritage tours': [
-    { label: 'Best Season',   value: 'Jul – Aug (Perahera)' },
-    { label: 'Key Regions',   value: 'Kandy · Colombo' },
-    { label: 'Group Size',    value: 'Max 8 per guide' },
-    { label: 'Start Time',    value: '9:00 AM' },
+    { label: 'Kandy',        value: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
+    { label: 'Galle Fort',   value: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
+    { label: 'Ambalangoda',  value: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
+    { label: 'Nuwara Eliya', value: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
   ],
+
   'Hidden Trails tours': [
-    { label: 'Best Season',   value: 'Jan – Mar' },
-    { label: 'Key Regions',   value: 'Ella · Knuckles · Nuwara Eliya' },
-    { label: 'Group Size',    value: 'Max 6 per guide' },
-    { label: 'Start Time',    value: '6:00 AM' },
+    { label: 'Haputale',      value: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
+    { label: 'Kalpitiya',     value: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
+    { label: 'Jaffna',        value: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
+    { label: 'Riverston',     value: 'A misty mountain escape with viewpoints, cloud forests, waterfalls and quiet hiking routes.' },
+    { label: 'Mannar Island', value: 'A remote island destination known for birdlife, baobab trees, beaches, colonial remains and wild open landscapes.' },
   ],
 };
 
 // ─── NEW: Bullet-point inclusions per category ────────────────────────────────
 const categoryInclusions: Record<string, { title: string; detail: string }[]> = {
   'Wildlife': [
-    { title: 'Wilpattu',      detail: 'Wilpattu means “land of lakes”, referring to the natural rain-fed villus scattered across the park.' },
-    { title: 'Udawalawe',    detail: 'Udawalawe was created to protect wildlife displaced by the construction of the Udawalawe Reservoir.' },
-    { title: 'Minneriya / Kaudulla',  detail: 'The seasonal Elephant Gathering here is considered one of Asia’s great wildlife spectacles.' },
-    { title: 'Blue Whales',      detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
+    { title: 'Wilpattu',            detail: 'Wilpattu means "land of lakes", referring to the natural rain-fed villus scattered across the park.' },
+    { title: 'Udawalawe',           detail: 'Udawalawe was created to protect wildlife displaced by the construction of the Udawalawe Reservoir.' },
+    { title: 'Minneriya / Kaudulla',detail: 'The seasonal Elephant Gathering here is considered one of Asia\'s great wildlife spectacles.' },
+    { title: 'Blue Whales',         detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
   ],
+
   'Adventure tours': [
-    { title: 'Safety-certified equipment', detail: 'International-standard gear inspected before every activity.' },
-    { title: 'Experienced instructors',    detail: 'Guides certified in first aid and white-water rescue techniques.' },
-    { title: 'Transport included',         detail: 'Hotel pickups and drop-offs arranged throughout your adventure day.' },
-    { title: 'Meals on full-day tours',    detail: 'Packed lunches and refreshments included for all-day excursions.' },
+    { title: 'Ella',         detail: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
+    { title: 'Kitulgala',    detail: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
+    { title: 'Knuckles',     detail: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
+    { title: 'Adam\'s Peak', detail: 'A sacred mountain climbed overnight by pilgrims and travellers to see sunrise from the summit.' },
+    { title: 'Belihuloya',   detail: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
   ],
+
   'Beaches tours': [
-    { title: 'Curated beach selection',    detail: 'Hand-picked beaches matched to your preferred vibe — lively or secluded.' },
-    { title: 'Water sports arranged',      detail: 'Snorkeling, surfing lessons, and diving trips bookable on-site.' },
-    { title: 'Seafood dining included',    detail: 'Recommended beachside restaurants with pre-arranged reservations.' },
-    { title: 'Flexible itinerary',         detail: 'Adjust your beach stops on the go — no rigid schedules.' },
+    { title: 'Unawatuna / Dalawella',  detail: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
+    { title: 'Mirissa',                detail: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
+    { title: 'Weligama / Midigama',    detail: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
+    { title: 'Hiriketiya / Dickwella', detail: 'A stylish horseshoe bay with surf, cafés, yoga, boutique stays and a relaxed tropical village feel.' },
+    { title: 'Tangalle / Goyambokka', detail: 'A quieter luxury-leaning beach region with coves, villas, turtle beaches, lagoons and romantic coastal escapes.' },
+    { title: 'Bentota / Beruwala',     detail: 'A classic west-coast resort area known for family beach hotels, water sports, river cruises and easy airport access.' },
+    { title: 'Ahungalla / Balapitiya',detail: 'A calmer southwest-coast region with resort beaches, river safaris, mangroves and village-style coastal experiences.' },
+    // { title: 'Hikkaduwa',              detail: 'A long-established beach town with coral reefs, turtles, surfing, nightlife and a relaxed backpacker-meets-family feel.' },
+    // { title: 'Kalutara / Wadduwa',    detail: 'A convenient west-coast beach region close to Colombo, good for short beach stays, resorts and relaxed family breaks.' },
+    // { title: 'Pasikuda / Kalkudah',   detail: 'An east-coast beach area with shallow turquoise water, long beaches and a peaceful resort atmosphere.' },
+    // { title: 'Nilaveli / Trincomalee',detail: 'A beautiful east-coast beach base for whale watching, snorkelling, diving and visits to Pigeon Island.' },
+    // { title: 'Arugam Bay',            detail: 'Sri Lanka\'s iconic east-coast surf town with waves, beach cafés, lagoons, wildlife nearby and a laid-back atmosphere.' },
+    // { title: 'Negombo',               detail: 'A convenient first or last-night beach town close to the airport, with canals, seafood, churches and lagoon life.' },
+    // { title: 'Kalpitiya',             detail: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
   ],
+
   'Historical Areas tours': [
-    { title: 'UNESCO site entry fees',     detail: 'All entrance tickets to World Heritage sites included in the price.' },
-    { title: 'Expert archaeologist guide', detail: 'Guides trained in Sri Lankan history and classical architecture.' },
-    { title: 'Air-conditioned transport',  detail: 'Comfortable vehicle transfers between all historical sites.' },
-    { title: 'Cultural briefing pack',     detail: 'Pre-tour reading material and site maps provided digitally.' },
+    { title: 'Anuradhapura', detail: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
+    { title: 'Polonnaruwa',  detail: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
+    { title: 'Sigiriya',     detail: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
+    { title: 'Dambulla',     detail: 'A famous cave temple complex filled with Buddhist murals, statues and hilltop views over the Cultural Triangle.' },
+    { title: 'Yapahuwa',     detail: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
   ],
+
   'Culture & Heritage tours': [
-    { title: 'Homestay experiences',       detail: 'Stay with vetted local families for an authentic cultural exchange.' },
-    { title: 'Cooking class included',     detail: 'Learn to prepare traditional Sri Lankan dishes with local cooks.' },
-    { title: 'Artisan workshop visits',    detail: 'Hands-on sessions with batik, mask carving, and pottery masters.' },
-    { title: 'Ceremony access',            detail: 'Priority entry to local rituals and cultural events where permitted.' },
+    { title: 'Kandy',        detail: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
+    { title: 'Galle Fort',   detail: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
+    { title: 'Ambalangoda',  detail: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
+    { title: 'Nuwara Eliya', detail: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
   ],
+
   'Hidden Trails tours': [
-    { title: 'Local insider guides',       detail: 'Guides from the region who know trails no guidebook lists.' },
-    { title: 'Small groups only',          detail: 'Maximum 6 travelers to keep the experience exclusive and low-impact.' },
-    { title: 'Camping gear available',     detail: 'Tents and sleeping bags provided for overnight trail options.' },
-    { title: 'Photography assistance',     detail: 'Guides help identify the best vantage points and lighting times.' },
+    { title: 'Haputale',      detail: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
+    { title: 'Kalpitiya',     detail: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
+    { title: 'Jaffna',        detail: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
+    { title: 'Riverston',     detail: 'A misty mountain escape with viewpoints, cloud forests, waterfalls and quiet hiking routes.' },
+    { title: 'Mannar Island', detail: 'A remote island destination known for birdlife, baobab trees, beaches, colonial remains and wild open landscapes.' },
   ],
 };
 
@@ -321,7 +356,7 @@ const DestinationDetail = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/95 to-transparent" />
 
-        <div className="relative mx-auto max-w-9xl px-30">
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
 
           <motion.div            
             className="grid gap-12 lg:grid-cols-2 lg:items-center"
@@ -375,7 +410,7 @@ const DestinationDetail = () => {
 
       {/* ── NEW: Gallery Section ─────────────────────────────────────────────── */}
       <section className="relative py-20 bg-white">
-        <div className="mx-auto max-w-9xl px-30">
+        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
 
           {/* Masonry-style 3-photo grid */}
           <div className="grid grid-cols-2 grid-rows-[240px_180px] gap-1 lg:grid-cols-[2fr_1fr] lg:grid-rows-[300px_220px]">
@@ -430,7 +465,7 @@ const DestinationDetail = () => {
 
       {/* ── NEW: At a Glance + Inclusions ────────────────────────────────────── */}
       <section className="relative py-10 bg-slate-50">
-        <div className="mx-auto max-w-9xl px-30">
+        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
           {/* Section header */}
           <div className="mb-10">
             <p className="section-label mb-2 text-[#173036]">At a Glance</p>
@@ -495,7 +530,7 @@ const DestinationDetail = () => {
 
       {/* ── Why Visit Section (unchanged) ────────────────────────────────────── */}
       <section className="relative py-20 bg-white">
-        <div className="mx-auto max-w-9xl px-30">
+        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
           <div className="grid gap-8 lg:grid-cols-2">
             <article className="group border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg hover:-translate-y-2">
               <h3 className="text-2xl font-bold text-slate-900 group-hover:text-[#173036] transition-colors duration-300">Why Visit {category}</h3>
