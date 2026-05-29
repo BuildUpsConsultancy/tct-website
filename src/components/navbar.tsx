@@ -66,6 +66,8 @@ const Navbar = () => {
     { label: 'About Us', to: '/about' },
     { label: 'Contact', to: '/contact' },
     { label: 'FAQ & Policy', to: '/faq-policy' },
+    { label: 'Follow Us', to: '/socials' },
+
   ];
 
   const isActive = (to: string) => {
@@ -164,6 +166,7 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
+
 
           <div className="hidden md:flex items-center gap-4">
             {user ? (

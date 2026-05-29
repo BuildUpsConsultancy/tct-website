@@ -685,13 +685,13 @@ const Home = () => {
         </div>
         
         <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
-          <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center" initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+          <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch" initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             {/* Left Column - Big Picture */}
-            <motion.div variants={slideLeft} className="relative overflow-hidden shadow-2xl shadow-black/40">
+            <motion.div variants={slideLeft} className="relative overflow-hidden shadow-2xl shadow-black/40 h-full">
               <motion.img 
-                src="/images/home/yala.jpg" 
+                src="/images/experience.png" 
                 alt="Sri Lanka Experience" 
-                className="w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] object-cover"
+                className="w-full h-full min-h-[250px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px] object-cover"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
               />
@@ -699,7 +699,7 @@ const Home = () => {
             </motion.div>
 
             {/* Right Column - Text in Rectangle */}
-            <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20">
+            <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
               <motion.div variants={fadeUp}>
                 <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">

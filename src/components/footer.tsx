@@ -38,29 +38,34 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="group">
-          <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
-            Quick Links
-          </h4>
-          <ul className="space-y-3">
-            {[
-              'Travel Packages',
-              'Destinations',
-              'About Us',
-              'Contact Us'
-            ].map((link, idx) => (
-              <li key={idx}>
-                <a 
-                  className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
-                  href="#"
-                >
-                  <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">→</span>
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Quick Links */}
+<div className="group">
+  <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
+    Quick Links
+  </h4>
+
+  <ul className="space-y-3">
+    {[
+      { name: 'Socials', path: '/socials' },
+      { name: 'Destinations', path: '/destinations/wildlife' },
+      { name: 'About Us', path: '/about' },
+      { name: 'Contact Us', path: '/contact' },
+    ].map((link) => (
+      <li key={link.name}>
+        <a
+          href={link.path}
+          className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
+        >
+          <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">
+            →
+          </span>
+
+          {link.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
 
         {/* Services */}
         <div className="group">
@@ -133,7 +138,7 @@ const Footer = () => {
       {/* Bottom section */}
       <div className="max-w-7xl mx-auto px-8 pt-8 relative z-10">
         <div className="flex flex-col items-center gap-4 mb-6">
-          <p className="text-white text-sm text-center">© 2025 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
+          <p className="text-white text-sm text-center">© 2026 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="flex gap-6 text-white text-xs">
             <a className="hover:text-[#a7d9d5] transition-colors" href="#">Newsletter</a>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
