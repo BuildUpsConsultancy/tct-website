@@ -245,81 +245,104 @@ const About = () => {
       </section>
 
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-50 py-16 md:py-20">
-        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
-          <motion.div
-            className="text-center mb-12"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-80px' }}
+      {/* ── GALLERY SCROLL ───────────────────────────────────── */}
+<section className="relative overflow-hidden bg-slate-50 py-16 md:py-20">
+  <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
+    <motion.div
+      className="text-center mb-12"
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: '-80px' }}
+    >
+      <p className="mb-2 section-label text-[#173036]">Gallery</p>
+      <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
+    </motion.div>
+
+    {/* Row 1 — moves RIGHT (original direction) */}
+    <div className="overflow-hidden mb-6">
+      <motion.div
+        className="flex gap-6 w-max"
+        animate={{ x: [0, -4056] }}
+        transition={{
+          duration: 50,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      >
+        {[
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_09.jpg',
+          '/images/gallery/gallery_04.jpg',
+          '/images/gallery/gallery_05.jpg',
+          '/images/gallery/gallery_10.jpg',
+          '/images/gallery/gallery_07.jpg',
+          '/images/gallery/gallery_08.jpg',
+        ].concat([
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_09.jpg',
+          '/images/gallery/gallery_04.jpg',
+          '/images/gallery/gallery_05.jpg',
+          '/images/gallery/gallery_10.jpg',
+          '/images/gallery/gallery_07.jpg',
+          '/images/gallery/gallery_08.jpg',
+        ]).map((image, index) => (
+          <div
+            key={`row1-${index}`}
+            className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
           >
-            <p className="mb-2 section-label text-[#173036]">Gallery</p>
-            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
-          </motion.div>
-
-          {/* Infinite Scrolling Gallery */}
-          <div className="overflow-hidden">
-            <motion.div
-              className="flex gap-6 w-max"
-              animate={{ x: [0, -4056] }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            >
-              {/* Original set */}
-              {[
-                '/images/gallery/gallery_01.jpg',
-                '/images/gallery/gallery_02.jpg',
-                '/images/gallery/gallery_09.jpg',
-                '/images/gallery/gallery_04.jpg',
-                '/images/gallery/gallery_05.jpg',
-                '/images/gallery/gallery_10.jpg',
-                '/images/gallery/gallery_07.jpg',
-                '/images/gallery/gallery_08.jpg',
-              ].map((image, index) => (
-                <div
-                  key={`original-${index}`}
-                  className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
-                >
-                  <img
-                    src={image}
-                    alt={`Gallery ${index + 1}`}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                </div>
-              ))}
-
-              {/* Duplicate set for infinite loop */}
-              {[
-                '/images/gallery/gallery_01.jpg',
-                '/images/gallery/gallery_02.jpg',
-                '/images/gallery/gallery_09.jpg',
-                '/images/gallery/gallery_04.jpg',
-                '/images/gallery/gallery_05.jpg',
-                '/images/gallery/gallery_10.jpg',
-                '/images/gallery/gallery_07.jpg',
-                '/images/gallery/gallery_08.jpg',
-              ].map((image, index) => (
-                <div
-                  key={`duplicate-${index}`}
-                  className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
-                >
-                  <img
-                    src={image}
-                    alt={`Gallery ${index + 1}`}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                </div>
-              ))}
-            </motion.div>
+            <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
           </div>
-        </div>
-      </section>
+        ))}
+      </motion.div>
+    </div>
+
+    {/* Row 2 — moves LEFT */}
+    <div className="overflow-hidden">
+      <motion.div
+        className="flex gap-6 w-max"
+        animate={{ x: [-4056, 0] }}
+        transition={{
+          duration: 50,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      >
+        {[
+          '/images/gallery/gallery_08.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_04.jpg',
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_10.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_11.jpg',
+        ].concat([
+          '/images/gallery/gallery_08.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_04.jpg',
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_01.jpg',
+          '/images/gallery/gallery_10.jpg',
+          '/images/gallery/gallery_02.jpg',
+          '/images/gallery/gallery_11.jpg',
+        ]).map((image, index) => (
+          <div
+            key={`row2-${index}`}
+            className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
+          >
+            <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+
+  </div>
+</section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-20 md:py-24">

@@ -19,8 +19,8 @@ const categoryDescriptions: Record<string, string> = {
 const categoryHeroImage: Record<string, string> = {
   'Wildlife tours': '/images/home/yala.jpg',
   'Adventure tours': '/images/home/colombo.avif',
-  'Beaches tours': '/images/home/colombo.avif',
-  'Historical Areas tours': '/images/home/kandy.jpg',
+  'Beaches tours': '/images/destinations/hikkaduwa-culture.jpg',
+  'Historical Areas tours': '/images/destinations/polonnaruwa-culture.webp',
   'Culture & Heritage tours': '/images/home/kandy.jpg',
   'Hidden Trails tours': '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
 };
@@ -120,22 +120,22 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
     { src: '/images/destinations/udawalawa-wildlife.jpg',     tag: 'Birds',     caption: 'Blue-tailed bee-eater' },
   ],
   'Adventure tours': [
-    { src: '/images/destinations/adventure-rafting.jpg',  tag: 'Featured',  caption: 'White-water rafting, Kitulgala' },
+    { src: '/images/destinations/adventure-rafting.webp',  tag: 'Featured',  caption: 'White-water rafting, Kitulgala' },
     { src: '/images/destinations/adventure-climb.jpg',    tag: 'Hiking',    caption: 'Summit trail, Knuckles Range' },
     { src: '/images/destinations/adventure-zip.jpg',      tag: 'Zipline',   caption: 'Rainforest canopy zipline' },
   ],
   'Beaches tours': [
-    { src: '/images/destinations/beach-mirissa.jpg',      tag: 'Featured',  caption: 'Mirissa Beach at golden hour' },
+    { src: '/images/destinations/mirissa-beach.webp',      tag: 'Featured',  caption: 'Mirissa Beach at golden hour' },
     { src: '/images/destinations/beach-unawatuna.jpg',    tag: 'Snorkel',   caption: 'Coral reef, Unawatuna' },
     { src: '/images/destinations/beach-arugambay.jpg',    tag: 'Surf',      caption: 'Arugam Bay surf break' },
   ],
   'Historical Areas tours': [
-    { src: '/images/destinations/history-sigiriya.jpg',   tag: 'Featured',  caption: 'Sigiriya Rock Fortress' },
-    { src: '/images/destinations/history-polonnaruwa.jpg',tag: 'Ruins',     caption: 'Polonnaruwa ancient city' },
-    { src: '/images/destinations/history-galle.jpg',      tag: 'Colonial',  caption: 'Galle Fort ramparts' },
+    { src: '/images/destinations/sigiriya-culture.png',   tag: 'Featured',  caption: 'Sigiriya Rock Fortress' },
+    { src: '/images/destinations/polonnaruwa-culture.webp',tag: 'Ruins',     caption: 'Polonnaruwa ancient city' },
+    { src: '/images/destinations/galle-culture.webp',      tag: 'Colonial',  caption: 'Galle Fort ramparts' },
   ],
   'Culture & Heritage tours': [
-    { src: '/images/destinations/culture-perahera.jpg',   tag: 'Featured',  caption: 'Kandy Esala Perahera' },
+    { src: '/images/destinations/culture-perahera.webp',   tag: 'Featured',  caption: 'Kandy Esala Perahera' },
     { src: '/images/destinations/culture-craft.jpg',      tag: 'Artisan',   caption: 'Traditional mask carving' },
     { src: '/images/destinations/culture-temple.jpg',     tag: 'Ceremony',  caption: 'Dambulla Cave Temple' },
   ],

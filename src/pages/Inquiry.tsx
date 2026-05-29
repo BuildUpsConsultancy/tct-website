@@ -217,16 +217,16 @@ const Inquiry = () => {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.48)_32%,rgba(255,255,255,0.70)_74%,rgba(255,255,255,0.90)_100%)]" />
         </div>
 
-        <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24">
+        <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24 mt-20">
           <motion.div
-            className="mx-auto -mt-14 rounded-[2px] border border-[#f1f1f1] bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
+            className="mx-auto -mt-14 border border-slate-200 bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
             style={{ y: formCardY, opacity: formCardOpacity, scale: formCardScale }}
             variants={staggerContainer(0.08, 0.03)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
           >
-            <motion.div variants={fadeUp} className="mx-auto max-w-6xl">
+            <motion.div variants={fadeUp} className="mx-auto max-w-6xl mt-5">
               <div className="mt-2">
                 <div>
                   <p className="section-label text-[#173036]">Tailor-Made Travel</p>
