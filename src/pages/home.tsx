@@ -514,7 +514,7 @@ const Home = () => {
   <div
     className="absolute inset-0 pointer-events-none"
     style={{
-      backgroundImage: "url('/images/updated.jpeg')",
+      backgroundImage: "url('/images/bg/bg-1.png')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',// 👈 flips horizontally
       opacity: 0.9,

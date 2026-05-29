@@ -212,7 +212,7 @@ const Inquiry = () => {
         <div className="absolute inset-0">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-34"
-            style={{ backgroundImage: 'url(/images/updated.jpeg)' }}
+            style={{ backgroundImage: 'url(/images/bg/bg-5.png)' }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.48)_32%,rgba(255,255,255,0.70)_74%,rgba(255,255,255,0.90)_100%)]" />
         </div>

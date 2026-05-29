@@ -185,7 +185,7 @@ const About = () => {
 
       {/* ── WHY CHOOSE US ────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20 md:py-24 min-h-[580px] flex items-center bg-white">
-        <div className="absolute inset-0 bg-cover bg-center opacity-8" style={{ backgroundImage: 'url(/images/updated.jpeg)' }} />
+        <div className="absolute inset-0 bg-cover bg-center opacity-8" style={{ backgroundImage: 'url(/images/bg/bg-9.png)' }} />
         <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
           <motion.div
             className="text-center"
