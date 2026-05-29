@@ -101,7 +101,7 @@ const Contact = () => {
 
             {/* Left — contact info */}
             <motion.div
-              className="space-y-4 lg:pt-8"
+              className="order-2 space-y-3 lg:order-1 lg:pt-8"
               variants={staggerContainer(0.1, 0.3)}
               initial="hidden"
               animate="show"
@@ -109,33 +109,33 @@ const Contact = () => {
               {contactItems.map(({ icon: Icon, label, value }) => (
                 <motion.div
                   key={label}
-                  className="border border-slate-200 bg-white px-5 py-4 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg"
+                  className="border border-slate-200 bg-white px-3 py-3 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg sm:px-5 sm:py-4"
                   variants={slideLeft}
                   whileHover={{ x: 4, transition: { duration: 0.25 } }}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-md bg-[#a7d9d5] text-[#173036]">
-                      <Icon className="h-4 w-4" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-md bg-[#a7d9d5] text-[#173036] sm:h-9 sm:w-9">
+                      <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-900">{label}</p>
-                      <p className="mt-0.5 text-sm text-slate-600">{value}</p>
+                      <p className="text-[10px] font-bold leading-tight text-slate-900 sm:text-sm">{label}</p>
+                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm">{value}</p>
                     </div>
                   </div>
                 </motion.div>
               ))}
 
-              <div className="flex gap-3 pl-1 pt-4">
+              <div className="flex gap-2 pl-1 pt-2 sm:gap-3 sm:pt-4">
                 {[Globe2, Mail, Phone].map((Icon, i) => (
                   <motion.button
                     key={i}
                     type="button"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a7d9d5]/55 text-[#173036]"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a7d9d5]/55 text-[#173036] sm:h-9 sm:w-9"
                     whileHover={{ scale: 1.15, backgroundColor: '#a7d9d5', y: -2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 18 }}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </motion.button>
                 ))}
               </div>
@@ -143,7 +143,7 @@ const Contact = () => {
 
             {/* Right — form */}
             <motion.div
-              className="border border-slate-200 bg-white p-6 shadow-lg md:p-8"
+              className="order-1 border border-slate-200 bg-white p-6 shadow-lg md:p-8 lg:order-2"
               variants={slideRight}
               initial="hidden"
               animate="show"
