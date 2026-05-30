@@ -35,9 +35,11 @@ const Inquiry = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [submittedEmail, setSubmittedEmail] = useState('');
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const pageRef = useRef<HTMLDivElement>(null);
   const preferencesRef = useRef<HTMLDivElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end start'] });
   const heroImageY = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
   const formCardY = useTransform(scrollYProgress, [0, 0.42], ['56px', '0px']);
@@ -66,6 +68,12 @@ const Inquiry = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if ((success || error) && feedbackRef.current) {
+      feedbackRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [success, error]);
 
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
@@ -143,6 +151,8 @@ const Inquiry = () => {
     };
 
     try {
+      const emailForFeedback = form.email;
+
       await Promise.all([
         emailjs.send(serviceId, inquiryTemplateId, sharedParams, { publicKey }),
         emailjs.send(
@@ -157,9 +167,9 @@ const Inquiry = () => {
         ),
       ]);
 
+      setSubmittedEmail(emailForFeedback);
       setSuccess(true);
       setForm(initialState);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (submitError) {
       console.error('Failed to send inquiry', submitError);
       setError('We could not send your inquiry right now. Please try again or email us directly.');
@@ -235,19 +245,19 @@ const Inquiry = () => {
               </div>
 
               {success && (
-                <motion.div variants={fadeUp} className="mt-8 border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-900">
+                <motion.div ref={feedbackRef} variants={fadeUp} className="mt-8 border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-900">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
                     <div>
                       <p className="font-semibold">Your inquiry has been sent.</p>
-                      <p className="text-sm font-normal text-emerald-800">We have sent a confirmation to {form.email || 'your email address'}.</p>
+                      <p className="text-sm font-normal text-emerald-800">We have sent a confirmation to {submittedEmail || 'your email address'}.</p>
                     </div>
                   </div>
                 </motion.div>
               )}
 
               {error && (
-                <motion.div variants={fadeUp} className="mt-8 border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900">
+                <motion.div ref={feedbackRef} variants={fadeUp} className="mt-8 border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900">
                   <p className="text-sm font-semibold">{error}</p>
                 </motion.div>
               )}
