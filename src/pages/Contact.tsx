@@ -109,7 +109,7 @@ const Contact = () => {
               {contactItems.map(({ icon: Icon, label, value }) => (
                 <motion.div
                   key={label}
-                  className="border border-slate-200 bg-white px-3 py-3 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg sm:px-5 sm:py-4"
+                  className="border border-slate-200 bg-[#173036] px-3 py-3 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#1f4048] hover:shadow-lg sm:px-5 sm:py-4"
                   variants={slideLeft}
                   whileHover={{ x: 4, transition: { duration: 0.25 } }}
                 >
@@ -118,8 +118,8 @@ const Contact = () => {
                       <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold leading-tight text-slate-900 sm:text-sm">{label}</p>
-                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm">{value}</p>
+                      <p className="text-[10px] font-bold leading-tight text-slate-900 sm:text-sm text-white">{label}</p>
+                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm text-white/85">{value}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -220,6 +220,53 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      {/* Gallery Section */}
+<section className="bg-white py-10">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    
+    {/* Section Header */}
+    <div className="mb-12 text-center">
+      {/* <span className="text-sm font-semibold uppercase tracking-wider text-[#a7d9d5]">
+        Our Gallery
+      </span>
+      <h2 className="mt-2 text-3xl font-bold text-[#173036] md:text-4xl">
+        Moments & Highlights
+      </h2> */}
+      <p className="mx-auto max-w-2xl text-slate-600">
+        Explore some of our memorable projects, events, and achievements.
+      </p>
+    </div>
+
+    {/* Gallery Grid */}
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {[
+        '/images/destinations/culture-perahera.webp',
+  '/images/destinations/culture-temple.jpg',
+  '/images/destinations/habarana-adventure.jpg',
+  '/images/destinations/hidden-ella.jpg',
+  '/images/destinations/hidden-village.jpg',
+  '/images/destinations/hidden-waterfall.jpg',
+  '/images/destinations/hikkaduwa-culture.jpg',
+  '/images/destinations/kalpitiya-beach.jpg',
+      ].map((image, index) => (
+        <motion.div
+          key={index}
+          className="group overflow-hidden shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.05 }}
+        >
+          <img
+            src={image}
+            alt={`Gallery ${index + 1}`}
+            className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
     </motion.div>
   );
 };
