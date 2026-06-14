@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, HelpCircle, ShieldCheck, CreditCard, CalendarClock } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Lenis from 'lenis';
 import Reveal from '../components/Reveal';
@@ -42,33 +42,33 @@ const faqItems: FaqItem[] = [
   },
 ];
 
-type PolicySection = {
-  title: string;
-  description: string;
-};
+// type PolicySection = {
+//   title: string;
+//   description: string;
+// };
 
-const policySections: PolicySection[] = [
-  {
-    title: 'Booking Confirmation',
-    description:
-      'A booking is confirmed once it is submitted through our Book Now flow and you receive a confirmation email from our team. Full payment or a deposit may be required to secure your dates.',
-  },
-  {
-    title: 'Date Changes',
-    description:
-      'Date change requests must be submitted with at least 14 days’ notice. Changes are subject to availability and may incur a date-change administration fee. Please contact us as early as possible.',
-  },
-  {
-    title: 'Cancellation & Refunds',
-    description:
-      '30+ days before departure: full refund (minus admin fee). 15–29 days: 50% refund. Under 15 days: non-refundable. Refunds are processed within 7–14 business days to the original payment method.',
-  },
-  {
-    title: 'Pricing & Payments',
-    description:
-      'All prices are quoted in USD per person. Package costs, optional upgrades, and any applicable taxes are clearly shown before you confirm a booking. We accept all major credit/debit cards.',
-  },
-];
+// const policySections: PolicySection[] = [
+//   {
+//     title: 'Booking Confirmation',
+//     description:
+//       'A booking is confirmed once it is submitted through our Book Now flow and you receive a confirmation email from our team. Full payment or a deposit may be required to secure your dates.',
+//   },
+//   {
+//     title: 'Date Changes',
+//     description:
+//       'Date change requests must be submitted with at least 14 days’ notice. Changes are subject to availability and may incur a date-change administration fee. Please contact us as early as possible.',
+//   },
+//   {
+//     title: 'Cancellation & Refunds',
+//     description:
+//       '30+ days before departure: full refund (minus admin fee). 15–29 days: 50% refund. Under 15 days: non-refundable. Refunds are processed within 7–14 business days to the original payment method.',
+//   },
+//   {
+//     title: 'Pricing & Payments',
+//     description:
+//       'All prices are quoted in USD per person. Package costs, optional upgrades, and any applicable taxes are clearly shown before you confirm a booking. We accept all major credit/debit cards.',
+//   },
+// ];
 
 const FAQ = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -130,35 +130,46 @@ const FAQ = () => {
         </Reveal>
 
         <div className="grid gap-4">
-          {faqItems.map((item, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <Reveal key={item.question} animation="fade-up" delay={index * 80}>
-                <div className="overflow-hidden border border-slate-200 bg-white transition hover:border-[#a7d9d5] hover:shadow-md">
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                  >
-                    <span className="flex items-center gap-3 text-slate-900">
-                      <HelpCircle className="h-5 w-5 text-[#173036]" />
-                      <span className="text-base font-semibold sm:text-lg">{item.question}</span>
-                    </span>
-                    <ChevronDown className={`h-5 w-5 text-[#173036] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                  </button>
+  {faqItems.map((item, index) => {
+    const isOpen = openIndex === index;
 
-                  {isOpen && (
-                    <div className="border-t border-slate-200 px-5 py-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-                      {item.answer}
-                    </div>
-                  )}
-                </div>
-              </Reveal>
-            );
-          })}
+    return (
+      <Reveal key={item.question} animation="fade-up" delay={index * 80}>
+        <div className="overflow-hidden border border-slate-200 transition hover:border-[#a7d9d5] hover:shadow-md">
+          
+          {/* QUESTION HEADER */}
+          <button
+            type="button"
+            onClick={() => setOpenIndex(isOpen ? -1 : index)}
+            className="flex w-full items-center justify-between gap-4 bg-[#173036] px-5 py-4 text-left"
+          >
+            <span className="flex items-center gap-3 text-white">
+              <HelpCircle className="h-5 w-5 text-[#a7d9d5]" />
+              <span className="text-base font-semibold sm:text-lg">
+                {item.question}
+              </span>
+            </span>
+
+            <ChevronDown
+              className={`h-5 w-5 text-[#a7d9d5] transition-transform ${
+                isOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {/* ANSWER */}
+          {isOpen && (
+            <div className="border-t border-slate-200 bg-white px-5 py-4 text-sm leading-relaxed text-slate-600 sm:text-base">
+              {item.answer}
+            </div>
+          )}
         </div>
+      </Reveal>
+    );
+  })}
+</div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {/* <div className="mt-10 grid gap-4 sm:grid-cols-2">
           <Reveal animation="fade-right">
             <div className="border border-slate-200 bg-white p-6 transition hover:border-[#a7d9d5] hover:shadow-md">
               <h2 className="mb-2 flex items-center gap-2 font-display text-2xl text-slate-900">
@@ -179,9 +190,9 @@ const FAQ = () => {
               </p>
             </div>
           </Reveal>
-        </div>
+        </div> */}
 
-        <section className="mt-12">
+        {/* <section className="mt-12">
           <Reveal className="mb-5 inline-flex items-center gap-2 border border-[#a7d9d5]/40 bg-[#173036] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white" animation="fade-up">
             Policy Highlights
           </Reveal>
@@ -226,7 +237,7 @@ const FAQ = () => {
               </div>
             </Reveal>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ArrowLeft, Check } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Lenis from 'lenis';
@@ -16,14 +16,6 @@ const categoryDescriptions: Record<string, string> = {
   'Hidden Trails tours': 'Escape the tourist trails and discover Sri Lanka\'s best-kept secrets. Mist-covered mountains, untouched waterfalls, hidden villages, and panoramic viewpoints known only to locals await discovery.',
 };
 
-const categoryHeroImage: Record<string, string> = {
-  'Wildlife tours': '/images/home/yala.jpg',
-  'Adventure tours': '/images/destinations/kithulgala.jpg',
-  'Beaches tours': '/images/destinations/hikkaduwa-culture.jpg',
-  'Historical Areas tours': '/images/destinations/sigiriya-culture.png',
-  'Culture & Heritage tours': '/images/home/kandy.jpg',
-  'Hidden Trails tours': '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
-};
 // Separate background images for parallax effect
 const categoryBackgroundImage: Record<string, string> = {
   'Wildlife tours': '/images/bg/bg-6.png',
@@ -72,44 +64,44 @@ const categoryBackgroundImage: Record<string, string> = {
 //   ],
 // };
 
-const categoryWhyVisit: Record<string, string[]> = {
-  'Wildlife tours': [
-    'Witness endangered species in their protected natural habitats',
-    'Learn about conservation efforts from expert naturalist guides',
-    'Capture once-in-a-lifetime wildlife photography moments',
-    'Experience thrilling safari encounters in world-class reserves',
-  ],
-  'Adventure tours': [
-    'Push your limits with adrenaline-pumping outdoor activities',
-    'Explore untamed landscapes with experienced adventure professionals',
-    'Create memories through challenging and rewarding experiences',
-    'Test yourself against Sri Lanka\'s diverse natural terrain',
-  ],
-  'Beaches tours': [
-    'Relax on some of Asia\'s most beautiful and uncrowded beaches',
-    'Experience world-class water sports and beach activities',
-    'Enjoy fresh seafood dining with ocean-view settings',
-    'Recharge with the healing power of tropical paradise',
-  ],
-  'Historical Areas tours': [
-    'Walk through UNESCO World Heritage sites and ancient kingdoms',
-    'Understand Sri Lanka\'s 2,500-year spiritual and cultural legacy',
-    'Visit archaeologically significant temples and monuments',
-    'Learn fascinating stories from expert historical guides',
-  ],
-  'Culture & Heritage tours': [
-    'Connect with locals and experience authentic daily traditions',
-    'Learn traditional crafts directly from master artisans',
-    'Participate in genuine cultural rituals and celebrations',
-    'Understand the soul and spirit of Sri Lankan heritage',
-  ],
-  'Hidden Trails tours': [
-    'Escape crowded tourist routes and discover hidden gems',
-    'Access secret viewpoints and untouched natural landscapes',
-    'Experience Sri Lanka like a true local, not a tourist',
-    'Create unique stories of discovery and adventure',
-  ],
-};
+// const categoryWhyVisit: Record<string, string[]> = {
+//   'Wildlife tours': [
+//     'Witness endangered species in their protected natural habitats',
+//     'Learn about conservation efforts from expert naturalist guides',
+//     'Capture once-in-a-lifetime wildlife photography moments',
+//     'Experience thrilling safari encounters in world-class reserves',
+//   ],
+//   'Adventure tours': [
+//     'Push your limits with adrenaline-pumping outdoor activities',
+//     'Explore untamed landscapes with experienced adventure professionals',
+//     'Create memories through challenging and rewarding experiences',
+//     'Test yourself against Sri Lanka\'s diverse natural terrain',
+//   ],
+//   'Beaches tours': [
+//     'Relax on some of Asia\'s most beautiful and uncrowded beaches',
+//     'Experience world-class water sports and beach activities',
+//     'Enjoy fresh seafood dining with ocean-view settings',
+//     'Recharge with the healing power of tropical paradise',
+//   ],
+//   'Historical Areas tours': [
+//     'Walk through UNESCO World Heritage sites and ancient kingdoms',
+//     'Understand Sri Lanka\'s 2,500-year spiritual and cultural legacy',
+//     'Visit archaeologically significant temples and monuments',
+//     'Learn fascinating stories from expert historical guides',
+//   ],
+//   'Culture & Heritage tours': [
+//     'Connect with locals and experience authentic daily traditions',
+//     'Learn traditional crafts directly from master artisans',
+//     'Participate in genuine cultural rituals and celebrations',
+//     'Understand the soul and spirit of Sri Lankan heritage',
+//   ],
+//   'Hidden Trails tours': [
+//     'Escape crowded tourist routes and discover hidden gems',
+//     'Access secret viewpoints and untouched natural landscapes',
+//     'Experience Sri Lanka like a true local, not a tourist',
+//     'Create unique stories of discovery and adventure',
+//   ],
+// };
 
 // ─── NEW: Gallery images per category ────────────────────────────────────────
 // Replace the src values with your actual image paths
@@ -208,71 +200,121 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 };
 
 // ─── NEW: Bullet-point inclusions per category ────────────────────────────────
-const categoryInclusions: Record<string, { title: string; detail: string }[]> = {
-  'Wildlife': [
-    { title: 'Wilpattu',            detail: 'Wilpattu means "land of lakes", referring to the natural rain-fed villus scattered across the park.' },
-    { title: 'Udawalawe',           detail: 'Udawalawe was created to protect wildlife displaced by the construction of the Udawalawe Reservoir.' },
-    { title: 'Minneriya / Kaudulla',detail: 'The seasonal Elephant Gathering here is considered one of Asia\'s great wildlife spectacles.' },
-    { title: 'Blue Whales',         detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
-  ],
+// const categoryInclusions: Record<string, { title: string; detail: string }[]> = {
+//   'Wildlife': [
+//     { title: 'Wilpattu',            detail: 'Wilpattu means "land of lakes", referring to the natural rain-fed villus scattered across the park.' },
+//     { title: 'Udawalawe',           detail: 'Udawalawe was created to protect wildlife displaced by the construction of the Udawalawe Reservoir.' },
+//     { title: 'Minneriya / Kaudulla',detail: 'The seasonal Elephant Gathering here is considered one of Asia\'s great wildlife spectacles.' },
+//     { title: 'Blue Whales',         detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
+//   ],
 
-  'Adventure tours': [
-    { title: 'Ella',         detail: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
-    { title: 'Kitulgala',    detail: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
-    { title: 'Knuckles',     detail: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
-    { title: 'Adam\'s Peak', detail: 'A sacred mountain climbed overnight by pilgrims and travellers to see sunrise from the summit.' },
-    { title: 'Belihuloya',   detail: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
-  ],
+//   'Adventure tours': [
+//     { title: 'Ella',         detail: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
+//     { title: 'Kitulgala',    detail: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
+//     { title: 'Knuckles',     detail: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
+//     { title: 'Adam\'s Peak', detail: 'A sacred mountain climbed overnight by pilgrims and travellers to see sunrise from the summit.' },
+//     { title: 'Belihuloya',   detail: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
+//   ],
 
-  'Beaches tours': [
-    { title: 'Unawatuna / Dalawella',  detail: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
-    { title: 'Mirissa',                detail: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
-    { title: 'Weligama / Midigama',    detail: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
-    { title: 'Hiriketiya / Dickwella', detail: 'A stylish horseshoe bay with surf, cafés, yoga, boutique stays and a relaxed tropical village feel.' },
-    { title: 'Tangalle / Goyambokka', detail: 'A quieter luxury-leaning beach region with coves, villas, turtle beaches, lagoons and romantic coastal escapes.' },
-    { title: 'Bentota / Beruwala',     detail: 'A classic west-coast resort area known for family beach hotels, water sports, river cruises and easy airport access.' },
-    { title: 'Ahungalla / Balapitiya',detail: 'A calmer southwest-coast region with resort beaches, river safaris, mangroves and village-style coastal experiences.' },
-    // { title: 'Hikkaduwa',              detail: 'A long-established beach town with coral reefs, turtles, surfing, nightlife and a relaxed backpacker-meets-family feel.' },
-    // { title: 'Kalutara / Wadduwa',    detail: 'A convenient west-coast beach region close to Colombo, good for short beach stays, resorts and relaxed family breaks.' },
-    // { title: 'Pasikuda / Kalkudah',   detail: 'An east-coast beach area with shallow turquoise water, long beaches and a peaceful resort atmosphere.' },
-    // { title: 'Nilaveli / Trincomalee',detail: 'A beautiful east-coast beach base for whale watching, snorkelling, diving and visits to Pigeon Island.' },
-    // { title: 'Arugam Bay',            detail: 'Sri Lanka\'s iconic east-coast surf town with waves, beach cafés, lagoons, wildlife nearby and a laid-back atmosphere.' },
-    // { title: 'Negombo',               detail: 'A convenient first or last-night beach town close to the airport, with canals, seafood, churches and lagoon life.' },
-    // { title: 'Kalpitiya',             detail: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
-  ],
+//   'Beaches tours': [
+//     { title: 'Unawatuna / Dalawella',  detail: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
+//     { title: 'Mirissa',                detail: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
+//     { title: 'Weligama / Midigama',    detail: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
+//     { title: 'Hiriketiya / Dickwella', detail: 'A stylish horseshoe bay with surf, cafés, yoga, boutique stays and a relaxed tropical village feel.' },
+//     { title: 'Tangalle / Goyambokka', detail: 'A quieter luxury-leaning beach region with coves, villas, turtle beaches, lagoons and romantic coastal escapes.' },
+//     { title: 'Bentota / Beruwala',     detail: 'A classic west-coast resort area known for family beach hotels, water sports, river cruises and easy airport access.' },
+//     { title: 'Ahungalla / Balapitiya',detail: 'A calmer southwest-coast region with resort beaches, river safaris, mangroves and village-style coastal experiences.' },
+//     // { title: 'Hikkaduwa',              detail: 'A long-established beach town with coral reefs, turtles, surfing, nightlife and a relaxed backpacker-meets-family feel.' },
+//     // { title: 'Kalutara / Wadduwa',    detail: 'A convenient west-coast beach region close to Colombo, good for short beach stays, resorts and relaxed family breaks.' },
+//     // { title: 'Pasikuda / Kalkudah',   detail: 'An east-coast beach area with shallow turquoise water, long beaches and a peaceful resort atmosphere.' },
+//     // { title: 'Nilaveli / Trincomalee',detail: 'A beautiful east-coast beach base for whale watching, snorkelling, diving and visits to Pigeon Island.' },
+//     // { title: 'Arugam Bay',            detail: 'Sri Lanka\'s iconic east-coast surf town with waves, beach cafés, lagoons, wildlife nearby and a laid-back atmosphere.' },
+//     // { title: 'Negombo',               detail: 'A convenient first or last-night beach town close to the airport, with canals, seafood, churches and lagoon life.' },
+//     // { title: 'Kalpitiya',             detail: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
+//   ],
 
-  'Historical Areas tours': [
-    { title: 'Anuradhapura', detail: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
-    { title: 'Polonnaruwa',  detail: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
-    { title: 'Sigiriya',     detail: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
-    { title: 'Dambulla',     detail: 'A famous cave temple complex filled with Buddhist murals, statues and hilltop views over the Cultural Triangle.' },
-    { title: 'Yapahuwa',     detail: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
-  ],
+//   'Historical Areas tours': [
+//     { title: 'Anuradhapura', detail: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
+//     { title: 'Polonnaruwa',  detail: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
+//     { title: 'Sigiriya',     detail: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
+//     { title: 'Dambulla',     detail: 'A famous cave temple complex filled with Buddhist murals, statues and hilltop views over the Cultural Triangle.' },
+//     { title: 'Yapahuwa',     detail: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
+//   ],
 
-  'Culture & Heritage tours': [
-    { title: 'Kandy',        detail: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
-    { title: 'Galle Fort',   detail: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
-    { title: 'Ambalangoda',  detail: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
-    { title: 'Nuwara Eliya', detail: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
-  ],
+//   'Culture & Heritage tours': [
+//     { title: 'Kandy',        detail: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
+//     { title: 'Galle Fort',   detail: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
+//     { title: 'Ambalangoda',  detail: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
+//     { title: 'Nuwara Eliya', detail: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
+//   ],
 
-  'Hidden Trails tours': [
-    { title: 'Haputale',      detail: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
-    { title: 'Kalpitiya',     detail: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
-    { title: 'Jaffna',        detail: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
-    { title: 'Riverston',     detail: 'A misty mountain escape with viewpoints, cloud forests, waterfalls and quiet hiking routes.' },
-    { title: 'Mannar Island', detail: 'A remote island destination known for birdlife, baobab trees, beaches, colonial remains and wild open landscapes.' },
-  ],
-};
+//   'Hidden Trails tours': [
+//     { title: 'Haputale',      detail: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
+//     { title: 'Kalpitiya',     detail: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
+//     { title: 'Jaffna',        detail: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
+//     { title: 'Riverston',     detail: 'A misty mountain escape with viewpoints, cloud forests, waterfalls and quiet hiking routes.' },
+//     { title: 'Mannar Island', detail: 'A remote island destination known for birdlife, baobab trees, beaches, colonial remains and wild open landscapes.' },
+//   ],
+// };
 
 // ─── NEW: Testimonial per category ────────────────────────────────────────────
-const categoryTestimonial: Record<string, { quote: string; author: string }> = {
-  'Wildlife':              { quote: 'We saw five leopards in a single morning — something our guides said they\'d only witnessed twice in a decade.', author: 'Sarah M., Netherlands · Yala Safari 2024' },
-  'Adventure tours':       { quote: 'The Kitulgala rafting was the highlight of our entire trip. The guides made it thrilling and completely safe.', author: 'James T., Australia · Adventure Tour 2024' },
-  'Beaches tours':         { quote: 'Mirissa at sunrise with nobody around — our guide knew exactly when and where to go. Absolutely magical.', author: 'Priya K., Singapore · Beaches Tour 2024' },
-  'Historical Areas tours':{ quote: 'Standing at the top of Sigiriya as the mist cleared below us — a moment I\'ll carry for the rest of my life.', author: 'Marco R., Italy · Heritage Tour 2024' },
-  'Culture & Heritage tours':{ quote: 'Cooking dinner with a family in Kandy and sharing stories — this is why we travel. Completely unforgettable.', author: 'Elise D., France · Culture Tour 2024' },
-  'Hidden Trails tours':   { quote: 'Our guide took us to a viewpoint above Ella that wasn\'t on any map. We were entirely alone. Breathtaking.', author: 'Tom & Lisa B., UK · Hidden Trails 2024' },
+// const categoryTestimonial: Record<string, { quote: string; author: string }> = {
+//   'Wildlife':              { quote: 'We saw five leopards in a single morning — something our guides said they\'d only witnessed twice in a decade.', author: 'Sarah M., Netherlands · Yala Safari 2024' },
+//   'Adventure tours':       { quote: 'The Kitulgala rafting was the highlight of our entire trip. The guides made it thrilling and completely safe.', author: 'James T., Australia · Adventure Tour 2024' },
+//   'Beaches tours':         { quote: 'Mirissa at sunrise with nobody around — our guide knew exactly when and where to go. Absolutely magical.', author: 'Priya K., Singapore · Beaches Tour 2024' },
+//   'Historical Areas tours':{ quote: 'Standing at the top of Sigiriya as the mist cleared below us — a moment I\'ll carry for the rest of my life.', author: 'Marco R., Italy · Heritage Tour 2024' },
+//   'Culture & Heritage tours':{ quote: 'Cooking dinner with a family in Kandy and sharing stories — this is why we travel. Completely unforgettable.', author: 'Elise D., France · Culture Tour 2024' },
+//   'Hidden Trails tours':   { quote: 'Our guide took us to a viewpoint above Ella that wasn\'t on any map. We were entirely alone. Breathtaking.', author: 'Tom & Lisa B., UK · Hidden Trails 2024' },
+// };
+const CategoryVideos: Record<string, {
+  src: string;
+  poster?: string;
+  tag: string;
+  title: string;
+  description: string;
+}> = {
+  'Wildlife tours': {
+    src: "/uploads/slider-video.mp4",
+    poster: "/images/home/yala.jpg",
+    tag: "Wildlife Safari",
+    title: "Into the Wild",
+    description: "Experience breathtaking encounters with Sri Lanka’s majestic wildlife in their natural habitat.",
+  },
+  'Adventure tours': {
+    src: "/videos/adventure-rafting.mp4",
+    poster: "/images/destinations/kithulgala.jpg",
+    tag: "Adventure",
+    title: "Adrenaline Unleashed",
+    description: "Feel the rush of white-water rafting, ziplining, and trekking through Sri Lanka’s rugged terrain.",
+  },
+  'Beaches tours': {
+    src: "/videos/beach-mirissa.mp4",
+    poster: "/images/destinations/mirissa-beach.webp",
+    tag: "Beach Life",
+    title: "Tropical Paradise",
+    description: "Golden beaches, turquoise waters, and unforgettable coastal moments await you.",
+  },
+  'Historical Areas tours': {
+    src: "/videos/historical-sigiriya.mp4",
+    poster: "/images/destinations/sigiriya-culture.png",
+    tag: "Heritage",
+    title: "Echoes of History",
+    description: "Discover ancient kingdoms, rock fortresses, and sacred temples that tell Sri Lanka’s epic story.",
+  },
+  'Culture & Heritage tours': {
+    src: "/videos/culture-perahera.mp4",
+    poster: "/images/destinations/culture-perahera.webp",
+    tag: "Living Culture",
+    title: "Traditions Alive",
+    description: "Immerse yourself in vibrant festivals, rituals, and the warm hospitality of Sri Lankan culture.",
+  },
+  'Hidden Trails tours': {
+    src: "/videos/hidden-trails.mp4",
+    poster: "/images/destinations/hidden-ella.jpg",
+    tag: "Off the Beaten Path",
+    title: "Secret Sri Lanka",
+    description: "Explore hidden waterfalls, misty mountains, and untouched villages known only to locals.",
+  },
 };
 
 const DestinationDetail = () => {
@@ -329,11 +371,9 @@ const DestinationDetail = () => {
     );
   }
 
-  const whyVisitReasons = categoryWhyVisit[category] || categoryWhyVisit['Wildlife'];
   const gallery       = categoryGallery[category]    || categoryGallery['Wildlife'];
   const quickFacts    = categoryQuickFacts[category] || categoryQuickFacts['Wildlife'];
-  const inclusions    = categoryInclusions[category] || categoryInclusions['Wildlife'];
-  const testimonial   = categoryTestimonial[category]|| categoryTestimonial['Wildlife'];
+  const video = CategoryVideos[category] || CategoryVideos['Wildlife'];
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -344,56 +384,50 @@ const DestinationDetail = () => {
       }} />
 
       {/* ── Hero Section ─────────────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
-        <motion.div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `url(${categoryBackgroundImage[category]})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            y: bgY,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/75 to-transparent" />
+      {/* ── Hero Section ─────────────────────────────────────────────────────── */}
+<section 
+  ref={heroRef} 
+  className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white min-h-[640px] lg:min-h-[720px]"
+  style={{
+    // Optional: force a consistent aspect ratio
+    aspectRatio: '16 / 9',           // or '21 / 9' for wider hero feel
+  }}
+>
+  <motion.div
+    className="absolute inset-0 opacity-30"
+    style={{
+      backgroundImage: `url(${categoryBackgroundImage[category]})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      y: bgY,
+    }}
+  />
 
-        <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
+  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/75 to-transparent" />
 
-          <motion.div            
-            className="grid gap-12 lg:grid-cols-2 lg:items-center"
-          >
-            <div className="max-w-2xl">
-              <p className="section-label mb-2 text-[#173036]">Destination Spotlight</p>
-              <h1 className="font-display text-5xl font-black leading-tight text-slate-900 md:text-6xl lg:text-7xl">
-                {category}
-              </h1>
-              <p className="mt-6 text-base leading-8 text-slate-600 md:text-lg">
-                {categoryDescriptions[category]}
-              </p>
+  <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20 h-full flex items-center">
+    <motion.div className="grid gap-12 lg:grid-cols-2 lg:items-center w-full">
+      <div className="max-w-2xl">
+        <p className="section-label mb-2 text-[#173036]">Destination Spotlight</p>
+        <h1 className="font-display text-5xl font-black leading-tight text-slate-900 md:text-6xl lg:text-7xl">
+          {category}
+        </h1>
+        <p className="mt-6 text-base leading-8 text-slate-600 md:text-lg">
+          {categoryDescriptions[category]}
+        </p>
 
-              <div className="mt-10 hidden">
-                {/* Info cards removed for category-based pages */}
-              </div>
+        <Link
+          to="/"
+          className="mt-8 inline-flex bg-[#173036] px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md hover:scale-105"
+        >
+          Explore Details Below
+        </Link>
+      </div>
 
-              <Link
-                to="/"
-                className="mt-8 inline-flex bg-[#173036] px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md hover:scale-105"
-              >
-                Explore Packages
-              </Link>
-            </div>
-
-            {/* Right side image */}
-            <div className="hidden lg:block">
-              <div className="group relative aspect-square overflow-hidden border-2 border-slate-200 bg-slate-100 transition-all duration-300 hover:border-[#a7d9d5] hover:shadow-lg">
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-60 transition-all duration-300 group-hover:opacity-80 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${categoryHeroImage[category]})` }}
-                />
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* You can re-enable the right image if you want */}
+    </motion.div>
+  </div>
+</section>
 
       {/* ── Experience the Journey ────────────────────────────────────────────── */}
       <div className="mt-16 text-center">
@@ -409,59 +443,58 @@ const DestinationDetail = () => {
       </div>
 
       {/* ── NEW: Gallery Section ─────────────────────────────────────────────── */}
-      <section className="relative py-20 bg-white">
-        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
+      <section className="relative overflow-hidden pt-10 pb-10">
+  <div className="w-full">   {/* Full bleed - no max-w container */}
 
-          {/* Masonry-style 3-photo grid */}
-          <div className="grid grid-cols-2 grid-rows-[240px_180px] gap-1 lg:grid-cols-[2fr_1fr] lg:grid-rows-[300px_220px]">
-            {/* Featured tall image — spans 2 rows */}
-            <div className="group relative row-span-2 overflow-hidden bg-slate-200">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${gallery[0].src})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 p-5">
-                <span className="mb-2 inline-block bg-[#a7d9d5] px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#0d1f24]">
-                  {gallery[0].tag}
-                </span>
-                <p className="text-sm font-semibold text-white">{gallery[0].caption}</p>
-              </div>
-            </div>
+    <div className="relative overflow-hidden aspect-[16/8.5] lg:aspect-[16/7.5] xl:aspect-[16/7] group mx-auto">
+      {/* Video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={video.poster}
+      >
+        <source src={video.src} type="video/mp4" />
+        <source src={video.src.replace('.mp4', '.webm')} type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
 
-            {/* Top-right image */}
-            <div className="group relative overflow-hidden bg-slate-200">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${gallery[1].src})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4">
-                <span className="mb-1.5 inline-block bg-[#173036]/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#a7d9d5]">
-                  {gallery[1].tag}
-                </span>
-                <p className="text-xs font-semibold text-white">{gallery[1].caption}</p>
-              </div>
-            </div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
-            {/* Bottom-right image */}
-            <div className="group relative overflow-hidden bg-slate-200">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${gallery[2].src})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4">
-                <span className="mb-1.5 inline-block bg-[#173036]/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#a7d9d5]">
-                  {gallery[2].tag}
-                </span>
-                <p className="text-xs font-semibold text-white">{gallery[2].caption}</p>
-              </div>
-            </div>
-          </div>
-
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-12 lg:p-16">
+        <div className="max-w-3xl">
+          <span className="inline-block mb-3 bg-[#a7d9d5] px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#0d1f24]">
+            {video.tag}
+          </span>
+          
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white leading-tight mb-4">
+            {video.title}
+          </h2>
+          
+          <p className="text-base sm:text-lg text-white/90 max-w-lg md:max-w-md">
+            {video.description}
+          </p>
         </div>
-      </section>
+      </div>
+
+      {/* Hover Controls */}
+      {/* <button
+        onClick={(e) => {
+          const vid = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement;
+          if (vid) vid.paused ? vid.play() : vid.pause();
+        }}
+        className="absolute top-6 right-6 bg-black/60 hover:bg-black/80 text-white p-4 rounded-full opacity-0 group-hover:opacity-100 transition-all z-10"
+      >
+        ▶️
+      </button> */}
+    </div>
+  </div>
+</section>
 
       {/* ── NEW: At a Glance + Inclusions ────────────────────────────────────── */}
       <section className="relative py-10 bg-slate-50">
@@ -486,84 +519,48 @@ const DestinationDetail = () => {
               );
             })}
           </div>
-
-          {/* Inclusions bullet list */}
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-            <div>
-              <h3 className="mb-6 text-2xl font-bold text-slate-900">Did You Know?</h3>
-              <ul className="space-y-5">
-                {inclusions.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center">
-                      <Check className="h-5 w-5 text-[#173036]" />
-                    </div>
-                    <div>
-                      <p className="text-md font-bold tracking-wide text-[#173036]">{item.title}</p>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">{item.detail}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Testimonial pull-quote */}
-            <div className="flex flex-col justify-between">
-              <div className="border-l-[3px] border-[#a7d9d5] bg-white p-8">
-                <p className="text-base font-medium italic leading-8 text-slate-700">
-                  "{testimonial.quote}"
-                </p>
-                <p className="mt-6 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                  — {testimonial.author}
-                </p>
-              </div>
-
-              <Link
-                to="/contact"
-                className="mt-6 inline-flex items-center justify-center bg-[#173036] px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md"
-              >
-                Book This Experience
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
-
-      {/* ── Why Visit Section (unchanged) ────────────────────────────────────── */}
-      <section className="relative py-20 bg-white">
-        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
-          <div className="grid gap-8 lg:grid-cols-2">
-            <article className="group border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg hover:-translate-y-2">
-              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-[#173036] transition-colors duration-300">Why Visit {category}</h3>
-              <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-600">
-                {whyVisitReasons.map((reason, idx) => (
-                  <li key={idx} className="flex gap-3">
-                    <span className="text-[#a7d9d5] font-bold">•</span>
-                    <span>{reason}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-
-            <article className="group border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 p-8 transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/20 hover:shadow-lg hover:-translate-y-2">
-              <h3 className="text-2xl font-bold text-slate-900 group-hover:text-[#173036] transition-colors duration-300">Ready to Explore?</h3>
-              <p className="mt-6 text-sm leading-7 text-slate-600">
-                {category === 'Wildlife tours'               && 'Let us organize your perfect safari adventure. Expert naturalist guides, prime viewing times, and unforgettable wildlife encounters await. Book your wildlife expedition today.'}
-                {category === 'Adventure tours'        && 'Ready to test your limits? Our experienced adventure specialists will craft the perfect itinerary for your skill level. From beginner-friendly to extreme adrenaline rushes.'}
-                {category === 'Beaches tours'          && 'Plan your beach paradise escape. Our specialists will curate the perfect blend of relaxation, water sports, and coastal dining tailored to your preferences.'}
-                {category === 'Historical Areas tours' && 'Explore history with expert guides. We\'ll design a journey through time, unlocking the mysteries and stories of these ancient sites.'}
-                {category === 'Culture & Heritage tours' && 'Immerse yourself in authentic Sri Lankan culture. We\'ll connect you with local families, artisans, and traditions for a truly transformative experience.'}
-                {category === 'Hidden Trails tours'    && 'Discover Sri Lanka like never before. Our local guides know the secret spots tourists never find. Let us reveal the island\'s best-kept secrets.'}
+      <section className="relative mb-10 bg-white overflow-hidden">
+  <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
+    
+    {/* Scrolling container */}
+    <div className="relative">
+      <div 
+        className="flex gap-4 animate-scroll-left hover:[animation-play-state:paused]"
+        style={{
+          animation: 'scrollLeft 25s linear infinite',
+        }}
+      >
+        {/* Render each gallery item multiple times for seamless loop */}
+        {[...gallery, ...gallery, ...gallery].map((item, index) => (
+          <div
+            key={index}
+            className="group relative flex-shrink-0 w-[480px] h-[380px] overflow-hidden bg-slate-200 shadow-md"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+              style={{ backgroundImage: `url(${item.src})` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            
+            <div className="absolute bottom-0 left-0 p-6 w-full">
+              <span className="mb-2 inline-block bg-[#a7d9d5] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#0d1f24]">
+                {item.tag}
+              </span>
+              <p className="text-sm font-semibold text-white leading-tight">
+                {item.caption}
               </p>
-              <Link
-                to="/contact"
-                className="mt-8 inline-flex bg-[#173036] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md hover:scale-105"
-              >
-                Plan Your Trip
-              </Link>
-            </article>
+            </div>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+
+      {/* Optional fade edges */}
+    </div>
+  </div>
+</section>
+
     </div>
   );
 };

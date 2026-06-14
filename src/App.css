@@ -82,3 +82,16 @@
 .read-the-docs {
   color: var(--color-primary-700);
 }
+
+@keyframes scrollLeft {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-33.33%);
+      }
+    }
+    
+    .animate-scroll-left {
+      animation: scrollLeft 25s linear infinite;
+    }
