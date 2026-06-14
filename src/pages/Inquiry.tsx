@@ -1,28 +1,218 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import Lenis from 'lenis';
-import { CheckCircle2, ChevronDown, MapPinned } from 'lucide-react';
+import { CheckCircle2, ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
+import { countryCodesList } from '../data/countries';
 
 const titleOptions = ['Mr.', 'Mrs.'] as const;
 const travelTypes = ['Solo', 'Couple', 'Family'] as const;
 const preferenceOptions = ['Wildlife', 'Adventure', 'Beaches', 'Historical Areas', 'Culture & Heritage', 'Hidden Trails'];
 const budgetOptions = ['USD 1000–2000', 'USD 2000–3500', 'USD 3500–5000', 'USD 5000+'];
-const hearingOptions = ['Google', 'Instagram', 'Facebook', 'YouTube', 'TikTok', 'Coconut Tree Restaurant', 'Other'];
-const durationOptions = ['2-3 days', '4-5 days', '6-7 days', '8-10 days', '11+ days', 'Flexible'];
+const hearingOptions = ['Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
 const adultsOptions = ['1', '2', '3', '4', '5+'];
 const childrenOptions = ['0', '1', '2', '3', '4', '5+'];
+
+const CustomSelect = ({
+  options,
+  value,
+  onChange,
+  placeholder,
+  isOpen,
+  setIsOpen
+}: {
+  options: readonly string[] | string[];
+  value: string;
+  onChange: (val: string) => void;
+  placeholder: string;
+  isOpen: boolean;
+  setIsOpen: (val: boolean) => void;
+}) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        if (isOpen) {
+          setIsOpen(false);
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [setIsOpen, isOpen]);
+
+  return (
+    <div className="relative w-full" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-12 w-full items-center justify-between border-b border-[#bfb7ad] bg-transparent px-0 text-left text-sm text-slate-900 outline-none"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span className={value ? 'text-slate-900' : 'text-slate-500'}>
+          {value || placeholder}
+        </span>
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-20 mt-2 w-full border border-[#bfb7ad] bg-white shadow-[0_18px_40px_rgba(23,48,54,0.12)]">
+          <div className="max-h-64 overflow-auto py-2" role="listbox" data-lenis-prevent="true">
+            {options.map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+                className="flex w-full items-center justify-between px-4 py-3 text-left text-sm text-slate-700 hover:bg-[#faf7f1]"
+                role="option"
+                aria-selected={value === option}
+              >
+                <span>{option}</span>
+                <span className={`text-[#173036] ${value === option ? 'opacity-100' : 'opacity-0'}`}>✓</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const CountrySelect = ({
+  value,
+  onChange,
+  isOpen,
+  setIsOpen
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  isOpen: boolean;
+  setIsOpen: (val: boolean) => void;
+}) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        if (isOpen) {
+          setIsOpen(false);
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [setIsOpen, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchTerm('');
+      return;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+        setSearchTerm(prev => prev + e.key.toLowerCase());
+      } else if (e.key === 'Backspace') {
+        setSearchTerm(prev => prev.slice(0, -1));
+      } else if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, setIsOpen]);
+
+  useEffect(() => {
+    if (searchTerm && isOpen) {
+      const matchIndex = countryCodesList.findIndex(c => c.name.toLowerCase().startsWith(searchTerm));
+      if (matchIndex !== -1) {
+        const listbox = dropdownRef.current?.querySelector('[role="listbox"]');
+        if (listbox && listbox.children[matchIndex]) {
+          const option = listbox.children[matchIndex] as HTMLElement;
+          option.scrollIntoView({ block: 'nearest' });
+        }
+      }
+      const timeout = setTimeout(() => setSearchTerm(''), 1500);
+      return () => clearTimeout(timeout);
+    }
+  }, [searchTerm, isOpen]);
+
+  const selectedCountry = countryCodesList.find((c) => c.code === value);
+
+  return (
+    <div className="relative w-full" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-12 w-full items-center justify-between border-b border-[#bfb7ad] bg-transparent px-0 text-left text-sm text-slate-900 outline-none"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span className="flex items-center gap-2">
+          {selectedCountry ? (
+            <>
+              <img src={`https://flagcdn.com/w20/${selectedCountry.iso}.png`} srcSet={`https://flagcdn.com/w40/${selectedCountry.iso}.png 2x`} width="20" alt={selectedCountry.name} className="inline-block shrink-0" />
+              <span className={value ? 'text-slate-900' : 'text-slate-500'}>{selectedCountry.code}</span>
+            </>
+          ) : (
+            <>
+              <img src="https://flagcdn.com/w20/lk.png" srcSet="https://flagcdn.com/w40/lk.png 2x" width="20" alt="Sri Lanka" className="inline-block shrink-0" />
+              <span className="text-slate-500">+94</span>
+            </>
+          )}
+        </span>
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-20 mt-2 w-[280px] border border-[#bfb7ad] bg-white shadow-[0_18px_40px_rgba(23,48,54,0.12)]">
+          <div className="max-h-64 overflow-auto py-2" role="listbox" data-lenis-prevent="true">
+            {countryCodesList.map((country) => (
+              <button
+                key={country.name}
+                type="button"
+                onClick={() => {
+                  onChange(country.code);
+                  setIsOpen(false);
+                }}
+                className={`flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm text-slate-700 hover:bg-[#faf7f1] ${value === country.code ? 'bg-[#faf7f1]' : ''}`}
+                role="option"
+                aria-selected={value === country.code}
+              >
+                <span className="flex items-center gap-2">
+                  <img src={`https://flagcdn.com/w20/${country.iso}.png`} srcSet={`https://flagcdn.com/w40/${country.iso}.png 2x`} width="20" alt={country.name} className="inline-block shrink-0" />
+                  <span>{country.name} ({country.code})</span>
+                </span>
+                <span className={`text-[#173036] ${value === country.code ? 'opacity-100' : 'opacity-0'}`}>✓</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const initialState = {
   title: 'Mr.' as '' | (typeof titleOptions)[number],
   name: '',
   email: '',
+  countryCode: '+94',
   contactNumber: '',
   travelType: 'Solo' as '' | (typeof travelTypes)[number],
   guests: '2',
   children: '0',
-  tourDuration: '',
+  tourDuration: '7',
   preferences: [] as string[],
   budgetPerPerson: '',
   additionalInformation: '',
@@ -36,7 +226,7 @@ const Inquiry = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [submittedEmail, setSubmittedEmail] = useState('');
-  const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const preferencesRef = useRef<HTMLDivElement>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
@@ -60,14 +250,14 @@ const Inquiry = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (preferencesRef.current && !preferencesRef.current.contains(event.target as Node)) {
-        setPreferencesOpen(false);
+      if (preferencesRef.current && !preferencesRef.current.contains(event.target as Node) && openDropdown === 'preferences') {
+        setOpenDropdown(null);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [openDropdown]);
 
   useEffect(() => {
     if ((success || error) && feedbackRef.current) {
@@ -105,7 +295,7 @@ const Inquiry = () => {
   const summaryLines = [
     `Name: ${form.name}`,
     `Email: ${form.email}`,
-    `Contact Number: ${form.contactNumber}`,
+    `Contact Number: ${form.countryCode} ${form.contactNumber}`,
     `Title: ${form.title}`,
     `Travel Type: ${form.travelType}`,
     `Number of Guests: ${form.guests}`,
@@ -133,7 +323,7 @@ const Inquiry = () => {
       customer_title: form.title,
       customer_name: form.name,
       customer_email: form.email,
-      customer_phone: form.contactNumber,
+      customer_phone: `${form.countryCode} ${form.contactNumber}`,
       travel_type: form.travelType,
       guests: String(form.guests),
       children: String((form as any).children ?? ''),
@@ -178,7 +368,7 @@ const Inquiry = () => {
     }
   };
 
-  
+
 
   return (
     <motion.div
@@ -217,22 +407,22 @@ const Inquiry = () => {
       <section className="relative overflow-hidden bg-white pt-0">
         <div className="absolute inset-0">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-34"
+            className="absolute inset-0 bg-[length:100%_100%] bg-no-repeat opacity-34"
             style={{ backgroundImage: 'url(/images/bg/bg-5.png)' }}
           />
           <div className="absolute inset-0 bg-[rgba(255,255,255,0.64)]" />
         </div>
 
         <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24 mt-20">
-          <motion.div
-            className="mx-auto -mt-14 border border-slate-200 bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
-            style={{ y: formCardY }}
-            variants={staggerContainer(0.08, 0.03)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
-          >
-            <motion.div variants={fadeUp} className="mx-auto max-w-6xl mt-5">
+          <div className="mx-auto max-w-7xl flex flex-col lg:flex-row gap-8 xl:gap-12 lg:items-start">
+            <motion.div
+              className="flex-1 -mt-14 border border-slate-200 bg-white px-4 pb-10 pt-8 shadow-lg shadow-black/10 sm:px-8 sm:pb-12 lg:-mt-24 lg:px-12 lg:pb-14 lg:pt-10"
+              style={{ y: formCardY }}
+              variants={staggerContainer(0.08, 0.03)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
+            >
               <div className="mt-2">
                 <div>
                   <p className="section-label text-[#173036]">Tailor-Made Travel</p>
@@ -262,19 +452,23 @@ const Inquiry = () => {
                 </motion.div>
               )}
 
-              <form onSubmit={submitInquiry} className="mt-10 space-y-10">
-                <motion.div variants={fadeUp} className="space-y-8">
+              <form onSubmit={submitInquiry} className="mt-8 space-y-6">
+                <motion.div variants={fadeUp} className="space-y-6">
                   {/* Personal Details */}
-                  <section>
+                  <section className="relative z-40">
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Personal Details</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
-                      <label>
+                      <div className="relative z-50">
                         <span className="block mb-2 text-sm text-slate-700">Title</span>
-                        <select value={form.title} onChange={(e) => updateField('title', e.target.value as (typeof form)['title'])} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
-                          <option value="" disabled>Select title</option>
-                          {titleOptions.map((t) => <option key={t} value={t}>{t}</option>)}
-                        </select>
-                      </label>
+                        <CustomSelect
+                          options={titleOptions}
+                          value={form.title}
+                          onChange={(val) => updateField('title', val as any)}
+                          placeholder="Select title"
+                          isOpen={openDropdown === 'title'}
+                          setIsOpen={(val) => setOpenDropdown(val ? 'title' : null)}
+                        />
+                      </div>
 
                       <label>
                         <span className="block mb-2 text-sm text-slate-700">Name</span>
@@ -286,75 +480,110 @@ const Inquiry = () => {
                         <input type="email" value={form.email} onChange={(e) => updateField('email', e.target.value)} placeholder="you@example.com" className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required />
                       </label>
 
-                      <label>
+                      <div className="relative z-40">
                         <span className="block mb-2 text-sm text-slate-700">Contact Number</span>
-                        <input type="tel" value={form.contactNumber} onChange={(e) => updateField('contactNumber', e.target.value)} placeholder="+94 ..." className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required />
-                      </label>
+                        <div className="flex items-center gap-4">
+                          <div className="w-[100px] shrink-0">
+                            <CountrySelect
+                              value={form.countryCode}
+                              onChange={(val) => updateField('countryCode', val)}
+                              isOpen={openDropdown === 'countryCode'}
+                              setIsOpen={(val) => setOpenDropdown(val ? 'countryCode' : null)}
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <input type="tel" value={form.contactNumber} onChange={(e) => updateField('contactNumber', e.target.value)} placeholder="Phone number" className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </section>
 
                   {/* Travel Type */}
-                  <section>
+                  <section className="relative z-30">
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Travel Type</h2>
                     <div className="mt-4">
-                      <select value={form.travelType} onChange={(e) => updateField('travelType', e.target.value as (typeof form)['travelType'])} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
-                        <option value="" disabled>Select travel type</option>
-                        {travelTypes.map((t) => <option key={t} value={t}>{t}</option>)}
-                      </select>
+                      <CustomSelect
+                        options={travelTypes}
+                        value={form.travelType}
+                        onChange={(val) => updateField('travelType', val as any)}
+                        placeholder="Select travel type"
+                        isOpen={openDropdown === 'travelType'}
+                        setIsOpen={(val) => setOpenDropdown(val ? 'travelType' : null)}
+                      />
                     </div>
                   </section>
 
                   {/* Group Information */}
-                  <section>
+                  <section className="relative z-20">
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Group Information</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
-                      <label>
+                      <div className="relative z-20">
                         <span className="block mb-2 text-sm text-slate-700">Adults</span>
-                        <select value={String(form.guests)} onChange={(e) => updateField('guests', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none">
-                          {adultsOptions.map((a) => <option key={a} value={a}>{a}</option>)}
-                        </select>
-                      </label>
+                        <CustomSelect
+                          options={adultsOptions}
+                          value={String(form.guests)}
+                          onChange={(val) => updateField('guests', val)}
+                          placeholder="Select adults"
+                          isOpen={openDropdown === 'guests'}
+                          setIsOpen={(val) => setOpenDropdown(val ? 'guests' : null)}
+                        />
+                      </div>
 
-                      <label>
+                      <div className="relative z-10">
                         <span className="block mb-2 text-sm text-slate-700">Children</span>
-                        <select value={String((form as any).children ?? '0')} onChange={(e) => updateField('children' as any, e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none">
-                          {childrenOptions.map((c) => <option key={c} value={c}>{c}</option>)}
-                        </select>
-                      </label>
+                        <CustomSelect
+                          options={childrenOptions}
+                          value={String((form as any).children ?? '0')}
+                          onChange={(val) => updateField('children' as any, val)}
+                          placeholder="Select children"
+                          isOpen={openDropdown === 'children'}
+                          setIsOpen={(val) => setOpenDropdown(val ? 'children' : null)}
+                        />
+                      </div>
                     </div>
                   </section>
 
                   {/* Tour Duration */}
-                  <section>
+                  <section className="relative z-10">
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Tour Duration</h2>
-                    <div className="mt-4">
-                      <select value={form.tourDuration} onChange={(e) => updateField('tourDuration', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
-                        <option value="" disabled>How long is your tour?</option>
-                        {durationOptions.map((d) => <option key={d} value={d}>{d}</option>)}
-                      </select>
+                    <div className="mt-6">
+                      <div className="flex items-center justify-between text-sm font-medium text-slate-700 mb-4">
+                        <span>1 Day</span>
+                        <span className="text-[#173036] font-bold text-lg">{form.tourDuration} {form.tourDuration === '1' ? 'Day' : 'Days'}</span>
+                        <span>21 Days</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="21"
+                        value={form.tourDuration || '7'}
+                        onChange={(e) => updateField('tourDuration', e.target.value)}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#173036]"
+                      />
                     </div>
                   </section>
 
                   {/* Preferences */}
-                  <section>
+                  <section className="relative" style={{ zIndex: 9 }}>
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Preferences</h2>
                     <div className="relative mt-4" ref={preferencesRef}>
                       <button
                         type="button"
-                        onClick={() => setPreferencesOpen((current) => !current)}
+                        onClick={() => setOpenDropdown(openDropdown === 'preferences' ? null : 'preferences')}
                         className="flex h-12 w-full items-center justify-between border-b border-[#bfb7ad] bg-transparent px-0 text-left text-sm text-slate-900 outline-none"
                         aria-haspopup="listbox"
-                        aria-expanded={preferencesOpen}
+                        aria-expanded={openDropdown === 'preferences'}
                       >
                         <span className={form.preferences.length ? 'text-slate-900' : 'text-slate-500'}>
                           {form.preferences.length ? form.preferences.join(', ') : 'Select preferences'}
                         </span>
-                        <ChevronDown className={`h-4 w-4 transition-transform ${preferencesOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'preferences' ? 'rotate-180' : ''}`} />
                       </button>
 
-                      {preferencesOpen && (
+                      {openDropdown === 'preferences' && (
                         <div className="absolute z-20 mt-2 w-full border border-[#bfb7ad] bg-white shadow-[0_18px_40px_rgba(23,48,54,0.12)]">
-                          <div className="max-h-64 overflow-auto py-2" role="listbox" aria-multiselectable="true">
+                          <div className="max-h-64 overflow-auto py-2" role="listbox" aria-multiselectable="true" data-lenis-prevent="true">
                             {preferenceOptions.map((option) => {
                               const checked = form.preferences.includes(option);
 
@@ -385,13 +614,17 @@ const Inquiry = () => {
                   </section>
 
                   {/* Budget Per Person */}
-                  <section>
+                  <section className="relative" style={{ zIndex: 8 }}>
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Budget Per Person</h2>
                     <div className="mt-4">
-                      <select value={form.budgetPerPerson} onChange={(e) => updateField('budgetPerPerson', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
-                        <option value="" disabled>Select budget</option>
-                        {budgetOptions.map((b) => <option key={b} value={b}>{b}</option>)}
-                      </select>
+                      <CustomSelect
+                        options={budgetOptions}
+                        value={form.budgetPerPerson}
+                        onChange={(val) => updateField('budgetPerPerson', val)}
+                        placeholder="Select budget"
+                        isOpen={openDropdown === 'budget'}
+                        setIsOpen={(val) => setOpenDropdown(val ? 'budget' : null)}
+                      />
                     </div>
                   </section>
 
@@ -404,13 +637,17 @@ const Inquiry = () => {
                   </section>
 
                   {/* How did you hear about us */}
-                  <section>
+                  <section className="relative" style={{ zIndex: 7 }}>
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">How did you hear about us?</h2>
                     <div className="mt-4">
-                      <select value={form.hearAboutUs} onChange={(e) => updateField('hearAboutUs', e.target.value)} className="h-12 w-full border-b border-[#bfb7ad] bg-transparent px-0 text-sm text-slate-900 outline-none" required>
-                        <option value="" disabled>Select one</option>
-                        {hearingOptions.map((h) => <option key={h} value={h}>{h}</option>)}
-                      </select>
+                      <CustomSelect
+                        options={hearingOptions}
+                        value={form.hearAboutUs}
+                        onChange={(val) => updateField('hearAboutUs', val)}
+                        placeholder="Select one"
+                        isOpen={openDropdown === 'hearAboutUs'}
+                        setIsOpen={(val) => setOpenDropdown(val ? 'hearAboutUs' : null)}
+                      />
                     </div>
                     {form.hearAboutUs === 'Other' && (
                       <div className="mt-4">
@@ -430,7 +667,64 @@ const Inquiry = () => {
                 <span>We’ll email you once the inquiry is received.</span>
               </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Sidebar */}
+            <motion.div
+              className="w-full lg:w-[380px] xl:w-[420px] shrink-0 space-y-8 mt-10 lg:mt-[-6rem]"
+              style={{ y: formCardY }}
+            >
+              <div className="bg-[#173036] p-8 sm:p-10 text-white shadow-xl shadow-[#173036]/10">
+                <h3 className="text-2xl sm:text-3xl font-serif text-[#ece4d6] leading-tight">
+                  Your life story doesn't write itself so let us <span className="italic">help you</span>
+                </h3>
+                <p className="mt-4 text-sm text-white/80 font-light leading-relaxed">
+                  Please get in touch on the below to start planning your personalised journey
+                </p>
+
+                <div className="mt-10 space-y-5">
+                  <div className="flex items-center gap-4">
+                    <Phone className="h-4 w-4 text-white/60 shrink-0" />
+                    <a href="tel:+441937228844" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">(+44) 1937 228 844 (UK)</a>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <Phone className="h-4 w-4 text-white/60 shrink-0" />
+                    <a href="tel:+91345533865" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">(+91) 345 533 865 (Global)</a>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <Mail className="h-4 w-4 text-white/60 shrink-0" />
+                    <a href="mailto:info@thecoconuttreetrails.com" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">info@thecoconuttreetrails.com</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Reviews Box */}
+              <div className="bg-white border border-slate-200 p-8 shadow-sm text-center">
+                <div className="flex justify-center items-center gap-1 mb-2">
+                  <div className="flex items-center gap-2 text-[#00aa6c]">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-4c1.38 0 2.5-1.12 2.5-2.5S10.88 11 9.5 11 7 12.12 7 13.5s1.12 2.5 2.5 2.5zm5 0c1.38 0 2.5-1.12 2.5-2.5S15.88 11 14.5 11 12 12.12 12 13.5s1.12 2.5 2.5 2.5z" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /><path d="M12 4v16c4.41 0 8-3.59 8-8s-3.59-8-8-8z" /></svg>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-2 font-medium">Rated 5.0 on TripAdvisor</p>
+
+                <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col items-center">
+                  <span className="font-bold text-xl mb-2 text-slate-900 tracking-tight">feefo<span className="text-yellow-400 ml-1 font-serif">❝</span></span>
+                  <div className="flex gap-1 text-yellow-400 mb-2">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium">Rated 4.9 on feefo</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </motion.div>

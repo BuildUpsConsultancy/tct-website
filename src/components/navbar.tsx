@@ -200,16 +200,7 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-            ) : (
-              <>
-                <button
-                  onClick={() => navigate('/enquiry')}
-                  className="text-md px-4 py-3 border border-white/30 text-white bg-transparent hover:bg-[#a7d9d5]/10 hover:text-[#a7d9d5] transition-all duration-200"
-                >
-                  Inquiry Us
-                </button>
-              </>
-            )}
+            ) : null}
           </div>
 
           <button
@@ -244,16 +235,6 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                navigate('/enquiry');
-              }}
-              className="mt-4 w-full rounded-none border border-[#a7d9d5]/30 bg-[#a7d9d5]/10 px-4 py-3 text-sm font-semibold text-[#a7d9d5] transition-colors duration-200 hover:bg-[#a7d9d5]/15"
-            >
-              Inquiry Us
-            </button>
             <p className="mt-3 text-center text-xs leading-5 text-white/70">
               The Coconut Tree Trails curates memorable Sri Lanka journeys with local insight, smooth planning, and warm support.
             </p>
