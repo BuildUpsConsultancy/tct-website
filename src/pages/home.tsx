@@ -484,9 +484,18 @@ const Home = () => {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
-        {/* <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
-          <source src="/uploads/tct-hero.mp4" type="video/mp4" />
-        </video> */}
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/uploads/hero-poster.jpg"
+  className="absolute inset-0 w-full h-full object-cover"
+>
+  <source src="/uploads/slider-video.mp4" type="video/mp4" />
+</video>
+        <div className="absolute inset-0 bg-black/40"></div>
 
         <motion.div
           className="relative z-10 mx-auto grid max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
