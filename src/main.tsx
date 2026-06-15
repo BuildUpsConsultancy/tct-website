@@ -18,6 +18,7 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import FAQ from './pages/FAQ.tsx';
 import Inquiry from './pages/Inquiry.tsx';
+import ThankYou from './pages/ThankYou.tsx';
 import Socials from './pages/socials.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="contact" element={<Contact />} />
           <Route path="enquiry" element={<Inquiry />} />
           <Route path="inquiry" element={<Inquiry />} />
+          <Route path="thank-you" element={<ThankYou />} />
           <Route path="cart" element={<Cart />} />
           <Route path="travel-blog" element={<TravelBlog />} />
           <Route path="faq-policy" element={<FAQ />} />
