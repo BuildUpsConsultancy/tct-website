@@ -73,7 +73,7 @@ const CinematicGallery = () => {
   const col2Y = useMotionValue(0);
 
   // Total vertical travel in px across full progress 0→1
-  const TRAVEL = 1280;
+  const TRAVEL = 2560;
 
   const applyProgress = useCallback((p: number) => {
     col0Y.set(-p * TRAVEL);   // cols 0 & 2 move up → images appear to scroll down
@@ -153,7 +153,7 @@ const CinematicGallery = () => {
           if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.3 }
     );
     io.observe(section);
 
@@ -228,7 +228,7 @@ const CinematicGallery = () => {
     <div
       ref={sectionRef}
       className="relative w-full overflow-hidden"
-      style={{ height: '100vh', userSelect: 'none' }}
+      style={{ height: '200vh', userSelect: 'none' }}
     >
       {/* Three columns */}
       <div className="absolute inset-0 grid grid-cols-3">
@@ -468,16 +468,17 @@ const Home = () => {
     >
       {/* Full-page video background */}
       <div className="fixed inset-0 -z-50 overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }}>
-          <source src="/uploads/slider-video.mov" type="video/mp4" />
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover bg" style={{ opacity: 0.8 }}>
+          <source src="/uploads/slider-video.mp4" type="video/mp4" />
         </video>
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
-        <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
-          <source src="/uploads/slider-video.mov" type="video/mp4" />
-        </video>
+        {/* <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
+          <source src="/uploads/tct-hero.mp4" type="video/mp4" />
+        </video> */}
 
         <motion.div
           className="relative z-10 mx-auto grid max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
@@ -880,7 +881,7 @@ const Home = () => {
         </div>
 
         {/* Mobile: simple stacked gallery */}
-        <div className="md:hidden px-6 py-24">
+        <div className="md:hidden px-6 py-32">
           <div className="text-center mb-12">
             <p className="section-label mb-2 text-white/85 tracking-[0.3em] uppercase text-xs">Visual Journey</p>
             <h2 className="font-display text-4xl text-white">Sri Lanka in Focus</h2>
