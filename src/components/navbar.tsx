@@ -200,7 +200,10 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-            ) : null}
+            ) : (
+              <>
+              </>
+            )}
           </div>
 
           <button

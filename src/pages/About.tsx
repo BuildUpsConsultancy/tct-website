@@ -291,7 +291,7 @@ const About = () => {
         ]).map((image, index) => (
           <div
             key={`row1-${index}`}
-            className="relative h-100 w-96 flex-shrink-0 overflow-hidden"
+            className="relative h-130 w-120 flex-shrink-0 overflow-hidden"
           >
             <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
@@ -301,7 +301,7 @@ const About = () => {
     </div>
 
     {/* Row 2 — moves LEFT */}
-    <div className="overflow-hidden">
+    {/* <div className="overflow-hidden">
       <motion.div
         className="flex gap-6 w-max"
         animate={{ x: [-4056, 0] }}
@@ -339,7 +339,7 @@ const About = () => {
           </div>
         ))}
       </motion.div>
-    </div>
+    </div> */}
 
   </div>
 </section>

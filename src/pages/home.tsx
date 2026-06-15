@@ -13,17 +13,16 @@ import {
 import { featuredDestinations } from '../data/destinations';
 import { generalCuriosities } from '../data/generalCuriosities';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight, scaleIn } from '../lib/motion';
-import CardSwap, { Card } from '../components/CardSwap';
 import ShinyText from '../components/ShinyText';
 
-const services = [
-  { iconType: 'flight',  title: 'Flight Booking',   desc: 'We assist with international and domestic flight arrangements to ensure your Sri Lanka journey starts smoothly from the moment you leave home.' },
-  { iconType: 'hotel',   title: 'Hotel Bookings',   desc: "From boutique jungle lodges in Sigiriya to colonial tea estate bungalows and beachfront villas — we curate Sri Lanka's finest stays for every budget." },
-  { iconType: 'tour',    title: 'Tour Experiences', desc: 'Every Sri Lankan experience is guided by locals who know the island intimately — revealing the hidden temples, local markets, and off-trail landscapes no tourist map ever finds.' },
-  { iconType: 'safari',  title: 'Wildlife Safaris', desc: 'Track leopards in Yala, witness elephant herds at Udawalawe, and spot blue whales off Mirissa — with expert naturalist guides who read the wild like a language.' },
-  { iconType: 'visa',    title: 'Visa Processing',  desc: 'Our team provides complete visa assistance for Sri Lanka ETA applications, simplifying the process so you can focus entirely on planning your adventure.' },
-  { iconType: 'support', title: '24/7 Support',     desc: 'From the moment you enquire to the day you arrive home, our dedicated local team is available around the clock to handle every detail of your journey.' },
-];
+// const services = [
+//   { iconType: 'flight',  title: 'Flight Booking',   desc: 'We assist with international and domestic flight arrangements to ensure your Sri Lanka journey starts smoothly from the moment you leave home.' },
+//   { iconType: 'hotel',   title: 'Hotel Bookings',   desc: "From boutique jungle lodges in Sigiriya to colonial tea estate bungalows and beachfront villas — we curate Sri Lanka's finest stays for every budget." },
+//   { iconType: 'tour',    title: 'Tour Experiences', desc: 'Every Sri Lankan experience is guided by locals who know the island intimately — revealing the hidden temples, local markets, and off-trail landscapes no tourist map ever finds.' },
+//   { iconType: 'safari',  title: 'Wildlife Safaris', desc: 'Track leopards in Yala, witness elephant herds at Udawalawe, and spot blue whales off Mirissa — with expert naturalist guides who read the wild like a language.' },
+//   { iconType: 'visa',    title: 'Visa Processing',  desc: 'Our team provides complete visa assistance for Sri Lanka ETA applications, simplifying the process so you can focus entirely on planning your adventure.' },
+//   { iconType: 'support', title: '24/7 Support',     desc: 'From the moment you enquire to the day you arrive home, our dedicated local team is available around the clock to handle every detail of your journey.' },
+// ];
 
 const testimonials = [
   { name: 'James & Sarah — UK',      quote: 'The team at The Coconut Tree Trails made our honeymoon in Sri Lanka truly unforgettable. Every detail was taken care of — from the scenic train ride through Ella to our private sunset dinner in Galle.' },
@@ -41,6 +40,13 @@ const galleryColumns = [
 
 const imgSrc = (name: string) =>
   `/images/home/${name}${name === 'colombo' ? '.avif' : '.jpg'}`;
+
+const featureSliderImages = [
+  '/images/home/bentota.jpg',
+  '/images/home/jaffna.jpg',
+  '/images/home/kandy.jpg',
+  '/images/home/yala.jpg',        // added one more for variety
+];
 
 // ── CINEMATIC GALLERY ────────────────────────────────────────────────────────
 /**
@@ -67,7 +73,7 @@ const CinematicGallery = () => {
   const col2Y = useMotionValue(0);
 
   // Total vertical travel in px across full progress 0→1
-  const TRAVEL = 1280;
+  const TRAVEL = 2560;
 
   const applyProgress = useCallback((p: number) => {
     col0Y.set(-p * TRAVEL);   // cols 0 & 2 move up → images appear to scroll down
@@ -147,7 +153,7 @@ const CinematicGallery = () => {
           if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.3 }
     );
     io.observe(section);
 
@@ -222,7 +228,7 @@ const CinematicGallery = () => {
     <div
       ref={sectionRef}
       className="relative w-full overflow-hidden"
-      style={{ height: '100vh', userSelect: 'none' }}
+      style={{ height: '200vh', userSelect: 'none' }}
     >
       {/* Three columns */}
       <div className="absolute inset-0 grid grid-cols-3">
@@ -354,12 +360,32 @@ const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [destinationSlide, setDestinationSlide] = useState(0);
   const [isSliderHovering, setIsSliderHovering] = useState(false);
-  const destinationSliderRef = useRef<HTMLDivElement>(null);
+
+  // New: Feature Section Slider State
+  const [currentFeatureImage, setCurrentFeatureImage] = useState(0);
 
   const heroRef = useRef<HTMLElement>(null);
+  const destinationSliderRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroY    = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const heroOpac = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Feature Slider Auto-rotate
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFeatureImage((prev) => (prev + 1) % featureSliderImages.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const goToPreviousFeature = () => {
+    setCurrentFeatureImage((prev) => (prev - 1 + featureSliderImages.length) % featureSliderImages.length);
+  };
+
+  const goToNextFeature = () => {
+    setCurrentFeatureImage((prev) => (prev + 1) % featureSliderImages.length);
+  };
 
   const handleDestinationPrev = () => {
     setDestinationSlide((prev) => prev - 1);
@@ -442,16 +468,34 @@ const Home = () => {
     >
       {/* Full-page video background */}
       <div className="fixed inset-0 -z-50 overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }}>
-          <source src="/uploads/slider-video.mp4" type="video/mp4" />
-        </video>
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/uploads/hero-poster.jpg"
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+>
+  <source src="/uploads/slider-video.mp4" type="video/mp4" />
+</video>
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
-        <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
-          <source src="/uploads/slider-video.mp4" type="video/mp4" />
-        </video>
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/uploads/hero-poster.jpg"
+  className="absolute inset-0 w-full h-full object-cover"
+>
+  <source src="/uploads/slider-video.mp4" type="video/mp4" />
+</video>
+        <div className="absolute inset-0 bg-black/40"></div>
 
         <motion.div
           className="relative z-10 mx-auto grid max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-12 lg:grid-cols-[1.1fr_0.9fr] lg:py-16"
@@ -477,10 +521,10 @@ const Home = () => {
             <motion.div variants={fadeUp} className="mt-3 md:mt-4 flex items-center gap-3 text-sm text-white/60">
             </motion.div>
             <motion.div variants={fadeUp} className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <motion.button onClick={() => navigate('/')} className="bg-[#173036] px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-black/30 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
-                Explore Packages
+              <motion.button onClick={() => navigate('/destinations/wildlife')} className="bg-[#173036] px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-black/30 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+                Explore Destinations
               </motion.button>
-              <motion.button onClick={() => navigate('/contact')} className="border-2 border-white/40 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white hover:border-white transition-colors duration-200 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+              <motion.button onClick={() => navigate('/enquiry')} className="border-2 border-white/40 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white hover:border-white transition-colors duration-200 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Plan My Trip
               </motion.button>
             </motion.div>
@@ -583,99 +627,141 @@ const Home = () => {
       </section>
 
       {/* ── FEATURE ──────────────────────────────────────────── */}
-      <section 
-        className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-[#173036]"
-      >
-        {/* Background overlay for text readability */}
+      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-[#173036]">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'url(/images/image-4-new.png)',
+          backgroundImage: 'url(/images/expirence-new-removebg-preview.png)',
           backgroundPosition: 'bottom',
           backgroundRepeat: 'repeat-x',
           filter: 'brightness(0.5)',
         }} />
-        
-        <div className="relative mx-auto grid max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2 pb-12 md:pb-16 lg:pb-20">
+
+        <div className="relative mx-auto grid max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2">
+          
+          {/* Left Text */}
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 md:mb-3 text-white/85">Tailor-Made for You</p>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-tct-white">Sri Lanka<br className="hidden sm:block" />Your Way</h2>
             <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-white/85">
               From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
             </p>
-            <motion.button onClick={() => navigate('/destinations/wildlife')} className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 18 }}>
+            <motion.button 
+              onClick={() => navigate('/destinations/wildlife')} 
+              className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30"
+              whileHover={{ scale: 1.02 }} 
+              whileTap={{ scale: 0.98 }}
+            >
               Browse All Destinations
             </motion.button>
           </motion.div>
 
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
-            <CardSwap
-              width={500}
-              height={500}
-              cardDistance={60}
-              verticalDistance={70}
-              delay={3000}
-              pauseOnHover={true}
-              skewAmount={6}
-              easing="elastic"
+          {/* RIGHT SIDE — IMAGE SLIDER (replaces CardSwap) */}
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden shadow-2xl">
+            <motion.div
+              className="relative w-full h-full border-4 border-white bg-slate-900"
+              whileHover={{ scale: 1.015 }}
+              transition={{ duration: 0.4 }}
             >
-              <Card customClass="bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
-                <img src="/images/home/colombo.avif" alt="Colombo" className="w-full h-full object-cover" />
-              </Card>
-              <Card customClass="bg-gradient-to-br from-slate-800 to-slate-700 overflow-hidden">
-                <img src="/images/home/yala.jpg" alt="Yala" className="w-full h-full object-cover" />
-              </Card>
-              <Card customClass="bg-gradient-to-br from-slate-700 to-slate-600 overflow-hidden">
-                <img src="/images/home/kandy.jpg" alt="Kandy" className="w-full h-full object-cover" />
-              </Card>
-            </CardSwap>
+              {/* Images */}
+              {featureSliderImages.map((image, index) => (
+                <motion.img
+                  key={index}
+                  src={image}
+                  alt="Sri Lanka Experience"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: index === currentFeatureImage ? 1 : 0 }}
+                  transition={{ duration: 0.9, ease: "easeInOut" }}
+                />
+              ))}
+
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+              {/* Controls */}
+              <button
+                onClick={goToPreviousFeature}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center bg-white/20 backdrop-blur-md hover:bg-white/40 transition"
+              >
+                <ChevronLeft className="h-6 w-6 text-white" />
+              </button>
+
+              <button
+                onClick={goToNextFeature}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center bg-white/20 backdrop-blur-md hover:bg-white/40 transition"
+              >
+                <ChevronRight className="h-6 w-6 text-white" />
+              </button>
+
+              {/* Indicators */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {featureSliderImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentFeatureImage(index)}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── SERVICES ─────────────────────────────────────────── */}
-      <section
-  className="relative overflow-hidden py-16 md:py-20 lg:py-24 "
+
+      {/* ── Tailor-Made Experience Section ─────────────────────────────────────── */}
+<section
+  className="relative overflow-hidden py-16 md:py-20 lg:py-24"
   style={{
     backgroundImage: "url('/images/updated.jpeg')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
 >
-  <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/95 to-transparent" />
+  <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/90 to-white/90" />
 
   <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
-          <motion.div className="text-center mb-12 md:mb-16" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            <p className="section-label mb-2 text-[#173036] font-semibold">Your Trusted Partner</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Authentic Sri Lanka</h2>
-            <p className="mx-auto max-w-2xl text-sm md:text-base leading-7 md:leading-8 text-gray-600">
-              Every service we offer is rooted in genuine local knowledge and a commitment to making your Sri Lanka experience as real, safe, and memorable as possible.
-            </p>
-          </motion.div>
-
-          <motion.div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3" variants={staggerContainer(0.09, 0.15)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
-            {services.map((service) => {
-              const getServiceIcon = () => {
-                const iconProps = { className: 'h-10 w-10', fill: 'currentColor' };
-                switch (service.iconType) {
-                  case 'flight':  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9L2 14v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>;
-                  case 'hotel':   return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M7 13c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm13-5h-8V4h8m0 14H4c-1.1 0-2-.9-2-2v-4h20v4c0 1.1-.9 2-2 2zm-7-7H7v2h6v-2z"/></svg>;
-                  case 'tour':    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>;
-                  case 'safari':  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>;
-                  case 'visa':    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M20 8H4V4h16m0 14H4c-1.1 0-2-.9-2-2v-4h20v4c0 1.1-.9 2-2 2zm-7-7H7v2h6v-2z"/></svg>;
-                  case 'support': return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3H4V9h14v2z"/></svg>;
-                  default: return null;
-                }
-              };
-              return (
-                <motion.div key={service.title} className="group relative border border-gray-200 bg-white p-8 shadow-lg shadow-black/10" variants={cardItem} whileHover={{ y: -6 }} transition={{ duration: 0.3 }}>
-                  <div className="relative mb-6 inline-flex rounded-xl bg-[#173036] p-3 text-white">{getServiceIcon()}</div>
-                  <h3 className="mb-3 text-xl font-bold text-gray-900">{service.title}</h3>
-                  <p className="text-base leading-7 text-gray-700">{service.desc}</p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
+  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr] gap-6 lg:gap-8 items-center items-center">
+{/* Right Side - Text Content */}
+      <motion.div
+        variants={slideLeft}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-80px' }}
+        className="lg:pt-8 bg-white border border-white p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20"
+      >
+        <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
+        
+        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#173036]">
+          Sri Lanka<br className="hidden sm:block" />Your Way
+        </h2>
+        
+        <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
+          From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+        </p>
+        <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
+          From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+        </p>
+      </motion.div>
+    {/* Left Side - Smaller Image */}
+    <motion.div
+      variants={slideLeft}
+      className="relative overflow-hidden shadow-2xl shadow-black/40 max-w-[300px] mx-auto border-4 border-[#a7d9d5]"
+    >
+      <motion.img
+        src="/new-tct.png"
+        alt="Sri Lanka Experience"
+        className="w-full h-auto object-contain"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.6 }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+    </motion.div>
+      
+    </div>
+  </div>
+</section>
 
       {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
       <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
@@ -812,7 +898,7 @@ const Home = () => {
         </div>
 
         {/* Mobile: simple stacked gallery */}
-        <div className="md:hidden px-6 py-24">
+        <div className="md:hidden px-6 py-32">
           <div className="text-center mb-12">
             <p className="section-label mb-2 text-white/85 tracking-[0.3em] uppercase text-xs">Visual Journey</p>
             <h2 className="font-display text-4xl text-white">Sri Lanka in Focus</h2>

@@ -47,10 +47,10 @@ const socialLinks = [
     cta: 'Watch our stories',
     href: 'https://youtube.com/@thecoconuttreetrails',
     bg: '#a7d9d5',
-    iconColor: '#173036',
+    iconColor: '#ff0000',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="#173036"/>
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="#ff0000"/>
         <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#ffff"/>
       </svg>
     ),
@@ -61,10 +61,10 @@ const socialLinks = [
     cta: 'Follow our journey',
     href: 'https://facebook.com/thecoconuttreetrails',
     bg: '#a7d9d5',
-    iconColor: '#173036',
+    iconColor: '#0a1fa7',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="#173036"/>
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="#0a1fa7"/>
       </svg>
     ),
   },
@@ -77,9 +77,26 @@ const socialLinks = [
     iconColor: '#173036',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#173036" strokeWidth="2"/>
-        <circle cx="12" cy="12" r="4" stroke="#173036" strokeWidth="2"/>
-        <circle cx="17.5" cy="6.5" r="1.2" fill="#173036"/>
+<defs>
+  <linearGradient id="instaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stopColor="#F58529" />
+    <stop offset="50%" stopColor="#DD2A7B" />
+    <stop offset="100%" stopColor="#8134AF" />
+  </linearGradient>
+</defs>
+
+<rect
+  x="2"
+  y="2"
+  width="20"
+  height="20"
+  rx="5"
+  ry="5"
+  stroke="url(#instaGradient)"
+  strokeWidth="2"
+/>
+        <circle cx="12" cy="12" r="4" stroke="url(#instaGradient)" strokeWidth="2"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGradient)"/>
       </svg>
     ),
   },
@@ -92,7 +109,14 @@ const socialLinks = [
     iconColor: '#173036',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" fill="#173036"/>
+      <defs>
+  <linearGradient id="tiktokGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stopColor="#25F4EE" />
+    <stop offset="50%" stopColor="#FE2C55" />
+    <stop offset="100%" stopColor="#0a0a0a" />
+  </linearGradient>
+</defs>
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" fill="url(#tiktokGradient)"/>
       </svg>
     ),
   },
@@ -104,10 +128,13 @@ const socialLinks = [
     bg: '#a7d9d5',
     iconColor: '#173036',
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M21.35 11.1H12v2.8h5.35C16.8 16.1 14.6 17.5 12 17.5A6.5 6.5 0 0 1 12 4.5c1.6 0 3.05.58 4.15 1.53L18.3 3.8A9.5 9.5 0 0 0 12 1.5a10.5 10.5 0 1 0 9.35 9.6z" fill="#173036"/>
-        <path d="M21.35 11.1H12v2.8h5.35a6.52 6.52 0 0 1-2.68 3.59l2.4 1.76A9.5 9.5 0 0 0 21.5 12c0-.3-.02-.6-.05-.9h-.1z" fill="#173036"/>
-      </svg>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  
+
+  <path d="M21.35 11.1H12v2.8h5.35C16.8 16.1 14.6 17.5 12 17.5A6.5 6.5 0 0 1 12 4.5c1.6 0 3.05.58 4.15 1.53L18.3 3.8A9.5 9.5 0 0 0 12 1.5a10.5 10.5 0 1 0 9.35 9.6z" fill="#4285F4"/>
+
+  <path d="M21.35 11.1H12v2.8h5.35a6.52 6.52 0 0 1-2.68 3.59l2.4 1.76A9.5 9.5 0 0 0 21.5 12c0-.3-.02-.6-.05-.9h-.1z" fill="#34A853"/>
+</svg>
     ),
   },
 ];
