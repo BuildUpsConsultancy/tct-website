@@ -1,4 +1,4 @@
-import { Globe2, Images, AtSign } from 'lucide-react';
+import { Linkedin, FacebookIcon, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -21,7 +21,7 @@ const Footer = () => {
             Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
           <div className="mt-8 flex items-center gap-4">
-            {[Globe2, Images, AtSign].map((Icon, idx) => (
+            {[Instagram, FacebookIcon, Linkedin].map((Icon, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -35,58 +35,52 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        {/* Quick Links */}
-<div className="group">
-  <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
-    Quick Links
-  </h4>
-
-  <ul className="space-y-3">
-    {[
-      { name: 'Socials', path: '/socials' },
-      { name: 'Destinations', path: '/destinations/wildlife' },
-      { name: 'About Us', path: '/about' },
-      { name: 'Contact Us', path: '/contact' },
-    ].map((link) => (
-      <li key={link.name}>
-        <a
-          href={link.path}
-          className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
-        >
-          <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">
-            →
-          </span>
-
-          {link.name}
-        </a>
-      </li>
-    ))}
-  </ul>
-</div>
-
-        {/* Services */}
         <div className="group">
           <h4 className="text-[#a7d9d5] font-bold mb-6 ml-4">
-            Our Services
+            Quick Links
           </h4>
+
           <ul className="space-y-3">
             {[
-              'Visa Assistance',
-              'Hotel Bookings',
-              'Wildlife Safaris',
-              'Custom Itineraries'
-            ].map((service, idx) => (
-              <li key={idx}>
-                <a 
-                  className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/service"
-                  href="#"
+              { name: 'Socials', path: '/socials' },
+              { name: 'Destinations', path: '/destinations/wildlife' },
+              { name: 'About Us', path: '/about' },
+              { name: 'Contact Us', path: '/contact' },
+            ].map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.path}
+                  className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
                 >
-                  <span className="opacity-0 group-hover/service:opacity-100 transition-opacity text-xs">→</span>
-                  {service}
+                  <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">
+                    →
+                  </span>
+
+                  {link.name}
                 </a>
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Contact Info - Replaced Services */}
+        <div className="group">
+          <h4 className="text-[#a7d9d5] font-bold mb-6">
+            Address
+          </h4>
+              <p className="text-slate-400 leading-relaxed mb-6">
+                The Coconut Tree Trails<br />
+                Birmingham, UK<br />
+              </p>         
+              <h4 className="text-[#a7d9d5] font-medium mb-1">Email</h4>
+              <a 
+                href="mailto:cocountreetrails@gmail.com"
+                className="text-slate-400 hover:text-[#a7d9d5] transition-colors inline-flex items-center gap-2 group/email"
+              >
+                cocountreetrails@gmail.com
+                <span className="opacity-0 group-hover/email:opacity-100 transition-opacity text-xs">↗</span>
+              </a>
+
         </div>
 
         {/* Newsletter */}
@@ -125,7 +119,7 @@ const Footer = () => {
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
-            {[Globe2, Images, AtSign].map((Icon, idx) => (
+            {[Instagram, FacebookIcon, Linkedin].map((Icon, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -146,12 +140,21 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+            
+            {/* Mobile Contact Info */}
             <div>
-              <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Services</h4>
-              <ul className="space-y-2 text-sm text-slate-400 text-center">
-                {['Visa Assistance', 'Hotel Bookings', 'Wildlife Safaris', 'Custom Itineraries'].map((service) => (
-                  <li key={service}>{service}</li>
-                ))}
+              <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Contact</h4>
+              <ul className="space-y-3 text-sm text-slate-400 text-center">
+                <li>
+                  <strong className="text-[#a7d9d5] block">Address</strong>
+                  Coconut Tree Trails<br />Sri Lanka
+                </li>
+                <li>
+                  <strong className="text-[#a7d9d5] block">Email</strong>
+                  <a href="mailto:cocountreetrails@gmail.com" className="hover:text-[#a7d9d5]">
+                    cocountreetrails@gmail.com
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -173,6 +176,7 @@ const Footer = () => {
             <img src="/footer-payment.png" alt="Payment partners" className="h-6 w-auto object-contain opacity-90 mx-auto" />
           </div>
         </div>
+        
         <div className="mt-4 text-center text-xs text-white/80">
           <p>© 2025 The Coconut Tree Trails. All rights reserved.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">
@@ -198,7 +202,6 @@ const Footer = () => {
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
         </div>
-
       </div>
 
       {/* Bottom accent line */}

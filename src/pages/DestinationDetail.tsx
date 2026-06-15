@@ -274,42 +274,42 @@ const CategoryVideos: Record<string, {
   description: string;
 }> = {
   'Wildlife tours': {
-    src: "/uploads/slider-video.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/home/yala.jpg",
     tag: "Wildlife Safari",
     title: "Into the Wild",
     description: "Experience breathtaking encounters with Sri Lanka’s majestic wildlife in their natural habitat.",
   },
   'Adventure tours': {
-    src: "/videos/adventure-rafting.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/kithulgala.jpg",
     tag: "Adventure",
     title: "Adrenaline Unleashed",
     description: "Feel the rush of white-water rafting, ziplining, and trekking through Sri Lanka’s rugged terrain.",
   },
   'Beaches tours': {
-    src: "/videos/beach-mirissa.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/mirissa-beach.webp",
     tag: "Beach Life",
     title: "Tropical Paradise",
     description: "Golden beaches, turquoise waters, and unforgettable coastal moments await you.",
   },
   'Historical Areas tours': {
-    src: "/videos/historical-sigiriya.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/sigiriya-culture.png",
     tag: "Heritage",
     title: "Echoes of History",
     description: "Discover ancient kingdoms, rock fortresses, and sacred temples that tell Sri Lanka’s epic story.",
   },
   'Culture & Heritage tours': {
-    src: "/videos/culture-perahera.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/culture-perahera.webp",
     tag: "Living Culture",
     title: "Traditions Alive",
     description: "Immerse yourself in vibrant festivals, rituals, and the warm hospitality of Sri Lankan culture.",
   },
   'Hidden Trails tours': {
-    src: "/videos/hidden-trails.mp4",
+    src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/hidden-ella.jpg",
     tag: "Off the Beaten Path",
     title: "Secret Sri Lanka",

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Mooli&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 /* ── Smooth Scrolling ──────────────────────────────────────── */
 html {
@@ -11,28 +11,35 @@ body {
 }
 
 :root {
-  --font-poppins: 'Poppins', sans-serif;
-  --font-mooli: 'Mooli', Sans-serif;
+  --font-heading: 'Bebas Neue', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
 }
 
 /* ── Typography ────────────────────────────────────────────── */
 /* Headings (h1, h2) */
-h1, h2, .heading {
-  font-family: var(--font-poppins);
+h1,
+h2,
+.heading {
+  font-family: var(--font-heading);
   font-weight: 800;
   line-height: 1.4;
   word-wrap: break-word;
 }
 
 /* Subheadings */
-h3, h4, .subheading, .section-label {
-  font-family: var(--font-mooli);
+h3,
+h4,
+.subheading,
+.section-label {
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
 /* Body text */
-p, body, .body-text {
-  font-family: var(--font-mooli);
+p,
+body,
+.body-text {
+  font-family: var(--font-body);
   font-size: 18px;
   font-weight: 600;
   line-height: 28px;
@@ -40,40 +47,40 @@ p, body, .body-text {
 
 /* Typography utility classes for flexibility */
 .heading-primary {
-  font-family: var(--font-poppins);
+  font-family: var(--font-heading);
   font-weight: 800;
   line-height: 1.4;
   word-wrap: break-word;
 }
 
 .heading-secondary {
-  font-family: var(--font-poppins);
+  font-family: var(--font-heading);
   font-weight: 800;
   line-height: 1.4;
   word-wrap: break-word;
 }
 
 .subheading-primary {
-  font-family: var(--font-mooli);
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
 .text-body {
-  font-family: var(--font-mooli);
+  font-family: var(--font-body);
   font-size: 18px;
   font-weight: 600;
   line-height: 28px;
 }
 
 .text-body-large {
-  font-family: var(--font-mooli);
+  font-family: var(--font-body);
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
 }
 
 .text-body-small {
-  font-family: var(--font-mooli);
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
