@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import Lenis from 'lenis';
-import { CheckCircle2, ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
+import { ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
 import { countryCodesList } from '../data/countries';
@@ -221,11 +222,10 @@ const initialState = {
 };
 
 const Inquiry = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState(initialState);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
-  const [submittedEmail, setSubmittedEmail] = useState('');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const preferencesRef = useRef<HTMLDivElement>(null);
@@ -260,10 +260,10 @@ const Inquiry = () => {
   }, [openDropdown]);
 
   useEffect(() => {
-    if ((success || error) && feedbackRef.current) {
+    if (error && feedbackRef.current) {
       feedbackRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [success, error]);
+  }, [error]);
 
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
@@ -310,7 +310,6 @@ const Inquiry = () => {
   const submitInquiry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
-    setSuccess(false);
 
     if (!serviceId || !inquiryTemplateId || !confirmationTemplateId || !publicKey) {
       setError('Email delivery is not configured yet. Add the EmailJS environment variables first.');
@@ -357,9 +356,8 @@ const Inquiry = () => {
         ),
       ]);
 
-      setSubmittedEmail(emailForFeedback);
-      setSuccess(true);
       setForm(initialState);
+      navigate('/thank-you', { state: { email: emailForFeedback } });
     } catch (submitError) {
       console.error('Failed to send inquiry', submitError);
       setError('We could not send your inquiry right now. Please try again or email us directly.');
@@ -434,17 +432,7 @@ const Inquiry = () => {
 
               </div>
 
-              {success && (
-                <motion.div ref={feedbackRef} variants={fadeUp} className="mt-8 border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-900">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
-                    <div>
-                      <p className="font-semibold">Your inquiry has been sent.</p>
-                      <p className="text-sm font-normal text-emerald-800">We have sent a confirmation to {submittedEmail || 'your email address'}.</p>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
+
 
               {error && (
                 <motion.div ref={feedbackRef} variants={fadeUp} className="mt-8 border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900">
