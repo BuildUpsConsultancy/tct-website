@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import Navbar from './components/navbar';
 import { Outlet } from 'react-router-dom';
 import Footer from './components/footer';
-import { MessageCircle } from 'lucide-react';
 
 function App() {
   const location = useLocation();
