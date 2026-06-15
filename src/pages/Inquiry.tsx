@@ -11,7 +11,7 @@ const titleOptions = ['Mr.', 'Mrs.'] as const;
 const travelTypes = ['Solo', 'Couple', 'Family'] as const;
 const preferenceOptions = ['Wildlife', 'Adventure', 'Beaches', 'Historical Areas', 'Culture & Heritage', 'Hidden Trails'];
 const budgetOptions = ['USD 1000–2000', 'USD 2000–3500', 'USD 3500–5000', 'USD 5000+'];
-const hearingOptions = ['Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
+const hearingOptions = ['The Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
 const adultsOptions = ['1', '2', '3', '4', '5+'];
 const childrenOptions = ['0', '1', '2', '3', '4', '5+'];
 
@@ -424,7 +424,7 @@ const Inquiry = () => {
               <div className="mt-2">
                 <div>
                   <p className="section-label text-[#173036]">Tailor-Made Travel</p>
-                  <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-slate-900">Your Trip</h2>
+                  <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-slate-900 tracking-wide">Your Trip</h2>
                   <p className="mt-4 max-w-3xl text-sm md:text-base font-normal leading-6 md:leading-7 text-slate-600">
                     Share your requirements and we’ll craft a Sri Lanka itinerary around your travel style, budget, and interests.
                   </p>
@@ -444,7 +444,7 @@ const Inquiry = () => {
                 <motion.div variants={fadeUp} className="space-y-6">
                   {/* Personal Details */}
                   <section className="relative z-40">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Personal Details</h2>
+                    <h2 className="text-xl sm:text-2xl text-[#173036] tracking-wide">Personal Details</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <div className="relative z-50">
                         <span className="block mb-2 text-sm text-slate-700">Title</span>
@@ -489,7 +489,7 @@ const Inquiry = () => {
 
                   {/* Travel Type */}
                   <section className="relative z-30">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Travel Type</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Travel Type</h2>
                     <div className="mt-4">
                       <CustomSelect
                         options={travelTypes}
@@ -504,7 +504,7 @@ const Inquiry = () => {
 
                   {/* Group Information */}
                   <section className="relative z-20">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Group Information</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Group Information</h2>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <div className="relative z-20">
                         <span className="block mb-2 text-sm text-slate-700">Adults</span>
@@ -534,7 +534,7 @@ const Inquiry = () => {
 
                   {/* Tour Duration */}
                   <section className="relative z-10">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Tour Duration</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Tour Duration</h2>
                     <div className="mt-6">
                       <div className="flex items-center justify-between text-sm font-medium text-slate-700 mb-4">
                         <span>1 Day</span>
@@ -554,7 +554,7 @@ const Inquiry = () => {
 
                   {/* Preferences */}
                   <section className="relative" style={{ zIndex: 9 }}>
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Preferences</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Preferences</h2>
                     <div className="relative mt-4" ref={preferencesRef}>
                       <button
                         type="button"
@@ -603,7 +603,7 @@ const Inquiry = () => {
 
                   {/* Budget Per Person */}
                   <section className="relative" style={{ zIndex: 8 }}>
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Budget Per Person</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Budget Per Person</h2>
                     <div className="mt-4">
                       <CustomSelect
                         options={budgetOptions}
@@ -618,7 +618,7 @@ const Inquiry = () => {
 
                   {/* Additional Information */}
                   <section>
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Additional Information</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">Additional Information</h2>
                     <div className="mt-4">
                       <textarea value={form.additionalInformation} onChange={(e) => updateField('additionalInformation', e.target.value)} rows={5} placeholder="Any other requests" className="w-full border-b border-[#bfb7ad] bg-transparent px-0 py-2 text-sm text-slate-900 outline-none" />
                     </div>
@@ -626,7 +626,7 @@ const Inquiry = () => {
 
                   {/* How did you hear about us */}
                   <section className="relative" style={{ zIndex: 7 }}>
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">How did you hear about us?</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#173036] tracking-wide">How did you hear about us?</h2>
                     <div className="mt-4">
                       <CustomSelect
                         options={hearingOptions}
@@ -662,9 +662,9 @@ const Inquiry = () => {
               style={{ y: formCardY }}
             >
               <div className="bg-[#173036] p-8 sm:p-10 text-white shadow-xl shadow-[#173036]/10">
-                <h3 className="text-2xl sm:text-3xl font-serif text-[#ece4d6] leading-tight">
+                <h4 className="text-2xl sm:text-3xl text-[#ece4d6] leading-tight">
                   Your life story doesn't write itself so let us <span className="italic">help you</span>
-                </h3>
+                </h4>
                 <p className="mt-4 text-sm text-white/80 font-light leading-relaxed">
                   Please get in touch on the below to start planning your personalised journey
                 </p>
