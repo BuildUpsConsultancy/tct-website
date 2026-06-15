@@ -469,14 +469,14 @@ const Home = () => {
       {/* Full-page video background */}
       <div className="fixed inset-0 -z-50 overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }}>
-          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+          <source src="/uploads/slider-video.mov" type="video/mp4" />
         </video>
       </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
         <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover brightness-75 -z-10">
-          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+          <source src="/uploads/slider-video.mov" type="video/mp4" />
         </video>
 
         <motion.div

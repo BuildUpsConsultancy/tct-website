@@ -17,9 +17,6 @@ const Footer = () => {
       <div className="hidden max-w-9xl mx-auto px-30 grid-cols-1 md:grid md:grid-cols-4 gap-12 relative z-10 mb-20">
         {/* Brand section */}
         <div className="group">
-          <div className="mb-6">
-              <img src="/logococnut.png" alt="The Coconut Tree Trails" className="w-56 max-w-full object-contain" />
-          </div>
           <p className="max-w-xs text-[clamp(1.03rem,1.6vw,1.18rem)] leading-[1.55] text-slate-300">
             Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
@@ -179,10 +176,9 @@ const Footer = () => {
         <div className="mt-4 text-center text-xs text-white/80">
           <p>© 2025 The Coconut Tree Trails. All rights reserved.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">
-            <a className="hover:text-[#a7d9d5] transition-colors" href="#">Newsletter</a>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Travel Insurance</Link>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund</Link>
           </div>
         </div>
       </div>
@@ -192,30 +188,14 @@ const Footer = () => {
         <div className="h-px bg-gradient-to-r from-transparent via-[#a7d9d5]/20 to-transparent"></div>
       </div>
 
-      {/* Payment and Footer Image Section */}
-      <div className="hidden md:block max-w-7xl mx-auto px-8 pt-12 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 border-b border-slate-800">
-
-          {/* Footer Image */}
-          <div className="flex justify-center md:justify-end">
-            <img 
-              src="/footer-payment.png" 
-              alt="Payment partners" 
-              className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
-            />
-          </div>
-        </div>
-      </div>
-
       {/* Bottom section */}
       <div className="hidden md:block max-w-7xl mx-auto px-8 pt-8 relative z-10">
         <div className="flex flex-col items-center gap-4 mb-6">
           <p className="text-white text-sm text-center">© 2026 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="flex gap-6 text-white text-xs">
-            <a className="hover:text-[#a7d9d5] transition-colors" href="#">Newsletter</a>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Travel Insurance</Link>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
         </div>
 
