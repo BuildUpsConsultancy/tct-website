@@ -377,7 +377,7 @@ const Inquiry = () => {
       animate="animate"
       exit="exit"
     >
-      <section className="relative overflow-hidden pt-16 sm:pt-20">
+      <section className="relative overflow-hidden pt-12 sm:pt-16">
         <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
