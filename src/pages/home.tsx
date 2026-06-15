@@ -468,9 +468,17 @@ const Home = () => {
     >
       {/* Full-page video background */}
       <div className="fixed inset-0 -z-50 overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover bg" style={{ opacity: 0.8 }}>
-          <source src="/uploads/slider-video.mp4" type="video/mp4" />
-        </video>
+        <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/uploads/hero-poster.jpg"
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+>
+  <source src="/uploads/slider-video.mp4" type="video/mp4" />
+</video>
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
