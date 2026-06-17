@@ -82,7 +82,7 @@ const Navbar = () => {
       <div className="w-full bg-[#173036]/95 backdrop-blur-md" style={{ overflow: 'visible' }}>
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between sm:px-6 sm:py-3" style={{ overflow: 'visible' }}>
           <Link to="/" className="group flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:gap-4">
-            <img src="/logococnut.png" alt="TCT Logo" className="h-10 w-auto opacity-100 brightness-125 contrast-125 transition-transform duration-300 group-hover:scale-110 sm:h-12" />
+            <img src="/logococnut.png" alt="TCT Logo" className="h-10 w-auto transition-transform duration-300 group-hover:scale-110 sm:h-13" />
           </Link>
 
           <div className="hidden md:flex items-center gap-5 absolute left-1/2 transform -translate-x-1/2">
