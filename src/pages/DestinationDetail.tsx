@@ -387,11 +387,7 @@ const DestinationDetail = () => {
       {/* ── Hero Section ─────────────────────────────────────────────────────── */}
 <section 
   ref={heroRef} 
-  className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white min-h-[640px] lg:min-h-[720px]"
-  style={{
-    // Optional: force a consistent aspect ratio
-    aspectRatio: '16 / 9',           // or '21 / 9' for wider hero feel
-  }}
+  className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white min-h-[640px] lg:min-h-[720px] md:aspect-[16/9]"
 >
   <motion.div
     className="absolute inset-0 opacity-30"
@@ -446,7 +442,7 @@ const DestinationDetail = () => {
       <section className="relative overflow-hidden pt-10 pb-10">
   <div className="w-full">   {/* Full bleed - no max-w container */}
 
-    <div className="relative overflow-hidden aspect-[16/8.5] lg:aspect-[16/7.5] xl:aspect-[16/7] group mx-auto">
+    <div className="relative overflow-hidden aspect-[4/3] md:aspect-[16/8.5] lg:aspect-[16/7.5] xl:aspect-[16/7] group mx-auto">
       {/* Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -506,8 +502,8 @@ const DestinationDetail = () => {
             <p className="mt-3 text-sm leading-6 text-slate-500">Key details before you book your {category.toLowerCase()} experience.</p>
           </div>
 
-          {/* Quick facts 4-cell grid */}
-          <div className="mb-12 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {/* Quick facts responsive grid */}
+          <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
             {quickFacts.map((fact, idx) => {
               return (
                 <div key={idx} className="bg-white p-6 border border-slate-200">
@@ -527,7 +523,7 @@ const DestinationDetail = () => {
     {/* Scrolling container */}
     <div className="relative">
       <div 
-        className="flex gap-4 animate-scroll-left hover:[animation-play-state:paused]"
+        className="flex w-max gap-4 animate-scroll-left hover:[animation-play-state:paused]"
         style={{
           animation: 'scrollLeft 25s linear infinite',
         }}
@@ -536,7 +532,7 @@ const DestinationDetail = () => {
         {[...gallery, ...gallery, ...gallery].map((item, index) => (
           <div
             key={index}
-            className="group relative flex-shrink-0 w-[480px] h-[380px] overflow-hidden bg-slate-200 shadow-md"
+            className="group relative flex-shrink-0 w-[280px] h-[220px] sm:w-[320px] sm:h-[260px] md:w-[480px] md:h-[380px] overflow-hidden bg-slate-200 shadow-md"
           >
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
