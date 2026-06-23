@@ -65,7 +65,7 @@ const Navbar = () => {
     { label: 'Home', to: '/' },
     { label: 'Our Team', to: '/about' },
     { label: 'Contact', to: '/contact' },
-    { label: 'Travel Blog', to: '/travel-blog' },
+    { label: 'Travel Blog', to: '/' },
     { label: 'Follow Us', to: '/socials' },
 
   ];
@@ -227,7 +227,7 @@ const Navbar = () => {
             >
               Home
             </Link>
-            
+
             {/* Mobile Destinations */}
             <div className="border-b border-white/10">
               <button

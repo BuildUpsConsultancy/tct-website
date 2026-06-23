@@ -77,7 +77,7 @@ const Contact = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-6 md:px-8 md:pb-24">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pb-20 pt-6 md:px-8 md:pb-24">
 
           {/* Heading */}
           <motion.div
@@ -89,7 +89,7 @@ const Contact = () => {
             <motion.p variants={fadeUp} className="section-label text-[#173036]">
               Get in Touch 
             </motion.p>
-            <motion.h1 variants={fadeUp} className="mt-4 text-4xl font-extrabold leading-[0.95] text-slate-900 md:text-6xl lg:text-[4.2rem]">
+            <motion.h1 variants={fadeUp} className="mt-4 text-3xl sm:text-4xl font-extrabold leading-[0.95] text-slate-900 md:text-6xl lg:text-[4.2rem]">
               Plan Your Sri Lanka Adventure
             </motion.h1>
             <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-600">
@@ -119,7 +119,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-[10px] font-bold leading-tight text-slate-900 sm:text-sm text-white">{label}</p>
-                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm text-white/85">{value}</p>
+                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm text-white/85 break-all sm:break-normal">{value}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -143,7 +143,7 @@ const Contact = () => {
 
             {/* Right — form */}
             <motion.div
-              className="order-1 border border-slate-200 bg-white p-6 shadow-lg md:p-8 lg:order-2"
+              className="order-1 border border-slate-200 bg-white p-4 sm:p-6 shadow-lg md:p-8 lg:order-2 w-full overflow-hidden"
               variants={slideRight}
               initial="hidden"
               animate="show"
