@@ -17,7 +17,7 @@ function App() {
   className="inquiry-float"
 >
   <img
-    src="/inquiry.png"   // change path to your image
+    src="/inquiry-new.png"   // change path to your image
     alt="Inquiry"
     className="inquiry-icon"
   />

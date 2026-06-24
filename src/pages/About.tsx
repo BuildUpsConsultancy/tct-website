@@ -7,7 +7,7 @@ import { pageVariants, staggerContainer, cardItem, fadeUp, slideRight, } from '.
 
 const aboutValues = [
   { iconType: 'safety',     title: 'Safety First',      desc: 'Your safety is our highest priority. Every itinerary we build is assessed for local conditions, road safety, and accommodation standards — giving you and your family complete peace of mind.' },
-  { iconType: 'expertise',  title: 'Local Expertise',   desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get the island as insiders know it.' },
+  { iconType: 'expertise',  title: 'Local Expertise',   desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get to experience the island like a local.' },
   { iconType: 'support',    title: 'Dedicated Support', desc: 'From first enquiry to safe return, our team is available to handle your questions, adjust your plans, and support you through every stage of your journey.' },
   { iconType: 'quality',    title: 'Quality Promise',   desc: 'We operate to UK travel industry standards across accommodation selection, transport quality, and guide training — so every experience consistently exceeds expectations.' },
 ];
@@ -104,10 +104,10 @@ const About = () => {
               <motion.p variants={fadeUp} className="section-label text-[#173036]">
                 About Us
               </motion.p>
-              <motion.h1 variants={fadeUp} className="max-w-xl text-5xl font-extrabold leading-[0.95] md:text-7xl">
-                <span className="block text-slate-900">We Are</span>
-                <span className="block text-slate-900">Coconut Tree</span>
-                <span className="block text-slate-900">Trails</span>
+              <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-[66px] font-extrabold leading-[0.95] sm:whitespace-nowrap">
+                <span className="block text-slate-900">We Are Coconut Tree Trails</span>
+                {/* <span className="block text-slate-900">Coconut Tree</span>
+                <span className="block text-slate-900">Trails</span> */}
               </motion.h1>
               <motion.p variants={fadeUp} className="mt-6 max-w-xl text-base leading-7 text-slate-600 md:text-lg">
                 We help people discover Sri Lanka properly — with local knowledge, thoughtful planning, and genuine Sri Lankan hospitality. We specialise in private, tailor-made tours that go beyond the obvious tourist trail.
@@ -291,7 +291,7 @@ const About = () => {
         ]).map((image, index) => (
           <div
             key={`row1-${index}`}
-            className="relative h-130 w-120 flex-shrink-0 overflow-hidden"
+            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden rounded-lg shadow-md"
           >
             <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />

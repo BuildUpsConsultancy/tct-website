@@ -326,9 +326,8 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
   return (
     <motion.button
       key={`${destination.slug}-${idx}`}
-      type="button"
       onClick={() => navigate(`/destinations/${destination.slug}`)}
-      className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
+      className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       transition={{ duration: 0.3 }}
@@ -360,12 +359,19 @@ const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [destinationSlide, setDestinationSlide] = useState(0);
   const [isSliderHovering, setIsSliderHovering] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // New: Feature Section Slider State
   const [currentFeatureImage, setCurrentFeatureImage] = useState(0);
 
   const heroRef = useRef<HTMLElement>(null);
   const destinationSliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
@@ -516,7 +522,7 @@ const Home = () => {
               />
             </motion.h1>
             <motion.p variants={fadeUp} className="mt-4 md:mt-6 max-w-xl text-sm sm:text-base leading-6 sm:leading-7 text-white/85 md:text-lg text-shadow-lg shadow-black/30">
-              Travel Sri Lanka with people who know it. Tailor-made tours rooted in local expertise, genuine hospitality, and a deep love for this island paradise.
+              Discover Sri Lanka with the people who know it best. Tailor-made journeys designed by local experts, combining authentic experiences, genuine hospitality, and a deep passion for this extraordinary island.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-3 md:mt-4 flex items-center gap-3 text-sm text-white/60">
             </motion.div>
@@ -612,8 +618,9 @@ const Home = () => {
             <div className="overflow-hidden">
               <motion.div
                 ref={destinationSliderRef}
-                className="flex gap-4 sm:gap-6 lg:gap-8"
-                animate={{ x: -(destinationSlide * (33.333 + 2.667)) + '%' }}
+                className="flex"
+                style={{ gap: windowWidth < 640 ? '4%' : windowWidth < 1024 ? '3%' : '2.667%' }}
+                animate={{ x: -(destinationSlide * (windowWidth < 640 ? 84 : windowWidth < 1024 ? 48 : 36)) + '%' }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
               >
                 {/* Render cards twice for infinite loop */}
@@ -640,9 +647,9 @@ const Home = () => {
           {/* Left Text */}
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 md:mb-3 text-white/85">Tailor-Made for You</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-tct-white">Sri Lanka<br className="hidden sm:block" />Your Way</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-tct-white">Sri Lanka Your Way</h2>
             <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-white/85">
-              From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+              From golden beaches and wildlife safaris to ancient temples, local culture and authentic Sri Lankan cuisine, our tailored tours give you the real Sri Lankan experience - thoughtfully designed by people who know the island inside out.
             </p>
             <motion.button 
               onClick={() => navigate('/destinations/wildlife')} 
@@ -714,12 +721,12 @@ const Home = () => {
 <section
   className="relative overflow-hidden py-16 md:py-20 lg:py-24"
   style={{
-    backgroundImage: "url('/images/updated.jpeg')",
+    backgroundImage: "url('/images/bg-updated.png')",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
 >
-  <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/90 to-white/90" />
+  <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/95 to-white/50" />
 
   <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
   <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr] gap-6 lg:gap-8 items-center items-center">
@@ -734,7 +741,7 @@ const Home = () => {
         <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
         
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#173036]">
-          Sri Lanka<br className="hidden sm:block" />Your Way
+          Sri Lanka Your Way
         </h2>
         
         <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
@@ -764,89 +771,148 @@ const Home = () => {
 </section>
 
       {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
-      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
-        </div>
-        
-        <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
-          <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch" initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            {/* Left Column - Big Picture */}
-            <motion.div variants={slideLeft} className="relative overflow-hidden shadow-2xl shadow-black/40 h-full">
-              <motion.img 
-                src="/images/experience.png" 
-                alt="Sri Lanka Experience" 
-                className="w-full h-full min-h-[250px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px] object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            </motion.div>
+      {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
+<section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
+    <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
+  </div>
+  
+  <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
+    <motion.div 
+      className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch" 
+      initial="hidden" 
+      whileInView="show" 
+      viewport={{ once: true, margin: '-80px' }}
+    >
+      {/* Left Column - Collage Layout (Stretches to match Text Box) */}
+      {/* Note: Added lg:p-12 to give more breathing room for spilling items */}
+      <div className="relative w-full p-12 sm:p-16 bg-transparent overflow-visible font-sans h-full min-h-[550px] lg:min-h-0">
+        <div 
+          className="relative w-full h-full shadow-2xl bg-cover bg-center hover:scale-101 transition-transform duration-500 ease-out" 
+          style={{ backgroundImage: "url('/images/gallery/gallery_07.jpg')" }}
+        >
+          {/* Soft color tint overlay */}
+          <div className="absolute inset-0 bg-sky-400/10 rounded-xl pointer-events-none" />
 
-            {/* Right Column - Text in Rectangle */}
-            <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
-              <motion.div variants={fadeUp}>
-                <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
-                  Experience Sri Lanka<br />Like Never Before
-                </h2>
-                <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
-                  We're not just tour operators — we're storytellers who bring Sri Lanka to life through authentic local experiences, personalized itineraries, and genuine connections with the people and places that make this island extraordinary.
-                </p>
-                
-                <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
-                  <div className="flex items-start gap-3 md:gap-4">
-                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Expert Guides</h4>
-                      <p className="text-white/70 text-xs md:text-sm">People who know every hidden gem and local secret</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3 md:gap-4">
-                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
-                      <p className="text-white/70 text-xs md:text-sm">Every journey crafted specifically for your interests and pace</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3 md:gap-4">
-                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
-                      <p className="text-white/70 text-xs md:text-sm">Real connections with local culture, wildlife, and traditions</p>
-                    </div>
-                  </div>
-                </div>
+          {/* 1. Top Left Polaroid (Elephant Close-up) - Bigger & Pushed higher/left out of frame */}
+          <div className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-12 transition-transform hover:rotate-0 hover:z-50 duration-300">
+            <img 
+              src="/images/gallery/gallery_02.jpg" 
+              alt="Elephant" 
+              className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]" 
+            />
+            {/* White Magnet Pin */}
+            <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10" />
+          </div>
 
-                <motion.button 
-                  onClick={() => navigate('/about')}
-                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-white text-[#173036] font-bold text-sm md:text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Explore Us
-                </motion.button>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+          {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
+          <div className="absolute -top-16 -right-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-12 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+            <img 
+              src="/images/gallery/gallery_10.jpg" 
+              alt="Top Right Experience" 
+              className="w-full h-28 sm:h-40 md:h-44 object-cover object-center" 
+            />
+            {/* White Magnet Pin */}
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+          </div>
+
+          {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
+          <div className="absolute top-1/4 -left-6 sm:-left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-8 sm:p-3 sm:pb-10 shadow-2xl border border-gray-100 transform -rotate-3 z-10 transition-transform hover:rotate-0 hover:z-50 duration-300">
+            <img 
+              src="/images/gallery/gallery_03.jpg" 
+              alt="City Skyline" 
+              className="w-full h-32 sm:h-40 md:h-48 object-cover" 
+            />
+            {/* White Magnet Pin */}
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200" />
+          </div>
+
+          {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
+          <div className="absolute -bottom-16 -left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-6 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+            <img 
+              src="/images/gallery/gallery_01.jpg" 
+              alt="Safari Jeep" 
+              className="w-full h-32 sm:h-40 md:h-52 object-cover" 
+            />
+            {/* White Magnet Pin */}
+            <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+          </div>
+
+          {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
+          <div className="absolute -bottom-16 -right-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-6 z-20 transition-transform duration-300 ease-out hover:rotate-0 hover:z-50">
+            <img 
+              src="/images/gallery/gallery_08.jpg" 
+              alt="Bottom Right Experience" 
+              className="w-full h-32 sm:h-40 md:h-52 object-cover object-center" 
+            />
+            {/* White Magnet Pin */}
+            <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+          </div>
         </div>
-      </section>
+      </div>
+
+      {/* Right Column - Text in Rectangle */}
+      <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
+        <motion.div variants={fadeUp}>
+          <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
+          <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
+            We're not just travel operators— we're passionate about helping people experience Sri Lanka the best way. Through authentic experiences, personalised itineraries, and local knowledge, we create journeys that go beyond the typical tourist trail.
+            For years, The Coconut Tree has been bringing the flavours, culture, and hospitality of Sri Lanka to guests across the UK. Now, we're helping people discover the island for themselves through carefully tailored holidays designed by people with deep roots in Sri Lanka.
+          </p>
+          
+          <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
+            <div className="flex items-start gap-3 md:gap-4">
+              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              </div>
+              <div>
+                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Knowledge</h4>
+                <p className="text-white/70 text-xs md:text-sm">Expert insight, trusted recommendations, and experiences shaped by people who know the island inside out.</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 md:gap-4">
+              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              </div>
+              <div>
+                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
+                <p className="text-white/70 text-xs md:text-sm">Every journey created specifically for your interests and travel style.</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 md:gap-4">
+              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              </div>
+              <div>
+                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
+                <p className="text-white/70 text-xs md:text-sm">Discover Sri Lanka through its culture, wildlife, landscapes, and cuisine with experiences designed to go beyond the usual tourist trail.</p>
+              </div>
+            </div>
+          </div>
+
+          <motion.button 
+            onClick={() => navigate('/about')}
+            className="w-full px-6 md:px-8 py-3 md:py-4 bg-white text-[#173036] font-bold text-sm md:text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Explore Us
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  </div>
+</section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────── */}
       <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-black/30">
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-20">
           <motion.div className="text-center mb-8 md:mb-12" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
-            <p className="section-label mb-2 text-white/85">Hear it from Travellers</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white">Real Stories. Real Sri Lanka.</h2>
+            <p className="section-label mb-2 text-white/85">Why Travellers Choose Us</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white">Real experiences & Unforgettable journeys.</h2>
           </motion.div>
 
           <div className="relative">
@@ -923,9 +989,9 @@ const Home = () => {
         <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-10 md:gap-12 lg:gap-16 px-4 sm:px-6 md:px-8 lg:px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 md:mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Quick Answers for Smart Travellers</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">Everything You Need to Know About Travelling in Sri Lanka.</h2>
             <p className="mt-3 md:mt-4 max-w-lg text-sm md:text-base leading-6 md:leading-8 text-gray-600 mb-6 md:mb-8">
-              Planning a trip to Sri Lanka? Here are the questions we get asked most often — answered honestly by our team.
+              Planning a trip to Sri Lanka? Here are the questions we get asked most often.
             </p>
             <motion.button onClick={() => navigate('/faq-policy')} className="inline-flex items-center gap-3 bg-[#173036] px-6 md:px-8 py-2.5 md:py-3 font-semibold text-white text-sm md:text-base shadow-md shadow-black/20" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               View Full FAQ
