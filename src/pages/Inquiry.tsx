@@ -7,8 +7,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
 import { countryCodesList } from '../data/countries';
 
-const titleOptions = ['Mr.', 'Mrs.'] as const;
-const travelTypes = ['Solo', 'Couple', 'Family'] as const;
+const titleOptions = ['Mr.', 'Mrs.', 'Ms.'] as const;
 const preferenceOptions = ['Wildlife', 'Adventure', 'Beaches', 'Historical Areas', 'Culture & Heritage', 'Hidden Trails'];
 const budgetOptions = ['USD 1000–2000', 'USD 2000–3500', 'USD 3500–5000', 'USD 5000+'];
 const hearingOptions = ['Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
@@ -167,8 +166,8 @@ const CountrySelect = ({
             </>
           ) : (
             <>
-              <img src="https://flagcdn.com/w20/lk.png" srcSet="https://flagcdn.com/w40/lk.png 2x" width="20" alt="Sri Lanka" className="inline-block shrink-0" />
-              <span className="text-slate-500">+94</span>
+              <img src="https://flagcdn.com/w20/gb.png" srcSet="https://flagcdn.com/w40/gb.png 2x" width="20" alt="United Kingdom" className="inline-block shrink-0" />
+              <span className="text-slate-500">+44</span>
             </>
           )}
         </span>
@@ -208,9 +207,8 @@ const initialState = {
   title: 'Mr.' as '' | (typeof titleOptions)[number],
   name: '',
   email: '',
-  countryCode: '+94',
+  countryCode: '+44',
   contactNumber: '',
-  travelType: 'Solo' as '' | (typeof travelTypes)[number],
   guests: '2',
   children: '0',
   tourDuration: '7',
@@ -297,7 +295,6 @@ const Inquiry = () => {
     `Email: ${form.email}`,
     `Contact Number: ${form.countryCode} ${form.contactNumber}`,
     `Title: ${form.title}`,
-    `Travel Type: ${form.travelType}`,
     `Number of Guests: ${form.guests}`,
     `Children: ${form.children}`,
     `Tour Duration: ${form.tourDuration}`,
@@ -323,7 +320,6 @@ const Inquiry = () => {
       customer_name: form.name,
       customer_email: form.email,
       customer_phone: `${form.countryCode} ${form.contactNumber}`,
-      travel_type: form.travelType,
       guests: String(form.guests),
       children: String((form as any).children ?? ''),
       tour_duration: form.tourDuration,
@@ -487,20 +483,7 @@ const Inquiry = () => {
                     </div>
                   </section>
 
-                  {/* Travel Type */}
-                  <section className="relative z-30">
-                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Travel Type</h2>
-                    <div className="mt-4">
-                      <CustomSelect
-                        options={travelTypes}
-                        value={form.travelType}
-                        onChange={(val) => updateField('travelType', val as any)}
-                        placeholder="Select travel type"
-                        isOpen={openDropdown === 'travelType'}
-                        setIsOpen={(val) => setOpenDropdown(val ? 'travelType' : null)}
-                      />
-                    </div>
-                  </section>
+
 
                   {/* Group Information */}
                   <section className="relative z-20">
@@ -536,10 +519,8 @@ const Inquiry = () => {
                   <section className="relative z-10">
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Tour Duration</h2>
                     <div className="mt-6">
-                      <div className="flex items-center justify-between text-sm font-medium text-slate-700 mb-4">
-                        <span>1 Day</span>
+                      <div className="flex items-center justify-center text-sm font-medium text-slate-700 mb-4">
                         <span className="text-[#173036] font-bold text-lg">{form.tourDuration} {form.tourDuration === '1' ? 'Day' : 'Days'}</span>
-                        <span>21 Days</span>
                       </div>
                       <input
                         type="range"
