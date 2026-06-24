@@ -1,4 +1,4 @@
-import { Linkedin, FacebookIcon, Instagram } from 'lucide-react';
+import { Linkedin, FacebookIcon, Instagram, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -21,7 +21,7 @@ const Footer = () => {
             Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
           <div className="mt-8 flex items-center gap-4">
-            {[Instagram, FacebookIcon, Linkedin].map((Icon, idx) => (
+            {[Instagram, FacebookIcon, Linkedin, Youtube].map((Icon, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -120,7 +120,7 @@ const Footer = () => {
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
-            {[Instagram, FacebookIcon, Linkedin].map((Icon, idx) => (
+            {[Instagram, FacebookIcon, Linkedin, Youtube].map((Icon, idx) => (
               <button
                 key={idx}
                 type="button"
