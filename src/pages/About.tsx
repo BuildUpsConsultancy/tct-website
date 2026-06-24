@@ -291,7 +291,7 @@ const About = () => {
         ]).map((image, index) => (
           <div
             key={`row1-${index}`}
-            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden rounded-lg shadow-md"
+            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden shadow-md"
           >
             <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />

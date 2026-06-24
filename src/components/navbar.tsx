@@ -65,7 +65,7 @@ const Navbar = () => {
     { label: 'Home', to: '/' },
     { label: 'Our Team', to: '/about' },
     { label: 'Contact', to: '/contact' },
-    { label: 'Travel Blog', to: '/' },
+    { label: 'Travel Blog', to: '#' },
     { label: 'Follow Us', to: '/socials' },
 
   ];
