@@ -9,11 +9,11 @@ import { categorySlugToTitle, type CategoryType } from '../data/destinationMenu'
 
 const categoryDescriptions: Record<string, string> = {
   'Wildlife tours': 'Track leopards in their natural habitat, witness elephant herds in misty national parks, and spot rare bird species with expert naturalists. Sri Lanka\'s wildlife sanctuaries offer some of Asia\'s most thrilling safari experiences.',
-  'Adventure tours': 'Adrenaline-seekers unite! White-water rafting, rock climbing, zip-lining through rainforests, and mountain hiking await. Experience Sri Lanka\'s rugged landscapes with professional guides who live for adventure.',
-  'Beaches tours': 'Golden sands, turquoise waters, and year-round tropical warmth. From party-filled beach clubs to secluded coves perfect for meditation, Sri Lanka\'s coastline offers every beach experience imaginable.',
-  'Historical Areas tours': 'Walk through centuries of history. Ancient Buddhist temples carved into mountainsides, royal kingdoms frozen in time, and colonial-era architecture tell the epic story of Sri Lanka\'s glorious past.',
-  'Culture & Heritage tours': 'Immerse yourself in authentic Sri Lanka. Learn from artisans, participate in sacred ceremonies, taste home-cooked meals with local families, and experience a way of life unchanged for generations.',
-  'Hidden Trails tours': 'Escape the tourist trails and discover Sri Lanka\'s best-kept secrets. Mist-covered mountains, untouched waterfalls, hidden villages, and panoramic viewpoints known only to locals await discovery.',
+  'Adventure tours': 'For those who love adventure, Sri Lanka offers everything from white-water rafting and rock climbing to zip-lining through rainforests and hiking spectacular mountain trails.',
+  'Beaches tours': 'Golden sands, turquoise waters, and year-round tropical warmth. Whether you\'re seeking quiet beaches, breathtaking sunsets, and total relaxation, or lively beach clubs and coastal nightlife, Sri Lanka has it all.',
+  'Historical Areas tours': 'Explore centuries of Sri Lankan history, ancient temples, sacred cities, royal kingdoms, and colonial-era landmarks reveal the rich heritage and cultural traditions that have shaped the island for generations.',
+  'Culture & Heritage tours': 'Explore Sri Lanka\'s cultural heritage through local traditions, historic sites, authentic cuisine, and meaningful experiences with the people who call the island home.',
+  'Hidden Trails tours': 'Discover Sri Lanka\'s best-kept secrets. Mist-covered mountains, untouched waterfalls, hidden villages, and panoramic viewpoints known only to locals await discovery.',
 };
 
 // Separate background images for parallax effect
@@ -25,6 +25,53 @@ const categoryBackgroundImage: Record<string, string> = {
   'Culture & Heritage tours': '/images/bg/bg-4.png',
   'Hidden Trails tours': '/images/bg/bg-2.png',
 };
+
+type Category =
+  | 'Wildlife tours'
+  | 'Adventure tours'
+  | 'Beaches tours'
+  | 'Historical Areas tours'
+  | 'Culture & Heritage tours'
+  | 'Hidden Trails tours';
+
+const categoryContent: Record<
+  Category,
+  { title: string; description: string }
+> = {
+  'Wildlife tours': {
+    title: 'Unforgettable Safari Experiences',
+    description:
+      "Get up close with Sri Lanka's most magnificent creatures in their natural habitats. Safari adventures that create lifelong memories.",
+  },
+  'Adventure tours': {
+    title: 'Experience the Journey',
+    description:
+      'Push your limits and embrace adventure with thrilling activities set amongst Sri Lanka\'s most stunning landscapes.',
+  },
+  'Beaches tours': {
+    title: 'Experience the Journey',
+    description:
+      'Discover paradise on earth. Pristine coastlines, crystal waters, and endless tropical bliss await you.',
+  },
+  'Historical Areas tours': {
+    title: 'Experience the Journey',
+    description:
+      'Journey back in time. Ancient temples, royal kingdoms, and archaeological treasures that shaped civilization.',
+  },
+  'Culture & Heritage tours': {
+    title: 'Experience the Journey',
+    description:
+      'Experience the real Sri Lanka through authentic traditions, spiritual landmarks, and meaningful connections with local communities.',
+  },
+  'Hidden Trails tours': {
+    title: 'Experience the Journey',
+    description:
+      'Explore the road less traveled. Secret gems, hidden viewpoints, and unforgettable discoveries await.',
+  },
+};
+
+
+
 // const tourHighlights = {
 //   'Wildlife tours': [
 //     { icon: Compass, title: 'Safari Experience', description: 'Expert-guided wildlife safaris in natural reserves' },
@@ -117,7 +164,7 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
     { src: '/images/destinations/adventure-zip.jpg',      tag: 'Zipline',   caption: 'Rainforest canopy zipline' },
   ],
   'Beaches tours': [
-    { src: '/images/destinations/mirissa-beach.webp',      tag: 'Featured',  caption: 'Mirissa Beach at golden hour' },
+    { src: '/images/destinations/mirissa-beach.webp',      tag: 'Featured',  caption: 'Mirissa beach' },
     { src: '/images/destinations/beach-unawatuna.jpg',    tag: 'Snorkel',   caption: 'Coral reef, Unawatuna' },
     { src: '/images/destinations/beach-arugambay.jpg',    tag: 'Surf',      caption: 'Arugam Bay surf break' },
   ],
@@ -141,19 +188,19 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
 // ─── NEW: Quick facts per category ───────────────────────────────────────────
 const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
   'Wildlife': [
-    { label: 'Yala National Park',     value: 'Sri Lanka\'s most famous safari park, best known for leopard safaris, elephants, crocodiles, sloth bears and dry-zone wilderness.' },
+    { label: 'Yala National Park',     value: 'Explore Sri Lanka\'s most celebrated national park, where leopards, elephants, crocodiles, sloth bears, and diverse wildlife roam freely.' },
     { label: 'Wilpattu National Park', value: 'A quieter, wilder safari park famous for natural lakes, forest tracks, leopards, sloth bears and a more peaceful safari feel.' },
-    { label: 'Udawalawe National Park',value: 'One of the best places in Sri Lanka to see wild elephants, with open grasslands, reservoirs and reliable safari sightings.' },
+    { label: 'Udawalawe National Park',value: 'One of the best places in Sri Lanka to see wild elephants, with open grasslands, scenic reservoirs, and unforgettable safari experiences.' },
     { label: 'Minneriya',              value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
-    { label: 'Mirissa',                value: 'Sri Lanka\'s key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
+    { label: 'Mirissa',                value: 'One of Sri Lanka\'s most popular coastal destinations, offering whale watching, dolphins, stunning beaches, and ocean-based adventures.' },
     { label: 'Kaudulla',               value: 'A major elephant safari area in the Cultural Triangle, famous for large herds gathering around ancient reservoirs.' },
-    { label: 'Trincomalee',            value: 'Sri Lanka\'s key marine wildlife route, offering seasonal whale watching, dolphins, beaches and ocean-based adventure.' },
+    { label: 'Trincomalee',            value: 'One of Sri Lanka\'s best destinations offering seasonal whale watching, dolphins,  crystal-clear beaches, and unforgettable ocean adventures.' },
   ],
 
   'Adventure tours': [
     { label: 'Ella',         value: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
     { label: 'Kitulgala',    value: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
-    { label: 'Knuckles',     value: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
+    { label: 'Knuckles Mountain Range',     value: 'A breathtaking mountain range of misty peaks,  forests, waterfalls, and remote village trails, offering some of Sri Lanka\'s finest trekking and hiking experiences.' },
     { label: 'Adam\'s Peak', value: 'A sacred mountain climbed overnight by pilgrims and travellers to see sunrise from the summit.' },
     { label: 'Belihuloya',   value: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
   ],
@@ -177,9 +224,9 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 
   'Historical Areas tours': [
     { label: 'Anuradhapura', value: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
-    { label: 'Polonnaruwa',  value: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
-    { label: 'Sigiriya',     value: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
-    { label: 'Dambulla',     value: 'A famous cave temple complex filled with Buddhist murals, statues and hilltop views over the Cultural Triangle.' },
+    { label: 'Polonnaruwa',  value: 'A remarkably preserved royal city featuring ancient temples, palace ruins, impressive Buddha statues, and scenic cycling routes through history.' },
+    { label: 'Sigiriya',     value: 'Sri Lanka\'s most iconic rock fortress, renowned for its royal gardens, ancient frescoes, mirror wall, and breathtaking views from the summit.' },
+    { label: 'Dambulla',     value: 'A spectacular cave temple complex adorned with Buddhist murals, centuries-old statues, and panoramic views across the Cultural Triangle.' },
     { label: 'Yapahuwa',     value: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
   ],
 
@@ -325,7 +372,7 @@ const DestinationDetail = () => {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const bgY         = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
-
+const content = categoryContent[category as Category];
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
     const lenis = new Lenis({
@@ -413,7 +460,7 @@ const DestinationDetail = () => {
         </p>
 
         <Link
-          to="/"
+          to="#"
           className="mt-8 inline-flex bg-[#173036] px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#1a4d56] hover:shadow-md hover:scale-105"
         >
           Explore Details Below
@@ -427,16 +474,14 @@ const DestinationDetail = () => {
 
       {/* ── Experience the Journey ────────────────────────────────────────────── */}
       <div className="mt-16 text-center">
-        <h2 className="font-display text-4xl font-black text-slate-900 md:text-5xl">Experience the Journey</h2>
-        <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-600 md:text-lg">
-          {category === 'Wildlife tours'               && 'Get up close with Sri Lanka\'s most magnificent creatures in their natural habitats. Safari adventures that create lifelong memories.'}
-          {category === 'Adventure tours'        && 'Push your boundaries and challenge yourself. Adrenaline-pumping activities through Sri Lanka\'s most stunning landscapes.'}
-          {category === 'Beaches tours'          && 'Discover paradise on earth. Pristine coastlines, crystal waters, and endless tropical bliss await you.'}
-          {category === 'Historical Areas tours' && 'Journey back in time. Ancient temples, royal kingdoms, and archaeological treasures that shaped civilization.'}
-          {category === 'Culture & Heritage tours' && 'Connect deeply with Sri Lanka. Authentic traditions, spiritual practices, and the warmth of local communities.'}
-          {category === 'Hidden Trails tours'    && 'Explore the road less traveled. Secret gems, hidden viewpoints, and unforgettable discoveries await.'}
-        </p>
-      </div>
+  <h2 className="font-display text-4xl font-black text-slate-900 md:text-5xl">
+    {content.title}
+  </h2>
+
+  <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-600 md:text-lg">
+    {content.description}
+  </p>
+</div>
 
       {/* ── NEW: Gallery Section ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-10 pb-10">
