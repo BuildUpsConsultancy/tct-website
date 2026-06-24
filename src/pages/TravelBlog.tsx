@@ -1,148 +1,167 @@
-import { useState } from 'react';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-const featuredPost = {
-  title: 'The Neon Whispers of Tokyo',
-  subtitle: 'Feature Story',
-  date: 'May 24, 2024',
-  excerpt: 'Navigating the bioluminescent canopulua of Shinjuku through the labyrinth of midnight wanderer.',
-  author: { name: 'Elena Vance', role: 'Chief Voyager', img: 'https://images.unsplash.com/photo-1494790108755-2616b2ce5d2e?w=80&q=80' },
-  img: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80',
-};
-
-const latestPosts = [
+const travelBlogs = [
   {
     id: 1,
-    title: 'The Cobalt Hour in Paris',
-    excerpt: 'When the iron giant wakes, the city holds its breath in shades of indigo and gold.',
-    img: 'https://images.unsplash.com/photo-1520939817895-060bdaf4fe1b?w=500&q=80',
+    title: 'THE ULTIMATE GUIDE TO ELLA: MOUNTAINS & TEA TRAILS',
+    date: '09 April 2026',
+    excerpt: 'Ella is the backbone of Sri Lanka\'s hill country, offering breathtaking views, endless tea estates, and spectacular hikes like Little Adam\'s Peak.',
+    img: '/images/destinations/hidden-ella.jpg',
+    link: '#'
   },
   {
     id: 2,
-    title: 'Moonlight on the Caldera',
-    excerpt: 'Silent streets, white walls, and the endless rhythmic sigh of the Aegean sea.',
-    img: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=500&q=80',
+    title: 'THINGS TO DO IN MIRISSA (FAMILY GUIDE + LOCAL IDEAS)',
+    date: '24 March 2026',
+    excerpt: 'Mirissa is famous for its beaches, whale watching, and vibrant coastal life. Here is our family guide to making the most of your southern escape.',
+    img: '/images/destinations/mirissa-beach.webp',
+    link: '#'
   },
   {
     id: 3,
-    title: 'Auroras Over Abisko',
-    excerpt: 'Chasing the green ghosts of the north across a frozen celestial playground.',
-    img: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80',
+    title: 'TOP THINGS TO DO IN GALLE FORT: CULTURE, VIEWS AND GREAT SUNSETS',
+    date: '11 March 2026',
+    excerpt: 'Explore the historic streets of Galle Fort, from colonial architecture to chic boutiques and some of the best sunset views in the country.',
+    img: '/images/destinations/galle-culture.webp',
+    link: '#'
   },
-];
-
-const trending = [
-  { id: 1, title: 'Finding Solitude in the Scottish Highlands', read: '4.6 in reads', img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&q=80' },
-  { id: 2, title: 'The Marble Heart of Agra', read: '7.6 in reads', img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=80&q=80' },
-  { id: 3, title: 'Lake Brienz: A Turquoise Dream', read: '5.6 in reads', img: 'https://images.unsplash.com/photo-1504019347908-b45f9b0b8dd5?w=80&q=80' },
+  {
+    id: 4,
+    title: 'YALA NATIONAL PARK - CELEBRATING THE WILDLIFE OF SRI LANKA',
+    date: '04 March 2026',
+    excerpt: 'The perfect guide for spotting leopards and elephants in Yala National Park. Learn about the best times to visit and what to bring.',
+    img: '/images/home/yala.jpg',
+    link: '#'
+  },
+  {
+    id: 5,
+    title: 'MONSOON ACTIVITIES IN SRI LANKA: MAKE THE MOST OF THE RAINY SEASON',
+    date: '25 February 2026',
+    excerpt: 'Grey skies and rainy days? Embrace the monsoon with cozy hill country stays, cooking classes, and exploring lush, green landscapes.',
+    img: '/images/destinations/hidden-waterfall.jpg',
+    link: '#'
+  },
+  {
+    id: 6,
+    title: 'ROMANTIC GETAWAYS, SRI LANKAN STYLE: LOVE & SUNSETS ',
+    date: '09 February 2026',
+    excerpt: 'A romantic trip doesn\'t have to be cliché. Discover hidden boutique stays, private dining on the beach, and the magic of a Sri Lankan sunset.',
+    img: '/images/destinations/beach-unawatuna.jpg',
+    link: '#'
+  }
 ];
 
 const TravelBlog = () => {
-  const [subEmail, setSubEmail] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
 
   return (
-    <div className="min-h-screen bg-tct-dark">
-      {/* Featured Hero Post */}
-      <section className="relative h-[65vh] overflow-hidden">
-        <img src={featuredPost.img} alt={featuredPost.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-tct-darker/30 via-tct-dark/40 to-tct-dark" />
-        <div className="absolute bottom-12 left-0 right-0 max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl animate-fade-up">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="tct-badge">{featuredPost.subtitle}</span>
-              <span className="text-tct-muted text-xs">{featuredPost.date}</span>
+    <div ref={containerRef} className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-20 relative overflow-hidden">
+
+      {/* Background Image with Parallax */}
+      <motion.div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          backgroundImage: `url(/images/bg/bg-6.png)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          y: bgY,
+        }}
+      />
+
+      {/* Gradient Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/85 to-white pointer-events-none" />
+
+      {/* Watermark background pattern */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] -z-10" style={{
+        backgroundImage: 'radial-gradient(circle, #173036 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+      }} />
+
+      {/* Container */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
+
+        {/* Title */}
+        <div className="text-center mb-16 animate-fade-up">
+          <p className="section-label mb-2 text-[#173036]">Read our stories</p>
+          <h1 className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide text-[#173036]">Travel Blog</h1>
+        </div>
+
+        {/* Layout */}
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
+
+          {/* Left Sidebar */}
+          <div className="lg:w-[360px] shrink-0 bg-slate-100/90 backdrop-blur-sm border border-slate-200 p-8 md:p-10 h-fit shadow-sm animate-fade-up delay-100">
+            <div className="overflow-hidden mb-8 shadow-sm group">
+              <img
+                src="/images/destinations/culture-perahera.webp"
+                alt="Our Story"
+                className="w-full aspect-[4/3] object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+              />
             </div>
-            <h1 className="font-display text-5xl md:text-6xl font-black text-tct-white leading-tight mb-4">
-              {featuredPost.title}
-            </h1>
-            <p className="text-tct-muted leading-relaxed mb-6 max-w-lg">{featuredPost.excerpt}</p>
-            <div className="flex items-center gap-3">
-              <img src={featuredPost.author.img} alt={featuredPost.author.name} className="w-10 h-10 rounded-full object-cover border-2 border-tct-accent2" />
-              <div>
-                <p className="text-tct-white text-sm font-medium">{featuredPost.author.name}</p>
-                <p className="text-tct-muted text-xs">{featuredPost.author.role}</p>
-              </div>
+
+            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-slate-900 tracking-wide">Our Story</h2>
+
+            <div className="text-base leading-relaxed text-slate-600 mb-10 space-y-4">
+              <p>
+                Take a group of Sri Lankan friends and family brought together by a vision of bringing authentic Sri Lankan travel experiences to communities across the world. With hard work and dedication, the vision became a reality.
+              </p>
+              <p>
+                Our travellers, communities and everyone who works for TCT are extended family and 'everyone is welcome to the journey' just like back home. Our trips are made for sharing and fit perfectly with our island vibe.
+              </p>
+            </div>
+
+            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-slate-900 tracking-wide leading-tight">UNFORGETTABLE JOURNEYS, ENDLESS MEMORIES.</h2>
+
+            <div className="text-base leading-relaxed text-slate-600">
+              <p>
+                We're super chuffed with the level of support & love we've received from our travellers. Join us as we explore the hidden gems of our beautiful island.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-10">
-          {/* Latest Posts */}
-          <div className="lg:col-span-2">
-            <h2 className="section-label mb-8">Latest Reflections</h2>
-            <div className="space-y-6">
-              {latestPosts.map(post => (
-                <div key={post.id} className="tct-card rounded-2xl overflow-hidden group cursor-pointer" onClick={() => {}}>
-                  <div className="grid md:grid-cols-2">
-                    <div className="img-overlay h-52 md:h-auto">
-                      <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-display text-2xl text-tct-white mb-3 leading-tight">{post.title}</h3>
-                        <p className="text-tct-muted text-sm leading-relaxed">{post.excerpt}</p>
-                      </div>
-                      <button className="text-tct-accent2 text-sm flex items-center gap-2 mt-4 hover:gap-3 transition-all">
-                        READ STORY <span>→</span>
-                      </button>
-                    </div>
+          {/* Right Content - Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
+              {travelBlogs.map((blog, idx) => (
+                <div key={blog.id} className={`flex flex-col items-center text-center group animate-fade-up`} style={{ animationDelay: `${(idx + 2) * 100}ms` }}>
+                  <Link to={blog.link} className="w-full aspect-square mb-6 overflow-hidden block">
+                    <img
+                      src={blog.img}
+                      alt={blog.title}
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                    />
+                  </Link>
+
+                  <Link to={blog.link}>
+                    <h3 className="font-display text-2xl font-bold uppercase leading-tight mb-4 text-slate-900 px-2">
+                      {blog.title}
+                    </h3>
+                  </Link>
+
+                  <p className="text-[8px] text-slate-500 mb-5 font-mono">
+                    {blog.date}
+                  </p>
+
+                  <p className="text-sm leading-relaxed text-slate-600 mb-6 px-4">
+                    {blog.excerpt}
+                  </p>
+
+                  <div className="mt-auto">
+                    <Link to={blog.link} className="inline-block text-sm font-semibold text-[#8a2b3b] hover:text-[#5a1b26] underline underline-offset-4 transition-colors">
+                      Read More
+                    </Link>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* Trending */}
-            <div>
-              <h3 className="section-label mb-5">Trending Tales</h3>
-              <div className="space-y-4">
-                {trending.map(item => (
-                  <div key={item.id} className="flex items-center gap-4 cursor-pointer group">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                      <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                    </div>
-                    <div>
-                      <p className="text-tct-text text-sm font-medium leading-tight group-hover:text-tct-white transition-colors">{item.title}</p>
-                      <p className="text-tct-muted text-xs mt-1">{item.read}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Subscribe */}
-            <div className="tct-card rounded-2xl p-6">
-              <h3 className="font-display text-xl text-tct-white mb-2">Join the Expedition</h3>
-              <p className="text-tct-muted text-sm mb-5">Get curated midnight dispatches and exclusive stories delivered to your inbox.</p>
-              <input
-                type="email"
-                value={subEmail}
-                onChange={e => setSubEmail(e.target.value)}
-                placeholder="Email Address"
-                className="tct-input text-sm mb-3"
-              />
-              <button className="btn-primary w-full text-sm py-3">Subscribe to Journal</button>
-            </div>
-
-            {/* Archive */}
-            <div>
-              <h3 className="section-label mb-5">Archive</h3>
-              <div className="space-y-3">
-                {['Winter 2023 Dispatches', 'The Mediterranean Series', 'Solo Wanderlust Collection'].map(item => (
-                  <button key={item} className="w-full flex justify-between items-center text-tct-muted text-sm hover:text-tct-text transition-colors py-2 border-b border-tct-mid/50">
-                    <span>{item}</span>
-                    <span className="text-tct-accent2">›</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
