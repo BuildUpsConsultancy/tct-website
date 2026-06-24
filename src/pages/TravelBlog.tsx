@@ -1,149 +1,245 @@
-import { useState } from 'react';
+import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Lenis from 'lenis';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { pageVariants, staggerContainer, fadeUp } from '../lib/motion'; 
 
-const featuredPost = {
-  title: 'The Neon Whispers of Tokyo',
-  subtitle: 'Feature Story',
-  date: 'May 24, 2024',
-  excerpt: 'Navigating the bioluminescent canopulua of Shinjuku through the labyrinth of midnight wanderer.',
-  author: { name: 'Elena Vance', role: 'Chief Voyager', img: 'https://images.unsplash.com/photo-1494790108755-2616b2ce5d2e?w=80&q=80' },
-  img: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&q=80',
-};
-
-const latestPosts = [
+const travelBlogs = [
   {
     id: 1,
-    title: 'The Cobalt Hour in Paris',
-    excerpt: 'When the iron giant wakes, the city holds its breath in shades of indigo and gold.',
-    img: 'https://images.unsplash.com/photo-1520939817895-060bdaf4fe1b?w=500&q=80',
+    title: 'THE ULTIMATE GUIDE TO ELLA: MOUNTAINS & TEA TRAILS',
+    date: '09 April 2026',
+    excerpt: "Ella is the backbone of Sri Lanka's hill country, offering breathtaking views, endless tea estates, and spectacular hikes like Little Adam's Peak.",
+    img: '/images/destinations/hidden-ella.jpg',
+    link: '#'
   },
   {
     id: 2,
-    title: 'Moonlight on the Caldera',
-    excerpt: 'Silent streets, white walls, and the endless rhythmic sigh of the Aegean sea.',
-    img: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=500&q=80',
+    title: 'THINGS TO DO IN MIRISSA (FAMILY GUIDE + LOCAL IDEAS)',
+    date: '24 March 2026',
+    excerpt: 'Mirissa is famous for its beaches, whale watching, and vibrant coastal life. Here is our family guide to making the most of your southern escape.',
+    img: '/images/destinations/mirissa-beach.webp',
+    link: '#'
   },
   {
     id: 3,
-    title: 'Auroras Over Abisko',
-    excerpt: 'Chasing the green ghosts of the north across a frozen celestial playground.',
-    img: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=500&q=80',
+    title: 'TOP THINGS TO DO IN GALLE FORT: CULTURE, VIEWS AND GREAT SUNSETS',
+    date: '11 March 2026',
+    excerpt: 'Explore the historic streets of Galle Fort, from colonial architecture to chic boutiques and some of the best sunset views in the country.',
+    img: '/images/destinations/galle-culture.webp',
+    link: '#'
   },
-];
-
-const trending = [
-  { id: 1, title: 'Finding Solitude in the Scottish Highlands', read: '4.6 in reads', img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&q=80' },
-  { id: 2, title: 'The Marble Heart of Agra', read: '7.6 in reads', img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=80&q=80' },
-  { id: 3, title: 'Lake Brienz: A Turquoise Dream', read: '5.6 in reads', img: 'https://images.unsplash.com/photo-1504019347908-b45f9b0b8dd5?w=80&q=80' },
+  {
+    id: 4,
+    title: 'YALA NATIONAL PARK - CELEBRATING THE WILDLIFE OF SRI LANKA',
+    date: '04 March 2026',
+    excerpt: 'The perfect guide for spotting leopards and elephants in Yala National Park. Learn about the best times to visit and what to bring.',
+    img: '/images/home/yala.jpg',
+    link: '#'
+  },
+  {
+    id: 5,
+    title: 'MONSOON ACTIVITIES IN SRI LANKA: MAKE THE MOST OF THE RAINY SEASON',
+    date: '25 February 2026',
+    excerpt: 'Grey skies and rainy days? Embrace the monsoon with cozy hill country stays, cooking classes, and exploring lush, green landscapes.',
+    img: '/images/destinations/hidden-waterfall.jpg',
+    link: '#'
+  },
+  {
+    id: 6,
+    title: 'ROMANTIC GETAWAYS, SRI LANKAN STYLE: LOVE & SUNSETS ',
+    date: '09 February 2026',
+    excerpt: "A romantic trip doesn't have to be cliché. Discover hidden boutique stays, private dining on the beach, and the magic of a Sri Lankan sunset.",
+    img: '/images/destinations/beach-unawatuna.jpg',
+    link: '#'
+  }
 ];
 
 const TravelBlog = () => {
-  const [subEmail, setSubEmail] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll position inside this component for background parallax
+  const { scrollYProgress } = useScroll({ 
+    target: containerRef, 
+    offset: ['start start', 'end start'] 
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
+
+  // Smooth scroll configuration via Lenis instance loop
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+      infinite: false,
+      wheelMultiplier: 1,
+      lerp: 0.1,
+      syncTouch: true,
+      syncTouchLerp: 0.075,
+    });
+
+    let animationFrameId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      animationFrameId = requestAnimationFrame(raf);
+    };
+    animationFrameId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-tct-dark">
-      {/* Featured Hero Post */}
-      <section className="relative h-[65vh] overflow-hidden">
-        <img src={featuredPost.img} alt={featuredPost.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-tct-darker/30 via-tct-dark/40 to-tct-dark" />
-        <div className="absolute bottom-12 left-0 right-0 max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl animate-fade-up">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="tct-badge">{featuredPost.subtitle}</span>
-              <span className="text-tct-muted text-xs">{featuredPost.date}</span>
-            </div>
-            <h1 className="font-display text-5xl md:text-6xl font-black text-tct-white leading-tight mb-4">
-              {featuredPost.title}
-            </h1>
-            <p className="text-tct-muted leading-relaxed mb-6 max-w-lg">{featuredPost.excerpt}</p>
-            <div className="flex items-center gap-3">
-              <img src={featuredPost.author.img} alt={featuredPost.author.name} className="w-10 h-10 rounded-full object-cover border-2 border-tct-accent2" />
-              <div>
-                <p className="text-tct-white text-sm font-medium">{featuredPost.author.name}</p>
-                <p className="text-tct-muted text-xs">{featuredPost.author.role}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <motion.div
+      ref={containerRef}
+      className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-20 relative overflow-hidden"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      {/* Background Image with Parallax (Uncommented and tied into layout) */}
+      <motion.div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: 'url(/images/updated.jpeg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'bottom center',
+            y: bgY,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
 
-      {/* Main Content */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-10">
-          {/* Latest Posts */}
-          <div className="lg:col-span-2">
-            <h2 className="section-label mb-8">Latest Reflections</h2>
-            <div className="space-y-6">
-              {latestPosts.map(post => (
-                <div key={post.id} className="tct-card rounded-2xl overflow-hidden group cursor-pointer" onClick={() => {}}>
-                  <div className="grid md:grid-cols-2">
-                    <div className="img-overlay h-52 md:h-auto">
-                      <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-display text-2xl text-tct-white mb-3 leading-tight">{post.title}</h3>
-                        <p className="text-tct-muted text-sm leading-relaxed">{post.excerpt}</p>
-                      </div>
-                      <button className="text-tct-accent2 text-sm flex items-center gap-2 mt-4 hover:gap-3 transition-all">
-                        READ STORY <span>→</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Watermark background pattern */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] -z-10" style={{
+        backgroundImage: 'radial-gradient(circle, #173036 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+      }} />
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* Trending */}
-            <div>
-              <h3 className="section-label mb-5">Trending Tales</h3>
-              <div className="space-y-4">
-                {trending.map(item => (
-                  <div key={item.id} className="flex items-center gap-4 cursor-pointer group">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                      <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                    </div>
-                    <div>
-                      <p className="text-tct-text text-sm font-medium leading-tight group-hover:text-tct-white transition-colors">{item.title}</p>
-                      <p className="text-tct-muted text-xs mt-1">{item.read}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* Main Layout Container */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
 
-            {/* Subscribe */}
-            <div className="tct-card rounded-2xl p-6">
-              <h3 className="font-display text-xl text-tct-white mb-2">Join the Expedition</h3>
-              <p className="text-tct-muted text-sm mb-5">Get curated midnight dispatches and exclusive stories delivered to your inbox.</p>
-              <input
-                type="email"
-                value={subEmail}
-                onChange={e => setSubEmail(e.target.value)}
-                placeholder="Email Address"
-                className="tct-input text-sm mb-3"
+        {/* Title Block with Staggered Fade-Up */}
+        <motion.div 
+          className="text-center mb-16"
+          variants={staggerContainer(0.12, 0.05)}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.p variants={fadeUp} className="section-label mb-2 text-[#173036]">
+            Read our stories
+          </motion.p>
+          <motion.h1 
+            variants={fadeUp} 
+            className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide text-[#173036]"
+          >
+            Travel Blog
+          </motion.h1>
+        </motion.div>
+
+        {/* Dynamic Split Layout */}
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
+
+          {/* Left Sidebar Profile */}
+          <motion.div 
+            className="lg:w-[360px] shrink-0 bg-[#173036] backdrop-blur-sm border border-slate-200 p-8 md:p-10 h-fit shadow-sm"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="overflow-hidden mb-8 shadow-sm group">
+              <img
+                src="/images/gallery/gallery_07.jpg"
+                alt="Our Story"
+                className="w-full aspect-[4/3] object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
               />
-              <button className="btn-primary w-full text-sm py-3">Subscribe to Journal</button>
             </div>
 
-            {/* Archive */}
-            <div>
-              <h3 className="section-label mb-5">Archive</h3>
-              <div className="space-y-3">
-                {['Winter 2023 Dispatches', 'The Mediterranean Series', 'Solo Wanderlust Collection'].map(item => (
-                  <button key={item} className="w-full flex justify-between items-center text-tct-muted text-sm hover:text-tct-text transition-colors py-2 border-b border-tct-mid/50">
-                    <span>{item}</span>
-                    <span className="text-tct-accent2">›</span>
-                  </button>
-                ))}
-              </div>
+            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-white tracking-wide">Our Story</h2>
+
+            <div className="text-base leading-relaxed text-white mb-10 space-y-4">
+              <p>
+                Take a group of Sri Lankan friends and family brought together by a vision of bringing authentic Sri Lankan travel experiences to communities across the world. With hard work and dedication, the vision became a reality.
+              </p>
+              <p>
+                Our travellers, communities and everyone who works for TCT are extended family and 'everyone is welcome to the journey' just like back home. Our trips are made for sharing and fit perfectly with our island vibe.
+              </p>
             </div>
+
+            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-white tracking-wide leading-tight">UNFORGETTABLE JOURNEYS, ENDLESS MEMORIES.</h2>
+
+            <div className="text-base leading-relaxed text-white">
+              <p>
+                We're super chuffed with the level of support & love we've received from our travellers. Join us as we explore the hidden gems of our beautiful island.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right Content - Grid */}
+          <div className="flex-1">
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
+    {travelBlogs.map((blog, idx) => {
+      // Clamp the animation delay so lower rows don't feel sluggish if the list is long
+      const animationDelay = `${Math.min((idx + 1) * 100, 600)}ms`;
+
+      return (
+        <div 
+          key={blog.id} 
+          className="flex flex-col items-center text-center group animate-fade-up" 
+          style={{ animationDelay }}
+        >
+          {/* Card Image Wrapper */}
+          <Link to={blog.link} className="w-full aspect-square mb-6 overflow-hidden block relative">
+            <img
+              src={blog.img}
+              alt={blog.title}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy" // Performance optimization
+            />
+            {/* Subtle overlay accent on image hover to match premium brand feel */}
+            <div className="absolute inset-0 bg-[#173036]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </Link>
+
+          {/* Content Wrapper - flex-grow forces uniform card distribution */}
+          <div className="flex flex-col flex-grow items-center w-full">
+            <Link to={blog.link} className="block group-hover:text-teal-700 transition-colors">
+              <h3 className="text-lg font-bold leading-snug mb-2 text-[#173036] px-2 transition-colors duration-300 group-hover:text-[#173036]">
+                {blog.title}
+              </h3>
+            </Link>
+
+            <p className="text-body-xs uppercase text-[#a1a1a1a] mb-2 tracking-wide">
+              {blog.date}
+            </p>
+
+            {/* line-clamp prevents broken layouts from overly long excerpts */}
+            <p className="text-sm leading-relaxed text-slate-600 mb-6 px-4 line-clamp-3">
+              {blog.excerpt}
+            </p>
+          </div>
+
+          {/* Fixed Bottom Button Pinning */}
+          <div className="mt-auto w-full px-4">
+            <Link 
+              to={blog.link} 
+              className="inline-block w-full sm:w-auto text-sm font-semibold text-white bg-[#173036] py-4 px-8 border border-transparent transition-all duration-300 hover:bg-[#173036]/90 hover:text-white hover:border-[#173036]"
+            >
+              Read More
+            </Link>
           </div>
         </div>
-      </section>
-    </div>
+      );
+    })}
+  </div>
+</div>
+
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
