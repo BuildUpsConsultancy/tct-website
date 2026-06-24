@@ -84,13 +84,13 @@ const About = () => {
         <motion.div
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: 'url(/images/updated.jpeg)',
+            backgroundImage: 'url(/images/bg/bg-11.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             y: bgY,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/75 via-white/95 to-transparent" />
 
         <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20 py-10 md:py-14 lg:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
@@ -224,11 +224,10 @@ const About = () => {
               return (
                 <motion.div
                   key={title}
-                  className="border border-slate-200 bg-white p-6 transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#a7d9d5]/5 hover:shadow-lg"
+                  className="border border-slate-200 bg-white p-6 transition-all duration-300 hover:border-[#a7d9d5] hover:shadow-lg"
                   variants={cardItem}
                   whileHover={{
                     borderTopColor: 'rgba(167, 217, 213, 0.7)',
-                    backgroundColor: 'rgba(167, 217, 213, 0.05)',
                     transition: { duration: 0.3 },
                   }}
                 >
@@ -246,7 +245,7 @@ const About = () => {
 
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
-<section className="relative overflow-hidden bg-slate-50 py-16 md:py-20">
+<section className="relative overflow-hidden bg-white py-16 md:py-20">
   <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
     <motion.div
       className="text-center mb-12"
@@ -291,7 +290,7 @@ const About = () => {
         ]).map((image, index) => (
           <div
             key={`row1-${index}`}
-            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden rounded-lg shadow-md"
+            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden shadow-md"
           >
             <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
