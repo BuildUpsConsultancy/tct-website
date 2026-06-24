@@ -44,8 +44,9 @@ const Footer = () => {
             {[
               { name: 'Socials', path: '/socials' },
               { name: 'Destinations', path: '/destinations/wildlife' },
-              { name: 'About Us', path: '/about' },
+              { name: 'Our Team', path: '/about' },
               { name: 'Contact Us', path: '/contact' },
+              { name: 'FAQ & Policy', path: '/faq-policy' },
             ].map((link) => (
               <li key={link.name}>
                 <a
@@ -115,7 +116,7 @@ const Footer = () => {
           </div>
 
           <p className="text-sm leading-7 text-slate-300 max-w-[30rem]">
-            Sri Lanka travel, made simple with local expertise and tailor-made planning.
+            Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
@@ -135,8 +136,18 @@ const Footer = () => {
             <div>
               <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Quick Links</h4>
               <ul className="space-y-2 text-sm text-slate-400 text-center">
-                {['Travel Packages', 'Destinations', 'About Us', 'Contact Us'].map((link) => (
-                  <li key={link}>{link}</li>
+                {[
+                  { name: 'Socials', path: '/socials' },
+                  { name: 'Destinations', path: '/destinations/wildlife' },
+                  { name: 'Our Team', path: '/about' },
+                  { name: 'Contact Us', path: '/contact' },
+                  { name: 'FAQ & Policy', path: '/faq-policy' },
+                ].map((link) => (
+                  <li key={link.name}>
+                    <Link to={link.path} className="hover:text-[#a7d9d5] transition-colors">
+                      {link.name}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -147,11 +158,11 @@ const Footer = () => {
               <ul className="space-y-3 text-sm text-slate-400 text-center">
                 <li>
                   <strong className="text-[#a7d9d5] block">Address</strong>
-                  Coconut Tree Trails<br />Sri Lanka
+                  The Coconut Tree Trails<br />Birmingham, UK
                 </li>
                 <li>
                   <strong className="text-[#a7d9d5] block">Email</strong>
-                  <a href="mailto:cocountreetrails@gmail.com" className="hover:text-[#a7d9d5]">
+                  <a href="mailto:cocountreetrails@gmail.com" className="hover:text-[#a7d9d5] break-all">
                     cocountreetrails@gmail.com
                   </a>
                 </li>
@@ -172,17 +183,15 @@ const Footer = () => {
             </button>
           </div>
 
-          <div className="w-full mt-4 border-t border-white/10 pt-4">
-            <img src="/footer-payment.png" alt="Payment partners" className="h-6 w-auto object-contain opacity-90 mx-auto" />
-          </div>
+          {/* Payment methods removed for mobile view as requested */}
         </div>
         
         <div className="mt-4 text-center text-xs text-white/80">
-          <p>© 2025 The Coconut Tree Trails. All rights reserved.</p>
+          <p>© 2026 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
             <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund</Link>
+            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>

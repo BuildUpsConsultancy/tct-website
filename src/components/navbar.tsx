@@ -63,9 +63,9 @@ const Navbar = () => {
 
   const links = [
     { label: 'Home', to: '/' },
-    { label: 'About Us', to: '/about' },
+    { label: 'Our Team', to: '/about' },
     { label: 'Contact', to: '/contact' },
-    { label: 'FAQ & Policy', to: '/faq-policy' },
+    { label: 'Travel Blog', to: '/' },
     { label: 'Follow Us', to: '/socials' },
 
   ];
@@ -227,6 +227,32 @@ const Navbar = () => {
             >
               Home
             </Link>
+
+            {/* Mobile Destinations */}
+            <div className="border-b border-white/10">
+              <button
+                onClick={() => setDestinationsOpen(!destinationsOpen)}
+                className={`flex w-full items-center justify-between py-3 text-sm font-medium transition-all duration-300 hover:translate-x-1 hover:text-[#a7d9d5] ${location.pathname.startsWith('/destinations') ? 'text-white' : 'text-white/75'}`}
+              >
+                Destinations
+                <Plus className={`h-4 w-4 transition-transform duration-200 ${destinationsOpen ? 'rotate-45' : ''}`} />
+              </button>
+              {destinationsOpen && (
+                <div className="ml-4 flex flex-col pb-2">
+                  {destinationMenu.map((group) => (
+                    <Link
+                      key={group.title}
+                      to={`/destinations/${group.categorySlug}`}
+                      onClick={() => { setMenuOpen(false); setDestinationsOpen(false); }}
+                      className="py-2 text-sm text-white/60 transition-all duration-200 hover:translate-x-1 hover:text-[#a7d9d5]"
+                    >
+                      {group.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {links.slice(1).map((link) => (
               <Link
                 key={link.to}

@@ -326,9 +326,8 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
   return (
     <motion.button
       key={`${destination.slug}-${idx}`}
-      type="button"
       onClick={() => navigate(`/destinations/${destination.slug}`)}
-      className="group relative w-1/3 flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
+      className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       transition={{ duration: 0.3 }}
@@ -360,12 +359,19 @@ const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [destinationSlide, setDestinationSlide] = useState(0);
   const [isSliderHovering, setIsSliderHovering] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   // New: Feature Section Slider State
   const [currentFeatureImage, setCurrentFeatureImage] = useState(0);
 
   const heroRef = useRef<HTMLElement>(null);
   const destinationSliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
@@ -612,8 +618,9 @@ const Home = () => {
             <div className="overflow-hidden">
               <motion.div
                 ref={destinationSliderRef}
-                className="flex gap-4 sm:gap-6 lg:gap-8"
-                animate={{ x: -(destinationSlide * (33.333 + 2.667)) + '%' }}
+                className="flex"
+                style={{ gap: windowWidth < 640 ? '4%' : windowWidth < 1024 ? '3%' : '2.667%' }}
+                animate={{ x: -(destinationSlide * (windowWidth < 640 ? 84 : windowWidth < 1024 ? 48 : 36)) + '%' }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
               >
                 {/* Render cards twice for infinite loop */}
