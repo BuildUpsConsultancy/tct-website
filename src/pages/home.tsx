@@ -652,7 +652,7 @@ const Home = () => {
               From golden beaches and wildlife safaris to ancient temples, local culture and authentic Sri Lankan cuisine, our tailored tours give you the real Sri Lankan experience - thoughtfully designed by people who know the island inside out.
             </p>
             <motion.button 
-              onClick={() => navigate('/destinations/wildlife')} 
+              onClick={() => navigate('/destinations')} 
               className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30"
               whileHover={{ scale: 1.02 }} 
               whileTap={{ scale: 0.98 }}

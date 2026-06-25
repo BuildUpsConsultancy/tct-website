@@ -9,7 +9,7 @@ import { countryCodesList } from '../data/countries';
 
 const titleOptions = ['Mr.', 'Mrs.', 'Ms.'] as const;
 const preferenceOptions = ['Wildlife', 'Adventure', 'Beaches', 'Historical Areas', 'Culture & Heritage', 'Hidden Trails'];
-const budgetOptions = ['EUR 1000–2000', 'EUR 2000–3500', 'EUR 3500–5000', 'EUR 5000+'];
+const budgetOptions = ['GBP 1000–2000', 'GBP 2000–3500', 'GBP 3500–5000', 'GBP 5000+'];
 const hearingOptions = ['The Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
 const adultsOptions = ['1', '2', '3', '4', '5+'];
 const childrenOptions = ['0', '1', '2', '3', '4', '5+'];
