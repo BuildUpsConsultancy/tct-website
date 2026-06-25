@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
@@ -66,7 +66,7 @@ const Destinations = () => {
       />
       {/* Gradient Overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/85 to-white pointer-events-none" />
-      
+
       {/* Watermark background pattern */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] -z-10" style={{
         backgroundImage: 'radial-gradient(circle, #173036 1px, transparent 1px)',
