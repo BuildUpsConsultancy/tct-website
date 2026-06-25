@@ -10,7 +10,7 @@ const travelBlogs = [
     title: 'THE ULTIMATE GUIDE TO ELLA: MOUNTAINS & TEA TRAILS',
     date: '09 April 2026',
     excerpt: "Ella is the backbone of Sri Lanka's hill country, offering breathtaking views, endless tea estates, and spectacular hikes like Little Adam's Peak.",
-    img: '/images/destinations/hidden-ella.jpg',
+    img: '/images/gallery-2/gallery-2.1.jpg',
     link: '#'
   },
   {
@@ -26,7 +26,7 @@ const travelBlogs = [
     title: 'TOP THINGS TO DO IN GALLE FORT: CULTURE, VIEWS AND GREAT SUNSETS',
     date: '11 March 2026',
     excerpt: 'Explore the historic streets of Galle Fort, from colonial architecture to chic boutiques and some of the best sunset views in the country.',
-    img: '/images/destinations/galle-culture.webp',
+    img: '/images/gallery-2/gallery-2.6.jfif',
     link: '#'
   },
   {
@@ -34,7 +34,7 @@ const travelBlogs = [
     title: 'YALA NATIONAL PARK - CELEBRATING THE WILDLIFE OF SRI LANKA',
     date: '04 March 2026',
     excerpt: 'The perfect guide for spotting leopards and elephants in Yala National Park. Learn about the best times to visit and what to bring.',
-    img: '/images/home/yala.jpg',
+    img: '/images/home/yala-2.jpg',
     link: '#'
   },
   {
@@ -42,7 +42,7 @@ const travelBlogs = [
     title: 'MONSOON ACTIVITIES IN SRI LANKA: MAKE THE MOST OF THE RAINY SEASON',
     date: '25 February 2026',
     excerpt: 'Grey skies and rainy days? Embrace the monsoon with cozy hill country stays, cooking classes, and exploring lush, green landscapes.',
-    img: '/images/destinations/hidden-waterfall.jpg',
+    img: '/images/gallery-2/gallery-2.5.jpg',
     link: '#'
   },
   {

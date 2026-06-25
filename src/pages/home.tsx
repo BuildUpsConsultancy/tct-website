@@ -33,19 +33,19 @@ const testimonials = [
 // ── GALLERY DATA ────────────────────────────────────────────────────────────
 // 5 images per column × 3 columns
 const galleryColumns = [
-  ['kandy', 'yala', 'colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'kandy'],
-  ['colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala', 'kandy', 'colombo'],
-  ['yala', 'kandy', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', 'yala'],
+  ['kandy', 'yala-2', 'colombo', 'gallery-2.11', 'gallery-2.5'],
+  ['colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala-4', 'kandy', 'colombo'],
+  ['yala', 'kandy', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', 'gallery-2.11'],
 ];
 
 const imgSrc = (name: string) =>
   `/images/home/${name}${name === 'colombo' ? '.avif' : '.jpg'}`;
 
 const featureSliderImages = [
-  '/images/home/bentota.jpg',
-  '/images/home/jaffna.jpg',
-  '/images/home/kandy.jpg',
-  '/images/home/yala.jpg',        // added one more for variety
+  '/images/home/yala-2.jpg',  
+  '/images/gallery-2/gallery-2.2.jfif',
+  '/images/home/yala-3.jpg',
+  '/images/home/kandy.jpg',      // added one more for variety
 ];
 
 // ── CINEMATIC GALLERY ────────────────────────────────────────────────────────
@@ -552,7 +552,7 @@ const Home = () => {
               </div>
             </motion.div>
             <motion.div variants={fadeUp} className="absolute right-10 top-48 w-[260px] -rotate-2 overflow-hidden bg-[#121d28] shadow-2xl shadow-black/50" whileHover={{ rotate: 0, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
-              <img src="/images/home/yala.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
+              <img src="/images/home/yala-3.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
             </motion.div>
           </motion.div>
         </motion.div>
