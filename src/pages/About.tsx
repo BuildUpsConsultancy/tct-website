@@ -15,8 +15,8 @@ const aboutValues = [
 // Image slider data
 const heroSliderImages = [
   '/images/home/bentota.jpg',
-  '/images/home/jaffna.jpg',
-  '/images/home/kandy.jpg',
+  '/images/gallery-2/gallery-2.5.jpg',
+  '/images/gallery-2/gallery-2.8.jpg',
 ];
 
 const About = () => {

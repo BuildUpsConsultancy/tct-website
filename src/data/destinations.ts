@@ -18,14 +18,14 @@ export const featuredDestinations: DestinationCard[] = [
     slug: 'kandy-cultural-tour',
     title: 'Kandy – Cultural Tour',
     subtitle: 'Tours (03)',
-    image: '/images/home/kandy.jpg',
+    image: '/images/home/tooth-of-relic.webp',
     alt: 'Temple procession and dancers in Kandy',
   },
   {
     slug: 'colombo-beach-tours',
     title: 'Colombo – Beach Tours',
     subtitle: 'Tours (02)',
-    image: '/images/home/colombo.avif',
+    image: '/images/home/galle-face.webp',
     alt: 'Coastal city skyline and lighthouse in Colombo',
   },
   {
