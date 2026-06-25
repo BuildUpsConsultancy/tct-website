@@ -527,7 +527,7 @@ const Home = () => {
             <motion.div variants={fadeUp} className="mt-3 md:mt-4 flex items-center gap-3 text-sm text-white/60">
             </motion.div>
             <motion.div variants={fadeUp} className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <motion.button onClick={() => navigate('/destinations/wildlife')} className="bg-[#173036] px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-black/30 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
+              <motion.button onClick={() => navigate('/destinations')} className="bg-[#173036] px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-lg shadow-black/30 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
                 Explore Destinations
               </motion.button>
               <motion.button onClick={() => navigate('/enquiry')} className="border-2 border-white/40 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white hover:border-white transition-colors duration-200 whitespace-nowrap" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}>
@@ -652,7 +652,7 @@ const Home = () => {
               From golden beaches and wildlife safaris to ancient temples, local culture and authentic Sri Lankan cuisine, our tailored tours give you the real Sri Lankan experience - thoughtfully designed by people who know the island inside out.
             </p>
             <motion.button 
-              onClick={() => navigate('/destinations/wildlife')} 
+              onClick={() => navigate('/destinations')} 
               className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30"
               whileHover={{ scale: 1.02 }} 
               whileTap={{ scale: 0.98 }}
