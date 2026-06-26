@@ -7,6 +7,7 @@ import './App.css'
 import App from './App.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import Homepage from './pages/home.tsx'; // Import homepage!
+import Destinations from './pages/Destinations.tsx';
 import DestinationDetail from './pages/DestinationDetail.tsx';
 import Packages from './pages/Packages.tsx';
 import About from './pages/About.tsx';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Homepage />} /> {/* Homepage at root */}
+          <Route path="destinations" element={<Destinations />} />
           <Route path="destinations/:slug" element={<DestinationDetail />} />
           <Route path="packages" element={<Packages />} />
           <Route path="about" element={<About />} />

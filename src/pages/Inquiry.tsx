@@ -3,16 +3,110 @@ import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import Lenis from 'lenis';
 import { ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
 import { countryCodesList } from '../data/countries';
 
 const titleOptions = ['Mr.', 'Mrs.', 'Ms.'] as const;
 const preferenceOptions = ['Wildlife', 'Adventure', 'Beaches', 'Historical Areas', 'Culture & Heritage', 'Hidden Trails'];
-const budgetOptions = ['USD 1000–2000', 'USD 2000–3500', 'USD 3500–5000', 'USD 5000+'];
+const budgetOptions = ['GBP 1000–2000', 'GBP 2000–3500', 'GBP 3500–5000', 'GBP 5000+'];
 const hearingOptions = ['The Coconut Tree Restaurant', 'Instagram', 'Facebook', 'Google', 'TikTok', 'YouTube', 'Other'];
 const adultsOptions = ['1', '2', '3', '4', '5+'];
 const childrenOptions = ['0', '1', '2', '3', '4', '5+'];
+
+
+const ReviewsSlider = () => {
+  const [activeSlide, setActiveSlide] = useState(0); // 0 = TripAdvisor, 1 = Feefo
+
+  // Automatically switch between the two reviews every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev === 0 ? 1 : 0));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    /* 
+      1. Added h-[280px] sm:h-[260px] to lock the layout completely. 
+      2. Added flex flex-col justify-between to keep elements spaced out identically on both slides.
+    */
+    <div className="bg-white p-8 text-center relative overflow-hidden h-[280px] sm:h-[260px] flex flex-col justify-between select-none">
+      <AnimatePresence mode="wait">
+        {activeSlide === 0 && (
+          <motion.div
+            key="tripadvisor"
+            initial={{ opacity: 0, x: 15 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -15 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="flex flex-col flex-1 justify-between"
+          >
+            {/* Quote text area container with a strict line-clamp or fixed max-height pool */}
+            <div className="flex-1 flex items-center justify-center mb-4 min-h-[90px]">
+              <span className="font-bold text-base sm:text-lg text-slate-900 tracking-tight line-clamp-4">
+                "Flawless planning and gorgeous destinations. From the misty hills of Ella to the historic streets of Galle, everything was perfect.
+                <span className="text-[#00aa6c] ml-1 font-serif">❝</span>
+              </span>
+            </div>
+            
+            {/* Platforms and Badges stick firmly to bottom */}
+            <div>
+              <div className="flex justify-center items-center gap-1 mb-2">
+                <div className="flex items-center gap-2 text-[#00aa6c]">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-4c1.38 0 2.5-1.12 2.5-2.5S10.88 11 9.5 11 7 12.12 7 13.5s1.12 2.5 2.5 2.5zm5 0c1.38 0 2.5-1.12 2.5-2.5S15.88 11 14.5 11 12 12.12 12 13.5s1.12 2.5 2.5 2.5z" /></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /><path d="M12 4v16c4.41 0 8-3.59 8-8s-3.59-8-8-8z" /></svg>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 font-medium">Rated 5.0 on TripAdvisor</p>
+            </div>
+          </motion.div>
+        )}
+
+        {activeSlide === 1 && (
+          <motion.div
+            key="feefo"
+            initial={{ opacity: 0, x: 15 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -15 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="flex flex-col flex-1 justify-between"
+          >
+            {/* Quote text area container */}
+            <div className="flex-1 flex items-center justify-center mb-4 min-h-[90px]">
+              <span className="font-bold text-base sm:text-lg text-slate-900 tracking-tight line-clamp-5">
+                An absolutely breathtaking experience in Sri Lanka! The beach tours were incredibly curated, and the local insights made it unforgettable.
+                <span className="text-yellow-400 ml-1 font-serif">❝</span>
+              </span>
+            </div>
+
+            {/* Platforms and Badges stick firmly to bottom */}
+            <div className="flex flex-col items-center">
+              <div className="flex gap-1 text-yellow-400 mb-2">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+              </div>
+              <p className="text-xs text-slate-500 font-medium">Rated 4.9 on feefo</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Navigation Indicators */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <span className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeSlide === 0 ? 'bg-[#00aa6c] w-3' : 'bg-slate-200'}`} />
+        <span className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeSlide === 1 ? 'bg-yellow-400 w-3' : 'bg-slate-200'}`} />
+      </div>
+    </div>
+  );
+};
 
 const CustomSelect = ({
   options,
@@ -666,29 +760,7 @@ const Inquiry = () => {
 
               {/* Reviews Box */}
               <div className="bg-white border border-slate-200 p-8 shadow-sm text-center">
-                <div className="flex justify-center items-center gap-1 mb-2">
-                  <div className="flex items-center gap-2 text-[#00aa6c]">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-4c1.38 0 2.5-1.12 2.5-2.5S10.88 11 9.5 11 7 12.12 7 13.5s1.12 2.5 2.5 2.5zm5 0c1.38 0 2.5-1.12 2.5-2.5S15.88 11 14.5 11 12 12.12 12 13.5s1.12 2.5 2.5 2.5z" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><circle cx="12" cy="12" r="10" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /><path d="M12 4v16c4.41 0 8-3.59 8-8s-3.59-8-8-8z" /></svg>
-                  </div>
-                </div>
-                <p className="text-xs text-slate-500 mt-2 font-medium">Rated 5.0 on TripAdvisor</p>
-
-                <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col items-center">
-                  <span className="font-bold text-xl mb-2 text-slate-900 tracking-tight">feefo<span className="text-yellow-400 ml-1 font-serif">❝</span></span>
-                  <div className="flex gap-1 text-yellow-400 mb-2">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                  </div>
-                  <p className="text-xs text-slate-500 font-medium">Rated 4.9 on feefo</p>
-                </div>
+                <ReviewsSlider />
               </div>
             </motion.div>
           </div>

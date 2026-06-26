@@ -134,7 +134,7 @@ const TravelBlog = () => {
           </motion.p>
           <motion.h1 
             variants={fadeUp} 
-            className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide text-[#173036]"
+            className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide"
           >
             Travel Blog
           </motion.h1>
