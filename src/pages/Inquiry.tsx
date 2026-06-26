@@ -492,13 +492,18 @@ const Inquiry = () => {
 
       </section>
 
-      <section className="relative overflow-hidden bg-white pt-0">
-        <div className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-[length:100%_100%] bg-no-repeat opacity-34"
-            style={{ backgroundImage: 'url(/images/bg/bg-5.png)' }}
-          />
-          <div className="absolute inset-0 bg-[rgba(255,255,255,0.64)]" />
+      <section className="relative bg-white overflow-hidden pt-16">
+        {/* Background Pattern - True Size (Only this image) */}
+        <div className="absolute inset-0 overflow-hidden">
+    <div
+      className="absolute inset-0 bg-no-repeat bg-bottom opacity-90"
+      style={{ 
+        backgroundImage: 'url(/images/bg-updated.png)',
+        backgroundPosition: 'bottom center',
+        width: '1600px',           // or '100% auto' if you want true width without cropping height
+      }}
+    />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/50" />
         </div>
 
         <div className="relative mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 md:pb-20 lg:px-8 lg:pb-24 mt-20">
