@@ -18,20 +18,20 @@ import ShinyText from '../components/ShinyText';
 
 // Landmark hotspots mapped precisely to your image coordinates
 const mapPoints = [
-  { id: 'jaffna', name: 'Jaffna', x: 25, y: 5, img: '/images/home/jaffna.jpg', desc: 'Cultural northern escape.', path: 'culture-heritage' },
-  { id: 'anuradhapura', name: 'Anuradhapura', x: 35, y: 31, img: '/images/destinations/anuradhapura-culture.webp', desc: 'Ancient sacred ruins and stupas.', path: 'historical-areas' },
-  { id: 'trincomalee', name: 'Trincomalee', x: 62, y: 29, img: '/images/destinations/beach-arugambay.jpg', desc: 'Deep harbors and whale watching.', path: 'beaches' },
-  { id: 'wilpattu', name: 'Wilpattu', x: 23, y: 40, img: '/images/destinations/wilpattu-wildlife.png', desc: 'Untamed leopard and lake safaris.', path: 'wildlife' },
-  { id: 'sigiriya', name: 'Sigiriya', x: 50, y: 44, img: '/images/destinations/sigiriya-culture.png', desc: 'The majestic ancient rock fortress.', path: 'historical-areas' },
-  { id: 'kandy', name: 'Kandy', x: 48, y: 55, img: '/images/destinations/culture-perahera.webp', desc: 'The historic sacred temple of the tooth.', path: 'culture-heritage' },
+  { id: 'jaffna', name: 'Jaffna', x: 26, y: 10, img: '/images/home/jaffna.jpg', desc: 'Cultural northern escape.', path: 'culture-heritage' },
+  { id: 'anuradhapura', name: 'Anuradhapura', x: 41, y: 33, img: '/images/destinations/anuradhapura-culture.webp', desc: 'Ancient sacred ruins and stupas.', path: 'historical-areas' },
+  { id: 'trincomalee', name: 'Trincomalee', x: 65, y: 31, img: '/images/destinations/beach-arugambay.jpg', desc: 'Deep harbors and whale watching.', path: 'beaches' },
+  { id: 'wilpattu', name: 'Wilpattu', x: 27, y: 41, img: '/images/destinations/wilpattu-wildlife.png', desc: 'Untamed leopard and lake safaris.', path: 'wildlife' },
+  { id: 'sigiriya', name: 'Sigiriya', x: 51, y: 45, img: '/images/destinations/sigiriya-culture.png', desc: 'The majestic ancient rock fortress.', path: 'historical-areas' },
+  { id: 'kandy', name: 'Kandy', x: 49, y: 55, img: '/images/destinations/culture-perahera.webp', desc: 'The historic sacred temple of the tooth.', path: 'culture-heritage' },
   { id: 'negombo', name: 'Negombo', x: 19, y: 62, img: '/images/destinations/negombo-culture.webp', desc: 'Vibrant coastal lagoons and canals.', path: 'beaches' },
-  { id: 'colombo', name: 'Colombo', x: 21, y: 71, img: '/images/home/colombo.avif', desc: 'Bustling colonial & modern capital vibe.', path: 'culture-heritage' },
-  { id: 'ella', name: 'Ella', x: 54, y: 69, img: '/images/destinations/hidden-ella.jpg', desc: 'Misty hills and iconic railway bridges.', path: 'adventure' },
-  { id: 'arugambay', name: 'Arugam Bay', x: 83, y: 64, img: '/images/destinations/beach-arugambay.jpg', desc: 'World-renowned coastal surf breaks.', path: 'beaches' },
-  { id: 'yala', name: 'Yala', x: 70, y: 72, img: '/images/home/yala.jpg', desc: 'Deep wildlife safaris and elephant tracks.', path: 'wildlife' },
-  { id: 'udawalawe', name: 'Udawalawe', x: 60, y: 82, img: '/images/destinations/udawalawa-wildlife.jpg', desc: 'Sanctuary homes of majestic wild elephants.', path: 'wildlife' },
-  { id: 'galle', name: 'Galle', x: 28, y: 86, img: '/images/destinations/galle-culture.webp', desc: 'Historic dutch fortress and coastal views.', path: 'culture-heritage' },
-  { id: 'mirissa', name: 'Mirissa', x: 42, y: 92, img: '/images/destinations/mirissa-beach.webp', desc: 'Secret beaches and sunset whale tours.', path: 'beaches' },
+  { id: 'colombo', name: 'Colombo', x: 24, y: 69, img: '/images/home/colombo.avif', desc: 'Bustling colonial & modern capital vibe.', path: 'culture-heritage' },
+  { id: 'ella', name: 'Ella', x: 55, y: 67, img: '/images/destinations/hidden-ella.jpg', desc: 'Misty hills and iconic railway bridges.', path: 'adventure' },
+  { id: 'arugambay', name: 'Arugam Bay', x: 85, y: 64, img: '/images/destinations/beach-arugambay.jpg', desc: 'World-renowned coastal surf breaks.', path: 'beaches' },
+  { id: 'yala', name: 'Yala', x: 71, y: 71, img: '/images/home/yala.jpg', desc: 'Deep wildlife safaris and elephant tracks.', path: 'wildlife' },
+  { id: 'udawalawe', name: 'Udawalawe', x: 59, y: 83, img: '/images/destinations/udawalawa-wildlife.jpg', desc: 'Sanctuary homes of majestic wild elephants.', path: 'wildlife' },
+  { id: 'galle', name: 'Galle', x: 28, y: 89, img: '/images/destinations/galle-culture.webp', desc: 'Historic dutch fortress and coastal views.', path: 'culture-heritage' },
+  { id: 'mirissa', name: 'Mirissa', x: 40, y: 93, img: '/images/destinations/mirissa-beach.webp', desc: 'Secret beaches and sunset whale tours.', path: 'beaches' },
 ];
 // const services = [
 //   { iconType: 'flight',  title: 'Flight Booking',   desc: 'We assist with international and domestic flight arrangements to ensure your Sri Lanka journey starts smoothly from the moment you leave home.' },
@@ -337,7 +337,6 @@ const MobileGallery = () => (
   </motion.div>
 );
 
-// ── INTERACTIVE MAP ──────────────────────────────────────────────────────────
 const InteractiveMap = () => {
   const [activePoint, setActivePoint] = useState<typeof mapPoints[0] | null>(null);
 
@@ -348,22 +347,19 @@ const InteractiveMap = () => {
         className="relative overflow-hidden"
       >
         <motion.img
-  src="/TCT-trails-map.png"
-  alt="Sri Lanka Experience"
-  className="w-full h-auto object-contain block relative z-0"
-  transition={{ duration: 0.6 }}
-  style={{
-    // 1. Establish the 3D space and tilt the map
-    transform: "perspective(1200px) rotateX(15deg) rotateY(-12deg) rotateZ(3deg)",
-    transformStyle: "preserve-3d",
-    
-    // 2. Layered drop-shadows create the illusion of physical height and depth
-    filter: `
-      drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
-      drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
-    `,
-  }}
-/>
+          src="/TCT-trails-map.png"
+          alt="Sri Lanka Experience"
+          className="w-full h-auto object-contain block relative z-0"
+          transition={{ duration: 0.6 }}
+          style={{
+            transform: "perspective(1200px) rotateX(15deg) rotateY(-12deg) rotateZ(3deg)",
+            transformStyle: "preserve-3d",
+            filter: `
+              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+            `,
+          }}
+        />
 
         {/* Dynamic Mapping Pin Hotspots */}
         {mapPoints.map((point) => {
@@ -389,41 +385,46 @@ const InteractiveMap = () => {
         })}
       </motion.div>
 
-      {/* Floating Clickable Context Card Popup */}
+      {/* Floating Popup - Positioned near the hovered point */}
       <AnimatePresence>
-        {activePoint && (
-          <Link
-            to={`/destinations/${activePoint.path}`} // 👈 Navigates directly to your shared tour theme layouts
-            onMouseEnter={() => setActivePoint(activePoint)}
-            onMouseLeave={() => setActivePoint(null)}
-            className="absolute z-30 left-1/2 -translate-x-1/2 bottom-12 w-72 bg-white border border-slate-200 p-3 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto"
-            component={motion.a}
-            {...({
-              initial: { opacity: 0, y: 15, scale: 0.95 },
-              animate: { opacity: 1, y: 0, scale: 1 },
-              exit: { opacity: 0, y: 10, scale: 0.95 },
-              transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
-            } as any)}
-          >
-            <div className="w-full aspect-[16/10] overflow-hidden mb-2.5 bg-slate-100">
-              <img 
-                src={activePoint.img} 
-                alt={activePoint.name} 
-                className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 ease-out" 
-              />
-            </div>
-            <div className="px-1">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl uppercase tracking-wide text-[#173036] mb-0.5 group-hover/card:text-[#173036]/80 transition-colors duration-200">
-                  {activePoint.name}
-                </h2>
-                <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 -translate-x-2 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
-              </div>
-              <p className="text-body-xs text-slate-500 mt-0.5">{activePoint.desc}</p>
-            </div>
-          </Link>
-        )}
-      </AnimatePresence>
+  {activePoint && (
+    <Link
+      to={`/destinations/${activePoint.path}`}
+      onMouseEnter={() => setActivePoint(activePoint)}
+      onMouseLeave={() => setActivePoint(null)}
+      className="absolute z-30 w-56 bg-white border border-slate-200 p-2.5 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto shadow-xl"
+      component={motion.a}
+      style={{
+        left: `calc(${activePoint.x}% + 20px)`,
+        top: `calc(${activePoint.y}% - 140px)`,
+      }}
+      {...({
+        initial: { opacity: 0, y: 20, scale: 0.9 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: 10, scale: 0.9 },
+        transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
+      } as any)}
+    >
+      <div className="w-full aspect-[16/9] overflow-hidden mb-2 bg-slate-100 rounded">
+        <img 
+          src={activePoint.img} 
+          alt={activePoint.name} 
+          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 ease-out" 
+        />
+      </div>
+      
+      <div className="px-1">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold uppercase tracking-wide text-[#173036] mb-0.5 group-hover/card:text-[#173036]/80 transition-colors duration-200">
+            {activePoint.name}
+          </h2>
+          <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 -translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
+        </div>
+        <p className="text-body-xs text-slate-500 line-clamp-2">{activePoint.desc}</p>
+      </div>
+    </Link>
+  )}
+</AnimatePresence>
     </div>
   );
 };
@@ -842,7 +843,7 @@ const Home = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: '-80px' }}
-        className="lg:pt-8 bg-white border border-white p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20"
+        className="lg:pt-8 bg-gradient-to-br from-[#f5f4dc] to-[#27c0df4d] border border-white p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20"
       >
         <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
         
@@ -860,7 +861,7 @@ const Home = () => {
     {/* Left Side - Smaller Image */}
     <motion.div
       variants={slideLeft}
-      className="relative overflow-hidden max-w-[340px] mx-auto"
+      className="relative max-w-[370px] mx-auto"
     >
       <InteractiveMap />
     </motion.div>
