@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Lenis from 'lenis';
 import {
   motion, AnimatePresence,
@@ -15,6 +15,24 @@ import { generalCuriosities } from '../data/generalCuriosities';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight, scaleIn } from '../lib/motion';
 import ShinyText from '../components/ShinyText';
 
+
+// Landmark hotspots mapped precisely to your image coordinates
+const mapPoints = [
+  { id: 'jaffna', name: 'Jaffna', x: 25, y: 5, img: '/images/home/jaffna.jpg', desc: 'Cultural northern escape.', path: 'culture-heritage' },
+  { id: 'anuradhapura', name: 'Anuradhapura', x: 35, y: 31, img: '/images/destinations/anuradhapura-culture.webp', desc: 'Ancient sacred ruins and stupas.', path: 'historical-areas' },
+  { id: 'trincomalee', name: 'Trincomalee', x: 62, y: 29, img: '/images/destinations/beach-arugambay.jpg', desc: 'Deep harbors and whale watching.', path: 'beaches' },
+  { id: 'wilpattu', name: 'Wilpattu', x: 23, y: 40, img: '/images/destinations/wilpattu-wildlife.png', desc: 'Untamed leopard and lake safaris.', path: 'wildlife' },
+  { id: 'sigiriya', name: 'Sigiriya', x: 50, y: 44, img: '/images/destinations/sigiriya-culture.png', desc: 'The majestic ancient rock fortress.', path: 'historical-areas' },
+  { id: 'kandy', name: 'Kandy', x: 48, y: 55, img: '/images/destinations/culture-perahera.webp', desc: 'The historic sacred temple of the tooth.', path: 'culture-heritage' },
+  { id: 'negombo', name: 'Negombo', x: 19, y: 62, img: '/images/destinations/negombo-culture.webp', desc: 'Vibrant coastal lagoons and canals.', path: 'beaches' },
+  { id: 'colombo', name: 'Colombo', x: 21, y: 71, img: '/images/home/colombo.avif', desc: 'Bustling colonial & modern capital vibe.', path: 'culture-heritage' },
+  { id: 'ella', name: 'Ella', x: 54, y: 69, img: '/images/destinations/hidden-ella.jpg', desc: 'Misty hills and iconic railway bridges.', path: 'adventure' },
+  { id: 'arugambay', name: 'Arugam Bay', x: 83, y: 64, img: '/images/destinations/beach-arugambay.jpg', desc: 'World-renowned coastal surf breaks.', path: 'beaches' },
+  { id: 'yala', name: 'Yala', x: 70, y: 72, img: '/images/home/yala.jpg', desc: 'Deep wildlife safaris and elephant tracks.', path: 'wildlife' },
+  { id: 'udawalawe', name: 'Udawalawe', x: 60, y: 82, img: '/images/destinations/udawalawa-wildlife.jpg', desc: 'Sanctuary homes of majestic wild elephants.', path: 'wildlife' },
+  { id: 'galle', name: 'Galle', x: 28, y: 86, img: '/images/destinations/galle-culture.webp', desc: 'Historic dutch fortress and coastal views.', path: 'culture-heritage' },
+  { id: 'mirissa', name: 'Mirissa', x: 42, y: 92, img: '/images/destinations/mirissa-beach.webp', desc: 'Secret beaches and sunset whale tours.', path: 'beaches' },
+];
 // const services = [
 //   { iconType: 'flight',  title: 'Flight Booking',   desc: 'We assist with international and domestic flight arrangements to ensure your Sri Lanka journey starts smoothly from the moment you leave home.' },
 //   { iconType: 'hotel',   title: 'Hotel Bookings',   desc: "From boutique jungle lodges in Sigiriya to colonial tea estate bungalows and beachfront villas — we curate Sri Lanka's finest stays for every budget." },
@@ -33,19 +51,19 @@ const testimonials = [
 // ── GALLERY DATA ────────────────────────────────────────────────────────────
 // 5 images per column × 3 columns
 const galleryColumns = [
-  ['kandy', 'yala', 'colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'kandy'],
-  ['colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala', 'kandy', 'colombo'],
-  ['yala', 'kandy', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', 'yala'],
+  ['kandy', 'yala-2', 'colombo', 'gallery-2.11', 'gallery-2.5'],
+  ['colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala-4', 'kandy', 'colombo'],
+  ['yala', 'kandy', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', 'gallery-2.11'],
 ];
 
 const imgSrc = (name: string) =>
   `/images/home/${name}${name === 'colombo' ? '.avif' : '.jpg'}`;
 
 const featureSliderImages = [
-  '/images/home/bentota.jpg',
-  '/images/home/jaffna.jpg',
-  '/images/home/kandy.jpg',
-  '/images/home/yala.jpg',        // added one more for variety
+  '/images/home/yala-2.jpg',  
+  '/images/gallery-2/gallery-2.2.jfif',
+  '/images/home/yala-3.jpg',
+  '/images/home/kandy.jpg',      // added one more for variety
 ];
 
 // ── CINEMATIC GALLERY ────────────────────────────────────────────────────────
@@ -319,6 +337,97 @@ const MobileGallery = () => (
   </motion.div>
 );
 
+// ── INTERACTIVE MAP ──────────────────────────────────────────────────────────
+const InteractiveMap = () => {
+  const [activePoint, setActivePoint] = useState<typeof mapPoints[0] | null>(null);
+
+  return (
+    <div className="relative max-w-[450px] md:max-w-[500px] mx-auto select-none">
+      <motion.div
+        variants={slideLeft}
+        className="relative overflow-hidden"
+      >
+        <motion.img
+  src="/TCT-trails-map.png"
+  alt="Sri Lanka Experience"
+  className="w-full h-auto object-contain block relative z-0"
+  transition={{ duration: 0.6 }}
+  style={{
+    // 1. Establish the 3D space and tilt the map
+    transform: "perspective(1200px) rotateX(15deg) rotateY(-12deg) rotateZ(3deg)",
+    transformStyle: "preserve-3d",
+    
+    // 2. Layered drop-shadows create the illusion of physical height and depth
+    filter: `
+      drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+      drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+    `,
+  }}
+/>
+
+        {/* Dynamic Mapping Pin Hotspots */}
+        {mapPoints.map((point) => {
+          const isSelected = activePoint?.id === point.id;
+          return (
+            <div
+              key={point.id}
+              className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-3"
+              style={{ left: `${point.x}%`, top: `${point.y}%` }}
+              onMouseEnter={() => setActivePoint(point)}
+              onMouseLeave={() => setActivePoint(null)}
+            >
+              <div className="relative flex items-center justify-center">
+                <motion.div 
+                  className="absolute w-6 h-6 rounded-full bg-[#a7d9d5]/40"
+                  animate={{ scale: [1, 1.8, 1] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                />
+                <div className={`w-2.5 h-2.5 rounded-full border border-white transition-all duration-300 ${isSelected ? 'bg-white scale-125 shadow-md' : 'bg-teal-400'}`} />
+              </div>
+            </div>
+          );
+        })}
+      </motion.div>
+
+      {/* Floating Clickable Context Card Popup */}
+      <AnimatePresence>
+        {activePoint && (
+          <Link
+            to={`/destinations/${activePoint.path}`} // 👈 Navigates directly to your shared tour theme layouts
+            onMouseEnter={() => setActivePoint(activePoint)}
+            onMouseLeave={() => setActivePoint(null)}
+            className="absolute z-30 left-1/2 -translate-x-1/2 bottom-12 w-72 bg-white border border-slate-200 p-3 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto"
+            component={motion.a}
+            {...({
+              initial: { opacity: 0, y: 15, scale: 0.95 },
+              animate: { opacity: 1, y: 0, scale: 1 },
+              exit: { opacity: 0, y: 10, scale: 0.95 },
+              transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
+            } as any)}
+          >
+            <div className="w-full aspect-[16/10] overflow-hidden mb-2.5 bg-slate-100">
+              <img 
+                src={activePoint.img} 
+                alt={activePoint.name} 
+                className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 ease-out" 
+              />
+            </div>
+            <div className="px-1">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl uppercase tracking-wide text-[#173036] mb-0.5 group-hover/card:text-[#173036]/80 transition-colors duration-200">
+                  {activePoint.name}
+                </h2>
+                <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 -translate-x-2 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
+              </div>
+              <p className="text-body-xs text-slate-500 mt-0.5">{activePoint.desc}</p>
+            </div>
+          </Link>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 // ── HOME PAGE ────────────────────────────────────────────────────────────────
 const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx: number; navigate: any }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -547,12 +656,14 @@ const Home = () => {
               </div>
             </motion.div>
             <motion.div variants={scaleIn} className="absolute right-36 top-34 w-[290px] -rotate-12 bg-[#0f1f2e] shadow-2xl shadow-black/50" whileHover={{ rotate: -9, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
-              <div className="overflow-hidden border-4 border-[#1f3b52]">
+              <div className="overflow-hidden border-4 border-[#173036]">
                 <img src="/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg" alt="Ella, Sri Lanka" className="h-[340px] w-full object-cover" />
               </div>
             </motion.div>
             <motion.div variants={fadeUp} className="absolute right-10 top-48 w-[260px] -rotate-2 overflow-hidden bg-[#121d28] shadow-2xl shadow-black/50" whileHover={{ rotate: 0, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
-              <img src="/images/home/yala.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
+              <div className="overflow-hidden border-4 border-[#a7d9d5]/60">
+                <img src="/images/home/yala.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
+              </div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -634,7 +745,7 @@ const Home = () => {
       </section>
 
       {/* ── FEATURE ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-[#173036]">
+      <section className="relative overflow-hidden pb-16 pt-8 md:pb-20 lg:pb-24 bg-[#173036]">
         <div className="absolute inset-0" style={{
           backgroundImage: 'url(/images/expirence-new-removebg-preview.png)',
           backgroundPosition: 'bottom',
@@ -662,24 +773,24 @@ const Home = () => {
           </motion.div>
 
           {/* RIGHT SIDE — IMAGE SLIDER (replaces CardSwap) */}
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden shadow-2xl">
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden">
             <motion.div
-              className="relative w-full h-full border-4 border-white bg-slate-900"
-              whileHover={{ scale: 1.015 }}
-              transition={{ duration: 0.4 }}
-            >
-              {/* Images */}
-              {featureSliderImages.map((image, index) => (
-                <motion.img
-                  key={index}
-                  src={image}
-                  alt="Sri Lanka Experience"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: index === currentFeatureImage ? 1 : 0 }}
-                  transition={{ duration: 0.9, ease: "easeInOut" }}
-                />
-              ))}
+  className="relative w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] mx-auto border-4 border-white bg-slate-900 overflow-hidden"
+  whileHover={{ scale: 1.015 }}
+  transition={{ duration: 0.4 }}
+>
+  {/* Images */}
+  {featureSliderImages.map((image, index) => (
+    <motion.img
+      key={index}
+      src={image}
+      alt="Sri Lanka Experience"
+      className="absolute inset-0 h-full w-full object-cover"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: index === currentFeatureImage ? 1 : 0 }}
+      transition={{ duration: 0.9, ease: "easeInOut" }}
+    />
+  ))}
 
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -720,13 +831,8 @@ const Home = () => {
       {/* ── Tailor-Made Experience Section ─────────────────────────────────────── */}
 <section
   className="relative overflow-hidden py-16 md:py-20 lg:py-24"
-  style={{
-    backgroundImage: "url('/images/bg-updated.png')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
 >
-  <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/95 to-white/50" />
+  <div className="absolute inset-0 bg-white" />
 
   <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
   <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr] gap-6 lg:gap-8 items-center items-center">
@@ -754,16 +860,9 @@ const Home = () => {
     {/* Left Side - Smaller Image */}
     <motion.div
       variants={slideLeft}
-      className="relative overflow-hidden shadow-2xl shadow-black/40 max-w-[300px] mx-auto border-4 border-[#a7d9d5]"
+      className="relative overflow-hidden max-w-[340px] mx-auto"
     >
-      <motion.img
-        src="/new-tct.png"
-        alt="Sri Lanka Experience"
-        className="w-full h-auto object-contain"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.6 }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+      <InteractiveMap />
     </motion.div>
       
     </div>

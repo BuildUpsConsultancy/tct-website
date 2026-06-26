@@ -1,6 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Lenis from 'lenis';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { pageVariants, staggerContainer, fadeUp } from '../lib/motion';
 
 const destinationCategories = [
   {
@@ -21,7 +23,7 @@ const destinationCategories = [
     id: 3,
     title: 'Beaches tours',
     slug: 'beaches',
-    excerpt: 'Relax on the golden sands and swim in the crystal-clear waters of Sri Lanka\'s coastline. Perfect for surfers, sunbathers, and sunset lovers alike.',
+    excerpt: "Relax on the golden sands and swim in the crystal-clear waters of Sri Lanka's coastline. Perfect for surfers, sunbathers, and sunset lovers alike.",
     img: '/images/destinations/beach-unawatuna.jpg',
   },
   {
@@ -49,89 +51,143 @@ const destinationCategories = [
 
 const Destinations = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
+
+  // Global window scroll tracking for background parallax values
+  const { scrollYProgress } = useScroll();
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+
+  // Smooth scroll initialization loop
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+      infinite: false,
+      wheelMultiplier: 1,
+      lerp: 0.1,
+      syncTouch: true,
+      syncTouchLerp: 0.075,
+    });
+
+    let animationFrameId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      animationFrameId = requestAnimationFrame(raf);
+    };
+    animationFrameId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-20 relative overflow-hidden">
-      {/* Background Image with Parallax */}
+    <motion.div
+      ref={containerRef}
+      className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-24 relative overflow-hidden"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      {/* Background Image Parallax layer */}
       <motion.div
-        className="absolute inset-0 opacity-30 pointer-events-none"
+        className="absolute inset-0 opacity-15 pointer-events-none -z-10"
         style={{
           backgroundImage: `url(/images/bg/bg-1.png)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          y: bgY,
+          y: bgY || '0%',
         }}
       />
-      {/* Gradient Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/85 to-white pointer-events-none" />
-
-      {/* Watermark background pattern */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] -z-10" style={{
+      
+      {/* Readability structural overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/90 to-slate-50 pointer-events-none" />
+      <div className="fixed inset-0 pointer-events-none opacity-[0.02] -z-10" style={{
         backgroundImage: 'radial-gradient(circle, #173036 1px, transparent 1px)',
         backgroundSize: '40px 40px',
       }} />
 
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center mb-16 animate-fade-up">
-          <p className="section-label mb-2 text-[#173036]">Explore Sri Lanka</p>
-          <h1 className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide text-[#173036]">All Destinations</h1>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+        
+        {/* Animated Main Title Block */}
+        <motion.div 
+          className="text-center mb-20"
+          variants={staggerContainer(0.12, 0.05)}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.p variants={fadeUp} className="section-label text-[#173036]">
+            Explore Sri Lanka
+          </motion.p>
+          <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-6xl lg:text-7xl font-black uppercase">
+            All Destinations
+          </motion.h1>
+        </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
-          {/* Left Sidebar */}
-          <div className="lg:w-[360px] shrink-0 bg-slate-100/90 backdrop-blur-sm border border-slate-200 p-8 md:p-10 h-fit shadow-sm animate-fade-up delay-100">
-            <div className="overflow-hidden mb-8 shadow-sm group">
-              <img
-                src="/images/destinations/galle-culture.webp"
-                alt="Destinations"
-                className="w-full aspect-[4/3] object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-              />
-            </div>
-            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-slate-900 tracking-wide">Find Your Vibe</h2>
-            <div className="text-base leading-relaxed text-slate-600 mb-10 space-y-4">
-              <p>
-                Sri Lanka offers a spectacular variety of landscapes and experiences, from golden sandy beaches to misty mountain peaks, and ancient cultural heritage to untamed wildlife.
-              </p>
-              <p>
-                Choose a category that speaks to your travel style and discover the best spots across our beautiful island. Everyone is welcome to the journey.
-              </p>
-            </div>
-          </div>
+        {/* Enhanced 6-Card Layout Grid */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          variants={staggerContainer(0.08, 0.05)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+        >
+          {destinationCategories.slice(0, 6).map((category) => (
+            <motion.div 
+              key={category.id} 
+              className="group relative flex flex-col justify-between bg-white border border-slate-200/80 p-5 pb-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-slate-300"
+              variants={fadeUp}
+            >
+              <div>
+                {/* Img Container with Aspect Ratio and Zoom */}
+                <Link 
+                  to={`/destinations/${category.slug}`} 
+                  className="w-full aspect-[4/3] mb-6 overflow-hidden block relative shadow-inner"
+                >
+                  <img
+                    src={category.img}
+                    alt={category.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Subtle contextual overlay matching dark teal brand accent */}
+                  <div className="absolute inset-0 bg-[#173036]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Link>
 
-          {/* Right Content - Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
-              {destinationCategories.map((category, idx) => (
-                <div key={category.id} className={`flex flex-col items-center text-center group animate-fade-up`} style={{ animationDelay: `${(idx + 2) * 100}ms` }}>
-                  <Link to={`/destinations/${category.slug}`} className="w-full aspect-square mb-6 overflow-hidden block">
-                    <img
-                      src={category.img}
-                      alt={category.title}
-                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                    />
-                  </Link>
+                {/* Typography Block */}
+                <div className="px-2">
                   <Link to={`/destinations/${category.slug}`}>
-                    <h3 className="font-display text-2xl font-bold uppercase leading-tight mb-4 text-slate-900 px-2">
+                    <h2 className="font-display text-4xl font-bold uppercase leading-relaxed mb-3 text-[#173036] transition-colors duration-300">
                       {category.title}
-                    </h3>
+                    </h2>
                   </Link>
-                  <p className="text-sm leading-relaxed text-slate-600 mb-6 px-4">
+                  <p className="text-body-md text-slate-500 line-clamp-2">
                     {category.excerpt}
                   </p>
-                  <div className="mt-auto">
-                    <Link to={`/destinations/${category.slug}`} className="inline-block text-sm font-semibold text-[#8a2b3b] hover:text-[#5a1b26] underline underline-offset-4 transition-colors">
-                      Explore Destinations
-                    </Link>
-                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
+              </div>
+
+              {/* Enhanced Action CTA Button Footer */}
+              <div className="mt-8 px-2 w-full">
+                <Link 
+                  to={`/destinations/${category.slug}`} 
+                  className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white group/btn transition-colors duration-200 hover:text-white/90 hover:bg-[#173036]/95 bg-[#173036] px-4 py-3"
+                >
+                  Explore Destinations
+                </Link>
+              </div>
+
+              {/* Bottom Animated Border Highlight on Hover */}
+              <div className="absolute bottom-0 left-0 h-[3px] bg-[#173036] w-0 transition-all duration-400 ease-out group-hover:w-full" />
+            </motion.div>
+          ))}
+        </motion.div>
+
       </div>
-    </div>
+    </motion.div>
   );
 };
 
