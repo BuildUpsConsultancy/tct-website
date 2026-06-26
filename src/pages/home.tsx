@@ -436,7 +436,7 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
   return (
     <motion.button
       key={`${destination.slug}-${idx}`}
-      onClick={() => navigate(`/destinations/${destination.slug}`)}
+      onClick={() => navigate('/destinations')}
       className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
