@@ -43,8 +43,8 @@ const mapPoints = [
 // ];
 
 const testimonials = [
-  { name: 'James & Sarah — UK',      quote: 'The team at The Coconut Tree Trails made our honeymoon in Sri Lanka truly unforgettable. Every detail was taken care of — from the scenic train ride through Ella to our private sunset dinner in Galle.' },
-  { name: 'Priya Nair — India',       quote: 'I booked the Ramayana Tour and was deeply moved by the depth of knowledge our guide brought to every sacred site. This was not just a tour — it was a pilgrimage. Absolutely authentic and beautifully organised.' },
+  { name: 'James & Sarah — UK', quote: 'The team at The Coconut Tree Trails made our honeymoon in Sri Lanka truly unforgettable. Every detail was taken care of — from the scenic train ride through Ella to our private sunset dinner in Galle.' },
+  { name: 'Priya Nair — India', quote: 'I booked the Ramayana Tour and was deeply moved by the depth of knowledge our guide brought to every sacred site. This was not just a tour — it was a pilgrimage. Absolutely authentic and beautifully organised.' },
   { name: 'David Hartmann — Germany', quote: 'Superb local knowledge, seamless logistics, and genuinely warm hospitality at every step. Sri Lanka is spectacular — and The Coconut Tree Trails is the only way to truly experience it.' },
 ];
 
@@ -60,7 +60,7 @@ const imgSrc = (name: string) =>
   `/images/home/${name}${name === 'colombo' ? '.avif' : '.jpg'}`;
 
 const featureSliderImages = [
-  '/images/home/yala-2.jpg',  
+  '/images/home/yala-2.jpg',
   '/images/gallery-2/gallery-2.2.jfif',
   '/images/home/yala-3.jpg',
   '/images/home/kandy.jpg',      // added one more for variety
@@ -76,11 +76,11 @@ const featureSliderImages = [
  * - When progress hits 0 or 1 the hijack releases, allowing page scroll
  */
 const CinematicGallery = () => {
-  const sectionRef   = useRef<HTMLDivElement>(null);
-  const progressRef  = useRef(0);       // 0 = gallery start, 1 = gallery end
-  const isActiveRef  = useRef(false);
-  const rafRef       = useRef<number | null>(null);
-  const touchStartY  = useRef<number | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef(0);       // 0 = gallery start, 1 = gallery end
+  const isActiveRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
   const animatingRef = useRef(false);
   const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const targetProgressRef = useRef(0);   // Target progress for smooth animation
@@ -102,15 +102,15 @@ const CinematicGallery = () => {
   // Smooth snap to a target progress value
   const smoothTo = useCallback((target: number) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    const from    = progressRef.current;
-    const start   = performance.now();
+    const from = progressRef.current;
+    const start = performance.now();
     const DURATION = 400;
     animatingRef.current = true;
 
     const tick = (now: number) => {
-      const t      = Math.min((now - start) / DURATION, 1);
-      const eased  = 1 - Math.pow(1 - t, 3); // ease-out cubic
-      const val    = from + (target - from) * eased;
+      const t = Math.min((now - start) / DURATION, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const val = from + (target - from) * eased;
       progressRef.current = Math.max(0, Math.min(1, val));
       applyProgress(progressRef.current);
       if (t < 1) {
@@ -132,7 +132,7 @@ const CinematicGallery = () => {
     const tick = () => {
       const current = progressRef.current;
       const diff = targetProgressRef.current - current;
-      
+
       // Exponential decay smoothing
       const next = current + diff * SMOOTHNESS;
       progressRef.current = Math.max(0, Math.min(1, next));
@@ -179,19 +179,19 @@ const CinematicGallery = () => {
     const onWheel = (e: WheelEvent) => {
       if (!isActiveRef.current) return;
 
-      const p           = progressRef.current;
-      const goingDown   = e.deltaY > 0;
-      const atBottom    = p >= 0.999;
-      const atTop       = p <= 0.001;
+      const p = progressRef.current;
+      const goingDown = e.deltaY > 0;
+      const atBottom = p >= 0.999;
+      const atTop = p <= 0.001;
 
       // Release hijack when gallery is fully traversed
       if ((goingDown && atBottom) || (!goingDown && atTop)) return;
 
       e.preventDefault();
-      
+
       // Cancel any pending timeout
       if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
-      
+
       nudgeProgress(e.deltaY);
     };
 
@@ -206,10 +206,10 @@ const CinematicGallery = () => {
     const onTouchMove = (e: TouchEvent) => {
       if (!isActiveRef.current || touchStartY.current === null) return;
 
-      const dy        = touchStartY.current - e.touches[0].clientY;
-      const p         = progressRef.current;
-      const atBottom  = p >= 0.999;
-      const atTop     = p <= 0.001;
+      const dy = touchStartY.current - e.touches[0].clientY;
+      const p = progressRef.current;
+      const atBottom = p >= 0.999;
+      const atTop = p <= 0.001;
 
       if ((dy > 0 && atBottom) || (dy < 0 && atTop)) return;
 
@@ -373,7 +373,7 @@ const InteractiveMap = () => {
               onMouseLeave={() => setActivePoint(null)}
             >
               <div className="relative flex items-center justify-center">
-                <motion.div 
+                <motion.div
                   className="absolute w-6 h-6 rounded-full bg-[#a7d9d5]/40"
                   animate={{ scale: [1, 1.8, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
@@ -387,44 +387,44 @@ const InteractiveMap = () => {
 
       {/* Floating Popup - Positioned near the hovered point */}
       <AnimatePresence>
-  {activePoint && (
-    <Link
-      to={`/destinations/${activePoint.path}`}
-      onMouseEnter={() => setActivePoint(activePoint)}
-      onMouseLeave={() => setActivePoint(null)}
-      className="absolute z-30 w-56 bg-white border border-slate-200 p-2.5 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto shadow-xl"
-      component={motion.a}
-      style={{
-        left: `calc(${activePoint.x}% + 20px)`,
-        top: `calc(${activePoint.y}% - 140px)`,
-      }}
-      {...({
-        initial: { opacity: 0, y: 20, scale: 0.9 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: 10, scale: 0.9 },
-        transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
-      } as any)}
-    >
-      <div className="w-full aspect-[16/9] overflow-hidden mb-2 bg-slate-100 rounded">
-        <img 
-          src={activePoint.img} 
-          alt={activePoint.name} 
-          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 ease-out" 
-        />
-      </div>
-      
-      <div className="px-1">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold uppercase tracking-wide text-[#173036] mb-0.5 group-hover/card:text-[#173036]/80 transition-colors duration-200">
-            {activePoint.name}
-          </h2>
-          <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 -translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
-        </div>
-        <p className="text-body-xs text-slate-500 line-clamp-2">{activePoint.desc}</p>
-      </div>
-    </Link>
-  )}
-</AnimatePresence>
+        {activePoint && (
+          <Link
+            to={`/destinations/${activePoint.path}`}
+            onMouseEnter={() => setActivePoint(activePoint)}
+            onMouseLeave={() => setActivePoint(null)}
+            className="absolute z-30 w-56 bg-white border border-slate-200 p-2.5 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto shadow-xl"
+            component={motion.a}
+            style={{
+              left: `calc(${activePoint.x}% + 20px)`,
+              top: `calc(${activePoint.y}% - 140px)`,
+            }}
+            {...({
+              initial: { opacity: 0, y: 20, scale: 0.9 },
+              animate: { opacity: 1, y: 0, scale: 1 },
+              exit: { opacity: 0, y: 10, scale: 0.9 },
+              transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
+            } as any)}
+          >
+            <div className="w-full aspect-[16/9] overflow-hidden mb-2 bg-slate-100 rounded">
+              <img
+                src={activePoint.img}
+                alt={activePoint.name}
+                className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 ease-out"
+              />
+            </div>
+
+            <div className="px-1">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold uppercase tracking-wide text-[#173036] mb-0.5 group-hover/card:text-[#173036]/80 transition-colors duration-200">
+                  {activePoint.name}
+                </h2>
+                <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 -translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
+              </div>
+              <p className="text-body-xs text-slate-500 line-clamp-2">{activePoint.desc}</p>
+            </div>
+          </Link>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -585,32 +585,32 @@ const Home = () => {
       {/* Full-page video background */}
       <div className="fixed inset-0 -z-50 overflow-hidden">
         <video
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="auto"
-  poster="/uploads/hero-poster.jpg"
-  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
->
-  <source src="/uploads/slider-video.mp4" type="video/mp4" />
-</video>
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/uploads/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+        >
+          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative overflow-hidden pt-24 sm:pt-28 md:pt-4">
         <video
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="auto"
-  poster="/uploads/hero-poster.jpg"
-  className="absolute inset-0 w-full h-full object-cover"
->
-  <source src="/uploads/slider-video.mp4" type="video/mp4" />
-</video>
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/uploads/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/40"></div>
 
         <motion.div
@@ -672,17 +672,17 @@ const Home = () => {
 
       {/* ── DESTINATIONS ─────────────────────────────────────── */}
       <section className="relative overflow-hidden py-12 md:py-20 lg:py-24">
-  {/* Flipped background image */}
-  <div
-    className="absolute inset-0 pointer-events-none"
-    style={{
-      backgroundImage: "url('/images/bg/bg-1.png')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',// 👈 flips horizontally
-      opacity: 0.9,
-    }}
-  />
-  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
+        {/* Flipped background image */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/bg/bg-1.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',// 👈 flips horizontally
+            opacity: 0.9,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
         <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 z-10">
           <motion.div className="mb-8 md:mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <div>
@@ -695,7 +695,7 @@ const Home = () => {
           </motion.div>
 
           {/* Slider Container */}
-          <div 
+          <div
             className="relative group"
             onMouseEnter={() => setIsSliderHovering(true)}
             onMouseLeave={() => setIsSliderHovering(false)}
@@ -755,7 +755,7 @@ const Home = () => {
         }} />
 
         <div className="relative mx-auto grid max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20 grid-cols-1 items-center gap-8 md:gap-10 lg:gap-12 lg:grid-cols-2">
-          
+
           {/* Left Text */}
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 md:mb-3 text-white/85">Tailor-Made for You</p>
@@ -763,10 +763,10 @@ const Home = () => {
             <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-white/85">
               From golden beaches and wildlife safaris to ancient temples, local culture and authentic Sri Lankan cuisine, our tailored tours give you the real Sri Lankan experience - thoughtfully designed by people who know the island inside out.
             </p>
-            <motion.button 
-              onClick={() => navigate('/destinations')} 
+            <motion.button
+              onClick={() => navigate('/destinations')}
               className="mt-6 md:mt-8 bg-white px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-semibold text-[#173036] shadow-md shadow-black/30"
-              whileHover={{ scale: 1.02 }} 
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               Browse All Destinations
@@ -776,22 +776,22 @@ const Home = () => {
           {/* RIGHT SIDE — IMAGE SLIDER (replaces CardSwap) */}
           <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden">
             <motion.div
-  className="relative w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] mx-auto border-4 border-white bg-slate-900 overflow-hidden"
-  whileHover={{ scale: 1.015 }}
-  transition={{ duration: 0.4 }}
->
-  {/* Images */}
-  {featureSliderImages.map((image, index) => (
-    <motion.img
-      key={index}
-      src={image}
-      alt="Sri Lanka Experience"
-      className="absolute inset-0 h-full w-full object-cover"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: index === currentFeatureImage ? 1 : 0 }}
-      transition={{ duration: 0.9, ease: "easeInOut" }}
-    />
-  ))}
+              className="relative w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] mx-auto border-4 border-white bg-slate-900 overflow-hidden"
+              whileHover={{ scale: 1.015 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Images */}
+              {featureSliderImages.map((image, index) => (
+                <motion.img
+                  key={index}
+                  src={image}
+                  alt="Sri Lanka Experience"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: index === currentFeatureImage ? 1 : 0 }}
+                  transition={{ duration: 0.9, ease: "easeInOut" }}
+                />
+              ))}
 
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -817,9 +817,8 @@ const Home = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentFeatureImage(index)}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
-                    }`}
+                    className={`h-2 rounded-full transition-all ${index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
+                      }`}
                   />
                 ))}
               </div>
@@ -830,182 +829,197 @@ const Home = () => {
 
 
       {/* ── Tailor-Made Experience Section ─────────────────────────────────────── */}
-<section
-  className="relative overflow-hidden py-16 md:py-20 lg:py-24"
->
-  <div className="absolute inset-0 bg-white" />
+      <section
+        className="relative overflow-hidden py-16 md:py-20 lg:py-24"
 
-  <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
-  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr] gap-6 lg:gap-8 items-center items-center">
-{/* Right Side - Text Content */}
-      <motion.div
-        variants={slideLeft}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-80px' }}
-        className="lg:pt-8 bg-gradient-to-br from-[#f5f4dc] to-[#27c0df4d] border border-white p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20"
       >
-        <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
-        
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#173036]">
-          Sri Lanka Your Way
-        </h2>
-        
-        <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
-          From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
-        </p>
-        <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
-          From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
-        </p>
-      </motion.div>
-    {/* Left Side - Smaller Image */}
-    <motion.div
-      variants={slideLeft}
-      className="relative max-w-[370px] mx-auto"
-    >
-      <InteractiveMap />
-    </motion.div>
-      
-    </div>
-  </div>
-</section>
-
-      {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
-      {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
-<section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
-  <div className="absolute inset-0 opacity-10">
-    <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
-    <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
-  </div>
-  
-  <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
-    <motion.div 
-      className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch" 
-      initial="hidden" 
-      whileInView="show" 
-      viewport={{ once: true, margin: '-80px' }}
-    >
-      {/* Left Column - Collage Layout (Stretches to match Text Box) */}
-      {/* Note: Added lg:p-12 to give more breathing room for spilling items */}
-      <div className="relative w-full p-12 sm:p-16 bg-transparent overflow-visible font-sans h-full min-h-[550px] lg:min-h-0">
-        <div 
-          className="relative w-full h-full shadow-2xl bg-cover bg-center hover:scale-101 transition-transform duration-500 ease-out" 
-          style={{ backgroundImage: "url('/images/gallery/gallery_07.jpg')" }}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{ transform: 'scaleX(-1)' }}
+          preload="auto"
+          poster="/uploads/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          {/* Soft color tint overlay */}
-          <div className="absolute inset-0 bg-sky-400/10 rounded-xl pointer-events-none" />
+          <source src="/uploads/slider-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-br from-white to-[#27c0df4d]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white to transparent" />
 
-          {/* 1. Top Left Polaroid (Elephant Close-up) - Bigger & Pushed higher/left out of frame */}
-          <div className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-12 transition-transform hover:rotate-0 hover:z-50 duration-300">
-            <img 
-              src="/images/gallery/gallery_02.jpg" 
-              alt="Elephant" 
-              className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]" 
-            />
-            {/* White Magnet Pin */}
-            <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10" />
-          </div>
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr] gap-6 lg:gap-8 items-center items-center">
+            {/* Right Side - Text Content */}
+            <motion.div
+              variants={slideLeft}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-80px' }}
+              className="lg:pt-8 bg-gradient-to-br from-[#f5f4dc] to-[#27c0df4d] border border-white p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20"
+            >
+              <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
 
-          {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
-          <div className="absolute -top-16 -right-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-12 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
-            <img 
-              src="/images/gallery/gallery_10.jpg" 
-              alt="Top Right Experience" 
-              className="w-full h-28 sm:h-40 md:h-44 object-cover object-center" 
-            />
-            {/* White Magnet Pin */}
-            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
-          </div>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#173036]">
+                Sri Lanka Your Way
+              </h2>
 
-          {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
-          <div className="absolute top-1/4 -left-6 sm:-left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-8 sm:p-3 sm:pb-10 shadow-2xl border border-gray-100 transform -rotate-3 z-10 transition-transform hover:rotate-0 hover:z-50 duration-300">
-            <img 
-              src="/images/gallery/gallery_03.jpg" 
-              alt="City Skyline" 
-              className="w-full h-32 sm:h-40 md:h-48 object-cover" 
-            />
-            {/* White Magnet Pin */}
-            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200" />
-          </div>
+              <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
+                From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+              </p>
+              <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
+                From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+              </p>
+            </motion.div>
+            {/* Left Side - Smaller Image */}
+            <motion.div
+              variants={slideLeft}
+              className="relative max-w-[370px] mx-auto"
+            >
+              <InteractiveMap />
+            </motion.div>
 
-          {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
-          <div className="absolute -bottom-16 -left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-6 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
-            <img 
-              src="/images/gallery/gallery_01.jpg" 
-              alt="Safari Jeep" 
-              className="w-full h-32 sm:h-40 md:h-52 object-cover" 
-            />
-            {/* White Magnet Pin */}
-            <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
-          </div>
-
-          {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
-          <div className="absolute -bottom-16 -right-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-6 z-20 transition-transform duration-300 ease-out hover:rotate-0 hover:z-50">
-            <img 
-              src="/images/gallery/gallery_08.jpg" 
-              alt="Bottom Right Experience" 
-              className="w-full h-32 sm:h-40 md:h-52 object-cover object-center" 
-            />
-            {/* White Magnet Pin */}
-            <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Right Column - Text in Rectangle */}
-      <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
-        <motion.div variants={fadeUp}>
-          <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
-          <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
-            We're not just travel operators— we're passionate about helping people experience Sri Lanka the best way. Through authentic experiences, personalised itineraries, and local knowledge, we create journeys that go beyond the typical tourist trail.
-            For years, The Coconut Tree has been bringing the flavours, culture, and hospitality of Sri Lanka to guests across the UK. Now, we're helping people discover the island for themselves through carefully tailored holidays designed by people with deep roots in Sri Lanka.
-          </p>
-          
-          <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Knowledge</h4>
-                <p className="text-white/70 text-xs md:text-sm">Expert insight, trusted recommendations, and experiences shaped by people who know the island inside out.</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
-                <p className="text-white/70 text-xs md:text-sm">Every journey created specifically for your interests and travel style.</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
-                <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
-                <p className="text-white/70 text-xs md:text-sm">Discover Sri Lanka through its culture, wildlife, landscapes, and cuisine with experiences designed to go beyond the usual tourist trail.</p>
-              </div>
-            </div>
-          </div>
+      {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
+      {/* ── EXPERIENCE SECTION ───────────────────────────────── */}
+      <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#173036] via-[#1a3a3a] to-[#173036]">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#a7d9d5] blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#0d5a53] blur-3xl" />
+        </div>
 
-          <motion.button 
-            onClick={() => navigate('/about')}
-            className="w-full px-6 md:px-8 py-3 md:py-4 bg-white text-[#173036] font-bold text-sm md:text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-6 md:px-8 lg:px-20">
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-stretch"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
           >
-            Explore Us
-          </motion.button>
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  </div>
-</section>
+            {/* Left Column - Collage Layout (Stretches to match Text Box) */}
+            {/* Note: Added lg:p-12 to give more breathing room for spilling items */}
+            <div className="relative w-full p-12 sm:p-16 bg-transparent overflow-visible font-sans h-full min-h-[550px] lg:min-h-0">
+              <div
+                className="relative w-full h-full shadow-2xl bg-cover bg-center hover:scale-101 transition-transform duration-500 ease-out"
+                style={{ backgroundImage: "url('/images/gallery/gallery_07.jpg')" }}
+              >
+                {/* Soft color tint overlay */}
+                <div className="absolute inset-0 bg-sky-400/10 rounded-xl pointer-events-none" />
+
+                {/* 1. Top Left Polaroid (Elephant Close-up) - Bigger & Pushed higher/left out of frame */}
+                <div className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-12 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                  <img
+                    src="/images/gallery/gallery_02.jpg"
+                    alt="Elephant"
+                    className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]"
+                  />
+                  {/* White Magnet Pin */}
+                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10" />
+                </div>
+
+                {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
+                <div className="absolute -top-16 -right-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-12 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                  <img
+                    src="/images/gallery/gallery_10.jpg"
+                    alt="Top Right Experience"
+                    className="w-full h-28 sm:h-40 md:h-44 object-cover object-center"
+                  />
+                  {/* White Magnet Pin */}
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                </div>
+
+                {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
+                <div className="absolute top-1/4 -left-6 sm:-left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-8 sm:p-3 sm:pb-10 shadow-2xl border border-gray-100 transform -rotate-3 z-10 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                  <img
+                    src="/images/gallery/gallery_03.jpg"
+                    alt="City Skyline"
+                    className="w-full h-32 sm:h-40 md:h-48 object-cover"
+                  />
+                  {/* White Magnet Pin */}
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200" />
+                </div>
+
+                {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
+                <div className="absolute -bottom-16 -left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-6 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                  <img
+                    src="/images/gallery/gallery_01.jpg"
+                    alt="Safari Jeep"
+                    className="w-full h-32 sm:h-40 md:h-52 object-cover"
+                  />
+                  {/* White Magnet Pin */}
+                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                </div>
+
+                {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
+                <div className="absolute -bottom-16 -right-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-6 z-20 transition-transform duration-300 ease-out hover:rotate-0 hover:z-50">
+                  <img
+                    src="/images/gallery/gallery_08.jpg"
+                    alt="Bottom Right Experience"
+                    className="w-full h-32 sm:h-40 md:h-52 object-cover object-center"
+                  />
+                  {/* White Magnet Pin */}
+                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Text in Rectangle */}
+            <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
+              <motion.div variants={fadeUp}>
+                <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
+                <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
+                  We're not just travel operators— we're passionate about helping people experience Sri Lanka the best way. Through authentic experiences, personalised itineraries, and local knowledge, we create journeys that go beyond the typical tourist trail.
+                  For years, The Coconut Tree has been bringing the flavours, culture, and hospitality of Sri Lanka to guests across the UK. Now, we're helping people discover the island for themselves through carefully tailored holidays designed by people with deep roots in Sri Lanka.
+                </p>
+
+                <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Knowledge</h4>
+                      <p className="text-white/70 text-xs md:text-sm">Expert insight, trusted recommendations, and experiences shaped by people who know the island inside out.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
+                      <p className="text-white/70 text-xs md:text-sm">Every journey created specifically for your interests and travel style.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="mt-0.5 md:mt-1 h-5 md:h-6 w-5 md:w-6 rounded-full bg-[#a7d9d5] flex items-center justify-center flex-shrink-0">
+                      <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
+                      <p className="text-white/70 text-xs md:text-sm">Discover Sri Lanka through its culture, wildlife, landscapes, and cuisine with experiences designed to go beyond the usual tourist trail.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <motion.button
+                  onClick={() => navigate('/about')}
+                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-white text-[#173036] font-bold text-sm md:text-base hover:bg-[#a7d9d5] transition-colors duration-300 shadow-lg shadow-black/20"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Explore Us
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────── */}
       <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-black/30">
@@ -1075,17 +1089,17 @@ const Home = () => {
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
-  {/* Flipped background image */}
-  <div
-    className="absolute inset-0 pointer-events-none"
-    style={{
-      backgroundImage: "url('/images/updated-4.png')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',// 👈 flips horizontally
-      opacity: 0.9,
-    }}
-  />
-  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
+        {/* Flipped background image */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/updated-4.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',// 👈 flips horizontally
+            opacity: 0.9,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/50" />
         <div className="relative mx-auto grid max-w-9xl grid-cols-1 gap-10 md:gap-12 lg:gap-16 px-4 sm:px-6 md:px-8 lg:px-20 lg:grid-cols-2">
           <motion.div variants={slideLeft} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
             <p className="section-label mb-2 md:mb-3 text-[#173036] font-semibold">You Asked, We Answer</p>
