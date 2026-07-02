@@ -6,16 +6,16 @@ import Lenis from 'lenis';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight } from '../lib/motion';
 
 const contactItems = [
-  { icon: Mail,   label: 'Email Us',        value: 'info@thecoconuttreetrails.com' },
-  { icon: Phone,  label: 'Call / WhatsApp', value: '+91 345 533 865' },
-  { icon: MapPin, label: 'Based In',        value: 'Sri Lanka · Operating to UK Standards' },
-  { icon: Globe2, label: 'Social',          value: '@thecoconuttreetrails' },
+  { icon: Mail, label: 'Email Us', value: 'info@thecoconuttreetrails.com' },
+  { icon: Phone, label: 'Call / WhatsApp', value: '+020 4641 8923' },
+  { icon: MapPin, label: 'Based In', value: '59, St Paul’s Road, Cheltenham' },
+  { icon: Globe2, label: 'Social', value: '@thecoconuttreetrails' },
 ];
 
 const Contact = () => {
   const heroRef = useRef<HTMLElement>(null);
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [sent, setSent]   = useState(false);
+  const [sent, setSent] = useState(false);
 
   // Parallax scroll effects
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -87,7 +87,7 @@ const Contact = () => {
             animate="show"
           >
             <motion.p variants={fadeUp} className="section-label text-[#173036]">
-              Get in Touch 
+              Get in Touch
             </motion.p>
             <motion.h1 variants={fadeUp} className="mt-4 text-3xl sm:text-4xl font-extrabold leading-[0.95] text-slate-900 md:text-6xl lg:text-[4.2rem]">
               Plan Your Sri Lanka Adventure
@@ -156,8 +156,8 @@ const Contact = () => {
                   animate="show"
                 >
                   {[
-                    { key: 'name',    label: 'FULL NAME',      type: 'text',  placeholder: 'Your full name' },
-                    { key: 'email',   label: 'EMAIL ADDRESS',  type: 'email', placeholder: 'your@email.com' },
+                    { key: 'name', label: 'FULL NAME', type: 'text', placeholder: 'Your full name' },
+                    { key: 'email', label: 'EMAIL ADDRESS', type: 'email', placeholder: 'your@email.com' },
                   ].map(({ key, label, type, placeholder }) => (
                     <motion.div key={key} variants={cardItem}>
                       <label className="mb-2 block text-[10px] font-semibold tracking-[0.2em] text-slate-700">{label}</label>
@@ -221,52 +221,52 @@ const Contact = () => {
         </div>
       </section>
       {/* Gallery Section */}
-<section className="bg-white py-10">
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    {/* Section Header */}
-    <div className="mb-12 text-center">
-      {/* <span className="text-sm font-semibold uppercase tracking-wider text-[#a7d9d5]">
+      <section className="bg-white py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Section Header */}
+          <div className="mb-12 text-center">
+            {/* <span className="text-sm font-semibold uppercase tracking-wider text-[#a7d9d5]">
         Our Gallery
       </span>
       <h2 className="mt-2 text-3xl font-bold text-[#173036] md:text-4xl">
         Moments & Highlights
       </h2> */}
-      <p className="mx-auto max-w-2xl text-slate-600">
-        Explore some of our memorable projects, events, and achievements.
-      </p>
-    </div>
+            <p className="mx-auto max-w-2xl text-slate-600">
+              Explore some of our memorable projects, events, and achievements.
+            </p>
+          </div>
 
-    {/* Gallery Grid */}
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      {[
-        '/images/destinations/culture-perahera.webp',
-  '/images/destinations/culture-temple.jpg',
-  '/images/destinations/habarana-adventure.jpg',
-  '/images/destinations/hidden-ella.jpg',
-  '/images/destinations/hidden-village.jpg',
-  '/images/destinations/hidden-waterfall.jpg',
-  '/images/destinations/hikkaduwa-culture.jpg',
-  '/images/destinations/kalpitiya-beach.jpg',
-      ].map((image, index) => (
-        <motion.div
-          key={index}
-          className="group overflow-hidden shadow-lg"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.05 }}
-        >
-          <img
-            src={image}
-            alt={`Gallery ${index + 1}`}
-            className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {[
+              '/images/destinations/culture-perahera.webp',
+              '/images/destinations/culture-temple.jpg',
+              '/images/destinations/habarana-adventure.jpg',
+              '/images/destinations/hidden-ella.jpg',
+              '/images/destinations/hidden-village.jpg',
+              '/images/destinations/hidden-waterfall.jpg',
+              '/images/destinations/hikkaduwa-culture.jpg',
+              '/images/destinations/kalpitiya-beach.jpg',
+            ].map((image, index) => (
+              <motion.div
+                key={index}
+                className="group overflow-hidden shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+              >
+                <img
+                  src={image}
+                  alt={`Gallery ${index + 1}`}
+                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </motion.div>
   );
 };

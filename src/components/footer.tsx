@@ -1,6 +1,13 @@
 import { Linkedin, FacebookIcon, Instagram, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const socialPlatforms = [
+  { icon: Instagram, href: 'https://www.instagram.com/thecoconuttreetrails/', label: 'Instagram' },
+  { icon: FacebookIcon, href: 'https://www.facebook.com/TCTTrails/', label: 'Facebook' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/', label: 'LinkedIn' },
+  { icon: Youtube, href: 'https://www.youtube.com/@TheCoconutTreeTrails', label: 'YouTube' }
+];
+
 const Footer = () => {
   return (
     <footer className="bg-[#173036] pt-20 pb-6 relative overflow-hidden">
@@ -21,16 +28,21 @@ const Footer = () => {
             Your trusted partner for discovering Sri Lanka the right way — with local expertise, genuine hospitality, and tailor-made experiences built around you.
           </p>
           <div className="mt-8 flex items-center gap-4">
-            {[Instagram, FacebookIcon, Linkedin, Youtube].map((Icon, idx) => (
-              <button
-                key={idx}
-                type="button"
-                aria-label="Footer social icon"
-                className="grid h-12 w-12 place-items-center rounded-full bg-[#0d5a53]/25 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0d5a53]/35 hover:text-[#a7d9d5]"
-              >
-                <Icon className="h-4 w-4" />
-              </button>
-            ))}
+            {socialPlatforms.map((platform, idx) => {
+              const Icon = platform.icon;
+              return (
+                <a
+                  key={idx}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${platform.label}`}
+                  className="grid h-12 w-12 place-items-center rounded-full bg-[#0d5a53]/25 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0d5a53]/35 hover:text-[#a7d9d5]"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              );
+            })}
           </div>
         </div>
 
@@ -41,16 +53,17 @@ const Footer = () => {
           </h4>
 
           <ul className="space-y-3">
+            {/* Quick Links */}
             {[
               { name: 'Socials', path: '/socials' },
-              { name: 'Destinations', path: '/destinations/wildlife' },
+              { name: 'Destinations', path: '/destinations' },
               { name: 'Our Team', path: '/about' },
               { name: 'Contact Us', path: '/contact' },
-              { name: 'FAQ & Policy', path: '/faq-policy' },
+              { name: 'FAQ', path: '/faq-policy' },
             ].map((link) => (
               <li key={link.name}>
-                <a
-                  href={link.path}
+                <Link
+                  to={link.path}
                   className="text-slate-400 hover:text-[#a7d9d5] text-sm transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-2 group/link"
                 >
                   <span className="opacity-0 group-hover/link:opacity-100 transition-opacity text-xs">
@@ -58,7 +71,7 @@ const Footer = () => {
                   </span>
 
                   {link.name}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -69,18 +82,19 @@ const Footer = () => {
           <h4 className="text-[#a7d9d5] font-bold mb-6">
             Address
           </h4>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                The Coconut Tree Trails<br />
-                Birmingham, UK<br />
-              </p>         
-              <h4 className="text-[#a7d9d5] font-medium mb-1">Email</h4>
-              <a 
-                href="mailto:cocountreetrails@gmail.com"
-                className="text-slate-400 hover:text-[#a7d9d5] transition-colors inline-flex items-center gap-2 group/email"
-              >
-                cocountreetrails@gmail.com
-                <span className="opacity-0 group-hover/email:opacity-100 transition-opacity text-xs">↗</span>
-              </a>
+          <p className="text-slate-400 leading-relaxed mb-6">
+            The Coconut Tree Trails<br />
+            59, St Paul's Road<br />
+            Cheltenham, UK<br />
+          </p>
+          <h4 className="text-[#a7d9d5] font-medium mb-1">Email</h4>
+          <a
+            href="mailto:info@thecoconuttreetrails.com"
+            className="text-slate-400 hover:text-[#a7d9d5] transition-colors inline-flex items-center gap-2 group/email"
+          >
+            info@thecoconuttreetrails.com
+            <span className="opacity-0 group-hover/email:opacity-100 transition-opacity text-xs">↗</span>
+          </a>
 
         </div>
 
@@ -120,16 +134,21 @@ const Footer = () => {
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
-            {[Instagram, FacebookIcon, Linkedin, Youtube].map((Icon, idx) => (
-              <button
-                key={idx}
-                type="button"
-                aria-label="Footer social icon"
-                className="grid h-10 w-10 place-items-center rounded-full bg-[#0d5a53]/25 text-slate-300"
-              >
-                <Icon className="h-4 w-4" />
-              </button>
-            ))}
+            {socialPlatforms.map((platform, idx) => {
+              const Icon = platform.icon;
+              return (
+                <a
+                  key={idx}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${platform.label}`}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-[#0d5a53]/25 text-slate-300 transition-all duration-300 hover:bg-[#0d5a53]/35 hover:text-[#a7d9d5]"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              );
+            })}
           </div>
 
           <div className="w-full grid grid-cols-2 gap-6">
@@ -138,10 +157,10 @@ const Footer = () => {
               <ul className="space-y-2 text-sm text-slate-400 text-center">
                 {[
                   { name: 'Socials', path: '/socials' },
-                  { name: 'Destinations', path: '/destinations/wildlife' },
+                  { name: 'Destinations', path: '/destinations' },
                   { name: 'Our Team', path: '/about' },
                   { name: 'Contact Us', path: '/contact' },
-                  { name: 'FAQ & Policy', path: '/faq-policy' },
+                  { name: 'FAQ', path: '/faq-policy' },
                 ].map((link) => (
                   <li key={link.name}>
                     <Link to={link.path} className="hover:text-[#a7d9d5] transition-colors">
@@ -151,7 +170,7 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
-            
+
             {/* Mobile Contact Info */}
             <div>
               <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Contact</h4>
@@ -162,8 +181,8 @@ const Footer = () => {
                 </li>
                 <li>
                   <strong className="text-[#a7d9d5] block">Email</strong>
-                  <a href="mailto:cocountreetrails@gmail.com" className="hover:text-[#a7d9d5] break-all">
-                    cocountreetrails@gmail.com
+                  <a href="mailto:info@thecoconuttreetrails.com" className="hover:text-[#a7d9d5] break-all">
+                    info@thecoconuttreetrails.com
                   </a>
                 </li>
               </ul>
@@ -185,13 +204,13 @@ const Footer = () => {
 
           {/* Payment methods removed for mobile view as requested */}
         </div>
-        
+
         <div className="mt-4 text-center text-xs text-white/80">
           <p>© 2026 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px]">
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
+            <Link to="/privacy-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
+            <Link to="/terms-conditions" className="hover:text-[#a7d9d5] transition-colors">Terms & Conditions</Link>
+            <Link to="/refund-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>
@@ -206,9 +225,9 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-4 mb-6">
           <p className="text-white text-sm text-center">© 2026 The Coconut Tree Trails. All rights reserved. Crafted for the real Sri Lanka traveller.</p>
           <div className="flex gap-6 text-white text-xs">
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Terms of Service</Link>
-            <Link to="/faq-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
+            <Link to="/privacy-policy" className="hover:text-[#a7d9d5] transition-colors">Privacy Policy</Link>
+            <Link to="/terms-conditions" className="hover:text-[#a7d9d5] transition-colors">Terms & Conditions</Link>
+            <Link to="/refund-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>
