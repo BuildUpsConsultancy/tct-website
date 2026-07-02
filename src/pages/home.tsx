@@ -322,7 +322,7 @@ const MobileGallery = () => (
     {galleryColumns[0].map((name, i) => (
       <motion.div
         key={i}
-        className="group relative overflow-hidden h-64 rounded-xl"
+        className="group relative overflow-hidden h-64"
         variants={cardItem}
         whileHover={{ scale: 1.02 }}
       >
@@ -436,7 +436,7 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
   return (
     <motion.button
       key={`${destination.slug}-${idx}`}
-      onClick={() => navigate('/destinations')}
+      onClick={() => navigate(`/destinations/${destination.slug}`)}
       className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -467,7 +467,8 @@ const Home = () => {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [destinationSlide, setDestinationSlide] = useState(0);
+  const [destinationSlide, setDestinationSlide] = useState(featuredDestinations.length);
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const [isSliderHovering, setIsSliderHovering] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
@@ -476,6 +477,7 @@ const Home = () => {
 
   const heroRef = useRef<HTMLElement>(null);
   const destinationSliderRef = useRef<HTMLDivElement>(null);
+  const isMovingRef = useRef(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -503,42 +505,46 @@ const Home = () => {
     setCurrentFeatureImage((prev) => (prev + 1) % featureSliderImages.length);
   };
 
-  const handleDestinationPrev = () => {
+  const handleDestinationPrev = useCallback(() => {
+    if (isMovingRef.current) return;
+    isMovingRef.current = true;
     setDestinationSlide((prev) => prev - 1);
-  };
+  }, []);
 
-  const handleDestinationNext = () => {
+  const handleDestinationNext = useCallback(() => {
+    if (isMovingRef.current) return;
+    isMovingRef.current = true;
     setDestinationSlide((prev) => prev + 1);
-  };
+  }, []);
 
-  // Seamless infinite loop - reset when reaching the end of first set
-  useEffect(() => {
-    if (destinationSlide >= featuredDestinations.length) {
-      const timer = setTimeout(() => {
-        if (destinationSliderRef.current) {
-          destinationSliderRef.current.style.transition = 'none';
-        }
-        setDestinationSlide(destinationSlide % featuredDestinations.length);
-        setTimeout(() => {
-          if (destinationSliderRef.current) {
-            destinationSliderRef.current.style.transition = '';
-          }
-        }, 0);
-      }, 600);
-      return () => clearTimeout(timer);
+  const handleAnimationComplete = () => {
+    isMovingRef.current = false;
+    const len = featuredDestinations.length;
+    if (destinationSlide >= 2 * len) {
+      setIsTransitioning(false);
+      setDestinationSlide(len);
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 30);
+    } else if (destinationSlide < len) {
+      setIsTransitioning(false);
+      setDestinationSlide(2 * len - 1);
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 30);
     }
-  }, [destinationSlide]);
+  };
 
   // Autoplay for destination slider
   useEffect(() => {
     if (isSliderHovering) return;
 
     const autoplayInterval = setInterval(() => {
-      setDestinationSlide((prev) => prev + 1);
+      handleDestinationNext();
     }, 2000);
 
     return () => clearInterval(autoplayInterval);
-  }, [isSliderHovering]);
+  }, [isSliderHovering, handleDestinationNext]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -733,10 +739,11 @@ const Home = () => {
                 className="flex"
                 style={{ gap: windowWidth < 640 ? '4%' : windowWidth < 1024 ? '3%' : '2.667%' }}
                 animate={{ x: -(destinationSlide * (windowWidth < 640 ? 84 : windowWidth < 1024 ? 48 : 36)) + '%' }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                transition={isTransitioning ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0 }}
+                onAnimationComplete={handleAnimationComplete}
               >
-                {/* Render cards twice for infinite loop */}
-                {[...featuredDestinations, ...featuredDestinations].map((destination, idx) => (
+                {/* Render cards three times for infinite loop */}
+                {[...featuredDestinations, ...featuredDestinations, ...featuredDestinations].map((destination, idx) => (
                   <DestinationCard key={`${destination.slug}-${idx}`} destination={destination} idx={idx} navigate={navigate} />
                 ))}
               </motion.div>
@@ -774,9 +781,9 @@ const Home = () => {
           </motion.div>
 
           {/* RIGHT SIDE — IMAGE SLIDER (replaces CardSwap) */}
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden">
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-end justify-center lg:justify-end overflow-hidden pb-16 sm:pb-24 md:pb-28 lg:pb-32">
             <motion.div
-              className="relative w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] mx-auto border-4 border-white bg-slate-900 overflow-hidden"
+              className="relative w-full max-w-[400px] sm:max-w-[440px] md:max-w-[480px] lg:max-w-[520px] aspect-[4/3] mx-auto lg:mr-0 lg:ml-auto border-4 border-white bg-slate-900 overflow-hidden"
               whileHover={{ scale: 1.015 }}
               transition={{ duration: 0.4 }}
             >
@@ -862,14 +869,14 @@ const Home = () => {
               <p className="section-label mb-2 md:mb-3 text-[#173036]">Tailor-Made for You</p>
 
               <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#173036]">
-                Sri Lanka Your Way
+                Why Sri Lanka?
               </h2>
 
               <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
-                From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+                Sri Lanka is a destination like no other, where golden beaches, misty hills, tea plantations, and vibrant cities are all within reach on one remarkable island.
               </p>
               <p className="mt-4 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base leading-6 md:leading-7 text-[#173036]">
-                From ancient temples and wildlife safaris to misty tea estates and sun-soaked beaches — our curated packages give you the real Sri Lanka, guided by people who live and breathe this island every day.
+                Whether you're visiting for the first time or returning to discover something new, we create seamless journeys that showcase the island's beauty, warmth, and incredible diversity, without the stress of planning it yourself.
               </p>
             </motion.div>
             {/* Left Side - Smaller Image */}
@@ -969,7 +976,7 @@ const Home = () => {
             {/* Right Column - Text in Rectangle */}
             <motion.div variants={slideRight} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl shadow-black/20 h-full flex flex-col justify-center">
               <motion.div variants={fadeUp}>
-                <p className="text-white/85 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
+                <p className="text-white/85 font-semibold text-xs sm:text-md tracking-widest uppercase mb-3 md:mb-4">Why Choose Us</p>
                 <p className="text-white/80 text-xs sm:text-sm md:text-base leading-6 md:leading-8 mb-6 md:mb-8">
                   We're not just travel operators— we're passionate about helping people experience Sri Lanka the best way. Through authentic experiences, personalised itineraries, and local knowledge, we create journeys that go beyond the typical tourist trail.
                   For years, The Coconut Tree has been bringing the flavours, culture, and hospitality of Sri Lanka to guests across the UK. Now, we're helping people discover the island for themselves through carefully tailored holidays designed by people with deep roots in Sri Lanka.
@@ -981,7 +988,7 @@ const Home = () => {
                       <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Local Knowledge</h4>
+                      <h4 className="inline-block bg-[#a7d9d5]/15 px-3 py-0.5 text-[#a7d9d5] font-semibold text-lg mb-1">Local Knowledge</h4>
                       <p className="text-white/70 text-xs md:text-sm">Expert insight, trusted recommendations, and experiences shaped by people who know the island inside out.</p>
                     </div>
                   </div>
@@ -991,7 +998,7 @@ const Home = () => {
                       <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Tailor-Made Itineraries</h4>
+                      <h4 className="inline-block bg-[#a7d9d5]/15 px-3 py-0.5 text-[#a7d9d5] font-semibold text-lg mb-1">Tailor-Made Itineraries</h4>
                       <p className="text-white/70 text-xs md:text-sm">Every journey created specifically for your interests and travel style.</p>
                     </div>
                   </div>
@@ -1001,7 +1008,7 @@ const Home = () => {
                       <svg className="h-3 md:h-4 w-3 md:w-4 text-[#173036]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold text-sm md:text-base mb-0.5 md:mb-1">Authentic Experiences</h4>
+                      <h4 className="inline-block bg-[#a7d9d5]/15 px-3 py-0.5 text-[#a7d9d5] font-semibold text-lg mb-1">Authentic Experiences</h4>
                       <p className="text-white/70 text-xs md:text-sm">Discover Sri Lanka through its culture, wildlife, landscapes, and cuisine with experiences designed to go beyond the usual tourist trail.</p>
                     </div>
                   </div>
@@ -1036,13 +1043,13 @@ const Home = () => {
                   const index = (currentTestimonial + offset) % testimonials.length;
                   const t = testimonials[index];
                   return (
-                    <motion.div key={`testimonial-${index}`} className="rounded-2xl border border-white/10 bg-black/20 p-6 md:p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
+                    <motion.div key={`testimonial-${index}`} className="border border-white/10 bg-black/20 p-6 md:p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
                       <motion.div whileHover={{ scale: 1.12, color: 'rgba(127, 181, 176, 0.5)' }}>
                         <Quote className="mb-4 md:mb-5 h-10 md:h-12 w-10 md:w-12 text-white/20" />
                       </motion.div>
                       <p className="text-sm md:text-base leading-6 md:leading-7 text-white/85 mb-6 md:mb-8">"{t.quote}"</p>
                       <div className="flex items-center gap-3 md:gap-4">
-                        <div className="grid h-10 md:h-12 w-10 md:w-12 place-items-center rounded-full border border-white/10 bg-[#112738] text-xs md:text-base font-bold text-[#a7d9d5]">{t.name[0]}</div>
+                        <div className="grid h-10 md:h-12 w-10 md:w-12 place-items-center rounded-full border border-white/10 bg-[#a7d9d5]/15 text-xs md:text-base font-bold text-[#a7d9d5]">{t.name[0]}</div>
                         <div>
                           <p className="text-sm md:text-base font-semibold text-white">{t.name}</p>
                         </div>

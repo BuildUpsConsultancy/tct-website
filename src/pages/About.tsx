@@ -6,10 +6,10 @@ import Lenis from 'lenis';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideRight, } from '../lib/motion';
 
 const aboutValues = [
-  { iconType: 'safety',     title: 'Safety First',      desc: 'Your safety is our highest priority. Every itinerary we build is assessed for local conditions, road safety, and accommodation standards — giving you and your family complete peace of mind.' },
-  { iconType: 'expertise',  title: 'Local Expertise',   desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get to experience the island like a local.' },
-  { iconType: 'support',    title: 'Dedicated Support', desc: 'From first enquiry to safe return, our team is available to handle your questions, adjust your plans, and support you through every stage of your journey.' },
-  { iconType: 'quality',    title: 'Quality Promise',   desc: 'We operate to UK travel industry standards across accommodation selection, transport quality, and guide training — so every experience consistently exceeds expectations.' },
+  { iconType: 'safety', title: 'Safety First', desc: 'Your safety is our highest priority. Every itinerary we build is assessed for local conditions, road safety, and accommodation standards — giving you and your family complete peace of mind.' },
+  { iconType: 'expertise', title: 'Local Expertise', desc: 'Our guides and planners are Sri Lankan-born, with deep knowledge of every region, community, and hidden gem on this island. You get to experience the island like a local.' },
+  { iconType: 'support', title: 'Dedicated Support', desc: 'From first enquiry to safe return, our team is available to handle your questions, adjust your plans, and support you through every stage of your journey.' },
+  { iconType: 'quality', title: 'Quality Promise', desc: 'We operate to UK travel industry standards across accommodation selection, transport quality, and guide training — so every experience consistently exceeds expectations.' },
 ];
 
 // Image slider data
@@ -23,7 +23,7 @@ const About = () => {
   const navigate = useNavigate();
   const heroRef = useRef<HTMLElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+
   // Parallax scroll effects
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
@@ -104,8 +104,8 @@ const About = () => {
               <motion.p variants={fadeUp} className="section-label text-[#173036]">
                 About Us
               </motion.p>
-              <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-[66px] font-extrabold leading-[0.95] sm:whitespace-nowrap">
-                <span className="block text-slate-900">We Are Coconut Tree Trails</span>
+              <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-[60px] font-extrabold leading-[0.95] sm:whitespace-nowrap">
+                <span className="block text-slate-900">We Are The Coconut Tree Trails</span>
                 {/* <span className="block text-slate-900">Coconut Tree</span>
                 <span className="block text-slate-900">Trails</span> */}
               </motion.h1>
@@ -149,7 +149,7 @@ const About = () => {
                   />
                 ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                
+
                 {/* Slider Controls */}
                 <button
                   onClick={goToPreviousImage}
@@ -163,16 +163,15 @@ const About = () => {
                 >
                   <ChevronRight className="h-5 w-5 text-white" />
                 </button>
-                
+
                 {/* Slider Indicators */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
                   {heroSliderImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`h-2 transition-all ${
-                        index === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
-                      }`}
+                      className={`h-2 transition-all ${index === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
+                        }`}
                     />
                   ))}
                 </div>
@@ -210,13 +209,13 @@ const About = () => {
                 const iconProps = { className: 'h-8 w-8 mb-5', fill: 'currentColor' };
                 switch (iconType) {
                   case 'safety':
-                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.5v5.32c0 4.75-2.85 9.02-7 10.28-4.15-1.26-7-5.53-7-10.28V6.68l7-3.5z"/></svg>;
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.5v5.32c0 4.75-2.85 9.02-7 10.28-4.15-1.26-7-5.53-7-10.28V6.68l7-3.5z" /></svg>;
                   case 'expertise':
-                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>;
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" /></svg>;
                   case 'support':
-                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3H4V9h14v2z"/></svg>;
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3H4V9h14v2z" /></svg>;
                   case 'quality':
-                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>;
+                    return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...iconProps}><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>;
                   default:
                     return null;
                 }
@@ -245,62 +244,62 @@ const About = () => {
 
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
-<section className="relative overflow-hidden bg-white py-16 md:py-20">
-  <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
-    <motion.div
-      className="text-center mb-12"
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
-    >
-      <p className="mb-2 section-label text-[#173036]">Gallery</p>
-      <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
-    </motion.div>
-
-    {/* Row 1 — moves RIGHT (original direction) */}
-    <div className="overflow-hidden mb-6">
-      <motion.div
-        className="flex gap-6 w-max"
-        animate={{ x: [0, -4056] }}
-        transition={{
-          duration: 50,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-      >
-        {[
-          '/images/gallery/gallery_01.jpg',
-          '/images/gallery/gallery_02.jpg',
-          '/images/gallery/gallery_09.jpg',
-          '/images/gallery/gallery_04.jpg',
-          '/images/gallery/gallery_05.jpg',
-          '/images/gallery/gallery_10.jpg',
-          '/images/gallery/gallery_07.jpg',
-          '/images/gallery/gallery_08.jpg',
-        ].concat([
-          '/images/gallery/gallery_01.jpg',
-          '/images/gallery/gallery_02.jpg',
-          '/images/gallery/gallery_09.jpg',
-          '/images/gallery/gallery_04.jpg',
-          '/images/gallery/gallery_05.jpg',
-          '/images/gallery/gallery_10.jpg',
-          '/images/gallery/gallery_07.jpg',
-          '/images/gallery/gallery_08.jpg',
-        ]).map((image, index) => (
-          <div
-            key={`row1-${index}`}
-            className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden shadow-md"
+      <section className="relative overflow-hidden bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-9xl px-4 sm:px-8 lg:px-20">
+          <motion.div
+            className="text-center mb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
           >
-            <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-          </div>
-        ))}
-      </motion.div>
-    </div>
+            <p className="mb-2 section-label text-[#173036]">Gallery</p>
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
+          </motion.div>
 
-    {/* Row 2 — moves LEFT */}
-    {/* <div className="overflow-hidden">
+          {/* Row 1 — moves RIGHT (original direction) */}
+          <div className="overflow-hidden mb-6">
+            <motion.div
+              className="flex gap-6 w-max"
+              animate={{ x: [0, -4056] }}
+              transition={{
+                duration: 50,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              {[
+                '/images/gallery/gallery_01.jpg',
+                '/images/gallery/gallery_02.jpg',
+                '/images/gallery/gallery_09.jpg',
+                '/images/gallery/gallery_04.jpg',
+                '/images/gallery/gallery_05.jpg',
+                '/images/gallery/gallery_10.jpg',
+                '/images/gallery/gallery_07.jpg',
+                '/images/gallery/gallery_08.jpg',
+              ].concat([
+                '/images/gallery/gallery_01.jpg',
+                '/images/gallery/gallery_02.jpg',
+                '/images/gallery/gallery_09.jpg',
+                '/images/gallery/gallery_04.jpg',
+                '/images/gallery/gallery_05.jpg',
+                '/images/gallery/gallery_10.jpg',
+                '/images/gallery/gallery_07.jpg',
+                '/images/gallery/gallery_08.jpg',
+              ]).map((image, index) => (
+                <div
+                  key={`row1-${index}`}
+                  className="relative h-64 w-52 sm:h-80 sm:w-64 md:h-96 md:w-80 lg:h-130 lg:w-120 flex-shrink-0 overflow-hidden shadow-md"
+                >
+                  <img src={image} alt={`Gallery ${index + 1}`} className="h-full w-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Row 2 — moves LEFT */}
+          {/* <div className="overflow-hidden">
       <motion.div
         className="flex gap-6 w-max"
         animate={{ x: [-4056, 0] }}
@@ -340,8 +339,8 @@ const About = () => {
       </motion.div>
     </div> */}
 
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-20 md:py-24">

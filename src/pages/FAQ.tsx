@@ -123,51 +123,50 @@ const FAQ = () => {
           <div className="mb-4 inline-flex items-center gap-2 border border-[#a7d9d5]/40 bg-[#173036] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white">
             Help Center
           </div>
-          <h1 className="font-display text-4xl font-bold text-slate-900 sm:text-5xl">FAQ & Policy</h1>
+          <h1 className="font-display text-4xl font-bold text-slate-900 sm:text-5xl">FAQ</h1>
           <p className="mt-3 max-w-3xl text-slate-600">
             Find quick answers and official policy details about bookings, traveler information, pricing, payments, and cancellations in one place.
           </p>
         </Reveal>
 
         <div className="grid gap-4">
-  {faqItems.map((item, index) => {
-    const isOpen = openIndex === index;
+          {faqItems.map((item, index) => {
+            const isOpen = openIndex === index;
 
-    return (
-      <Reveal key={item.question} animation="fade-up" delay={index * 80}>
-        <div className="overflow-hidden border border-slate-200 transition hover:border-[#a7d9d5] hover:shadow-md">
-          
-          {/* QUESTION HEADER */}
-          <button
-            type="button"
-            onClick={() => setOpenIndex(isOpen ? -1 : index)}
-            className="flex w-full items-center justify-between gap-4 bg-[#173036] px-5 py-4 text-left"
-          >
-            <span className="flex items-center gap-3 text-white">
-              <HelpCircle className="h-5 w-5 text-[#a7d9d5]" />
-              <span className="text-base font-semibold sm:text-lg">
-                {item.question}
-              </span>
-            </span>
+            return (
+              <Reveal key={item.question} animation="fade-up" delay={index * 80}>
+                <div className="overflow-hidden border border-slate-200 transition hover:border-[#a7d9d5] hover:shadow-md">
 
-            <ChevronDown
-              className={`h-5 w-5 text-[#a7d9d5] transition-transform ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
+                  {/* QUESTION HEADER */}
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                    className="flex w-full items-center justify-between gap-4 bg-[#173036] px-5 py-4 text-left"
+                  >
+                    <span className="flex items-center gap-3 text-white">
+                      <HelpCircle className="h-5 w-5 text-[#a7d9d5]" />
+                      <span className="text-base font-semibold sm:text-lg">
+                        {item.question}
+                      </span>
+                    </span>
 
-          {/* ANSWER */}
-          {isOpen && (
-            <div className="border-t border-slate-200 bg-white px-5 py-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-              {item.answer}
-            </div>
-          )}
+                    <ChevronDown
+                      className={`h-5 w-5 text-[#a7d9d5] transition-transform ${isOpen ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+
+                  {/* ANSWER */}
+                  {isOpen && (
+                    <div className="border-t border-slate-200 bg-white px-5 py-4 text-sm leading-relaxed text-slate-600 sm:text-base">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
-      </Reveal>
-    );
-  })}
-</div>
 
         {/* <div className="mt-10 grid gap-4 sm:grid-cols-2">
           <Reveal animation="fade-right">

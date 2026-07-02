@@ -14,14 +14,16 @@ function App() {
       <Link
         to="/enquiry"
         aria-label="Go to Inquiry page"
-        className="inquiry-float flex flex-col items-center justify-center"
+        className="inquiry-float flex flex-col items-center justify-center text-center"
       >
         <img
           src="/trails-inquiry.png"   // change path to your image
           alt="Inquiry"
           className="inquiry-icon"
         />
-        <span className="text-[10px] sm:text-xs font-bold text-[#173036] tracking-wider uppercase mt-1">Inquiry</span>
+        <span className="text-[11px] sm:text-[12px] font-semibold text-[#173036] tracking-wide uppercase leading-[1.2] max-w-[80px]">
+          Let's make<br />Memories
+        </span>
       </Link>
       <main>
         <AnimatePresence mode="wait" initial={false}>
