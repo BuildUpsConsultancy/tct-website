@@ -529,12 +529,20 @@ html {
 /* Mobile */
 @media (max-width: 768px) {
   .inquiry-float {
-    width: 88px;
-    height: 88px;
-
+    width: 90px;
+    height: 90px;
     right: 12px;
-    bottom: 100px;
-    padding: 10px;
+    bottom: 80px;
+    padding: 14px;
+  }
+
+  .inquiry-float .inquiry-icon {
+    width: 42%;
+  }
+
+  .inquiry-float span {
+    font-size: 9.5px !important;
+    line-height: 1.15 !important;
   }
 
   .inquiry-float:hover {
