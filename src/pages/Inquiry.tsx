@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
+import { renderToString } from 'react-dom/server';
+import InquiryConfirmationEmail from '../emails/InquiryConfirmation';
 import Lenis from 'lenis';
 import { ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
@@ -326,10 +327,6 @@ const Inquiry = () => {
   const heroImageY = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
   const formCardY = useTransform(scrollYProgress, [0, 0.42], ['56px', '0px']);
 
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const inquiryTemplateId = import.meta.env.VITE_EMAILJS_INQUIRY_TEMPLATE_ID;
-  const confirmationTemplateId = import.meta.env.VITE_EMAILJS_CONFIRMATION_TEMPLATE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
   const adminEmail = import.meta.env.VITE_INQUIRY_ADMIN_EMAIL ?? 'info@thecoconuttreetrails.com';
 
   const updateField = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) => {
@@ -401,56 +398,58 @@ const Inquiry = () => {
   const submitInquiry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
-
-    if (!serviceId || !inquiryTemplateId || !confirmationTemplateId || !publicKey) {
-      setError('Email delivery is not configured yet. Add the EmailJS environment variables first.');
-      return;
-    }
-
     setLoading(true);
 
-    const sharedParams = {
-      customer_title: form.title,
-      customer_name: form.name,
-      customer_email: form.email,
-      customer_phone: `${form.countryCode} ${form.contactNumber}`,
-      guests: String(form.guests),
-      children: String((form as any).children ?? ''),
-      tour_duration: form.tourDuration,
-      preferences: form.preferences.join(', '),
-      budget_per_person: form.budgetPerPerson,
-      additional_information: form.additionalInformation,
-      hear_about_us: form.hearAboutUs,
-      hear_about_us_other: form.hearAboutUsOther,
-      inquiry_summary: summaryLines.join('\n'),
-      admin_email: adminEmail,
-      reply_to: form.email,
-      to_email: adminEmail,
-      subject: `New inquiry from ${form.name}`,
-    };
+    const emailForFeedback = form.email;
+
+    // Generate HTML for User Email using React Email component
+    const userEmailHtml = renderToString(
+      <InquiryConfirmationEmail 
+        name={form.name} 
+      />
+    );
+
+    // Generate HTML for Admin Email
+    const adminEmailHtml = `
+      <h2>New Inquiry from ${form.name}</h2>
+      <ul>
+        ${summaryLines.map(line => `<li>${line}</li>`).join('')}
+      </ul>
+    `;
 
     try {
-      const emailForFeedback = form.email;
+      // Send Email to Admin
+      const adminResponse = fetch('/api/send-email.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: adminEmail,
+          subject: `New inquiry from ${form.name}`,
+          html: adminEmailHtml,
+        })
+      });
 
-      await Promise.all([
-        emailjs.send(serviceId, inquiryTemplateId, sharedParams, { publicKey }),
-        emailjs.send(
-          serviceId,
-          confirmationTemplateId,
-          {
-            ...sharedParams,
-            to_email: form.email,
-            subject: 'We received your inquiry',
-          },
-          { publicKey },
-        ),
-      ]);
+      // Send Confirmation to User
+      const userResponse = fetch('/api/send-email.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: form.email,
+          subject: 'We received your inquiry - The Coconut Tree Trails',
+          html: userEmailHtml,
+        })
+      });
+
+      const responses = await Promise.all([adminResponse, userResponse]);
+      if (responses.some((response) => !response.ok)) {
+        throw new Error('One or more emails failed to send');
+      }
 
       setForm(initialState);
       navigate('/thank-you', { state: { email: emailForFeedback } });
-    } catch (submitError) {
-      console.error('Failed to send inquiry', submitError);
-      setError('We could not send your inquiry right now. Please try again or email us directly.');
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong sending your inquiry. Please try again or contact us directly.');
     } finally {
       setLoading(false);
     }

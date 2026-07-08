@@ -1,5 +1,6 @@
 import { Linkedin, FacebookIcon, Instagram, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const socialPlatforms = [
   { icon: Instagram, href: 'https://www.instagram.com/thecoconuttreetrails/', label: 'Instagram' },
@@ -9,6 +10,51 @@ const socialPlatforms = [
 ];
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+
+    try {
+      const formData = new FormData();
+      // Use the key from the environment variables
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'YOUR_WEB3FORMS_ACCESS_KEY_HERE';
+      formData.append('access_key', accessKey);
+      formData.append('email', email);
+      formData.append('subject', 'New Newsletter Subscription');
+      formData.append('from_name', 'The Coconut Tree Trails');
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setMessage('Thank you for subscribing!');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setMessage(data.message || 'Something went wrong.');
+      }
+    } catch (error) {
+      setStatus('error');
+      setMessage('Network error. Please try again.');
+    }
+
+    setTimeout(() => {
+      setStatus('idle');
+      setMessage('');
+    }, 5000);
+  };
+
   return (
     <footer className="bg-[#173036] pt-20 pb-6 relative overflow-hidden">
       {/* Animated background elements */}
@@ -106,18 +152,31 @@ const Footer = () => {
           <p className="text-slate-400 mb-6 text-sm leading-relaxed">
             Receive curated travel inspiration directly to your inbox.
           </p>
-          <div className="space-y-3">
+          <form onSubmit={handleSubscribe} className="space-y-3">
             <div className="relative group/input">
               <input
-                className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-6 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] focus:ring-1 focus:ring-[#a7d9d5]/30 text-slate-300 placeholder-white transition-all duration-300"
+                className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-6 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] focus:ring-1 focus:ring-[#a7d9d5]/30 text-slate-300 placeholder-white transition-all duration-300 disabled:opacity-50"
                 placeholder="Your Email Address"
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'loading'}
               />
             </div>
-            <button className="w-full bg-[#a7d9d5] text-[#173036] font-bold py-3 hover:bg-white transition-all shadow-lg shadow-black/20 hover:scale-102 active:scale-95 duration-200">
-              Subscribe
+            <button 
+              type="submit"
+              disabled={status === 'loading'}
+              className="w-full bg-[#a7d9d5] text-[#173036] font-bold py-3 hover:bg-white transition-all shadow-lg shadow-black/20 hover:scale-102 active:scale-95 duration-200 disabled:opacity-70"
+            >
+              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
             </button>
-          </div>
+            {message && (
+              <p className={`text-sm mt-2 ${status === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                {message}
+              </p>
+            )}
+          </form>
         </div>
       </div>
 
@@ -192,14 +251,29 @@ const Footer = () => {
           <div className="w-full">
             <h4 className="mb-2 text-sm font-bold text-[#a7d9d5]">Newsletter</h4>
             <p className="mb-3 text-sm leading-6 text-slate-400">Receive curated travel inspiration directly to your inbox.</p>
-            <input
-              className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-4 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] text-slate-300 placeholder-white"
-              placeholder="Your Email Address"
-              type="email"
-            />
-            <button className="mt-3 w-full bg-[#a7d9d5] py-3 text-sm font-bold text-[#173036]">
-              Subscribe
-            </button>
+            <form onSubmit={handleSubscribe}>
+              <input
+                className="w-full bg-slate-800/60 border border-[#a7d9d5]/30 px-4 py-3 text-sm focus:outline-none focus:border-[#a7d9d5] text-slate-300 placeholder-white disabled:opacity-50"
+                placeholder="Your Email Address"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'loading'}
+              />
+              <button 
+                type="submit"
+                disabled={status === 'loading'}
+                className="mt-3 w-full bg-[#a7d9d5] py-3 text-sm font-bold text-[#173036] disabled:opacity-70"
+              >
+                {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+              </button>
+              {message && (
+                <p className={`text-sm mt-2 text-left ${status === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                  {message}
+                </p>
+              )}
+            </form>
           </div>
 
           {/* Payment methods removed for mobile view as requested */}
