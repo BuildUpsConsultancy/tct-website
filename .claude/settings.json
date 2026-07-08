@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -w '\\\\nHTTP:%{http_code}' https://api.resend.com/emails -H 'Authorization: Bearer re_68S6bntA_2MajFvW89bozLkXkTTF8c4pf' -H 'Content-Type: application/json' -d '{\"from\":\"The Coconut Tree Trails <info@thecoconuttreetrails.com>\",\"to\":[\"info@thecoconuttreetrails.com\"],\"subject\":\"[TEST] Admin inquiry notification — please ignore\",\"html\":\"<h2>Test: New Inquiry from Test User</h2><p>This is a test of the inquiry admin notification path. Safe to ignore.</p>\"}')"
+    ]
+  }
+}
