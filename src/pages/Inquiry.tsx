@@ -440,7 +440,10 @@ const Inquiry = () => {
         })
       });
 
-      await Promise.all([adminResponse, userResponse]);
+      const responses = await Promise.all([adminResponse, userResponse]);
+      if (responses.some((response) => !response.ok)) {
+        throw new Error('One or more emails failed to send');
+      }
 
       setForm(initialState);
       navigate('/thank-you', { state: { email: emailForFeedback } });

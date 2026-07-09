@@ -27,16 +27,26 @@ if (!$input) {
     exit();
 }
 
-// REQUIRED: Put your Resend API key here when uploading to cPanel
-$resendApiKey = 're_3JBhdaNT_8B7dUxdXMvbmZQJtP1kEJ3EW'; 
+// The API key is loaded from (in order of priority):
+//   1. RESEND_API_KEY environment variable (set via cPanel or .htaccess SetEnv)
+//   2. config.php next to this file (gitignored — copy config.example.php on the server)
+$resendApiKey = getenv('RESEND_API_KEY') ?: '';
+if (empty($resendApiKey) && file_exists(__DIR__ . '/config.php')) {
+    $config = require __DIR__ . '/config.php';
+    $resendApiKey = $config['resend_api_key'] ?? '';
+}
+
+if (empty($resendApiKey)) {
+    http_response_code(500);
+    echo json_encode(["error" => "Server email configuration is missing"]);
+    exit();
+}
 
 $to = $input['to'] ?? '';
 $subject = $input['subject'] ?? 'New Inquiry';
 $html = $input['html'] ?? '';
 
-// IMPORTANT: Since your domain isn't verified yet, you MUST use this testing address.
-// Once you verify thecoconuttreetrails.com in Resend, change this back to 'info@thecoconuttreetrails.com'
-$from = 'onboarding@resend.dev'; 
+$from = 'info@thecoconuttreetrails.com';
 
 if (empty($to) || empty($html)) {
     http_response_code(400);
