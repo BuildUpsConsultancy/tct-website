@@ -30,7 +30,7 @@ export const InquiryConfirmationEmail = ({
   return (
     <Html>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Droid+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <style>{`
           @media only screen and (max-width: 600px) {
             .mobile-container {
@@ -88,6 +88,20 @@ export const InquiryConfirmationEmail = ({
               <strong style={{ color: '#173036' }}>The Coconut Tree Trails Team</strong> 🇱🇰
             </Text>
           </Section>
+          {/* Inspiration Photos (3 Cards) */}
+          <Section style={inspirationSection}>
+            <Row>
+              <Column style={{ width: '33.33%', paddingRight: '4px' }}>
+                <Img src={`${baseUrl}/images/home/yala-3.jpg`} width="100%" style={cardImage} alt="Wildlife 1" />
+              </Column>
+              <Column style={{ width: '33.33%', padding: '0 4px' }}>
+                <Img src={`${baseUrl}/images/home/bentota.jpg`} width="100%" style={cardImage} alt="Bentota Beach" />
+              </Column>
+              <Column style={{ width: '33.33%', paddingLeft: '4px' }}>
+                <Img src={`${baseUrl}/images/home/yala-4.jpg`} width="100%" style={cardImage} alt="Wildlife 2" />
+              </Column>
+            </Row>
+          </Section>
 
           <Hr style={divider} />
 
@@ -144,7 +158,7 @@ export const InquiryConfirmationEmail = ({
 // Styles
 const main = {
   backgroundColor: '#f4f7f6',
-  fontFamily: '"Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '"Droid Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   padding: '30px 0',
 };
 
@@ -173,8 +187,10 @@ const contentSection = {
 
 const greeting = {
   color: '#173036',
-  fontSize: '24px',
+  fontFamily: '"Bebas Neue", sans-serif',
+  fontSize: '28px',
   fontWeight: 'bold',
+  letterSpacing: '1px',
   margin: '0 0 24px',
 };
 
@@ -187,9 +203,10 @@ const paragraph = {
 
 const tagline = {
   color: '#0d5a53',
-  fontSize: '20px',
+  fontFamily: '"Bebas Neue", sans-serif',
+  fontSize: '24px',
   fontWeight: 'bold',
-  fontStyle: 'italic',
+  letterSpacing: '1px',
   textAlign: 'center' as const,
   margin: '32px 0',
 };
@@ -199,6 +216,16 @@ const signoff = {
   fontSize: '15px',
   lineHeight: '25px',
   margin: '32px 0 0',
+};
+
+const inspirationSection = {
+  padding: '0 32px 40px',
+};
+
+const cardImage = {
+  borderRadius: '8px',
+  objectFit: 'cover' as const,
+  height: '120px',
 };
 
 const divider = {
