@@ -44,16 +44,6 @@ export const InquiryConfirmationEmail = ({
             />
           </Section>
 
-          {/* Hero Image */}
-          <Section style={heroSection}>
-            <Img
-              src={`${baseUrl}/new-tct.png`}
-              width="100%"
-              alt="Sri Lanka Scenery"
-              style={heroImage}
-            />
-          </Section>
-
           {/* Main Content */}
           <Section style={contentSection}>
             <Text style={greeting}>Ayubowan {firstName}! 🇱🇰</Text>
@@ -84,6 +74,21 @@ export const InquiryConfirmationEmail = ({
               See you soon,<br />
               <strong>The Coconut Tree Trails Team</strong> 🇱🇰
             </Text>
+
+            {/* Inspiration Photos (3 Cards) */}
+            <Section style={inspirationSection}>
+              <Row>
+                <Column style={{ width: '33.33%', paddingRight: '4px' }}>
+                  <Img src={`${baseUrl}/images/home/yala-3.jpg`} width="100%" style={cardImage} alt="Wildlife 1" />
+                </Column>
+                <Column style={{ width: '33.33%', padding: '0 4px' }}>
+                  <Img src={`${baseUrl}/images/home/bentota.jpg`} width="100%" style={cardImage} alt="Bentota Beach" />
+                </Column>
+                <Column style={{ width: '33.33%', paddingLeft: '4px' }}>
+                  <Img src={`${baseUrl}/images/home/yala-4.jpg`} width="100%" style={cardImage} alt="Wildlife 2" />
+                </Column>
+              </Row>
+            </Section>
           </Section>
 
           <Hr style={divider} />
@@ -163,19 +168,22 @@ const logo = {
   margin: '0 auto',
 };
 
-const heroSection = {
-  width: '100%',
+const inspirationSection = {
+  margin: '40px 0 0',
 };
 
-const heroImage = {
+const cardImage = {
   width: '100%',
-  maxHeight: '300px',
+  height: '140px',
   objectFit: 'cover' as const,
+  borderRadius: '0px',
   display: 'block',
+  boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
 };
+
 
 const contentSection = {
-  padding: '40px 40px 20px',
+  padding: '40px',
 };
 
 const greeting = {
