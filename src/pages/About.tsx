@@ -14,9 +14,9 @@ const aboutValues = [
 
 // Image slider data
 const heroSliderImages = [
+  '/images/gallery-3/16.png',
   '/images/home/bentota.jpg',
-  '/images/gallery-2/gallery-2.5.jpg',
-  '/images/gallery-2/gallery-2.8.jpg',
+  '/images/gallery-3/24.png',
 ];
 
 const About = () => {
@@ -242,6 +242,90 @@ const About = () => {
         </div>
       </section>
 
+      {/* ── OUR STORY ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-20 md:py-24 bg-[#173036] text-white">
+        {/* Restaurant background overlay */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none" style={{ backgroundImage: 'url(/images/tct-restaurant.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#173036]/50 via-[#173036]/90 to-[#173036]/90" />
+
+        <div className="relative mx-auto max-w-9xl px-4 sm:px-8 lg:px-20 z-10">
+          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+
+            {/* Image Section */}
+            <motion.div
+              className="relative lg:mb-0 mb-6"
+              variants={slideRight}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-100px' }}
+            >
+              <motion.div
+                className="overflow-hidden border-4 border-[#a7d9d5]/60 bg-[#13212d] shadow-2xl shadow-black/45"
+                whileHover={{ y: -8, scale: 1.015 }}
+                transition={{ duration: 0.4 }}
+              >
+                <img
+                  src="/images/our-story.webp"
+                  alt="Our Story"
+                  className="w-full aspect-[4/3] object-cover transition-transform duration-1000 ease-out hover:scale-105"
+                />
+              </motion.div>
+
+              {/* 4 Small Images Grid */}
+              <div className="grid grid-cols-4 gap-3 mt-4">
+                {[
+                  '/images/gallery/gallery_01.jpg',
+                  '/images/gallery/gallery_02.jpg',
+                  '/images/gallery/gallery_04.jpg',
+                  '/images/gallery/gallery_05.jpg'
+                ].map((src, index) => (
+                  <motion.div
+                    key={index}
+                    className="overflow-hidden border-2 border-[#a7d9d5]/60 bg-[#13212d] shadow-md relative"
+                    whileHover={{ y: -4, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      src={src}
+                      alt={`Story Detail ${index + 1}`}
+                      className="w-full aspect-square object-cover transition-transform duration-700 ease-out hover:scale-110"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Text Section */}
+            <motion.div
+              className="max-w-3xl"
+              variants={staggerContainer(0.12, 0.08)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-100px' }}
+            >
+              <motion.p variants={fadeUp} className="section-label text-[#a7d9d5] mb-2">
+                Our Story
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-8">
+                The coconut tree
+              </motion.h2>
+              <div className="space-y-6 text-base md:text-lg leading-relaxed text-slate-200/90 font-light text-justify">
+                <motion.p variants={fadeUp}>
+                  Take a group of Sri Lankan friends and family brought together by a vision of bringing authentic Sri Lankan travel experiences to communities across the world. With hard work and dedication, the vision became a reality.
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  Our travellers, the communities we visit, and everyone who works for TCT are part of our extended family. Just like back home in Sri Lanka, everyone is welcome on the journey. Our trips are designed to be shared, bringing together authentic experiences, great food, warm hospitality, and the island vibe we're known for.
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  As the UK's largest Sri Lankan restaurant group, we've spent years bringing the flavours, culture, and hospitality of Sri Lanka to our guests. Now, we're inviting you to experience the real thing. Join us as we explore the hidden gems of our beautiful island, sharing the places, people and moments that make Sri Lanka so special.
+                </motion.p>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       {/* ── GALLERY SCROLL ───────────────────────────────────── */}
       <section className="relative overflow-hidden bg-white py-16 md:py-20">
@@ -254,7 +338,7 @@ const About = () => {
             viewport={{ once: true, margin: '-80px' }}
           >
             <p className="mb-2 section-label text-[#173036]">Gallery</p>
-            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from Coconut Tree</h2>
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Moments from The Coconut Tree</h2>
           </motion.div>
 
           {/* Row 1 — moves RIGHT (original direction) */}

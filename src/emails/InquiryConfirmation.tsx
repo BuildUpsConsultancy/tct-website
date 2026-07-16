@@ -59,6 +59,7 @@ export const InquiryConfirmationEmail = ({
 
           {/* Main Content */}
           <Section style={contentSection} className="mobile-padding">
+            <Text style={{ ...tagline, margin: '0 0 20px' }}>Every Trail Makes a Memory!</Text>
             <Text style={greeting}>Ayubowan {firstName}! 🇱🇰</Text>
 
             <Text style={paragraph}>
@@ -81,10 +82,10 @@ export const InquiryConfirmationEmail = ({
               Until then, start imagining the ocean breeze, the smell of fresh spices, spectacular sunsets, and the warm Sri Lankan smiles waiting to welcome you.
             </Text>
 
-            <Text style={tagline}>Every Trail Makes a Memory!</Text>
+            <Text style={paragraph}>Because every trail makes a memory. 🇱🇰</Text>
 
             <Text style={signoff}>
-              See you soon,<br />
+              Talk to you soon,<br />
               <strong style={{ color: '#173036' }}>The Coconut Tree Trails Team</strong> 🇱🇰
             </Text>
           </Section>
@@ -92,13 +93,13 @@ export const InquiryConfirmationEmail = ({
           <Section style={inspirationSection}>
             <Row>
               <Column style={{ width: '33.33%', paddingRight: '4px' }}>
-                <Img src={`${baseUrl}/images/home/yala-3.jpg`} width="100%" style={cardImage} alt="Wildlife 1" />
+                <Img src={`${baseUrl}/images/home/yala-2.jpg`} width="100%" style={cardImage} alt="Wildlife 1" />
               </Column>
               <Column style={{ width: '33.33%', padding: '0 4px' }}>
                 <Img src={`${baseUrl}/images/home/bentota.jpg`} width="100%" style={cardImage} alt="Bentota Beach" />
               </Column>
               <Column style={{ width: '33.33%', paddingLeft: '4px' }}>
-                <Img src={`${baseUrl}/images/home/yala-4.jpg`} width="100%" style={cardImage} alt="Wildlife 2" />
+                <Img src={`${baseUrl}/images/home/16.png`} width="100%" style={cardImage} alt="Wildlife 2" />
               </Column>
             </Row>
           </Section>
@@ -223,7 +224,6 @@ const inspirationSection = {
 };
 
 const cardImage = {
-  borderRadius: '8px',
   objectFit: 'cover' as const,
   height: '120px',
 };

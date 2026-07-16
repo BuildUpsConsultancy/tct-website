@@ -10,11 +10,11 @@ import { pageVariants, staggerContainer, cardItem, fadeUp } from '../lib/motion'
 // ─── Gallery images (two rows with different sets) ───────────────────────────
 const galleryRow1 = [
   '/images/destinations/adventure-climb.jpg',
-  '/images/destinations/adventure-rafting.webp',
+  '/images/gallery-3/26.png',
   '/images/destinations/adventure-zip.jpg',
   '/images/destinations/anuradhapura-culture.webp',
   '/images/destinations/beach-arugambay.jpg',
-  '/images/destinations/beach-unawatuna.jpg',
+  '/images/gallery-3/20.png',
   '/images/destinations/culture-craft.jpg',
   '/images/destinations/galle-culture.webp',
 ];
@@ -23,7 +23,7 @@ const galleryRow2 = [
   '/images/destinations/culture-perahera.webp',
   '/images/destinations/culture-temple.jpg',
   '/images/destinations/habarana-adventure.jpg',
-  '/images/destinations/hidden-ella.jpg',
+  '/images/gallery-3/13.png',
   '/images/destinations/hidden-village.jpg',
   '/images/destinations/hidden-waterfall.jpg',
   '/images/destinations/hikkaduwa-culture.jpg',
@@ -34,7 +34,7 @@ const galleryRow3 = [
   '/images/destinations/mannar-beach.jpg',
   '/images/destinations/mirissa-beach.webp',
   '/images/destinations/negombo-culture.webp',
-  '/images/destinations/polonnaruwa-culture.webp',
+  '/images/gallery-3/24.png',
   '/images/destinations/sigiriya-culture.png',
   '/images/destinations/udawalawa-wildlife.jpg',
   '/images/destinations/wilpattu-wildlife.png',

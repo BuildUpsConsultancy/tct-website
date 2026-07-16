@@ -136,10 +136,15 @@ const ThankYou = () => {
                 From sunrise safaris and misty tea hills to golden beaches, ancient temples, and secret hidden trails, we'll help you experience the real Sri Lanka.
               </p>
               <p>
-                A confirmation email is on its way to <span className="font-semibold text-[#173036]">{submittedEmail}</span>.One of our travel specialists will be in touch within 24–48 hours.
-                <br />
-                <p className="text-[#173036]">Every Trail Makes a Memory. 🇱🇰</p>
+                A confirmation email is on its way to <span className="font-semibold text-[#173036]">{submittedEmail}</span>. One of our travel specialists will be in touch within 24–48 hours.
               </p>
+
+              {/* Highlighted Tagline */}
+              <div className="mt-6 text-center">
+                <span className="text-[#173036] font-display font-extrabold text-[22px] bg-gradient-to-r from-[#173036]/10 via-[#a7d9d5]/25 to-[#a7d9d5]/30 px-5 py-2 inline-block shadow-sm">
+                  Every Trail Makes a Memory. 🇱🇰
+                </span>
+              </div>
             </motion.div>
 
             {/* Elegant Image Grid */}

@@ -51,19 +51,24 @@ const testimonials = [
 // ── GALLERY DATA ────────────────────────────────────────────────────────────
 // 5 images per column × 3 columns
 const galleryColumns = [
-  ['kandy', 'yala-2', 'colombo', 'gallery-2.11', 'gallery-2.5'],
-  ['colombo', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala-4', 'kandy', 'colombo'],
-  ['yala', 'kandy', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', 'gallery-2.11'],
+  ['kandy', 'yala-2', '24', '16', '21'],
+  ['24', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'yala-4', 'kandy', '21'],
+  ['yala-3', '15', 'The-best-things-to-do-in-Ella-Sri-Lanka', 'colombo', '25'],
 ];
 
-const imgSrc = (name: string) =>
-  `/images/home/${name}${name === 'colombo' ? '.avif' : '.jpg'}`;
+const imgSrc = (name: string) => {
+  if (name === 'colombo') return `/images/home/${name}.avif`;
+  if (['16', '21', '25', '15', '24'].includes(name) || !isNaN(Number(name))) {
+    return `/images/home/${name}.png`;
+  }
+  return `/images/home/${name}.jpg`;
+}
 
 const featureSliderImages = [
   '/images/home/yala-2.jpg',
-  '/images/gallery-2/gallery-2.2.jfif',
-  '/images/home/yala-3.jpg',
-  '/images/home/kandy.jpg',      // added one more for variety
+  '/images/gallery-3/20.png',
+  '/images/gallery-3/19.png',
+  '/images/gallery-3/21.png',      // added one more for variety
 ];
 
 // ── CINEMATIC GALLERY ────────────────────────────────────────────────────────
@@ -259,13 +264,13 @@ const CinematicGallery = () => {
             {/* Duplicate images for visual density across full travel */}
             {[...colImgs, ...colImgs].map((name, imgIdx) => (
               <div
-                key={`${colIdx}-${imgIdx}`}
+                key={`${colIdx} -${imgIdx} `}
                 className="relative flex-shrink-0 overflow-hidden"
                 style={{ height: '54vh' }}
               >
                 <img
                   src={imgSrc(name)}
-                  alt={`Sri Lanka — ${name}`}
+                  alt={`Sri Lanka — ${name} `}
                   className="absolute inset-0 h-full w-full object-cover"
                   draggable={false}
                 />
@@ -328,7 +333,7 @@ const MobileGallery = () => (
       >
         <img
           src={imgSrc(name)}
-          alt={`Sri Lanka — ${name}`}
+          alt={`Sri Lanka — ${name} `}
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -355,9 +360,9 @@ const InteractiveMap = () => {
             transform: "perspective(1200px) rotateX(15deg) rotateY(-12deg) rotateZ(3deg)",
             transformStyle: "preserve-3d",
             filter: `
-              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
-              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
-            `,
+drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
+drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
+  `,
           }}
         />
 
@@ -368,7 +373,7 @@ const InteractiveMap = () => {
             <div
               key={point.id}
               className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-3"
-              style={{ left: `${point.x}%`, top: `${point.y}%` }}
+              style={{ left: `${point.x}% `, top: `${point.y}% ` }}
               onMouseEnter={() => setActivePoint(point)}
               onMouseLeave={() => setActivePoint(null)}
             >
@@ -378,7 +383,7 @@ const InteractiveMap = () => {
                   animate={{ scale: [1, 1.8, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 />
-                <div className={`w-2.5 h-2.5 rounded-full border border-white transition-all duration-300 ${isSelected ? 'bg-white scale-125 shadow-md' : 'bg-teal-400'}`} />
+                <div className={`w - 2.5 h - 2.5 rounded - full border border - white transition - all duration - 300 ${isSelected ? 'bg-white scale-125 shadow-md' : 'bg-teal-400'} `} />
               </div>
             </div>
           );
@@ -389,14 +394,14 @@ const InteractiveMap = () => {
       <AnimatePresence>
         {activePoint && (
           <Link
-            to={`/destinations/${activePoint.path}`}
+            to={`/ destinations / ${activePoint.path} `}
             onMouseEnter={() => setActivePoint(activePoint)}
             onMouseLeave={() => setActivePoint(null)}
             className="absolute z-30 w-56 bg-white border border-slate-200 p-2.5 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto shadow-xl"
             component={motion.a}
             style={{
-              left: `calc(${activePoint.x}% + 20px)`,
-              top: `calc(${activePoint.y}% - 140px)`,
+              left: `calc(${activePoint.x} % + 20px)`,
+              top: `calc(${activePoint.y} % - 140px)`,
             }}
             {...({
               initial: { opacity: 0, y: 20, scale: 0.9 },
@@ -435,8 +440,8 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
 
   return (
     <motion.button
-      key={`${destination.slug}-${idx}`}
-      onClick={() => navigate(`/destinations/${destination.slug}`)}
+      key={`${destination.slug} -${idx} `}
+      onClick={() => navigate(`/ destinations / ${destination.slug} `)}
       className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -669,7 +674,7 @@ const Home = () => {
             </motion.div>
             <motion.div variants={fadeUp} className="absolute right-10 top-48 w-[260px] -rotate-2 overflow-hidden bg-[#121d28] shadow-2xl shadow-black/50" whileHover={{ rotate: 0, y: -8, scale: 1.04, transition: { duration: 0.3 } }}>
               <div className="overflow-hidden border-4 border-[#a7d9d5]/60">
-                <img src="/images/home/yala.jpg" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
+                <img src="/images/gallery-3/23.png" alt="Yala, Sri Lanka" className="h-[340px] w-full object-cover" />
               </div>
             </motion.div>
           </motion.div>
@@ -744,7 +749,7 @@ const Home = () => {
               >
                 {/* Render cards three times for infinite loop */}
                 {[...featuredDestinations, ...featuredDestinations, ...featuredDestinations].map((destination, idx) => (
-                  <DestinationCard key={`${destination.slug}-${idx}`} destination={destination} idx={idx} navigate={navigate} />
+                  <DestinationCard key={`${destination.slug} -${idx} `} destination={destination} idx={idx} navigate={navigate} />
                 ))}
               </motion.div>
             </div>
@@ -824,8 +829,8 @@ const Home = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentFeatureImage(index)}
-                    className={`h-2 rounded-full transition-all ${index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
-                      }`}
+                    className={`h - 2 rounded - full transition - all ${index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
+                      } `}
                   />
                 ))}
               </div>
@@ -911,7 +916,7 @@ const Home = () => {
             <div className="relative w-full p-12 sm:p-16 bg-transparent overflow-visible font-sans h-full min-h-[550px] lg:min-h-0">
               <div
                 className="relative w-full h-full shadow-2xl bg-cover bg-center hover:scale-101 transition-transform duration-500 ease-out"
-                style={{ backgroundImage: "url('/images/gallery/gallery_07.jpg')" }}
+                style={{ backgroundImage: "url('/images/gallery/gallery_02.jpg')" }}
               >
                 {/* Soft color tint overlay */}
                 <div className="absolute inset-0 bg-sky-400/10 rounded-xl pointer-events-none" />
@@ -919,7 +924,7 @@ const Home = () => {
                 {/* 1. Top Left Polaroid (Elephant Close-up) - Bigger & Pushed higher/left out of frame */}
                 <div className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-12 transition-transform hover:rotate-0 hover:z-50 duration-300">
                   <img
-                    src="/images/gallery/gallery_02.jpg"
+                    src="/images/gallery/gallery_07.jpg"
                     alt="Elephant"
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]"
                   />
@@ -1043,7 +1048,7 @@ const Home = () => {
                   const index = (currentTestimonial + offset) % testimonials.length;
                   const t = testimonials[index];
                   return (
-                    <motion.div key={`testimonial-${index}`} className="border border-white/10 bg-black/20 p-6 md:p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
+                    <motion.div key={`testimonial - ${index} `} className="border border-white/10 bg-black/20 p-6 md:p-8 shadow-lg shadow-black/20 backdrop-blur-sm" variants={cardItem}>
                       <motion.div whileHover={{ scale: 1.12, color: 'rgba(127, 181, 176, 0.5)' }}>
                         <Quote className="mb-4 md:mb-5 h-10 md:h-12 w-10 md:w-12 text-white/20" />
                       </motion.div>
@@ -1066,7 +1071,7 @@ const Home = () => {
               </motion.button>
               <div className="flex gap-2">
                 {Array.from({ length: Math.ceil(testimonials.length / 2) }).map((_, index) => (
-                  <motion.button key={index} onClick={() => setCurrentTestimonial(index * 2)} className={`h-2 rounded-full transition-all ${index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'}`} whileHover={{ scale: 1.2 }} />
+                  <motion.button key={index} onClick={() => setCurrentTestimonial(index * 2)} className={`h - 2 rounded - full transition - all ${index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'} `} whileHover={{ scale: 1.2 }} />
                 ))}
               </div>
               <motion.button onClick={() => setCurrentTestimonial((prev) => (prev + 2) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-2 md:p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

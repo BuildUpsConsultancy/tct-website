@@ -154,18 +154,18 @@ const categoryContent: Record<
 // Replace the src values with your actual image paths
 const categoryGallery: Record<string, { src: string; tag: string; caption: string }[]> = {
   'Wildlife': [
-    { src: '/images/home/yala.jpg', tag: 'Featured', caption: 'Leopard at Yala National Park' },
+    { src: '/images/gallery-3/23.png', tag: 'Featured', caption: 'Leopard at Yala National Park' },
     { src: '/images/destinations/wilpattu-wildlife.png', tag: 'Wildlife', caption: 'Elephant herd, Udawalawe' },
     { src: '/images/destinations/udawalawa-wildlife.jpg', tag: 'Birds', caption: 'Blue-tailed bee-eater' },
   ],
   'Adventure tours': [
-    { src: '/images/destinations/adventure-rafting.webp', tag: 'Featured', caption: 'White-water rafting, Kitulgala' },
+    { src: '/images/gallery-3/26.png', tag: 'Featured', caption: 'White-water rafting, Kitulgala' },
     { src: '/images/destinations/adventure-climb.jpg', tag: 'Hiking', caption: 'Summit trail, Knuckles Range' },
     { src: '/images/destinations/adventure-zip.jpg', tag: 'Zipline', caption: 'Rainforest canopy zipline' },
   ],
   'Beaches tours': [
     { src: '/images/destinations/mirissa-beach.webp', tag: 'Featured', caption: 'Mirissa beach' },
-    { src: '/images/destinations/beach-unawatuna.jpg', tag: 'Snorkel', caption: 'Coral reef, Unawatuna' },
+    { src: '/images/gallery-3/25.png', tag: 'Snorkel', caption: 'Coral reef, Unawatuna' },
     { src: '/images/destinations/beach-arugambay.jpg', tag: 'Surf', caption: 'Arugam Bay surf break' },
   ],
   'Historical Areas tours': [
@@ -181,7 +181,7 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
   'Hidden Trails tours': [
     { src: '/images/destinations/hidden-ella.jpg', tag: 'Featured', caption: 'Nine Arch Bridge, Ella' },
     { src: '/images/destinations/hidden-waterfall.jpg', tag: 'Discovery', caption: 'Bambarakanda Falls' },
-    { src: '/images/destinations/hidden-village.jpg', tag: 'Local', caption: 'Untouched highland village' },
+    { src: '/images/gallery-3/17.png', tag: 'Local', caption: 'Untouched highland village' },
   ],
 };
 
