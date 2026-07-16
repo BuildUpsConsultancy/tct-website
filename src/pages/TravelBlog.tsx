@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Lenis from 'lenis';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { pageVariants, staggerContainer, fadeUp } from '../lib/motion'; 
+import { pageVariants, staggerContainer, fadeUp } from '../lib/motion';
 
 const travelBlogs = [
   {
@@ -50,18 +50,18 @@ const travelBlogs = [
     title: 'ROMANTIC GETAWAYS, SRI LANKAN STYLE: LOVE & SUNSETS ',
     date: '09 February 2026',
     excerpt: "A romantic trip doesn't have to be cliché. Discover hidden boutique stays, private dining on the beach, and the magic of a Sri Lankan sunset.",
-    img: '/images/destinations/beach-unawatuna.jpg',
+    img: '/images/gallery-3/17.png',
     link: '#'
   }
 ];
 
 const TravelBlog = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Track scroll position inside this component for background parallax
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ['start start', 'end start'] 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start']
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
 
@@ -103,15 +103,15 @@ const TravelBlog = () => {
     >
       {/* Background Image with Parallax (Uncommented and tied into layout) */}
       <motion.div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: 'url(/images/updated.jpeg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'bottom center',
-            y: bgY,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: 'url(/images/updated.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'bottom center',
+          y: bgY,
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
 
       {/* Watermark background pattern */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] -z-10" style={{
@@ -120,10 +120,10 @@ const TravelBlog = () => {
       }} />
 
       {/* Main Layout Container */}
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-8 md:px-16 lg:px-20 relative z-10">
 
         {/* Title Block with Staggered Fade-Up */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           variants={staggerContainer(0.12, 0.05)}
           initial="hidden"
@@ -132,111 +132,70 @@ const TravelBlog = () => {
           <motion.p variants={fadeUp} className="section-label mb-2 text-[#173036]">
             Read our stories
           </motion.p>
-          <motion.h1 
-            variants={fadeUp} 
+          <motion.h1
+            variants={fadeUp}
             className="font-display text-5xl md:text-6xl font-black uppercase tracking-wide"
           >
             Travel Blog
           </motion.h1>
         </motion.div>
 
-        {/* Dynamic Split Layout */}
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
+        {/* Content - Grid */}
+        <div className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
+            {travelBlogs.map((blog, idx) => {
+              // Clamp the animation delay so lower rows don't feel sluggish if the list is long
+              const animationDelay = `${Math.min((idx + 1) * 100, 600)}ms`;
 
-          {/* Left Sidebar Profile */}
-          <motion.div 
-            className="lg:w-[360px] shrink-0 bg-[#173036] backdrop-blur-sm border border-slate-200 p-8 md:p-10 h-fit shadow-sm"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="overflow-hidden mb-8 shadow-sm group">
-              <img
-                src="/images/gallery/gallery_07.jpg"
-                alt="Our Story"
-                className="w-full aspect-[4/3] object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-              />
-            </div>
+              return (
+                <div
+                  key={blog.id}
+                  className="flex flex-col items-center text-center group animate-fade-up"
+                  style={{ animationDelay }}
+                >
+                  {/* Card Image Wrapper */}
+                  <Link to={blog.link} className="w-full aspect-square mb-6 overflow-hidden block relative">
+                    <img
+                      src={blog.img}
+                      alt={blog.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy" // Performance optimization
+                    />
+                    {/* Subtle overlay accent on image hover to match premium brand feel */}
+                    <div className="absolute inset-0 bg-[#173036]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
 
-            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-white tracking-wide">Our Story</h2>
+                  {/* Content Wrapper - flex-grow forces uniform card distribution */}
+                  <div className="flex flex-col flex-grow items-center w-full">
+                    <Link to={blog.link} className="block group-hover:text-teal-700 transition-colors">
+                      <h3 className="text-lg font-bold leading-snug mb-2 text-[#173036] px-2 transition-colors duration-300 group-hover:text-[#173036]">
+                        {blog.title}
+                      </h3>
+                    </Link>
 
-            <div className="text-base leading-relaxed text-white mb-10 space-y-4">
-              <p>
-                Take a group of Sri Lankan friends and family brought together by a vision of bringing authentic Sri Lankan travel experiences to communities across the world. With hard work and dedication, the vision became a reality.
-              </p>
-              <p>
-                Our travellers, communities and everyone who works for TCT are extended family and 'everyone is welcome to the journey' just like back home. Our trips are made for sharing and fit perfectly with our island vibe.
-              </p>
-            </div>
+                    <p className="text-body-xs uppercase text-[#a1a1a1a] mb-2 tracking-wide">
+                      {blog.date}
+                    </p>
 
-            <h2 className="font-display text-3xl font-bold uppercase mb-6 text-white tracking-wide leading-tight">UNFORGETTABLE JOURNEYS, ENDLESS MEMORIES.</h2>
+                    {/* line-clamp prevents broken layouts from overly long excerpts */}
+                    <p className="text-sm leading-relaxed text-slate-600 mb-6 px-4 line-clamp-3">
+                      {blog.excerpt}
+                    </p>
+                  </div>
 
-            <div className="text-base leading-relaxed text-white">
-              <p>
-                We're super chuffed with the level of support & love we've received from our travellers. Join us as we explore the hidden gems of our beautiful island.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Right Content - Grid */}
-          <div className="flex-1">
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
-    {travelBlogs.map((blog, idx) => {
-      // Clamp the animation delay so lower rows don't feel sluggish if the list is long
-      const animationDelay = `${Math.min((idx + 1) * 100, 600)}ms`;
-
-      return (
-        <div 
-          key={blog.id} 
-          className="flex flex-col items-center text-center group animate-fade-up" 
-          style={{ animationDelay }}
-        >
-          {/* Card Image Wrapper */}
-          <Link to={blog.link} className="w-full aspect-square mb-6 overflow-hidden block relative">
-            <img
-              src={blog.img}
-              alt={blog.title}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              loading="lazy" // Performance optimization
-            />
-            {/* Subtle overlay accent on image hover to match premium brand feel */}
-            <div className="absolute inset-0 bg-[#173036]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </Link>
-
-          {/* Content Wrapper - flex-grow forces uniform card distribution */}
-          <div className="flex flex-col flex-grow items-center w-full">
-            <Link to={blog.link} className="block group-hover:text-teal-700 transition-colors">
-              <h3 className="text-lg font-bold leading-snug mb-2 text-[#173036] px-2 transition-colors duration-300 group-hover:text-[#173036]">
-                {blog.title}
-              </h3>
-            </Link>
-
-            <p className="text-body-xs uppercase text-[#a1a1a1a] mb-2 tracking-wide">
-              {blog.date}
-            </p>
-
-            {/* line-clamp prevents broken layouts from overly long excerpts */}
-            <p className="text-sm leading-relaxed text-slate-600 mb-6 px-4 line-clamp-3">
-              {blog.excerpt}
-            </p>
+                  {/* Fixed Bottom Button Pinning */}
+                  <div className="mt-auto w-full px-4">
+                    <Link
+                      to={blog.link}
+                      className="inline-block w-full sm:w-auto text-sm font-semibold text-white bg-[#173036] py-4 px-8 border border-transparent transition-all duration-300 hover:bg-[#173036]/90 hover:text-white hover:border-[#173036]"
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
-          {/* Fixed Bottom Button Pinning */}
-          <div className="mt-auto w-full px-4">
-            <Link 
-              to={blog.link} 
-              className="inline-block w-full sm:w-auto text-sm font-semibold text-white bg-[#173036] py-4 px-8 border border-transparent transition-all duration-300 hover:bg-[#173036]/90 hover:text-white hover:border-[#173036]"
-            >
-              Read More
-            </Link>
-          </div>
-        </div>
-      );
-    })}
-  </div>
-</div>
-
         </div>
       </div>
     </motion.div>

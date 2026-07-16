@@ -11,7 +11,7 @@ export const featuredDestinations: DestinationCard[] = [
     slug: 'wildlife',
     title: 'Wildlife',
     subtitle: "Meet Sri Lanka's Wildlife",
-    image: '/images/home/yala.jpg',
+    image: '/images/gallery-3/23.png',
     alt: "Wildlife in Sri Lanka's national parks",
   },
   {
@@ -32,14 +32,14 @@ export const featuredDestinations: DestinationCard[] = [
     slug: 'beaches',
     title: 'Beaches',
     subtitle: 'Escape to Paradise',
-    image: '/images/destinations/mirissa-beach.webp',
+    image: '/images/gallery-3/12.png',
     alt: 'Pristine tropical beach in Sri Lanka',
   },
   {
     slug: 'historical-areas',
     title: 'Historical',
     subtitle: 'Step Into History',
-    image: '/images/destinations/sigiriya-culture.png',
+    image: '/images/gallery-3/18.png',
     alt: 'Sigiriya ancient rock fortress',
   },
   {
