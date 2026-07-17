@@ -360,9 +360,9 @@ const InteractiveMap = () => {
             transform: "perspective(1200px) rotateX(15deg) rotateY(-12deg) rotateZ(3deg)",
             transformStyle: "preserve-3d",
             filter: `
-drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
-drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
-  `,
+              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+              drop-shadow(-8px 12px 6px rgba(39, 192, 223, 0.3)) 
+            `,
           }}
         />
 
@@ -373,7 +373,7 @@ drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
             <div
               key={point.id}
               className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-3"
-              style={{ left: `${point.x}% `, top: `${point.y}% ` }}
+              style={{ left: `${point.x}%`, top: `${point.y}%` }}
               onMouseEnter={() => setActivePoint(point)}
               onMouseLeave={() => setActivePoint(null)}
             >
@@ -383,7 +383,7 @@ drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
                   animate={{ scale: [1, 1.8, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 />
-                <div className={`w - 2.5 h - 2.5 rounded - full border border - white transition - all duration - 300 ${isSelected ? 'bg-white scale-125 shadow-md' : 'bg-teal-400'} `} />
+                <div className={`w-2.5 h-2.5 rounded-full border border-white transition-all duration-300 ${isSelected ? 'bg-white scale-125 shadow-md' : 'bg-teal-400'}`} />
               </div>
             </div>
           );
@@ -394,14 +394,14 @@ drop - shadow(-8px 12px 6px rgba(39, 192, 223, 0.3))
       <AnimatePresence>
         {activePoint && (
           <Link
-            to={`/ destinations / ${activePoint.path} `}
+            to={`/destinations/${activePoint.path}`}
             onMouseEnter={() => setActivePoint(activePoint)}
             onMouseLeave={() => setActivePoint(null)}
             className="absolute z-30 w-56 bg-white border border-slate-200 p-2.5 cursor-pointer text-slate-900 block group/card hover:border-[#a7d9d5] transition-colors duration-300 pointer-events-auto shadow-xl"
             component={motion.a}
             style={{
-              left: `calc(${activePoint.x} % + 20px)`,
-              top: `calc(${activePoint.y} % - 140px)`,
+              left: `calc(${activePoint.x}% + 20px)`,
+              top: `calc(${activePoint.y}% - 140px)`,
             }}
             {...({
               initial: { opacity: 0, y: 20, scale: 0.9 },
