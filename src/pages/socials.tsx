@@ -42,33 +42,6 @@ const galleryRow3 = [
 
 const socialLinks = [
   {
-    name: 'YouTube',
-    handle: '@thecoconuttreetrails',
-    cta: 'Watch our stories',
-    href: 'www.youtube.com/@TheCoconutTreeTrails',
-    bg: '#a7d9d5',
-    iconColor: '#ff0000',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="#ff0000" />
-        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#ffff" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Facebook',
-    handle: '@thecoconuttreetrails',
-    cta: 'Follow our journey',
-    href: 'https://www.facebook.com/TCTTrails/',
-    bg: '#a7d9d5',
-    iconColor: '#0a1fa7',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="#0a1fa7" />
-      </svg>
-    ),
-  },
-  {
     name: 'Instagram',
     handle: '@thecoconuttreetrails',
     cta: 'See the highlights',
@@ -101,10 +74,23 @@ const socialLinks = [
     ),
   },
   {
+    name: 'Facebook',
+    handle: '@thecoconuttreetrails',
+    cta: 'Follow our journey',
+    href: 'https://www.facebook.com/TCTTrails/',
+    bg: '#a7d9d5',
+    iconColor: '#0a1fa7',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="#0a1fa7" />
+      </svg>
+    ),
+  },
+  {
     name: 'TikTok',
     handle: '@thecoconuttreetrails',
     cta: 'Watch short clips',
-    href: 'https://tiktok.com/@thecoconuttreetrails',
+    href: 'https://www.tiktok.com/@thecoconutttreetrails?is_from_webapp=1&sender_device=pc',
     bg: '#a7d9d5',
     iconColor: '#173036',
     icon: (
@@ -121,19 +107,16 @@ const socialLinks = [
     ),
   },
   {
-    name: 'Google Business',
-    handle: 'thecoconuttreetrails',
-    cta: 'Leave us a review',
-    href: 'https://g.page/thecoconuttreetrails',
+    name: 'YouTube',
+    handle: '@thecoconuttreetrails',
+    cta: 'Watch our stories',
+    href: 'www.youtube.com/@TheCoconutTreeTrails',
     bg: '#a7d9d5',
-    iconColor: '#173036',
+    iconColor: '#ff0000',
     icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-
-        <path d="M21.35 11.1H12v2.8h5.35C16.8 16.1 14.6 17.5 12 17.5A6.5 6.5 0 0 1 12 4.5c1.6 0 3.05.58 4.15 1.53L18.3 3.8A9.5 9.5 0 0 0 12 1.5a10.5 10.5 0 1 0 9.35 9.6z" fill="#4285F4" />
-
-        <path d="M21.35 11.1H12v2.8h5.35a6.52 6.52 0 0 1-2.68 3.59l2.4 1.76A9.5 9.5 0 0 0 21.5 12c0-.3-.02-.6-.05-.9h-.1z" fill="#34A853" />
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="#ff0000" />
+        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#ffff" />
       </svg>
     ),
   },
@@ -382,7 +365,7 @@ const SocialMedia = () => {
 
           {/* Social cards grid */}
           <motion.div
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5"
+            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
             variants={staggerContainer(0.1, 0.3)}
             initial="hidden"
             animate="show"

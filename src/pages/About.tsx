@@ -193,8 +193,8 @@ const About = () => {
             whileInView="show"
             viewport={{ once: true, margin: '-80px' }}
           >
-            <p className="mb-2 section-label text-[#173036]">Why Choose Us</p>
-            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">The Coconut Tree Trails Difference</h2>
+            <p className="mb-2 section-label text-[#173036]">What Makes Our Trails Different?</p>
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Because Ordinary Holidays Don’t Make Extraordinary Stories</h2>
           </motion.div>
 
           <motion.div

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import InquiryConfirmationEmail from '../emails/InquiryConfirmation';
 import Lenis from 'lenis';
-import { ChevronDown, MapPinned, Phone, Mail } from 'lucide-react';
+import { ChevronDown, MapPinned, MapPin, Phone, Mail } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { pageVariants, staggerContainer, fadeUp, cardItem } from '../lib/motion';
 import { countryCodesList } from '../data/countries';
@@ -50,7 +50,7 @@ const ReviewsSlider = () => {
                 <span className="text-[#00aa6c] ml-1 font-serif">❝</span>
               </span>
             </div>
-            
+
             {/* Platforms and Badges stick firmly to bottom */}
             <div>
               <div className="flex justify-center items-center gap-1 mb-2">
@@ -404,8 +404,8 @@ const Inquiry = () => {
 
     // Generate HTML for User Email using React Email component
     const userEmailHtml = renderToString(
-      <InquiryConfirmationEmail 
-        name={form.name} 
+      <InquiryConfirmationEmail
+        name={form.name}
       />
     );
 
@@ -494,14 +494,14 @@ const Inquiry = () => {
       <section className="relative bg-white overflow-hidden pt-16">
         {/* Background Pattern - True Size (Only this image) */}
         <div className="absolute inset-0 overflow-hidden">
-    <div
-      className="absolute inset-0 bg-no-repeat bg-bottom opacity-90"
-      style={{ 
-        backgroundImage: 'url(/images/bg-updated.png)',
-        backgroundPosition: 'bottom center',
-        width: '1600px',           // or '100% auto' if you want true width without cropping height
-      }}
-    />
+          <div
+            className="absolute inset-0 bg-no-repeat bg-bottom opacity-90"
+            style={{
+              backgroundImage: 'url(/images/bg-updated.png)',
+              backgroundPosition: 'bottom center',
+              width: '1600px',           // or '100% auto' if you want true width without cropping height
+            }}
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/50" />
         </div>
 
@@ -749,11 +749,11 @@ const Inquiry = () => {
                 <div className="mt-10 space-y-5">
                   <div className="flex items-center gap-4">
                     <Phone className="h-4 w-4 text-white/60 shrink-0" />
-                    <a href="tel:+441937228844" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">(+44) 1937 228 844 (UK)</a>
+                    <a href="tel:+020 4641 8923" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">(+020) 4641 8923</a>
                   </div>
                   <div className="flex items-center gap-4">
-                    <Phone className="h-4 w-4 text-white/60 shrink-0" />
-                    <a href="tel:+91345533865" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">(+91) 345 533 865 (Global)</a>
+                    <MapPin className="h-4 w-4 text-white/60 shrink-0" />
+                    <a href="https://www.google.com/maps/search/?api=1&query=59+St+Paul%27s+Road,+Cheltenham" target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:text-[#a7d9d5] transition-colors">59, St Paul’s Road, Cheltenham, UK</a>
                   </div>
                   <div className="flex items-center gap-4">
                     <Mail className="h-4 w-4 text-white/60 shrink-0" />
