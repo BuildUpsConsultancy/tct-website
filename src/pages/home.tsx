@@ -921,70 +921,100 @@ const Home = () => {
                 {/* Soft color tint overlay */}
                 <div className="absolute inset-0 bg-sky-400/10 rounded-xl pointer-events-none" />
 
-                {/* 1. Top Left Polaroid (Elephant Close-up) - Bigger & Pushed higher/left out of frame */}
-                <div className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-12 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                {/* 1. Top Left Polaroid (Elephant Close-up) */}
+                <motion.div
+                  className="absolute -top-16 -left-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 z-10"
+                  initial={false}
+                  animate={{ y: [0, -10, 0], rotate: [-12, -6, -12] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  whileHover={{ scale: 1.06, rotate: 0, zIndex: 50 }}
+                >
                   <img
                     src="/images/gallery/gallery_07.jpg"
                     alt="Elephant"
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3s_linear_infinite] md:animate-none">
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
                   </div>
-                </div>
+                </motion.div>
 
-                {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
-                <div className="absolute -top-16 -right-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-12 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                {/* Top Right Polaroid */}
+                <motion.div
+                  className="absolute -top-16 -right-10 w-44 sm:w-56 md:w-64 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 z-20"
+                  initial={false}
+                  animate={{ y: [0, -10, 0], rotate: [12, 16, 12] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                  whileHover={{ scale: 1.06, rotate: 0, zIndex: 50 }}
+                >
                   <img
                     src="/images/gallery/gallery_10.jpg"
                     alt="Top Right Experience"
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.5s_linear_infinite] md:animate-none">
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
                   </div>
-                </div>
+                </motion.div>
 
-                {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
-                <div className="absolute top-1/4 -left-6 sm:-left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-8 sm:p-3 sm:pb-10 shadow-2xl border border-gray-100 transform -rotate-3 z-10 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                {/* 2. Middle Polaroid (City Skyline) */}
+                <motion.div
+                  className="absolute top-1/4 -left-6 sm:-left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-8 sm:p-3 sm:pb-10 shadow-2xl border border-gray-100 z-10"
+                  initial={false}
+                  animate={{ y: [0, -8, 0], rotate: [-3, 1, -3], scale: [1, 1.02, 1] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
+                  whileHover={{ scale: 1.06, rotate: 0, zIndex: 50 }}
+                >
                   <img
                     src="/images/gallery/gallery_03.jpg"
                     alt="City Skyline"
                     className="w-full h-32 sm:h-40 md:h-48 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_4s_linear_infinite] md:animate-none">
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
                   </div>
-                </div>
+                </motion.div>
 
-                {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
-                <div className="absolute -bottom-16 -left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform -rotate-6 z-20 transition-transform hover:rotate-0 hover:z-50 duration-300">
+                {/* 3. Bottom Left Polaroid (Safari Jeep) */}
+                <motion.div
+                  className="absolute -bottom-16 -left-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 z-20"
+                  initial={false}
+                  animate={{ y: [0, -9, 0], rotate: [-6, -2, -6] }}
+                  transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+                  whileHover={{ scale: 1.06, rotate: 0, zIndex: 50 }}
+                >
                   <img
                     src="/images/gallery/gallery_01.jpg"
                     alt="Safari Jeep"
                     className="w-full h-32 sm:h-40 md:h-52 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.2s_linear_infinite] md:animate-none">
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
                   </div>
-                </div>
+                </motion.div>
 
-                {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
-                <div className="absolute -bottom-16 -right-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 transform rotate-6 z-20 transition-transform duration-300 ease-out hover:rotate-0 hover:z-50">
+                {/* Bottom Right Polaroid */}
+                <motion.div
+                  className="absolute -bottom-16 -right-10 w-48 sm:w-60 md:w-68 bg-white p-2.5 pb-6 sm:p-3 sm:pb-8 shadow-2xl border border-gray-200 z-20"
+                  initial={false}
+                  animate={{ y: [0, -9, 0], rotate: [6, 10, 6] }}
+                  transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+                  whileHover={{ scale: 1.06, rotate: 0, zIndex: 50 }}
+                >
                   <img
                     src="/images/gallery/gallery_08.jpg"
                     alt="Bottom Right Experience"
                     className="w-full h-32 sm:h-40 md:h-52 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.8s_linear_infinite] md:animate-none">
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
 
