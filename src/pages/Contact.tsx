@@ -1,15 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import type { FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Globe2, Mail, MapPin, Phone } from 'lucide-react';
 import Lenis from 'lenis';
 import { pageVariants, staggerContainer, cardItem, fadeUp, slideLeft, slideRight } from '../lib/motion';
 
 const contactItems = [
-  { icon: Mail, label: 'Email Us', value: 'info@thecoconuttreetrails.com' },
-  { icon: Phone, label: 'Call / WhatsApp', value: '+020 4641 8923' },
-  { icon: MapPin, label: 'Based In', value: '59, St Paul’s Road, Cheltenham' },
-  { icon: Globe2, label: 'Social', value: '@thecoconuttreetrails' },
+  { icon: Mail, label: 'Email Us', value: 'info@thecoconuttreetrails.com', href: 'mailto:info@thecoconuttreetrails.com', isInternal: false },
+  { icon: Phone, label: 'Call', value: '+020 4641 8923', href: 'tel:+02046418923', isInternal: false },
+  { icon: MapPin, label: 'Based In', value: '59, St Paul’s Road, Cheltenham', href: 'https://www.google.com/maps/search/?api=1&query=59+St+Paul%27s+Road,+Cheltenham', isInternal: false },
+  { icon: Globe2, label: 'Social', value: '@thecoconuttreetrails', href: '/socials', isInternal: true },
 ];
 
 const Contact = () => {
@@ -106,37 +107,76 @@ const Contact = () => {
               initial="hidden"
               animate="show"
             >
-              {contactItems.map(({ icon: Icon, label, value }) => (
+              {contactItems.map(({ icon: Icon, label, value, href, isInternal }) => (
                 <motion.div
                   key={label}
-                  className="border border-slate-200 bg-[#173036] px-3 py-3 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#1f4048] hover:shadow-lg sm:px-5 sm:py-4"
                   variants={slideLeft}
-                  whileHover={{ x: 4, transition: { duration: 0.25 } }}
+                  whileHover={{ x: 2, transition: { duration: 0.25 } }}
                 >
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-md bg-[#a7d9d5] text-[#173036] sm:h-9 sm:w-9">
-                      <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold leading-tight text-slate-900 sm:text-sm text-white">{label}</p>
-                      <p className="mt-0.5 text-[10px] leading-tight text-slate-600 sm:text-sm text-white/85 break-all sm:break-normal">{value}</p>
-                    </div>
-                  </div>
+                  {isInternal ? (
+                    <Link
+                      to={href}
+                      className="block border border-slate-200 bg-[#173036] px-2.5 py-2.5 sm:px-5 sm:py-4 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#1f4048] hover:shadow-lg cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-2 sm:gap-4 overflow-hidden">
+                        <div className="flex h-6 w-6 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-md bg-[#a7d9d5] text-[#173036] group-hover:scale-105 transition-transform">
+                          <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                        </div>
+                        <div className="min-w-0 flex-1 overflow-hidden">
+                          <p className="text-[9px] sm:text-sm font-bold leading-tight text-white group-hover:text-[#a7d9d5] transition-colors">{label}</p>
+                          <p className="mt-0.5 text-[7.5px] min-[320px]:text-[8.5px] min-[380px]:text-[10px] sm:text-sm leading-tight text-white/85 whitespace-nowrap tracking-tight min-[380px]:tracking-normal group-hover:text-white transition-colors">{value}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  ) : (
+                    <a
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : '_self'}
+                      rel="noopener noreferrer"
+                      className="block border border-slate-200 bg-[#173036] px-2.5 py-2.5 sm:px-5 sm:py-4 shadow-md transition-all duration-300 hover:border-[#a7d9d5] hover:bg-[#1f4048] hover:shadow-lg cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-2 sm:gap-4 overflow-hidden">
+                        <div className="flex h-6 w-6 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-md bg-[#a7d9d5] text-[#173036] group-hover:scale-105 transition-transform">
+                          <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                        </div>
+                        <div className="min-w-0 flex-1 overflow-hidden">
+                          <p className="text-[9px] sm:text-sm font-bold leading-tight text-white group-hover:text-[#a7d9d5] transition-colors">{label}</p>
+                          <p className="mt-0.5 text-[7.5px] min-[320px]:text-[8.5px] min-[380px]:text-[10px] sm:text-sm leading-tight text-white/85 whitespace-nowrap tracking-tight min-[380px]:tracking-normal group-hover:text-white transition-colors">{value}</p>
+                        </div>
+                      </div>
+                    </a>
+                  )}
                 </motion.div>
               ))}
 
               <div className="flex gap-2 pl-1 pt-2 sm:gap-3 sm:pt-4">
-                {[Globe2, Mail, Phone].map((Icon, i) => (
-                  <motion.button
+                {[
+                  { icon: Globe2, href: '/socials', isInternal: true },
+                  { icon: Mail, href: 'mailto:info@thecoconuttreetrails.com', isInternal: false },
+                  { icon: Phone, href: 'tel:+02046418923', isInternal: false }
+                ].map(({ icon: Icon, href, isInternal }, i) => (
+                  <motion.div
                     key={i}
-                    type="button"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a7d9d5]/55 text-[#173036] sm:h-9 sm:w-9"
-                    whileHover={{ scale: 1.15, backgroundColor: '#a7d9d5', y: -2 }}
+                    whileHover={{ scale: 1.15, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 18 }}
                   >
-                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  </motion.button>
+                    {isInternal ? (
+                      <Link
+                        to={href}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a7d9d5]/55 text-[#173036] sm:h-9 sm:w-9 hover:bg-[#a7d9d5] transition-colors"
+                      >
+                        <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a7d9d5]/55 text-[#173036] sm:h-9 sm:w-9 hover:bg-[#a7d9d5] transition-colors"
+                      >
+                        <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                      </a>
+                    )}
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

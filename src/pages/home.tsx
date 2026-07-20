@@ -43,9 +43,9 @@ const mapPoints = [
 // ];
 
 const testimonials = [
-  { name: 'James & Sarah — UK', quote: 'The team at The Coconut Tree Trails made our honeymoon in Sri Lanka truly unforgettable. Every detail was taken care of — from the scenic train ride through Ella to our private sunset dinner in Galle.' },
-  { name: 'Priya Nair — India', quote: 'I booked the Ramayana Tour and was deeply moved by the depth of knowledge our guide brought to every sacred site. This was not just a tour — it was a pilgrimage. Absolutely authentic and beautifully organised.' },
-  { name: 'David Hartmann — Germany', quote: 'Superb local knowledge, seamless logistics, and genuinely warm hospitality at every step. Sri Lanka is spectacular — and The Coconut Tree Trails is the only way to truly experience it.' },
+  { name: 'James & Sarah', quote: 'The team at The Coconut Tree Trails made our honeymoon in Sri Lanka truly unforgettable. Every detail was taken care of — from the scenic train ride through Ella to our private sunset dinner in Galle.' },
+  { name: 'Priya Nair', quote: 'I booked the Ramayana Tour and was deeply moved by the depth of knowledge our guide brought to every sacred site. This was not just a tour — it was a pilgrimage. Absolutely authentic and beautifully organised.' },
+  { name: 'David Hartmann', quote: 'Superb local knowledge, seamless logistics, and genuinely warm hospitality at every step. Sri Lanka is spectacular — and The Coconut Tree Trails is the only way to truly experience it.' },
 ];
 
 // ── GALLERY DATA ────────────────────────────────────────────────────────────
@@ -324,7 +324,7 @@ const MobileGallery = () => (
     whileInView="show"
     viewport={{ once: true, margin: '-60px' }}
   >
-    {galleryColumns[0].map((name, i) => (
+    {galleryColumns[0].slice(0, 3).map((name, i) => (
       <motion.div
         key={i}
         className="group relative overflow-hidden h-64"
@@ -440,8 +440,8 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
 
   return (
     <motion.button
-      key={`${destination.slug} -${idx} `}
-      onClick={() => navigate(`/ destinations / ${destination.slug} `)}
+      key={`${destination.slug}-${idx}`}
+      onClick={() => navigate(`/destinations/${destination.slug}`)}
       className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -749,7 +749,7 @@ const Home = () => {
               >
                 {/* Render cards three times for infinite loop */}
                 {[...featuredDestinations, ...featuredDestinations, ...featuredDestinations].map((destination, idx) => (
-                  <DestinationCard key={`${destination.slug} -${idx} `} destination={destination} idx={idx} navigate={navigate} />
+                  <DestinationCard key={`${destination.slug}-${idx}`} destination={destination} idx={idx} navigate={navigate} />
                 ))}
               </motion.div>
             </div>
@@ -786,7 +786,7 @@ const Home = () => {
           </motion.div>
 
           {/* RIGHT SIDE — IMAGE SLIDER (replaces CardSwap) */}
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-end justify-center lg:justify-end overflow-hidden pb-16 sm:pb-24 md:pb-28 lg:pb-32">
+          <div className="relative w-full h-auto sm:h-[400px] md:h-[500px] lg:h-[600px] flex items-center sm:items-end justify-center lg:justify-end pb-4 sm:pb-24 md:pb-28 lg:pb-32">
             <motion.div
               className="relative w-full max-w-[400px] sm:max-w-[440px] md:max-w-[480px] lg:max-w-[520px] aspect-[4/3] mx-auto lg:mr-0 lg:ml-auto border-4 border-white bg-slate-900 overflow-hidden"
               whileHover={{ scale: 1.015 }}
@@ -829,8 +829,8 @@ const Home = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentFeatureImage(index)}
-                    className={`h - 2 rounded - full transition - all ${index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
-                      } `}
+                    className={`h-2 rounded-full transition-all ${index === currentFeatureImage ? 'w-10 bg-white' : 'w-2 bg-white/50'
+                      }`}
                   />
                 ))}
               </div>
@@ -929,7 +929,9 @@ const Home = () => {
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10" />
+                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
@@ -940,7 +942,9 @@ const Home = () => {
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.5s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
@@ -951,7 +955,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-48 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_4s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
@@ -962,7 +968,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-52 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.2s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
@@ -973,7 +981,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-52 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.8s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1071,7 +1081,7 @@ const Home = () => {
               </motion.button>
               <div className="flex gap-2">
                 {Array.from({ length: Math.ceil(testimonials.length / 2) }).map((_, index) => (
-                  <motion.button key={index} onClick={() => setCurrentTestimonial(index * 2)} className={`h - 2 rounded - full transition - all ${index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'} `} whileHover={{ scale: 1.2 }} />
+                  <motion.button key={index} onClick={() => setCurrentTestimonial(index * 2)} className={`h-2 rounded-full transition-all ${index * 2 === currentTestimonial ? 'w-8 bg-[#a7d9d5]' : 'w-2 bg-white/20'}`} whileHover={{ scale: 1.2 }} />
                 ))}
               </div>
               <motion.button onClick={() => setCurrentTestimonial((prev) => (prev + 2) % testimonials.length)} className="group rounded-full border border-white/20 bg-white/5 p-2 md:p-3 text-white hover:bg-white/10 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

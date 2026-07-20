@@ -1,11 +1,17 @@
-import { Linkedin, FacebookIcon, Instagram, Youtube } from 'lucide-react';
+import { FacebookIcon, Instagram, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
+  </svg>
+);
 
 const socialPlatforms = [
   { icon: Instagram, href: 'https://www.instagram.com/thecoconuttreetrails/', label: 'Instagram' },
   { icon: FacebookIcon, href: 'https://www.facebook.com/TCTTrails/', label: 'Facebook' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/', label: 'LinkedIn' },
+  { icon: TikTokIcon, href: 'https://www.tiktok.com/@thecoconutttreetrails?is_from_webapp=1&sender_device=pc', label: 'TikTok' },
   { icon: Youtube, href: 'https://www.youtube.com/@TheCoconutTreeTrails', label: 'YouTube' }
 ];
 
@@ -164,7 +170,7 @@ const Footer = () => {
                 disabled={status === 'loading'}
               />
             </div>
-            <button 
+            <button
               type="submit"
               disabled={status === 'loading'}
               className="w-full bg-[#a7d9d5] text-[#173036] font-bold py-3 hover:bg-white transition-all shadow-lg shadow-black/20 hover:scale-102 active:scale-95 duration-200 disabled:opacity-70"
@@ -236,7 +242,8 @@ const Footer = () => {
               <ul className="space-y-3 text-sm text-slate-400 text-center">
                 <li>
                   <strong className="text-[#a7d9d5] block">Address</strong>
-                  The Coconut Tree Trails<br />Birmingham, UK
+                  The Coconut Tree Trails<br />59, St Paul's Road
+                  Cheltenham, UK
                 </li>
                 <li>
                   <strong className="text-[#a7d9d5] block">Email</strong>
@@ -261,7 +268,7 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === 'loading'}
               />
-              <button 
+              <button
                 type="submit"
                 disabled={status === 'loading'}
                 className="mt-3 w-full bg-[#a7d9d5] py-3 text-sm font-bold text-[#173036] disabled:opacity-70"

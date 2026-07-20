@@ -126,13 +126,13 @@ const About = () => {
 
             {/* Right — image slider */}
             <motion.div
-              className="relative h-[430px] md:h-[480px] lg:h-[520px]"
+              className="relative h-[280px] sm:h-[360px] md:h-[480px] lg:h-[520px] w-full"
               variants={slideRight}
               initial="hidden"
               animate="show"
             >
               <motion.div
-                className="absolute right-0 top-2 h-[420px] w-[86%] border-2 border-slate-200 bg-slate-100 shadow-2xl shadow-black/30 overflow-hidden relative"
+                className="relative md:absolute right-0 md:right-24 top-0 md:top-2 h-full md:h-[420px] w-full md:w-[86%] border-2 border-slate-200 bg-slate-100 shadow-2xl shadow-black/30 overflow-hidden"
                 whileHover={{ y: -8, scale: 1.015 }}
                 transition={{ duration: 0.4 }}
               >
@@ -153,24 +153,24 @@ const About = () => {
                 {/* Slider Controls */}
                 <button
                   onClick={goToPreviousImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center bg-white/20 backdrop-blur-md transition hover:bg-white/40"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center bg-white/20 backdrop-blur-md transition hover:bg-white/40"
                 >
-                  <ChevronLeft className="h-5 w-5 text-white" />
+                  <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </button>
                 <button
                   onClick={goToNextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center bg-white/20 backdrop-blur-md transition hover:bg-white/40"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center bg-white/20 backdrop-blur-md transition hover:bg-white/40"
                 >
-                  <ChevronRight className="h-5 w-5 text-white" />
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </button>
 
                 {/* Slider Indicators */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+                <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5 sm:gap-2">
                   {heroSliderImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`h-2 transition-all ${index === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
+                      className={`h-1.5 sm:h-2 transition-all ${index === currentImageIndex ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/50'
                         }`}
                     />
                   ))}
@@ -193,8 +193,8 @@ const About = () => {
             whileInView="show"
             viewport={{ once: true, margin: '-80px' }}
           >
-            <p className="mb-2 section-label text-[#173036]">Why Choose Us</p>
-            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">The Coconut Tree Trails Difference</h2>
+            <p className="mb-2 section-label text-[#173036]">What Makes Our Trails Different?</p>
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">Because Ordinary Holidays Don’t Make Extraordinary Stories</h2>
           </motion.div>
 
           <motion.div
