@@ -321,6 +321,74 @@ html {
   animation: floatSlow 7s ease-in-out infinite;
 }
 
+/* ── Mobile Floating Polaroid Animations ──────────────────── */
+@media (max-width: 767px) {
+  @keyframes polaroidFloat1 {
+    0%, 100% {
+      transform: translateY(0px) rotate(-12deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(-9deg);
+    }
+  }
+
+  @keyframes polaroidFloat2 {
+    0%, 100% {
+      transform: translateY(0px) rotate(12deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(15deg);
+    }
+  }
+
+  @keyframes polaroidFloat3 {
+    0%, 100% {
+      transform: translateY(0px) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+  }
+
+  @keyframes polaroidFloat4 {
+    0%, 100% {
+      transform: translateY(0px) rotate(-6deg);
+    }
+    50% {
+      transform: translateY(-11px) rotate(-4deg);
+    }
+  }
+
+  @keyframes polaroidFloat5 {
+    0%, 100% {
+      transform: translateY(0px) rotate(6deg);
+    }
+    50% {
+      transform: translateY(-9px) rotate(8deg);
+    }
+  }
+
+  .mobile-float-1 {
+    animation: polaroidFloat1 4s ease-in-out infinite;
+  }
+
+  .mobile-float-2 {
+    animation: polaroidFloat2 4.6s ease-in-out infinite 0.4s;
+  }
+
+  .mobile-float-3 {
+    animation: polaroidFloat3 4.2s ease-in-out infinite 0.8s;
+  }
+
+  .mobile-float-4 {
+    animation: polaroidFloat4 4.8s ease-in-out infinite 0.2s;
+  }
+
+  .mobile-float-5 {
+    animation: polaroidFloat5 4.4s ease-in-out infinite 0.6s;
+  }
+}
+
 .animate-fade-up {
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
