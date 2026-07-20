@@ -18,8 +18,8 @@ export const featuredDestinations: DestinationCard[] = [
     slug: 'adventure',
     title: 'Adventure',
     subtitle: 'Adventure Starts Here',
-    image: '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
-    alt: 'Adventure activities in Ella, Sri Lanka',
+    image: '/images/home/surfing.jpg',
+    alt: 'Adventure activities in Arugambay, Sri Lanka',
   },
   {
     slug: 'culture-heritage',
@@ -46,7 +46,7 @@ export const featuredDestinations: DestinationCard[] = [
     slug: 'hidden-trails',
     title: 'Hidden Trails',
     subtitle: 'Discover Hidden Gems',
-    image: '/images/home/colombo.avif',
+    image: '/images/home/The-best-things-to-do-in-Ella-Sri-Lanka.jpg',
     alt: 'Scenic train ride through Sri Lankan hills',
   },
 ];

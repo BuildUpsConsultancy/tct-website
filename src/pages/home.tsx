@@ -929,7 +929,9 @@ const Home = () => {
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center grayscale-[20%]"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10" />
+                  <div className="absolute -top-2.5 right-25 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* Top Right Polaroid - Bigger & Pushed higher/right out of frame */}
@@ -940,7 +942,9 @@ const Home = () => {
                     className="w-full h-28 sm:h-40 md:h-44 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.5s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* 2. Middle Polaroid (City Skyline) - Slightly shifted left to clear space */}
@@ -951,7 +955,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-48 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 sm:w-7 sm:h-7 bg-slate-50 rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_4s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* 3. Bottom Left Polaroid (Safari Jeep) - Bigger & Pushed lower/left out of frame */}
@@ -962,7 +968,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-52 object-cover"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 left-16 sm:left-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.2s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
 
                 {/* Bottom Right Polaroid - Bigger & Pushed lower/right out of frame */}
@@ -973,7 +981,9 @@ const Home = () => {
                     className="w-full h-32 sm:h-40 md:h-52 object-cover object-center"
                   />
                   {/* White Magnet Pin */}
-                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200" />
+                  <div className="absolute -top-2.5 right-16 sm:right-24 w-5 h-5 sm:w-7 sm:h-7 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center z-10 animate-[spin_3.8s_linear_infinite] md:animate-none">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-slate-400 rounded-full border border-slate-300" />
+                  </div>
                 </div>
               </div>
             </div>
