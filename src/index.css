@@ -324,45 +324,60 @@ html {
 /* ── Mobile Floating Polaroid Animations ──────────────────── */
 @media (max-width: 767px) {
   @keyframes polaroidFloat1 {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(-12deg);
     }
+
     50% {
       transform: translateY(-10px) rotate(-9deg);
     }
   }
 
   @keyframes polaroidFloat2 {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(12deg);
     }
+
     50% {
       transform: translateY(-12px) rotate(15deg);
     }
   }
 
   @keyframes polaroidFloat3 {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(-3deg);
     }
+
     50% {
       transform: translateY(-8px) rotate(-1deg);
     }
   }
 
   @keyframes polaroidFloat4 {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(-6deg);
     }
+
     50% {
       transform: translateY(-11px) rotate(-4deg);
     }
   }
 
   @keyframes polaroidFloat5 {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(6deg);
     }
+
     50% {
       transform: translateY(-9px) rotate(8deg);
     }
@@ -615,5 +630,20 @@ html {
 
   .inquiry-float:hover {
     transform: scale(1.04);
+  }
+}
+
+/* Prevent iOS Safari auto-zooming on focus by enforcing a minimum 16px font-size for inputs on mobile devices */
+@media (max-width: 767px) {
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }

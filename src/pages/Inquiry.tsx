@@ -364,8 +364,7 @@ const Inquiry = () => {
       infinite: false,
       wheelMultiplier: 1,
       lerp: 0.1,
-      syncTouch: true,
-      syncTouchLerp: 0.075
+      syncTouch: false,
     });
 
     let animationFrameId: number;
