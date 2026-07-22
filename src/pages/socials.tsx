@@ -110,7 +110,7 @@ const socialLinks = [
     name: 'YouTube',
     handle: '@thecoconuttreetrails',
     cta: 'Watch our stories',
-    href: 'www.youtube.com/@TheCoconutTreeTrails',
+    href: 'https://www.youtube.com/@TheCoconutTreeTrails',
     bg: '#a7d9d5',
     iconColor: '#ff0000',
     icon: (
