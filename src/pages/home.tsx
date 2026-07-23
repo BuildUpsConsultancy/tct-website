@@ -442,7 +442,7 @@ const DestinationCard = ({ destination, idx, navigate }: { destination: any; idx
     <motion.button
       key={`${destination.slug}-${idx}`}
       onClick={() => navigate(`/destinations/${destination.slug}`)}
-      className="group relative w-[80%] sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
+      className="group relative w-full sm:w-[45%] lg:w-[33.333%] flex-shrink-0 overflow-hidden h-[400px] sm:h-[400px] md:h-[500px] lg:h-[600px] shadow-lg shadow-black/20 border border-gray-200"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       transition={{ duration: 0.3 }}
@@ -743,7 +743,7 @@ const Home = () => {
                 ref={destinationSliderRef}
                 className="flex"
                 style={{ gap: windowWidth < 640 ? '4%' : windowWidth < 1024 ? '3%' : '2.667%' }}
-                animate={{ x: -(destinationSlide * (windowWidth < 640 ? 84 : windowWidth < 1024 ? 48 : 36)) + '%' }}
+                animate={{ x: -(destinationSlide * (windowWidth < 640 ? 104 : windowWidth < 1024 ? 48 : 36)) + '%' }}
                 transition={isTransitioning ? { duration: 0.4, ease: 'easeInOut' } : { duration: 0 }}
                 onAnimationComplete={handleAnimationComplete}
               >
