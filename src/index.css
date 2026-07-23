@@ -633,15 +633,12 @@ html {
   }
 }
 
-/* Prevent iOS Safari auto-zooming on focus by enforcing a minimum 16px font-size for inputs on mobile devices */
-@media (max-width: 767px) {
+/* Prevent iOS Safari auto-zooming on focus by enforcing a minimum 16px font-size
+   on all form controls for touch devices (covers portrait and landscape) */
+@media (max-width: 767px),
+(hover: none) and (pointer: coarse) {
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="password"],
-  input[type="number"],
-  input[type="date"],
+  input,
   select,
   textarea {
     font-size: 16px !important;
