@@ -59,7 +59,7 @@ export const InquiryConfirmationEmail = ({
 
           {/* Main Content */}
           <Section style={contentSection} className="mobile-padding">
-            <Text style={{ ...tagline, margin: '0 0 20px' }}>Every Trail Makes a Memory!</Text>
+            <Text style={{ ...tagline, margin: '0 0 20px' }}>Every Trail Makes a Memory !</Text>
             <Text style={greeting}>Ayubowan {firstName}! 🇱🇰</Text>
 
             <Text style={paragraph}>
@@ -183,13 +183,13 @@ const logo = {
 };
 
 const contentSection = {
-  padding: '40px 32px 30px',
+  padding: '10px 32px 30px',
 };
 
 const greeting = {
   color: '#173036',
   fontFamily: '"Bebas Neue", sans-serif',
-  fontSize: '28px',
+  fontSize: '20px',
   fontWeight: 'bold',
   letterSpacing: '1px',
   margin: '0 0 24px',
@@ -205,7 +205,7 @@ const paragraph = {
 const tagline = {
   color: '#0d5a53',
   fontFamily: '"Bebas Neue", sans-serif',
-  fontSize: '24px',
+  fontSize: '32px',
   fontWeight: 'bold',
   letterSpacing: '1px',
   textAlign: 'center' as const,

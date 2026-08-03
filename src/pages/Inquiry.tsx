@@ -410,7 +410,7 @@ const Inquiry = () => {
 
     // Generate HTML for Admin Email
     const adminEmailHtml = `
-      <h2>New Inquiry from ${form.name}</h2>
+      <h2>New Enquiry from ${form.name}</h2>
       <ul>
         ${summaryLines.map(line => `<li>${line}</li>`).join('')}
       </ul>
@@ -423,7 +423,7 @@ const Inquiry = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: adminEmail,
-          subject: `New inquiry from ${form.name}`,
+          subject: `New enquiry from ${form.name}`,
           html: adminEmailHtml,
         })
       });
@@ -434,7 +434,7 @@ const Inquiry = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: form.email,
-          subject: 'We received your inquiry - The Coconut Tree Trails',
+          subject: 'We received your enquiry - The Coconut Tree Trails',
           html: userEmailHtml,
         })
       });
@@ -448,7 +448,7 @@ const Inquiry = () => {
       navigate('/thank-you', { state: { email: emailForFeedback } });
     } catch (err) {
       console.error(err);
-      setError('Something went wrong sending your inquiry. Please try again or contact us directly.');
+      setError('Something went wrong sending your enquiry. Please try again or contact us directly.');
     } finally {
       setLoading(false);
     }
@@ -722,13 +722,13 @@ const Inquiry = () => {
                 </motion.div>
 
                 <div className="flex justify-end gap-4 pt-6">
-                  <button type="submit" disabled={loading} className="bg-[#173036] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-black/30 hover:bg-[#1a4d56] transition-all duration-300 hover:scale-102 disabled:cursor-not-allowed disabled:opacity-70">{loading ? 'Sending...' : 'Submit Inquiry'}</button>
+                  <button type="submit" disabled={loading} className="bg-[#173036] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-black/30 hover:bg-[#1a4d56] transition-all duration-300 hover:scale-102 disabled:cursor-not-allowed disabled:opacity-70">{loading ? 'Sending...' : 'Submit Enquiry'}</button>
                 </div>
               </form>
 
               <motion.div variants={cardItem} className="mt-10 flex items-center justify-center gap-3 border-t border-[#ece4d6] pt-6 text-sm text-slate-600">
                 <MapPinned className="h-4 w-4 text-slate-400" />
-                <span>We’ll email you once the inquiry is received.</span>
+                <span>We’ll email you once the enquiry is received.</span>
               </motion.div>
             </motion.div>
 
