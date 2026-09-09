@@ -1,4 +1,4 @@
-export type CategoryType = 'Wildlife tours' | 'Adventure tours' | 'Beaches tours' | 'Historical Areas tours' | 'Culture & Heritage tours' | 'Hidden Trails tours';
+export type CategoryType = 'Wildlife' | 'Adventure' | 'Beaches' | 'Historical Areas' | 'Culture & Heritage' | 'Hidden Trails';
 
 export type DestinationMenuCategory = {
   title: CategoryType;
@@ -6,20 +6,20 @@ export type DestinationMenuCategory = {
 };
 
 export const destinationMenu: DestinationMenuCategory[] = [
-  { title: 'Wildlife tours', categorySlug: 'wildlife' },
-  { title: 'Adventure tours', categorySlug: 'adventure' },
-  { title: 'Beaches tours', categorySlug: 'beaches' },
-  { title: 'Historical Areas tours', categorySlug: 'historical-areas' },
-  { title: 'Culture & Heritage tours', categorySlug: 'culture-heritage' },
-  { title: 'Hidden Trails tours', categorySlug: 'hidden-trails' },
+  { title: 'Wildlife', categorySlug: 'wildlife' },
+  { title: 'Adventure', categorySlug: 'adventure' },
+  { title: 'Beaches', categorySlug: 'beaches' },
+  { title: 'Historical Areas', categorySlug: 'historical-areas' },
+  { title: 'Culture & Heritage', categorySlug: 'culture-heritage' },
+  { title: 'Hidden Trails', categorySlug: 'hidden-trails' },
 ];
 
 // Map category slugs to full category titles
 export const categorySlugToTitle: Record<string, CategoryType> = {
-  'wildlife': 'Wildlife tours',
-  'adventure': 'Adventure tours',
-  'beaches': 'Beaches tours',
-  'historical-areas': 'Historical Areas tours',
-  'culture-heritage': 'Culture & Heritage tours',
-  'hidden-trails': 'Hidden Trails tours',
+  'wildlife': 'Wildlife',
+  'adventure': 'Adventure',
+  'beaches': 'Beaches',
+  'historical-areas': 'Historical Areas',
+  'culture-heritage': 'Culture & Heritage',
+  'hidden-trails': 'Hidden Trails',
 };

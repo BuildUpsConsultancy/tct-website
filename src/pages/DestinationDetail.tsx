@@ -8,62 +8,62 @@ import { useEffect } from 'react';
 import { categorySlugToTitle, type CategoryType } from '../data/destinationMenu';
 
 const categoryDescriptions: Record<string, string> = {
-  'Wildlife tours': 'Track leopards in their natural habitat, witness elephant herds in misty national parks, and spot rare bird species with expert naturalists. Sri Lanka\'s wildlife sanctuaries offer some of Asia\'s most thrilling safari experiences.',
-  'Adventure tours': 'For those who love adventure, Sri Lanka offers everything from white-water rafting and rock climbing to zip-lining through rainforests and hiking spectacular mountain trails.',
-  'Beaches tours': 'Golden sands, turquoise waters, and year-round tropical warmth. Whether you\'re seeking quiet beaches, breathtaking sunsets, and total relaxation, or lively beach clubs and coastal nightlife, Sri Lanka has it all.',
-  'Historical Areas tours': 'Explore centuries of Sri Lankan history, ancient temples, sacred cities, royal kingdoms, and colonial-era landmarks reveal the rich heritage and cultural traditions that have shaped the island for generations.',
-  'Culture & Heritage tours': 'Explore Sri Lanka\'s cultural heritage through local traditions, historic sites, authentic cuisine, and meaningful experiences with the people who call the island home.',
-  'Hidden Trails tours': 'Discover Sri Lanka\'s best-kept secrets. Mist-covered mountains, untouched waterfalls, hidden villages, and panoramic viewpoints known only to locals await discovery.',
+  'Wildlife': 'Track leopards in their natural habitat, witness elephant herds in misty national parks, and spot rare bird species with expert naturalists. Sri Lanka\'s wildlife sanctuaries offer some of Asia\'s most thrilling safari experiences.',
+  'Adventure': 'For those who love adventure, Sri Lanka offers everything from white-water rafting and rock climbing to zip-lining through rainforests and hiking spectacular mountain trails.',
+  'Beaches': 'Golden sands, turquoise waters, and year-round tropical warmth. Whether you\'re seeking quiet beaches, breathtaking sunsets, and total relaxation, or lively beach clubs and coastal nightlife, Sri Lanka has it all.',
+  'Historical Areas': 'Explore centuries of Sri Lankan history, ancient temples, sacred cities, royal kingdoms, and colonial-era landmarks reveal the rich heritage and cultural traditions that have shaped the island for generations.',
+  'Culture & Heritage': 'Explore Sri Lanka\'s cultural heritage through local traditions, historic sites, authentic cuisine, and meaningful experiences with the people who call the island home.',
+  'Hidden Trails': 'Discover Sri Lanka\'s best-kept secrets. Mist-covered mountains, untouched waterfalls, hidden villages, and panoramic viewpoints known only to locals await discovery.',
 };
 
 // Separate background images for parallax effect
 const categoryBackgroundImage: Record<string, string> = {
-  'Wildlife tours': '/images/bg/bg-6.png',
-  'Adventure tours': '/images/bg/bg-8.png',
-  'Beaches tours': '/images/bg/bg-3.png',
-  'Historical Areas tours': '/images/bg/bg-7.png',
-  'Culture & Heritage tours': '/images/bg/bg-4.png',
-  'Hidden Trails tours': '/images/bg/bg-2.png',
+  'Wildlife': '/images/bg/bg-6.png',
+  'Adventure': '/images/bg/bg-8.png',
+  'Beaches': '/images/bg/bg-3.png',
+  'Historical Areas': '/images/bg/bg-7.png',
+  'Culture & Heritage': '/images/bg/bg-4.png',
+  'Hidden Trails': '/images/bg/bg-2.png',
 };
 
 type Category =
-  | 'Wildlife tours'
-  | 'Adventure tours'
-  | 'Beaches tours'
-  | 'Historical Areas tours'
-  | 'Culture & Heritage tours'
-  | 'Hidden Trails tours';
+  | 'Wildlife'
+  | 'Adventure'
+  | 'Beaches'
+  | 'Historical Areas'
+  | 'Culture & Heritage'
+  | 'Hidden Trails';
 
 const categoryContent: Record<
   Category,
   { title: string; description: string }
 > = {
-  'Wildlife tours': {
+  'Wildlife': {
     title: 'Unforgettable Safari Experiences',
     description:
       "Get up close with Sri Lanka's most magnificent creatures in their natural habitats. Safari adventures that create lifelong memories.",
   },
-  'Adventure tours': {
+  'Adventure': {
     title: 'Experience the Journey',
     description:
       'Push your limits and embrace adventure with thrilling activities set amongst Sri Lanka\'s most stunning landscapes.',
   },
-  'Beaches tours': {
+  'Beaches': {
     title: 'Experience the Journey',
     description:
       'Discover paradise on earth. Pristine coastlines, crystal waters, and endless tropical bliss await you.',
   },
-  'Historical Areas tours': {
+  'Historical Areas': {
     title: 'Experience the Journey',
     description:
       'Journey back in time. Ancient temples, royal kingdoms, and archaeological treasures that shaped civilization.',
   },
-  'Culture & Heritage tours': {
+  'Culture & Heritage': {
     title: 'Experience the Journey',
     description:
       'Experience the real Sri Lanka through authentic traditions, spiritual landmarks, and meaningful connections with local communities.',
   },
-  'Hidden Trails tours': {
+  'Hidden Trails': {
     title: 'Experience the Journey',
     description:
       'Explore the road less traveled. Secret gems, hidden viewpoints, and unforgettable discoveries await.',
@@ -73,37 +73,37 @@ const categoryContent: Record<
 
 
 // const tourHighlights = {
-//   'Wildlife tours': [
+//   'Wildlife': [
 //     { icon: Compass, title: 'Safari Experience', description: 'Expert-guided wildlife safaris in natural reserves' },
 //     { icon: Camera, title: 'Photography Moments', description: 'Capture iconic animals in their natural habitat' },
 //     { icon: Clock, title: 'Early Morning Drives', description: 'Prime viewing times with experienced naturalists' },
 //     { icon: MapPin, title: 'Sacred Sites', description: 'Visit protected wildlife sanctuaries and reserves' },
 //   ],
-//   'Adventure tours': [
+//   'Adventure': [
 //     { icon: MapPin, title: 'Hiking Trails', description: 'Explore scenic mountain paths and valleys' },
 //     { icon: Compass, title: 'Water Sports', description: 'Thrilling activities like rafting and kayaking' },
 //     { icon: Camera, title: 'Adventure Photography', description: 'Capture your adrenaline-pumping moments' },
 //     { icon: Clock, title: 'Expert Guides', description: 'Local adventurers leading the way' },
 //   ],
-//   'Beaches tours': [
+//   'Beaches': [
 //     { icon: MapPin, title: 'Beach Relaxation', description: 'Paradise beaches with pristine white sand' },
 //     { icon: Camera, title: 'Sunset Viewpoints', description: 'Magical golden hour beach experiences' },
 //     { icon: Compass, title: 'Water Activities', description: 'Swimming, snorkeling, and diving opportunities' },
 //     { icon: Clock, title: 'Beach Dining', description: 'Beachside restaurants with local cuisine' },
 //   ],
-//   'Historical Areas tours': [
+//   'Historical Areas': [
 //     { icon: MapPin, title: 'Ancient Temples', description: 'Sacred Buddhist and Hindu heritage sites' },
 //     { icon: Camera, title: 'Heritage Architecture', description: 'Centuries-old colonial and ancient structures' },
 //     { icon: Compass, title: 'Historical Tours', description: 'Expert insights into Sri Lanka\'s rich history' },
 //     { icon: Clock, title: 'Local Markets', description: 'Vibrant bazaars and cultural centers' },
 //   ],
-//   'Culture & Heritage tours': [
+//   'Culture & Heritage': [
 //     { icon: MapPin, title: 'Cultural Ceremonies', description: 'Participate in authentic local rituals' },
 //     { icon: Camera, title: 'Artisan Workshops', description: 'Learn traditional crafts from local masters' },
 //     { icon: Compass, title: 'Cultural Immersion', description: 'Stay with local families and experience daily life' },
 //     { icon: Clock, title: 'Local Cuisine', description: 'Authentic cooking classes and farm-to-table dining' },
 //   ],
-//   'Hidden Trails tours': [
+//   'Hidden Trails': [
 //     { icon: MapPin, title: 'Off-Beat Paths', description: 'Discover destinations tourists rarely visit' },
 //     { icon: Camera, title: 'Secret Viewpoints', description: 'Hidden panoramic views and scenic spots' },
 //     { icon: Compass, title: 'Local Secrets', description: 'Access to places known only to locals' },
@@ -112,37 +112,37 @@ const categoryContent: Record<
 // };
 
 // const categoryWhyVisit: Record<string, string[]> = {
-//   'Wildlife tours': [
+//   'Wildlife': [
 //     'Witness endangered species in their protected natural habitats',
 //     'Learn about conservation efforts from expert naturalist guides',
 //     'Capture once-in-a-lifetime wildlife photography moments',
 //     'Experience thrilling safari encounters in world-class reserves',
 //   ],
-//   'Adventure tours': [
+//   'Adventure': [
 //     'Push your limits with adrenaline-pumping outdoor activities',
 //     'Explore untamed landscapes with experienced adventure professionals',
 //     'Create memories through challenging and rewarding experiences',
 //     'Test yourself against Sri Lanka\'s diverse natural terrain',
 //   ],
-//   'Beaches tours': [
+//   'Beaches': [
 //     'Relax on some of Asia\'s most beautiful and uncrowded beaches',
 //     'Experience world-class water sports and beach activities',
 //     'Enjoy fresh seafood dining with ocean-view settings',
 //     'Recharge with the healing power of tropical paradise',
 //   ],
-//   'Historical Areas tours': [
+//   'Historical Areas': [
 //     'Walk through UNESCO World Heritage sites and ancient kingdoms',
 //     'Understand Sri Lanka\'s 2,500-year spiritual and cultural legacy',
 //     'Visit archaeologically significant temples and monuments',
 //     'Learn fascinating stories from expert historical guides',
 //   ],
-//   'Culture & Heritage tours': [
+//   'Culture & Heritage': [
 //     'Connect with locals and experience authentic daily traditions',
 //     'Learn traditional crafts directly from master artisans',
 //     'Participate in genuine cultural rituals and celebrations',
 //     'Understand the soul and spirit of Sri Lankan heritage',
 //   ],
-//   'Hidden Trails tours': [
+//   'Hidden Trails': [
 //     'Escape crowded tourist routes and discover hidden gems',
 //     'Access secret viewpoints and untouched natural landscapes',
 //     'Experience Sri Lanka like a true local, not a tourist',
@@ -158,27 +158,27 @@ const categoryGallery: Record<string, { src: string; tag: string; caption: strin
     { src: '/images/destinations/wilpattu-wildlife.png', tag: 'Wildlife', caption: 'Elephant herd, Udawalawe' },
     { src: '/images/destinations/udawalawa-wildlife.jpg', tag: 'Birds', caption: 'Blue-tailed bee-eater' },
   ],
-  'Adventure tours': [
+  'Adventure': [
     { src: '/images/gallery-3/26.png', tag: 'Featured', caption: 'White-water rafting, Kitulgala' },
     { src: '/images/destinations/adventure-climb.jpg', tag: 'Hiking', caption: 'Summit trail, Knuckles Range' },
     { src: '/images/destinations/adventure-zip.jpg', tag: 'Zipline', caption: 'Rainforest canopy zipline' },
   ],
-  'Beaches tours': [
+  'Beaches': [
     { src: '/images/destinations/mirissa-beach.webp', tag: 'Featured', caption: 'Mirissa beach' },
     { src: '/images/gallery-3/25.png', tag: 'Snorkel', caption: 'Coral reef, Unawatuna' },
     { src: '/images/destinations/beach-arugambay.jpg', tag: 'Surf', caption: 'Arugam Bay surf break' },
   ],
-  'Historical Areas tours': [
+  'Historical Areas': [
     { src: '/images/destinations/sigiriya-culture.png', tag: 'Featured', caption: 'Sigiriya Rock Fortress' },
     { src: '/images/destinations/polonnaruwa.webp', tag: 'Ruins', caption: 'Polonnaruwa ancient city' },
     { src: '/images/destinations/galle-culture.webp', tag: 'Colonial', caption: 'Galle Fort ramparts' },
   ],
-  'Culture & Heritage tours': [
+  'Culture & Heritage': [
     { src: '/images/destinations/culture-perahera.webp', tag: 'Featured', caption: 'Kandy Esala Perahera' },
     { src: '/images/destinations/culture-craft.jpg', tag: 'Artisan', caption: 'Traditional mask carving' },
     { src: '/images/destinations/culture-temple.jpg', tag: 'Ceremony', caption: 'Dambulla Cave Temple' },
   ],
-  'Hidden Trails tours': [
+  'Hidden Trails': [
     { src: '/images/destinations/hidden-ella.jpg', tag: 'Featured', caption: 'Nine Arch Bridge, Ella' },
     { src: '/images/destinations/hidden-waterfall.jpg', tag: 'Discovery', caption: 'Bambarakanda Falls' },
     { src: '/images/gallery-3/17.png', tag: 'Local', caption: 'Untouched highland village' },
@@ -197,7 +197,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
     { label: 'Trincomalee', value: 'One of Sri Lanka\'s best destinations offering seasonal whale watching, dolphins,  crystal-clear beaches, and unforgettable ocean adventures.' },
   ],
 
-  'Adventure tours': [
+  'Adventure': [
     { label: 'Ella', value: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
     { label: 'Kitulgala', value: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
     { label: 'Knuckles Mountain Range', value: 'A breathtaking mountain range of misty peaks,  forests, waterfalls, and remote village trails, offering some of Sri Lanka\'s finest trekking and hiking experiences.' },
@@ -205,7 +205,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
     { label: 'Belihuloya', value: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
   ],
 
-  'Beaches tours': [
+  'Beaches': [
     { label: 'Unawatuna / Dalawella', value: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
     { label: 'Mirissa', value: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
     { label: 'Weligama / Midigama', value: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
@@ -222,7 +222,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
     { label: 'Kalpitiya', value: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
   ],
 
-  'Historical Areas tours': [
+  'Historical Areas': [
     { label: 'Anuradhapura', value: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
     { label: 'Polonnaruwa', value: 'A remarkably preserved royal city featuring ancient temples, palace ruins, impressive Buddha statues, and scenic cycling routes through history.' },
     { label: 'Sigiriya', value: 'Sri Lanka\'s most iconic rock fortress, renowned for its royal gardens, ancient frescoes, mirror wall, and breathtaking views from the summit.' },
@@ -230,14 +230,14 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
     { label: 'Yapahuwa', value: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
   ],
 
-  'Culture & Heritage tours': [
+  'Culture & Heritage': [
     { label: 'Kandy', value: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
     { label: 'Galle Fort', value: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
     { label: 'Ambalangoda', value: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
     { label: 'Nuwara Eliya', value: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
   ],
 
-  'Hidden Trails tours': [
+  'Hidden Trails': [
     { label: 'Haputale', value: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
     { label: 'Kalpitiya', value: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
     { label: 'Jaffna', value: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
@@ -255,7 +255,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 //     { title: 'Blue Whales',         detail: 'Sri Lanka is one of the few places where blue whales can often be seen relatively close to shore.' },
 //   ],
 
-//   'Adventure tours': [
+//   'Adventure': [
 //     { title: 'Ella',         detail: 'A hill-country favourite with hikes, waterfalls, tea estates, cafés, Nine Arch Bridge and scenic mountain views.' },
 //     { title: 'Kitulgala',    detail: 'Sri Lanka\'s adventure river hub, popular for white-water rafting, jungle walks, waterfall jumps and rainforest scenery.' },
 //     { title: 'Knuckles',     detail: 'A rugged mountain range with misty peaks, forests, waterfalls, village trails and some of Sri Lanka\'s best trekking.' },
@@ -263,7 +263,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 //     { title: 'Belihuloya',   detail: 'A peaceful highland adventure base with rivers, waterfalls, hiking routes and a cooler countryside atmosphere.' },
 //   ],
 
-//   'Beaches tours': [
+//   'Beaches': [
 //     { title: 'Unawatuna / Dalawella',  detail: 'A popular south-coast beach area with calm bays, reef swimming, palm swings, cafés and easy access to Galle Fort.' },
 //     { title: 'Mirissa',                detail: 'A lively but scenic beach town known for whale watching, coconut-tree viewpoints, nightlife, surfing and seafood.' },
 //     { title: 'Weligama / Midigama',    detail: 'A surf-friendly coast with beginner waves, surf schools, beach cafés and a relaxed younger travel scene.' },
@@ -280,7 +280,7 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 //     // { title: 'Kalpitiya',             detail: 'A wild peninsula beach destination known for kitesurfing, dolphins, lagoons, sandbanks and off-grid coastal stays.' },
 //   ],
 
-//   'Historical Areas tours': [
+//   'Historical Areas': [
 //     { title: 'Anuradhapura', detail: 'An ancient sacred city filled with stupas, monasteries, lakes, ruins and some of Sri Lanka\'s most important Buddhist heritage.' },
 //     { title: 'Polonnaruwa',  detail: 'A compact ancient royal city with stone temples, palace ruins, giant Buddha statues and excellent cycling routes.' },
 //     { title: 'Sigiriya',     detail: 'Sri Lanka\'s most iconic rock fortress, with royal gardens, frescoes, mirror wall and panoramic views from the summit.' },
@@ -288,14 +288,14 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 //     { title: 'Yapahuwa',     detail: 'A lesser-known medieval rock fortress with dramatic stone stairways, ruins and a strong hidden-history feel.' },
 //   ],
 
-//   'Culture & Heritage tours': [
+//   'Culture & Heritage': [
 //     { title: 'Kandy',        detail: 'Sri Lanka\'s cultural capital, home to the Temple of the Tooth, lake views, traditional dance, markets and hill-country charm.' },
 //     { title: 'Galle Fort',   detail: 'A beautiful colonial fort city with Dutch architecture, boutique hotels, cafés, museums, sea walls and sunset walks.' },
 //     { title: 'Ambalangoda',  detail: 'A coastal town famous for traditional mask carving, devil-dance rituals, puppetry and folk culture.' },
 //     { title: 'Nuwara Eliya', detail: 'A cool hill-country town known for tea estates, colonial buildings, gardens, waterfalls and misty mountain scenery.' },
 //   ],
 
-//   'Hidden Trails tours': [
+//   'Hidden Trails': [
 //     { title: 'Haputale',      detail: 'A quiet tea-country town with huge mountain views, cool weather, scenic railways and access to Lipton\'s Seat.' },
 //     { title: 'Kalpitiya',     detail: 'A remote coastal peninsula known for dolphins, kitesurfing, lagoons, beaches and marine adventure.' },
 //     { title: 'Jaffna',        detail: 'A culturally rich northern city with Tamil heritage, Hindu temples, colonial history, islands and distinctive local food.' },
@@ -307,11 +307,11 @@ const categoryQuickFacts: Record<string, { label: string; value: string }[]> = {
 // ─── NEW: Testimonial per category ────────────────────────────────────────────
 // const categoryTestimonial: Record<string, { quote: string; author: string }> = {
 //   'Wildlife':              { quote: 'We saw five leopards in a single morning — something our guides said they\'d only witnessed twice in a decade.', author: 'Sarah M., Netherlands · Yala Safari 2024' },
-//   'Adventure tours':       { quote: 'The Kitulgala rafting was the highlight of our entire trip. The guides made it thrilling and completely safe.', author: 'James T., Australia · Adventure Tour 2024' },
-//   'Beaches tours':         { quote: 'Mirissa at sunrise with nobody around — our guide knew exactly when and where to go. Absolutely magical.', author: 'Priya K., Singapore · Beaches Tour 2024' },
-//   'Historical Areas tours':{ quote: 'Standing at the top of Sigiriya as the mist cleared below us — a moment I\'ll carry for the rest of my life.', author: 'Marco R., Italy · Heritage Tour 2024' },
-//   'Culture & Heritage tours':{ quote: 'Cooking dinner with a family in Kandy and sharing stories — this is why we travel. Completely unforgettable.', author: 'Elise D., France · Culture Tour 2024' },
-//   'Hidden Trails tours':   { quote: 'Our guide took us to a viewpoint above Ella that wasn\'t on any map. We were entirely alone. Breathtaking.', author: 'Tom & Lisa B., UK · Hidden Trails 2024' },
+//   'Adventure':       { quote: 'The Kitulgala rafting was the highlight of our entire trip. The guides made it thrilling and completely safe.', author: 'James T., Australia · Adventure Tour 2024' },
+//   'Beaches':         { quote: 'Mirissa at sunrise with nobody around — our guide knew exactly when and where to go. Absolutely magical.', author: 'Priya K., Singapore · Beaches Tour 2024' },
+//   'Historical Areas':{ quote: 'Standing at the top of Sigiriya as the mist cleared below us — a moment I\'ll carry for the rest of my life.', author: 'Marco R., Italy · Heritage Tour 2024' },
+//   'Culture & Heritage':{ quote: 'Cooking dinner with a family in Kandy and sharing stories — this is why we travel. Completely unforgettable.', author: 'Elise D., France · Culture Tour 2024' },
+//   'Hidden Trails':   { quote: 'Our guide took us to a viewpoint above Ella that wasn\'t on any map. We were entirely alone. Breathtaking.', author: 'Tom & Lisa B., UK · Hidden Trails 2024' },
 // };
 const CategoryVideos: Record<string, {
   src: string;
@@ -320,42 +320,42 @@ const CategoryVideos: Record<string, {
   title: string;
   description: string;
 }> = {
-  'Wildlife tours': {
+  'Wildlife': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/home/yala.jpg",
     tag: "Wildlife Safari",
     title: "Into the Wild",
     description: "Experience breathtaking encounters with Sri Lanka’s majestic wildlife in their natural habitat.",
   },
-  'Adventure tours': {
+  'Adventure': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/kithulgala.jpg",
     tag: "Adventure",
     title: "Adrenaline Unleashed",
     description: "Feel the rush of white-water rafting, ziplining, and trekking through Sri Lanka’s rugged terrain.",
   },
-  'Beaches tours': {
+  'Beaches': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/mirissa-beach.webp",
     tag: "Beach Life",
     title: "Tropical Paradise",
     description: "Golden beaches, turquoise waters, and unforgettable coastal moments await you.",
   },
-  'Historical Areas tours': {
+  'Historical Areas': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/sigiriya-culture.png",
     tag: "Heritage",
     title: "Echoes of History",
     description: "Discover ancient kingdoms, rock fortresses, and sacred temples that tell Sri Lanka’s epic story.",
   },
-  'Culture & Heritage tours': {
+  'Culture & Heritage': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/culture-perahera.webp",
     tag: "Living Culture",
     title: "Traditions Alive",
     description: "Immerse yourself in vibrant festivals, rituals, and the warm hospitality of Sri Lankan culture.",
   },
-  'Hidden Trails tours': {
+  'Hidden Trails': {
     src: "/uploads/tct-hero.mp4",
     poster: "/images/destinations/hidden-ella.jpg",
     tag: "Off the Beaten Path",

@@ -293,6 +293,17 @@ const Footer = () => {
             <Link to="/terms-conditions" className="hover:text-[#a7d9d5] transition-colors">Terms & Conditions</Link>
             <Link to="/refund-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
+          <p className="mt-3 text-[11px]! font-normal! text-white/70">
+            Design and Developed by{' '}
+            <a
+              href="https://buildupsconsultancy.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold! hover:text-[#a7d9d5] transition-colors"
+            >
+              BuildUps Consultancy
+            </a>
+          </p>
         </div>
       </div>
 
@@ -310,6 +321,17 @@ const Footer = () => {
             <Link to="/terms-conditions" className="hover:text-[#a7d9d5] transition-colors">Terms & Conditions</Link>
             <Link to="/refund-policy" className="hover:text-[#a7d9d5] transition-colors">Refund Policy</Link>
           </div>
+          <p className="text-white/70 text-[11px]! font-normal! text-center">
+            Design and Developed by{' '}
+            <a
+              href="https://buildupsconsultancy.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold! hover:text-[#a7d9d5] transition-colors"
+            >
+              BuildUps Consultancy
+            </a>
+          </p>
         </div>
       </div>
 
